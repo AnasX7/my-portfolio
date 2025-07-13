@@ -19,9 +19,72 @@ export default function Home() {
   const t = useTranslations('HomePage')
 
   return (
-    <main>
+    <>
       <h1>{t('title')}</h1>
       <Link href='/about'>{t('about')}</Link>
-    </main>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+      <Link href='/about'>{t('about')}</Link>
+    </>
   )
 }

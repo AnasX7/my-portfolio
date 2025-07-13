@@ -5,7 +5,10 @@ import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
 import { Inter, Tajawal } from 'next/font/google'
 import '../globals.css'
+
 import { ThemeProvider } from '@/components/theme-provider'
+import Header from '@/components/header'
+import ScrollProgressProvider from '@/components/scroll-progress-provider'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -72,8 +75,8 @@ export const metadata: Metadata = {
       'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
     images: [
       {
-        url: 'https://anassalem.com/og-image.png',
-        alt: 'My App Open Graph Image',
+        url: 'https://anassalem.com/og-image.jpg',
+        alt: 'My Portfolio Open Graph Image',
       },
     ],
   },
@@ -82,7 +85,7 @@ export const metadata: Metadata = {
     title: 'Portfolio',
     description:
       'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
-    images: ['https://anassalem.com/og-image.png'],
+    images: ['https://anassalem.com/og-image.jpg'],
     creator: '@An_xr7',
   },
   metadataBase: new URL('https://anassalem.com'),
@@ -119,7 +122,8 @@ export default async function RootLayout({
             defaultTheme='system'
             enableSystem
             disableTransitionOnChange>
-            {children}
+            <Header />
+            <ScrollProgressProvider>{children}</ScrollProgressProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

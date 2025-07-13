@@ -1,4 +1,13 @@
 {
+  "Header": {
+    "me": "Anas Salem",
+    "role": "Software Engineer",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "Download CV": "Download CV"
+  },
   "HomePage": {
     "title": "Hello world!",
     "about": "Go to the about page"
