@@ -85,7 +85,7 @@ export default function Header() {
       <motion.header
         className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'border-b border-border/50 bg-background/80 shadow-sm backdrop-blur-md'
+            ? 'border-b border-border/50 bg-background/10 shadow-sm backdrop-blur-md'
             : 'bg-transparent'
         }`}
         variants={containerVariants}
@@ -133,7 +133,7 @@ export default function Header() {
                     className='relative rounded-lg px-4 py-2 text-sm font-medium text-foreground/80 transition-colors duration-200 hover:text-foreground'>
                     {hoveredItem === item.name && (
                       <motion.div
-                        className='absolute inset-0 rounded-lg bg-muted'
+                        className='absolute inset-0 rounded-lg bg-gradient-to-tr from-zinc-200/60 via-gray-300/60 to-transparent dark:from-zinc-500/60 dark:via-gray-600/60 dark:to-transparent'
                         layoutId='navbar-hover'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
