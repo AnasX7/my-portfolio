@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { motion } from 'motion/react'
 import { LinkPreview } from '../ui/link-preview'
+import { Magnetic } from '../ui/magnetic'
 
 export default function Hero() {
   const t = useTranslations('Hero')
@@ -93,13 +94,19 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
           className='flex justify-center mt-8 sm:mt-10'>
-          <LinkPreview
-            url='https://flowcv.com/resume/j9n4st328u'
-            className='neumorphic-button hover:shadow-[0_0_20px_rgba(155, 135, 245, 0.5)] cursor-pointer relative w-full overflow-hidden rounded-2xl border-[2px] dark:border-white/10 bg-gradient-to-b from-white/10 to-white/5  text-black dark:text-white shadow-lg transition-all duration-300 dark:hover:border-[#ffffff]/30 sm:w-auto 
+          <Magnetic
+            intensity={0.2}
+            springOptions={{ bounce: 0.1 }}
+            actionArea='global'
+            range={250}>
+            <LinkPreview
+              url='https://flowcv.com/resume/j9n4st328u'
+              className='neumorphic-button hover:shadow-[0_0_20px_rgba(155, 135, 245, 0.5)] cursor-pointer relative w-full overflow-hidden rounded-2xl border-[2px] dark:border-white/10 bg-gradient-to-b from-white/10 to-white/5  text-black dark:text-white shadow-lg transition-all duration-300 dark:hover:border-[#ffffff]/30 sm:w-auto 
             inline-flex justify-center items-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-fit px-6 sm:px-8 md:px-10 py-3 sm:py-4 gap-2'>
-            {t('CTA')}
-            <Download className='size-4' />
-          </LinkPreview>
+              {t('CTA')}
+              <Download className='size-4' />
+            </LinkPreview>
+          </Magnetic>
         </motion.div>
       </motion.section>
     </motion.div>

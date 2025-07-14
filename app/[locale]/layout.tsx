@@ -9,6 +9,7 @@ import '../globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
+import { ReactLenis } from '@/lib/lenis'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -112,21 +113,23 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${tajawal.variable} ${
-          isArabic ? 'font-tajawal' : 'font-inter'
-        } antialiased`}>
-        <NextIntlClientProvider>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange>
-            <Header />
-            <ScrollProgressProvider>{children}</ScrollProgressProvider>
-          </ThemeProvider>
-        </NextIntlClientProvider>
-      </body>
+      <ReactLenis root>
+        <body
+          className={`${inter.variable} ${tajawal.variable} ${
+            isArabic ? 'font-tajawal' : 'font-inter'
+          } antialiased`}>
+          <NextIntlClientProvider>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange>
+              <Header />
+              <ScrollProgressProvider>{children}</ScrollProgressProvider>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </body>
+      </ReactLenis>
     </html>
   )
 }
