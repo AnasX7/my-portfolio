@@ -88,7 +88,7 @@ export const StatefulLink = ({
       ref={scope}
       href={href}
       className={cn(
-        'neumorphic-button hover:shadow-[0_0_20px_rgba(155, 135, 245, 0.5)] cursor-pointer relative w-full overflow-hidden rounded-full border border-white/10 bg-gradient-to-b from-white/10 to-white/5 px-8 py-4 text-white shadow-lg transition-all duration-300 hover:border-[#ffffff]/30 sm:w-auto',
+        'neumorphic-button hover:shadow-[0_0_20px_rgba(155, 135, 245, 0.5)] cursor-pointer relative w-full overflow-hidden rounded-2xl border-[2px] dark:border-white/10 bg-gradient-to-b from-white/10 to-white/5 px-8 py-4 text-black dark:text-white shadow-lg transition-all duration-300 dark:hover:border-[#ffffff]/30 sm:w-auto ',
         className
       )}
       onClick={handleClick}

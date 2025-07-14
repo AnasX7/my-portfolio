@@ -180,9 +180,18 @@
   animation-delay: 1s;
 }
 
+/* .neumorphic-button::after {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300 bg-gradient-to-br from-[#ffffff]/10 to-transparent rounded-2xl;
+}
+
+.neumorphic-button:hover::after {
+  @apply opacity-100;
+} */
+
 .neumorphic-button::after {
   content: '';
-  @apply absolute inset-0 opacity-0 transition-opacity duration-300 bg-gradient-to-br from-[#ffffff]/10 to-transparent rounded-full;
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300 bg-gradient-to-br from-black/5 to-transparent rounded-2xl;
 }
 
 .neumorphic-button:hover::after {
