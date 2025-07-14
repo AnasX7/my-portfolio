@@ -5,11 +5,13 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact",
-    "Download CV": "Download CV"
+    "contact": "Contact"
   },
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "Hero": {
+    "action": "Explore my latest projects",
+    "title": "I build scalable web apps with",
+    "highlight": "exceptional user experiences",
+    "Subtitle": "I’m passionate about writing clean code, solving problems efficiently, and creating products that make a real impact.",
+    "CTA": "Download CV"
   }
 }
