@@ -37,7 +37,7 @@ export default function ScrollProgressProvider({
         />
       </div>
       <main
-        className='flex min-h-screen flex-col items-center justify-between relative z-0'
+        className='flex flex-col min-h-dvh space-y-10 z-0'
         ref={containerRef}>
         {children}
       </main>

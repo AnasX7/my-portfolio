@@ -1,0 +1,77 @@
+import { InfiniteSlider } from '@/components/ui/infinite-slider'
+import { ProgressiveBlur } from '@/components/ui/progressive-blur'
+import { SparklesCore } from '../ui/sparkles'
+import { Sparkles } from 'lucide-react'
+import { Badge } from '../ui/badge'
+import { useTheme } from 'next-themes'
+import { useLocale, useTranslations } from 'next-intl'
+import { IMAGES } from '@/data/resume'
+import Image from 'next/image'
+
+export default function LogoCloud() {
+  const { theme } = useTheme()
+  const t = useTranslations('TechLogos')
+  const locale = useLocale()
+  
+  const isArabic = locale === 'ar'
+
+  return (
+    <section className='pb-16'>
+      <div className='group relative m-auto max-w-7xl px-6 overflow-hidden'>
+        <div className='flex flex-col items-center md:flex-row'>
+          <div
+            className={`md:max-w-44  ${
+              isArabic ? 'md:border-l md:pl-6' : 'md:border-r md:pr-6'
+            }`}>
+            <p className='text-end text-sm hidden md:block'>{t('title')}</p>
+            <div className='md:hidden mb-4 flex justify-center'>
+              <Badge
+                variant='outline'
+                className='rounded-full border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium'>
+                <Sparkles className='mr-1 h-3.5 w-3.5 text-primary' />
+                {t('title')}
+              </Badge>
+            </div>
+          </div>
+          <div dir='ltr' className='relative py-6 md:w-[calc(100%-11rem)]'>
+            <InfiniteSlider speedOnHover={20} speed={40} gap={88}>
+              {IMAGES.techLogos.map((image, index) => (
+                <div key={index} className='flex'>
+                  <Image
+                    className='mx-auto h-12 w-fit'
+                    src={image.url}
+                    alt={image.name}
+                    height='48'
+                    width='20'
+                  />
+                </div>
+              ))}
+            </InfiniteSlider>
+
+            <div className='bg-linear-to-r from-background absolute inset-y-0 left-0 w-20'></div>
+            <div className='bg-linear-to-l from-background absolute inset-y-0 right-0 w-20'></div>
+            <ProgressiveBlur
+              className='pointer-events-none absolute left-0 top-0 h-full w-20'
+              direction='left'
+              blurIntensity={1}
+            />
+            <ProgressiveBlur
+              className='pointer-events-none absolute right-0 top-0 h-full w-20'
+              direction='right'
+              blurIntensity={1}
+            />
+          </div>
+        </div>
+      </div>
+      <div className='relative -mt-32 h-96 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t after:border-zinc-500 dark:after:border-[#ffffff66] after:bg-white dark:after:bg-zinc-900'>
+        <SparklesCore
+          id='tsparticles'
+          background='transparent'
+          particleDensity={300}
+          particleColor={theme === 'light' ? '#000000' : '#ffffff'}
+          className='absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]'
+        />
+      </div>
+    </section>
+  )
+}

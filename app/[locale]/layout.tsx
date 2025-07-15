@@ -9,7 +9,7 @@ import '../globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
-import { ReactLenis } from '@/lib/lenis'
+import { ReactLenis } from 'lenis/react'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -27,10 +27,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | Portfolio',
-    default: 'Portfolio',
-  },
+  title: 'Anas Salem',
   description:
     'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
   applicationName: 'Portfolio',
@@ -70,8 +67,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://anassalem.com',
-    siteName: 'Portfolio',
-    title: 'Portfolio',
+    siteName: 'Anas Salem',
+    title: 'Anas Salem',
     description:
       'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
     images: [
@@ -83,7 +80,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Portfolio',
+    title: 'Anas Salem',
     description:
       'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
     images: ['https://anassalem.com/og-image.jpg'],
@@ -117,7 +114,7 @@ export default async function RootLayout({
         <body
           className={`${inter.variable} ${tajawal.variable} ${
             isArabic ? 'font-tajawal' : 'font-inter'
-          } antialiased`}>
+          } antialiased min-h-screen`}>
           <NextIntlClientProvider>
             <ThemeProvider
               attribute='class'

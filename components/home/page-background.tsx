@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const PageBackground = () => (
   <>
     <div className='absolute top-0 z-[-1] h-full w-full sm:bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(255,255,255,0.13),rgba(255,255,255,0))] bg-[radial-gradient(ellipse_40%_60%_at_50%_-10%,rgba(255,255,255,0.09),rgba(255,255,255,0))]'>

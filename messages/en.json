@@ -8,10 +8,17 @@
     "contact": "Contact"
   },
   "Hero": {
+    "Hi": "Hi, I'm",
+    "role": "Software Engineer",
+    "name": "Anas Salem",
+    "initials": "A",
     "action": "Explore my latest projects",
     "title": "I build scalable web apps with",
     "highlight": "exceptional user experiences",
-    "Subtitle": "I’m passionate about writing clean code, solving problems efficiently, and creating products that make a real impact.",
+    "subtitle": "Clean code, Smart solutions and Real impact.",
     "CTA": "Download Resume"
+  },
+  "TechLogos": {
+    "title": "Powered by modern technologies"
   }
 }
