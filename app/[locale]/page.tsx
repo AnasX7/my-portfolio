@@ -8,7 +8,7 @@ import { PageBackground } from '@/components/home/page-background'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { WavingHand } from '@/components/ui/waving-hand'
-import LogoCloud from '@/components/home/logo-cloud'
+import TechLogos from '@/components/home/TechLogos'
 import { IMAGES } from '@/data/resume'
 
 export default function Home() {
@@ -124,7 +124,7 @@ export default function Home() {
       </motion.div>
 
       {/* Logos Section */}
-      <LogoCloud />
+      <TechLogos />
     </>
   )
 }

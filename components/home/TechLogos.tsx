@@ -7,33 +7,57 @@ import { useTheme } from 'next-themes'
 import { useLocale, useTranslations } from 'next-intl'
 import { IMAGES } from '@/data/resume'
 import Image from 'next/image'
+import { motion } from 'motion/react'
 
-export default function LogoCloud() {
+export default function TechLogos() {
   const { theme } = useTheme()
   const t = useTranslations('TechLogos')
   const locale = useLocale()
-  
+
   const isArabic = locale === 'ar'
 
   return (
-    <section className='pb-16'>
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 2.2, ease: 'easeOut' }}
+      className='pb-16'>
       <div className='group relative m-auto max-w-7xl px-6 overflow-hidden'>
-        <div className='flex flex-col items-center md:flex-row'>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.4, ease: 'easeOut' }}
+          className='flex flex-col items-center md:flex-row'>
           <div
             className={`md:max-w-44  ${
               isArabic ? 'md:border-l md:pl-6' : 'md:border-r md:pr-6'
             }`}>
-            <p className='text-end text-sm hidden md:block'>{t('title')}</p>
-            <div className='md:hidden mb-4 flex justify-center'>
+            <motion.p
+              initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 2.6 }}
+              className='text-end text-sm hidden md:block'>
+              {t('title')}
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 2.6 }}
+              className='md:hidden mb-4 flex justify-center'>
               <Badge
                 variant='outline'
                 className='rounded-full border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium'>
                 <Sparkles className='mr-1 h-3.5 w-3.5 text-primary' />
                 {t('title')}
               </Badge>
-            </div>
+            </motion.div>
           </div>
-          <div dir='ltr' className='relative py-6 md:w-[calc(100%-11rem)]'>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 2.8 }}
+            dir='ltr'
+            className='relative py-6 md:w-[calc(100%-11rem)]'>
             <InfiniteSlider speedOnHover={20} speed={40} gap={88}>
               {IMAGES.techLogos.map((image, index) => (
                 <div key={index} className='flex'>
@@ -60,10 +84,14 @@ export default function LogoCloud() {
               direction='right'
               blurIntensity={1}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-      <div className='relative -mt-32 h-96 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t after:border-zinc-500 dark:after:border-[#ffffff66] after:bg-white dark:after:bg-zinc-900'>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 3 }}
+        className='relative -mt-32 h-96 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t after:border-zinc-500 dark:after:border-[#ffffff66] after:bg-white dark:after:bg-zinc-900'>
         <SparklesCore
           id='tsparticles'
           background='transparent'
@@ -71,7 +99,7 @@ export default function LogoCloud() {
           particleColor={theme === 'light' ? '#000000' : '#ffffff'}
           className='absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]'
         />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   )
 }
