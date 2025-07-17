@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { ThemeSwitcher } from './ui/theme-switcher'
 import { useTheme } from 'next-themes'
 import LanguageSwitcher from './ui/language-switcher'
-import { IMAGES } from '@/data/resume'
+import { DATA } from '@/data/resume'
 
 interface NavItem {
   name: string
@@ -102,7 +102,7 @@ export default function Header() {
               <Link href='/' className='flex items-center space-x-3'>
                 <div className='relative'>
                   <Image
-                    src={IMAGES.avatar}
+                    src={DATA.avatar}
                     alt='Anas Salem'
                     width={36}
                     height={36}

@@ -37,7 +37,7 @@ export default function ScrollProgressProvider({
         />
       </div>
       <main
-        className='flex flex-col min-h-dvh space-y-10 z-0'
+        className='flex flex-col min-h-dvh space-y-4 md:space-y-6 lg:space-y-8 z-0'
         ref={containerRef}>
         {children}
       </main>

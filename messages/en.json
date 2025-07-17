@@ -20,5 +20,41 @@
   },
   "TechLogos": {
     "title": "Powered by modern technologies"
-  }
+  },
+  "About": {
+    "title": "About Me",
+    "card1-title": "Who am I?",
+    "card1-description": "I'm an IT Student with experience in Front-end, Back-end development, and UI/UX tools.",
+    "card2-title": "Analytics",
+    "card2-projects": "Projects Completed",
+    "card2-certificates": "Certificates Earned",
+    "card3-title": "Technical Skills",
+    "card4-title": "Experience & Timeline"
+  },
+  "Timeline": [
+    {
+      "id": 1,
+      "date": "Sep 2022 - Present",
+      "title": "University of Science and Technology",
+      "description": "Bachelor's Degree, Information Technology"
+    },
+    {
+      "id": 2,
+      "date": "Jan 2025",
+      "title": "Meta Certifications",
+      "description": "Completed Introduction to Front-End Development and Programming with JavaScript from Meta via Coursera"
+    },
+    {
+      "id": 3,
+      "date": "Jun 2025",
+      "title": "Software Engineer - Freelance",
+      "description": "Built and delivered multiple web applications for clients, strengthening my expertise in full-stack development and scalable solutions."
+    },
+    {
+      "id": 4,
+      "date": "",
+      "title": "",
+      "description": ""
+    }
+  ]
 }

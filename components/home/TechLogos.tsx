@@ -5,7 +5,7 @@ import { Sparkles } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { useTheme } from 'next-themes'
 import { useLocale, useTranslations } from 'next-intl'
-import { IMAGES } from '@/data/resume'
+import { DATA } from '@/data/resume'
 import Image from 'next/image'
 import { motion } from 'motion/react'
 
@@ -59,7 +59,7 @@ export default function TechLogos() {
             dir='ltr'
             className='relative py-6 md:w-[calc(100%-11rem)]'>
             <InfiniteSlider speedOnHover={20} speed={40} gap={88}>
-              {IMAGES.techLogos.map((image, index) => (
+              {DATA.techLogos.map((image, index) => (
                 <div key={index} className='flex'>
                   <Image
                     className='mx-auto h-12 w-fit'

@@ -8,8 +8,9 @@ import { PageBackground } from '@/components/home/page-background'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { WavingHand } from '@/components/ui/waving-hand'
+import { DATA } from '@/data/resume'
 import TechLogos from '@/components/home/TechLogos'
-import { IMAGES } from '@/data/resume'
+import About from '@/components/home/about'
 
 export default function Home() {
   const t = useTranslations('Hero')
@@ -32,7 +33,7 @@ export default function Home() {
           initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
           animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-          className='leading-relaxed mx-auto max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl space-y-5 md:space-y-6 text-center'>
+          className='leading-relaxed mx-auto max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl space-y-5 md:space-y-6 lg:space-y-8 text-center'>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,9 +64,8 @@ export default function Home() {
                   type: 'spring',
                   stiffness: 200,
                 }}>
-                <Avatar
-                  className='size-12 sm:size-14 md:size-16 lg:size-20 border-4 rounded-2xl md:rounded-3xl mx-1 sm:mx-2'>
-                  <AvatarImage alt={t('name')} src={IMAGES.avatar} />
+                <Avatar className='size-12 sm:size-14 md:size-16 lg:size-20 border-4 rounded-2xl md:rounded-3xl mx-1 sm:mx-2'>
+                  <AvatarImage alt={t('name')} src={DATA.avatar} />
                   <AvatarFallback>{t('initials')}</AvatarFallback>
                 </Avatar>
               </motion.div>
@@ -125,6 +125,9 @@ export default function Home() {
 
       {/* Logos Section */}
       <TechLogos />
+
+      {/* About Section */}
+      <About />
     </>
   )
 }
