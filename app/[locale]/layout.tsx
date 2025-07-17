@@ -86,6 +86,11 @@ export const metadata: Metadata = {
     images: ['https://anassalem.com/og-image.jpg'],
     creator: '@An_xr7',
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+  },
   metadataBase: new URL('https://anassalem.com'),
 }
 
@@ -110,7 +115,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <ReactLenis root>
+      <ReactLenis
+        root
+        options={{
+          lerp: 0.12,
+          smoothWheel: true,
+          wheelMultiplier: 1.2,
+          touchMultiplier: 1,
+        }}>
         <body
           className={`${inter.variable} ${tajawal.variable} ${
             isArabic ? 'font-tajawal' : 'font-inter'

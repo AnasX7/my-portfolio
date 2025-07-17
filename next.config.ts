@@ -2,23 +2,14 @@ import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
 const nextConfig: NextConfig = {
+  experimental: {
+    reactCompiler: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'api.microlink.io',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'camo.githubusercontent.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'raw.githubusercontent.com',
         port: '',
         pathname: '/**',
       },

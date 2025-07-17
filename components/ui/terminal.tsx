@@ -1,119 +1,113 @@
-"use client";
+'use client'
 
-import { cn } from "@/lib/utils";
-import { motion, MotionProps } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { cn } from '@/lib/utils'
+import { motion, MotionProps, useInView } from 'motion/react'
+import { useEffect, useRef, useState } from 'react'
 
 interface AnimatedSpanProps extends MotionProps {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
+  children: React.ReactNode
+  delay?: number
+  className?: string
+  start?: boolean
 }
 
 export const AnimatedSpan = ({
   children,
   delay = 0,
   className,
+  start = true,
   ...props
 }: AnimatedSpanProps) => (
   <motion.div
     initial={{ opacity: 0, y: -5 }}
-    animate={{ opacity: 1, y: 0 }}
+    animate={start ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.3, delay: delay / 1000 }}
-    className={cn("grid text-sm font-normal tracking-tight", className)}
-    {...props}
-  >
+    className={cn('grid text-sm font-normal tracking-tight', className)}
+    {...props}>
     {children}
   </motion.div>
-);
+)
 
 interface TypingAnimationProps extends MotionProps {
-  children: string;
-  className?: string;
-  duration?: number;
-  delay?: number;
-  as?: React.ElementType;
+  children: string
+  className?: string
+  duration?: number
+  delay?: number
+  as?: React.ElementType
+  start?: boolean
 }
 
 export const TypingAnimation = ({
   children,
   className,
   duration = 60,
-  delay = 0,
-  as: Component = "span",
+  // delay = 0,
+  as: Component = 'span',
+  start = true,
   ...props
 }: TypingAnimationProps) => {
-  if (typeof children !== "string") {
-    throw new Error("TypingAnimation: children must be a string. Received:");
+  if (typeof children !== 'string') {
+    throw new Error('TypingAnimation: children must be a string.')
   }
 
-  const MotionComponent = motion.create(Component, {
-    forwardMotionProps: true,
-  });
-
-  const [displayedText, setDisplayedText] = useState<string>("");
-  const [started, setStarted] = useState(false);
-  const elementRef = useRef<HTMLElement | null>(null);
+  const MotionComponent = motion.create(Component)
+  const [displayedText, setDisplayedText] = useState<string>('')
 
   useEffect(() => {
-    const startTimeout = setTimeout(() => {
-      setStarted(true);
-    }, delay);
-    return () => clearTimeout(startTimeout);
-  }, [delay]);
+    if (!start) return
 
-  useEffect(() => {
-    if (!started) return;
-
-    let i = 0;
+    let i = 0
     const typingEffect = setInterval(() => {
       if (i < children.length) {
-        setDisplayedText(children.substring(0, i + 1));
-        i++;
+        setDisplayedText(children.substring(0, i + 1))
+        i++
       } else {
-        clearInterval(typingEffect);
+        clearInterval(typingEffect)
       }
-    }, duration);
+    }, duration)
 
-    return () => {
-      clearInterval(typingEffect);
-    };
-  }, [children, duration, started]);
+    return () => clearInterval(typingEffect)
+  }, [children, duration, start])
 
   return (
     <MotionComponent
-      ref={elementRef}
-      className={cn("text-sm font-normal tracking-tight", className)}
-      {...props}
-    >
+      className={cn('text-sm font-normal tracking-tight', className)}
+      {...props}>
       {displayedText}
     </MotionComponent>
-  );
-};
+  )
+}
 
 interface TerminalProps {
-  children: React.ReactNode;
-  className?: string;
+  children: (start: boolean) => React.ReactNode
+  className?: string
 }
 
 export const Terminal = ({ children, className }: TerminalProps) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
+
   return (
-    <div
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.3 }}
       className={cn(
-        "z-0 h-full max-h-[400px] w-full max-w-lg rounded-xl border border-border bg-background",
-        className,
-      )}
-    >
-      <div className="flex flex-col gap-y-2 border-b border-border p-4">
-        <div className="flex flex-row gap-x-2">
-          <div className="h-2 w-2 rounded-full bg-red-500"></div>
-          <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
-          <div className="h-2 w-2 rounded-full bg-green-500"></div>
+        'z-0 h-full max-h-[400px] w-full max-w-lg rounded-xl border border-border bg-background',
+        className
+      )}>
+      <div className='flex flex-col gap-y-2 border-b border-border p-4'>
+        <div className='flex flex-row gap-x-2'>
+          <div className='h-2 w-2 rounded-full bg-red-500'></div>
+          <div className='h-2 w-2 rounded-full bg-yellow-500'></div>
+          <div className='h-2 w-2 rounded-full bg-green-500'></div>
         </div>
       </div>
-      <pre className="p-4">
-        <code className="grid gap-y-1 overflow-auto">{children}</code>
+      <pre className='p-4'>
+        <code className='grid gap-y-1 overflow-auto'>{children(isInView)}</code>
       </pre>
-    </div>
-  );
-};
+    </motion.div>
+  )
+}

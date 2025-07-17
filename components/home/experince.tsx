@@ -10,31 +10,19 @@ import {
   TimelineSeparator,
   TimelineTitle,
 } from '@/components/ui/timeline'
-import { useMessages, useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
 
-interface TimelineEntry {
-  id: number
-  date: string
-  title: string
-  description: string
-}
-
 export default function Experince() {
-  const messages = useMessages()
+  const t = useTranslations()
   const locale = useLocale()
-  const timelineItems = (messages.Timeline as TimelineEntry[]) || []
   const isRTL = locale === 'ar'
 
   return (
-    <div
-      className={cn(
-        'relative',
-        isRTL ? 'sm:mr-8' : 'sm:ml-8'
-      )}>
-      <Timeline defaultValue={DATA.timelineDefaultValue}>
-        {timelineItems.map((item) => (
+    <div className={cn('relative', isRTL ? 'sm:mr-8' : 'sm:ml-8')}>
+      <Timeline defaultValue={DATA.timeline.DefaultValue}>
+        {DATA.timeline.entries.map((item) => (
           <TimelineItem
             key={item.id}
             step={item.id}
@@ -52,15 +40,15 @@ export default function Experince() {
                     ? 'group-data-[orientation=vertical]/timeline:sm:-right-28 group-data-[orientation=vertical]/timeline:sm:text-left'
                     : 'group-data-[orientation=vertical]/timeline:sm:-left-28 group-data-[orientation=vertical]/timeline:sm:text-right'
                 )}>
-                {item.date}
+                {t(item.dateKey)}
               </TimelineDate>
-              <TimelineTitle className='sm:-mt-0.5'>{item.title}</TimelineTitle>
+              <TimelineTitle className='sm:-mt-0.5'>
+                {t(item.titleKey)}
+              </TimelineTitle>
               <TimelineIndicator />
             </TimelineHeader>
-            <TimelineContent className={cn(
-              isRTL ? 'sm:pl-0' : 'sm:pr-4'
-            )}>
-              {item.description}
+            <TimelineContent className={cn(isRTL ? 'sm:pl-0' : 'sm:pr-4')}>
+              {t(item.descriptionKey)}
             </TimelineContent>
           </TimelineItem>
         ))}

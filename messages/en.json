@@ -1,37 +1,44 @@
 {
-  "Header": {
-    "me": "Anas Salem",
-    "role": "Software Engineer",
+  "common": {
+    "name": "Anas Salem",
+    "initials": "A",
+    "role": "Software Engineer"
+  },
+  "header": {
     "home": "Home",
     "about": "About",
     "projects": "Projects",
     "contact": "Contact"
   },
-  "Hero": {
-    "Hi": "Hi, I'm",
-    "role": "Software Engineer",
-    "name": "Anas Salem",
-    "initials": "A",
-    "action": "Explore my latest projects",
+  "hero": {
+    "welcome": "Hi, I'm",
     "title": "I build scalable web apps with",
     "highlight": "exceptional user experiences",
     "subtitle": "Clean code, Smart solutions and Real impact.",
-    "CTA": "Download Resume"
+    "cta": "Download Resume"
   },
-  "TechLogos": {
+  "techLogos": {
     "title": "Powered by modern technologies"
   },
-  "About": {
+  "about": {
     "title": "About Me",
-    "card1-title": "Who am I?",
-    "card1-description": "I'm an IT Student with experience in Front-end, Back-end development, and UI/UX tools.",
-    "card2-title": "Analytics",
-    "card2-projects": "Projects Completed",
-    "card2-certificates": "Certificates Earned",
-    "card3-title": "Technical Skills",
-    "card4-title": "Experience & Timeline"
+    "card1": {
+      "title": "Who am I?",
+      "description": "IT student based in Abu Dhabi, UAE. Front-end expert with back-end skills and solid UI/UX tool experience."
+    },
+    "card2": {
+      "title": "Analytics",
+      "projects": "Projects Completed",
+      "certificates": "Certificates Earned"
+    },
+    "card3": {
+      "title": "Technical Skills"
+    },
+    "card4": {
+      "title": "Experience & Timeline"
+    }
   },
-  "Timeline": [
+  "timeline": [
     {
       "id": 1,
       "date": "Sep 2022 - Present",
