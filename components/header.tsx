@@ -95,7 +95,7 @@ export default function Header() {
                     duration: 3,
                   })
                 }
-                className='flex items-center space-x-3'>
+                className='flex items-center space-x-3 cursor-pointer'>
                 <div className='relative'>
                   <Image
                     src={DATA.profile.avatar}
