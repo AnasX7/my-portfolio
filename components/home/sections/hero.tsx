@@ -100,7 +100,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.8, ease: 'easeOut' }}
-          className='mx-auto max-w-[280px] sm:max-w-md md:max-w-lg lg:max-w-xl text-zinc-600 dark:text-zinc-400/90 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed'>
+          className='mx-auto max-w-[280px] sm:max-w-md md:max-w-lg lg:max-w-xl text-muted-foreground dark:text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed'>
           {t(DATA.hero.subtitle)}
         </motion.p>
 

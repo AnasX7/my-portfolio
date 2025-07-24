@@ -10,7 +10,6 @@ export const DATA = {
   },
 
   navItems: [
-    { nameKey: 'header.home', href: '#home' },
     { nameKey: 'header.about', href: '#about' },
     { nameKey: 'header.projects', href: '#projects' },
     { nameKey: 'header.contact', href: '#contact' },
@@ -127,6 +126,56 @@ export const DATA = {
         dateKey: 'timeline.3.date',
         titleKey: 'timeline.3.title',
         descriptionKey: 'timeline.3.description',
+      },
+    ],
+  },
+
+  projects: {
+    titleKey: 'projects.title',
+    subtilteKey: 'projects.subtitle',
+    cards: [
+      {
+        titleKey: 'projects.card1.title',
+        descriptionKey: 'projects.card1.description',
+        stack: [
+          'Expo',
+          'React Native',
+          'Nativewind',
+          'Zustand',
+          'React Query',
+          'Typescript',
+        ],
+        githubUrl: 'https://github.com/AnasX7/e-commerce',
+        isLive: false,
+        liveUrl: null,
+        images: [
+          '/images/projects/salaty/salaty-app.png',
+          '/images/projects/salaty/auth-screens.png',
+          '/images/projects/salaty/salaty-store-screens.png',
+          '/images/projects/salaty/salaty-other-screens.png',
+        ],
+      },
+      {
+        titleKey: 'projects.card2.title',
+        descriptionKey: 'projects.card2.description',
+        stack: [
+          'Laravel',
+          'Blade',
+          'Tailwindcss',
+          'PostgreSQL',
+          'Docker',
+          'Flutter',
+        ],
+        githubUrl: 'https://github.com/AnasX7',
+        isLive: true,
+        liveUrl: 'https://tanazah-demo.onrender.com/',
+        images: [
+          '/images/projects/tanazah/tanazah-login.png',
+          '/images/projects/tanazah/tanazah-admin-dashboard.png',
+          '/images/projects/tanazah/tanazah-owner-dashboard.png',
+          '/images/projects/tanazah/tanazah-app.png',
+          '/images/projects/tanazah/tanazah-screens.png',
+        ],
       },
     ],
   },

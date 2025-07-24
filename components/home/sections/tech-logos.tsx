@@ -29,17 +29,17 @@ export default function TechLogos() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           viewport={{ once: true, amount: 0.3 }}
-          className='flex flex-col items-center md:flex-row'>
+          className='flex flex-col items-center lg:flex-row'>
           <div
-            className={`md:max-w-44 ${
-              isArabic ? 'md:border-l md:pl-6' : 'md:border-r md:pr-6'
+            className={`lg:max-w-44 ${
+              isArabic ? 'lg:border-l md:pl-6' : 'lg:border-r md:pr-6'
             }`}>
             <motion.p
               initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true, amount: 0.3 }}
-              className='text-end text-sm hidden md:block'>
+              className='text-end text-sm hidden lg:block'>
               {t(DATA.techLogos.titleKey)}
             </motion.p>
             <motion.div
@@ -47,7 +47,7 @@ export default function TechLogos() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true, amount: 0.3 }}
-              className='md:hidden mb-4 flex justify-center'>
+              className='lg:hidden mb-4 flex justify-center'>
               <Badge
                 variant='outline'
                 className='rounded-full border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium'>
@@ -59,7 +59,7 @@ export default function TechLogos() {
 
           <div
             dir='ltr'
-            className='relative py-6 md:w-[calc(100%-11rem)] min-h-20'>
+            className='relative py-6 md:w-[calc(100%-11rem)]'>
             <InfiniteSlider speedOnHover={20} speed={40} gap={88}>
               <Logos />
             </InfiniteSlider>

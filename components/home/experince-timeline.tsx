@@ -14,7 +14,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
 
-export default function Experince() {
+export default function ExperinceTimeline() {
   const t = useTranslations()
   const locale = useLocale()
   const isRTL = locale === 'ar'

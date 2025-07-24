@@ -32,10 +32,10 @@
       "certificates": "Certificates Earned"
     },
     "card3": {
-      "title": "Technical Skills"
+      "title": "Experience & Timeline"
     },
     "card4": {
-      "title": "Experience & Timeline"
+      "title": "Technical Skills"
     }
   },
   "timeline": [
@@ -63,5 +63,19 @@
       "title": "",
       "description": ""
     }
-  ]
+  ],
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "Check out my range of amazing projects, from imaginative concepts to live applications. You're welcome to jump in and experience them!",
+    "github": "Source",
+    "live": "Demo",
+    "card1": {
+      "title": "Salaty E-commerce App 🛒",
+      "description": "Welcome to Salaty, your ultimate mobile shopping destination! Salaty (meaning \"my basket\" in Arabic) offers a seamless and intuitive e-commerce experience."
+    },
+    "card2": {
+      "title": "Tanazah Pool System 🥽",
+      "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations."
+    }
+  }
 }

@@ -8,18 +8,16 @@ import {
   Terminal,
   TypingAnimation,
 } from '@/components/ui/terminal'
-import Experince from './experince'
+import ExperinceTimeline from '@/components/home/experince-timeline'
+import AnimatedNumber from '@/components/ui/animated-number'
 import {
   UserRound,
   ChartLine,
   ToolCase,
   BriefcaseBusiness,
   LucideIcon,
-  Sparkles,
 } from 'lucide-react'
 import { motion } from 'motion/react'
-import AnimatedNumber from '@/components/ui/animated-number'
-import { Badge } from '@/components/ui/badge'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 
@@ -29,19 +27,6 @@ export default function About() {
   return (
     <section id='about' className='overflow-hidden'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
-        <motion.div
-          className='mb-4 sm:mb-6 lg:mb-8 flex justify-center'
-          initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-          whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          viewport={{ once: true, amount: 0.4 }}>
-          <Badge
-            variant='outline'
-            className='rounded-full border-primary/20 bg-primary/5 px-3 sm:px-4 py-0.5 sm:py-1 text-xs sm:text-sm font-medium'>
-            <Sparkles className='mr-1 h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary' />
-            {t(DATA.about.titleKey)}
-          </Badge>
-        </motion.div>
         <motion.div
           className='mx-auto grid gap-4 sm:gap-6 lg:grid-cols-2'
           initial='hidden'
@@ -55,7 +40,7 @@ export default function About() {
               },
             },
           }}>
-          <FeatureCard className='bg-background/65 gap-0 pb-0'>
+          <FeatureCard className='bg-card/65 gap-0 pb-0'>
             <CardHeader className='pb-0'>
               <CardHeading
                 icon={UserRound}
@@ -101,7 +86,7 @@ export default function About() {
             </div>
           </FeatureCard>
 
-          <FeatureCard className='bg-background/65 gap-0'>
+          <FeatureCard className='bg-card/65 gap-0'>
             <CardHeader>
               <CardHeading
                 icon={ChartLine}
@@ -123,7 +108,7 @@ export default function About() {
             </div>
           </FeatureCard>
 
-          <FeatureCard className='bg-background/65'>
+          <FeatureCard className='bg-card/65'>
             <CardHeader>
               <CardHeading
                 icon={BriefcaseBusiness}
@@ -132,11 +117,11 @@ export default function About() {
             </CardHeader>
 
             <CardContent>
-              <Experince />
+              <ExperinceTimeline />
             </CardContent>
           </FeatureCard>
 
-          <FeatureCard className='bg-background/65 pb-0'>
+          <FeatureCard className='bg-card/65 pb-0'>
             <CardHeader className='pb-3'>
               <CardHeading
                 icon={ToolCase}
@@ -209,7 +194,9 @@ const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
       <Icon className='size-4' />
       {title}
     </span>
-    {description && <p className='mt-2 text-sm  font-semibold'>{description}</p>}
+    {description && (
+      <p className='mt-2 text-sm md:text-base font-semibold'>{description}</p>
+    )}
   </div>
 )
 
