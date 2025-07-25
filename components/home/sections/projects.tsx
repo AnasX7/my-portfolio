@@ -20,7 +20,7 @@ export default function Projects() {
   const t = useTranslations()
 
   return (
-    <section id='projects' className='mt-32'>
+    <section id='projects' className='mt-20 sm:mt-32'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
         <div className='w-full'>
           <motion.div
@@ -110,7 +110,7 @@ function ProjectCard({
     <Card className='relative h-160 sm:h-180 lg:h-80 flex flex-col lg:flex-row gap-0 bg-card/65 rounded-none'>
       <CardDecorator />
       <CardHeader className='h-full w-full lg:w-[50%] flex flex-col gap-6 lg:gap-4 z-10'>
-        <CardTitle className='text-xl md:text-3xl font-semibold'>
+        <CardTitle className='text-xl md:text-2xl font-semibold'>
           {title}
         </CardTitle>
         <CardDescription className='text-sm md:text-base'>

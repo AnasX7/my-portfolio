@@ -39,7 +39,7 @@ export default function AnimatedNumber({
       className={className}
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.3 }}  
+      viewport={{ once: true, amount: 0 }}
       transition={{ duration: 0.4, delay: delay / 1000 }}>
       {displayValue}
     </motion.span>

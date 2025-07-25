@@ -2,7 +2,12 @@
 
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDecorator,
+  CardHeader,
+} from '@/components/ui/card'
 import {
   AnimatedSpan,
   Terminal,
@@ -25,10 +30,10 @@ export default function About() {
   const t = useTranslations()
 
   return (
-    <section id='about' className='overflow-hidden'>
+    <section id='about' className='-mt-18 overflow-hidden'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
         <motion.div
-          className='mx-auto grid gap-4 sm:gap-6 lg:grid-cols-2'
+          className='mx-auto grid gap-6 sm:gap-6 lg:grid-cols-2'
           initial='hidden'
           whileInView='show'
           viewport={{ once: true, amount: 0.1 }}
@@ -40,7 +45,7 @@ export default function About() {
               },
             },
           }}>
-          <FeatureCard className='bg-card/65 gap-0 pb-0'>
+          <AboutCard className='bg-card/65 gap-0 pb-0'>
             <CardHeader className='pb-0'>
               <CardHeading
                 icon={UserRound}
@@ -84,9 +89,9 @@ export default function About() {
                 </svg>
               </div>
             </div>
-          </FeatureCard>
+          </AboutCard>
 
-          <FeatureCard className='bg-card/65 gap-0'>
+          <AboutCard className='bg-card/65 gap-0'>
             <CardHeader>
               <CardHeading
                 icon={ChartLine}
@@ -94,7 +99,7 @@ export default function About() {
               />
             </CardHeader>
 
-            <div className='flex flex-col px-6 justify-center gap-3'>
+            <div className='flex flex-col mt-3 px-6 justify-center gap-3'>
               {DATA.about.card2.analytics.map((analytic) => (
                 <AnalyticCard
                   key={analytic.labelKey}
@@ -106,9 +111,9 @@ export default function About() {
                 />
               ))}
             </div>
-          </FeatureCard>
+          </AboutCard>
 
-          <FeatureCard className='bg-card/65'>
+          <AboutCard className='bg-card/65'>
             <CardHeader>
               <CardHeading
                 icon={BriefcaseBusiness}
@@ -119,9 +124,9 @@ export default function About() {
             <CardContent>
               <ExperinceTimeline />
             </CardContent>
-          </FeatureCard>
+          </AboutCard>
 
-          <FeatureCard className='bg-card/65 pb-0'>
+          <AboutCard className='bg-card/65 pb-0'>
             <CardHeader className='pb-3'>
               <CardHeading
                 icon={ToolCase}
@@ -130,8 +135,8 @@ export default function About() {
             </CardHeader>
 
             <div className='relative h-full'>
-              <div className='absolute inset-0 [background:radial-gradient(125%_125%_at_50%_0%,transparent_40%,var(--color-blue-300),var(--color-white)_100%)]'></div>
-              <div dir='ltr' className='aspect-44/48 sm:aspect-76/59  p-1 px-6'>
+              <div className='absolute inset-0 [background:radial-gradient(125%_125%_at_50%_0%,transparent_40%,var(--color-purple-300),var(--color-orange-300)_100%)]'></div>
+              <div dir='ltr' className='aspect-44/48 sm:aspect-76/59 py-1 px-6'>
                 <Terminal className='absolute inset-0 mx-auto h-fit w-[calc(100%-1.5rem)] rounded-lg border bg-background/75 p-4'>
                   {(start) => (
                     <>
@@ -153,33 +158,24 @@ export default function About() {
                 </Terminal>
               </div>
             </div>
-          </FeatureCard>
+          </AboutCard>
         </motion.div>
       </div>
     </section>
   )
 }
 
-interface FeatureCardProps {
+interface AboutCardProps {
   children: ReactNode
   className?: string
 }
 
-const FeatureCard = ({ children, className }: FeatureCardProps) => (
+const AboutCard = ({ children, className }: AboutCardProps) => (
   <Card
     className={cn('group relative rounded-none shadow-zinc-950/5', className)}>
     <CardDecorator />
     {children}
   </Card>
-)
-
-const CardDecorator = () => (
-  <>
-    <span className='border-primary absolute -left-px -top-px block size-2 border-l-2 border-t-2'></span>
-    <span className='border-primary absolute -right-px -top-px block size-2 border-r-2 border-t-2'></span>
-    <span className='border-primary absolute -bottom-px -left-px block size-2 border-b-2 border-l-2'></span>
-    <span className='border-primary absolute -bottom-px -right-px block size-2 border-b-2 border-r-2'></span>
-  </>
 )
 
 interface CardHeadingProps {
@@ -189,13 +185,13 @@ interface CardHeadingProps {
 }
 
 const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
-  <div className='p-6'>
-    <span className='text-muted-foreground flex items-center gap-2'>
-      <Icon className='size-4' />
+  <div>
+    <span className='text-xl md:text-2xl text-muted-foreground flex items-center gap-2'>
+      <Icon className='size-5 md:size-6' />
       {title}
     </span>
     {description && (
-      <p className='mt-2 text-sm md:text-base font-semibold'>{description}</p>
+      <p className='my-2 text-sm md:text-base '>{description}</p>
     )}
   </div>
 )
