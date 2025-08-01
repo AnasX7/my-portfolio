@@ -30,7 +30,7 @@ export default function About() {
   const t = useTranslations()
 
   return (
-    <section id='about' className='-mt-18 overflow-hidden'>
+    <section id='about' className='-mt-18'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
         <motion.div
           className='mx-auto grid gap-6 sm:gap-6 lg:grid-cols-2'

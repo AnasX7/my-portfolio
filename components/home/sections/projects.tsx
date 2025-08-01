@@ -22,61 +22,59 @@ export default function Projects() {
   return (
     <section id='projects' className='mt-20 sm:mt-32'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
-        <div className='w-full'>
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-              scale: 0.95,
-              filter: 'blur(10px)',
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              filter: 'blur(0px)',
-            }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className='flex flex-col items-center py-10'>
-            <h2 className='text-2xl md:text-4xl text-center font-bold mb-4 text-foreground dark:text-foreground'>
-              {t('projects.title')}
-            </h2>
-            <p className='text-muted-foreground dark:text-muted-foreground text-sm md:text-lg text-center max-w-2xl'>
-              {t('projects.subtitle')}
-            </p>
-          </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+            scale: 0.95,
+            filter: 'blur(10px)',
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: 'blur(0px)',
+          }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+          className='flex flex-col items-center py-10'>
+          <h2 className='text-2xl md:text-4xl text-center font-bold mb-4 text-foreground dark:text-foreground'>
+            {t(DATA.projects.titleKey)}
+          </h2>
+          <p className='text-muted-foreground dark:text-muted-foreground text-sm md:text-lg text-center max-w-2xl'>
+            {t(DATA.projects.subtitleKey)}
+          </p>
+        </motion.div>
 
-          <div className='flex flex-col gap-6 lg:gap-25 mt-6 md:mt-8 lg:mt-14'>
-            {DATA.projects.cards.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                  scale: 0.95,
-                  filter: 'blur(10px)',
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  filter: 'blur(0px)',
-                }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true, amount: 0.3 }}>
-                <ProjectCard
-                  title={t(project.titleKey)}
-                  description={t(project.descriptionKey)}
-                  stack={project.stack}
-                  githubUrl={project.githubUrl}
-                  isLive={project.isLive}
-                  liveUrl={project.liveUrl}
-                  images={project.images}
-                />
-              </motion.div>
-            ))}
-          </div>
+        <div className='flex flex-col gap-6 lg:gap-25 mt-6 md:mt-8 lg:mt-14'>
+          {DATA.projects.cards.map((project, index) => (
+            <motion.div
+              key={index}
+              initial={{
+                opacity: 0,
+                y: 30,
+                scale: 0.95,
+                filter: 'blur(10px)',
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: 'blur(0px)',
+              }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true, amount: 0.3 }}>
+              <ProjectCard
+                title={t(project.titleKey)}
+                description={t(project.descriptionKey)}
+                stack={project.stack}
+                githubUrl={project.githubUrl}
+                isLive={project.isLive}
+                liveUrl={project.liveUrl}
+                images={project.images}
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

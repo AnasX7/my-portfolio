@@ -77,5 +77,37 @@
       "title": "Tanazah Pool System 🥽",
       "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations."
     }
+  },
+  "contact": {
+    "title": "Let's Get in Touch",
+    "subtitle": "Got an idea? Let's build something awesome together!",
+    "Illustration": {
+      "title": "Let's Connect",
+      "subtitle": "Send me a message and I’ll get back to you as soon as I can."
+    },
+    "form": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Your full name",
+        "min": "Full name must be at least {min} characters",
+        "max": "Full name must be at most {max} characters"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Your Email",
+        "required": "Please enter a valid email address"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Type in your message here",
+        "min": "Message must be at least {min} characters"
+      },
+      "submit": "Send Message"
+    }
+  },
+  "toast": {
+    "loading": "Sending...",
+    "success": "Thanks for reaching out!",
+    "error": "Something went wrong. Please try again."
   }
 }

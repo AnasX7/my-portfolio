@@ -10,6 +10,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import { ReactLenis } from 'lenis/react'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -134,7 +135,10 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange>
               <Header />
-              <ScrollProgressProvider>{children}</ScrollProgressProvider>
+              <ScrollProgressProvider>
+                {children}
+                <Toaster />
+              </ScrollProgressProvider>
             </ThemeProvider>
           </NextIntlClientProvider>
         </body>

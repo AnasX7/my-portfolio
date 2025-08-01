@@ -132,7 +132,7 @@ export const DATA = {
 
   projects: {
     titleKey: 'projects.title',
-    subtilteKey: 'projects.subtitle',
+    subtitleKey: 'projects.subtitle',
     cards: [
       {
         titleKey: 'projects.card1.title',
@@ -162,8 +162,8 @@ export const DATA = {
         stack: [
           'Laravel',
           'Tailwindcss',
+          'PostgreSQL',
           'Docker',
-          'Flutter',
           'Email: admin@demo.com',
           'Password: demotest',
         ],
@@ -174,10 +174,42 @@ export const DATA = {
           '/images/projects/tanazah/tanazah-login.png',
           '/images/projects/tanazah/tanazah-admin-dashboard.png',
           '/images/projects/tanazah/tanazah-owner-dashboard.png',
-          '/images/projects/tanazah/tanazah-app.png',
-          '/images/projects/tanazah/tanazah-screens.png',
         ],
       },
     ],
+  },
+
+  contact: {
+    titleKey: 'contact.title',
+    subtitleKey: 'contact.subtitle',
+    Illustration: {
+      titleKey: 'contact.Illustration.title',
+      subtitleKey: 'contact.Illustration.subtitle',
+    },
+    form: {
+      fullName: {
+        labelKey: 'contact.form.fullName.label',
+        placeholderKey: 'contact.form.fullName.placeholder',
+        minKey: 'contact.form.fullName.min',
+        maxKey: 'contact.form.fullName.max',
+      },
+      email: {
+        labelKey: 'contact.form.email.label',
+        placeholderKey: 'contact.form.email.placeholder',
+        requiredKey: 'contact.form.email.required',
+      },
+      message: {
+        labelKey: 'contact.form.message.label',
+        placeholderKey: 'contact.form.message.placeholder',
+        minKey: 'contact.form.message.min',
+      },
+      submitKey: 'contact.form.submit',
+    },
+  },
+
+  toast: {
+    loadingKey: 'toast.loading',
+    successKey: 'toast.success',
+    errorKey: 'toast.error',
   },
 }

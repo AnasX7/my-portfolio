@@ -11,7 +11,7 @@ function Card({
     <motion.div
       data-slot='card'
       className={cn(
-        'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
+        'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm group',
         className
       )}
       variants={{
@@ -93,10 +93,10 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
 function CardDecorator() {
   return (
     <>
-      <span className='border-primary absolute -left-px -top-px block size-2 border-l-2 border-t-2'></span>
-      <span className='border-primary absolute -right-px -top-px block size-2 border-r-2 border-t-2'></span>
-      <span className='border-primary absolute -bottom-px -left-px block size-2 border-b-2 border-l-2'></span>
-      <span className='border-primary absolute -bottom-px -right-px block size-2 border-b-2 border-r-2'></span>
+      <span className='border-primary absolute -left-px -top-px block size-2 border-l-2 border-t-2 group-hover:-left-2 group-hover:-top-2 transition-all duration-300 ease-in-out'></span>
+      <span className='border-primary absolute -right-px -top-px block size-2 border-r-2 border-t-2 group-hover:-right-2 group-hover:-top-2 transition-all duration-300 ease-in-out'></span>
+      <span className='border-primary absolute -bottom-px -left-px block size-2 border-b-2 border-l-2 group-hover:-left-2 group-hover:-bottom-2 transition-all duration-300 ease-in-out'></span>
+      <span className='border-primary absolute -bottom-px -right-px block size-2 border-b-2 border-r-2 group-hover:-right-2 group-hover:-bottom-2 transition-all duration-300 ease-in-out'></span>
     </>
   )
 }
