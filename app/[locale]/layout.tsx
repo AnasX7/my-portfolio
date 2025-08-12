@@ -8,6 +8,7 @@ import '../globals.css'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
+import Footer from '@/components/footer'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import { ReactLenis } from 'lenis/react'
 import { Toaster } from '@/components/ui/sonner'
@@ -139,6 +140,7 @@ export default async function RootLayout({
                 {children}
                 <Toaster />
               </ScrollProgressProvider>
+              <Footer />
             </ThemeProvider>
           </NextIntlClientProvider>
         </body>

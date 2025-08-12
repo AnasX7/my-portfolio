@@ -212,4 +212,8 @@ export const DATA = {
     successKey: 'toast.success',
     errorKey: 'toast.error',
   },
+
+  footer: {
+    copyrightKey: 'footer.copyright',
+  },
 }
