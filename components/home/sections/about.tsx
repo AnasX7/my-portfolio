@@ -30,7 +30,7 @@ export default function About() {
   const t = useTranslations()
 
   return (
-    <section id='about' className='-mt-18'>
+    <section id='about' className='mt-20 sm:mt-32'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
         <motion.div
           className='mx-auto grid gap-6 sm:gap-6 lg:grid-cols-2'
@@ -45,6 +45,7 @@ export default function About() {
               },
             },
           }}>
+          {/* Introduction Card */}
           <AboutCard className='bg-card/65 gap-0 pb-0'>
             <CardHeader className='pb-0'>
               <CardHeading
@@ -91,6 +92,7 @@ export default function About() {
             </div>
           </AboutCard>
 
+          {/* Analytics Card */}
           <AboutCard className='bg-card/65 gap-0'>
             <CardHeader>
               <CardHeading
@@ -113,6 +115,7 @@ export default function About() {
             </div>
           </AboutCard>
 
+          {/* Experience Card */}
           <AboutCard className='bg-card/65'>
             <CardHeader>
               <CardHeading
@@ -126,6 +129,7 @@ export default function About() {
             </CardContent>
           </AboutCard>
 
+          {/* Tech Skills Card */}
           <AboutCard className='bg-card/65 pb-0'>
             <CardHeader className='pb-3'>
               <CardHeading
@@ -190,9 +194,7 @@ const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
       <Icon className='size-5 md:size-6' />
       {title}
     </span>
-    {description && (
-      <p className='my-2 text-sm md:text-base '>{description}</p>
-    )}
+    {description && <p className='my-2 text-sm md:text-base '>{description}</p>}
   </div>
 )
 

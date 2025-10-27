@@ -75,7 +75,7 @@ export const metadata: Metadata = {
       'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
     images: [
       {
-        url: 'https://anassalem.com/og-image.jpg',
+        url: 'https://anassalem.com/avatar-1.jpg',
         alt: 'My Portfolio Open Graph Image',
       },
     ],
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     title: 'Anas Salem',
     description:
       'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
-    images: ['https://anassalem.com/og-image.jpg'],
+    images: ['https://anassalem.com/avatar-1.jpg'],
     creator: '@An_xr7',
   },
   robots: {
@@ -132,8 +132,9 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <ThemeProvider
               attribute='class'
-              defaultTheme='system'
+              defaultTheme='dark'
               enableSystem
+              forcedTheme='dark'
               disableTransitionOnChange>
               <Header />
               <ScrollProgressProvider>

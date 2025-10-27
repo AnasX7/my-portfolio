@@ -37,7 +37,7 @@ export function MagneticLinkPreview({
           className
         )}>
         {children}
-        {Icon && <Icon className='size-4' />}
+        {Icon && <Icon className='size-4 text-[#b5b5b5a4]' />}
       </LinkPreview>
     </Magnetic>
   )

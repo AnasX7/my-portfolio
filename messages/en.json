@@ -11,9 +11,10 @@
     "contact": "Contact"
   },
   "hero": {
+    "badge": "Available for opportunities",
     "welcome": "Hi, I'm",
-    "title": "I build scalable web apps with",
-    "highlight": "exceptional user experiences",
+    "title": "I build  web apps with",
+    "highlight": "Exceptional UI/UX",
     "subtitle": "Clean code, Smart solutions and Real impact.",
     "cta": "Download Resume"
   },

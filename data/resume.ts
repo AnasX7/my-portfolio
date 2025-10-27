@@ -5,7 +5,8 @@ export const DATA = {
     nameKey: 'common.name',
     initialsKey: 'common.initials',
     roleKey: 'common.role',
-    avatar: '/og-image.jpg',
+    avatar: '/avatar-1.jpg',
+    logo: '/logo.png',
     resumeURL: 'https://flowcv.com/resume/j9n4st328u',
   },
 
@@ -16,6 +17,7 @@ export const DATA = {
   ],
 
   hero: {
+    badge: 'hero.badge',
     welcomeKey: 'hero.welcome',
     titleKey: 'hero.title',
     highlightKey: 'hero.highlight',
