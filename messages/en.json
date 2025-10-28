@@ -1,0 +1,120 @@
+{
+  "common": {
+    "name": "Anas Salem",
+    "initials": "A",
+    "role": "Software Engineer"
+  },
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Available for opportunities",
+    "welcome": "Hi, I'm",
+    "title": "I build  web apps with",
+    "highlight": "Exceptional UI/UX",
+    "subtitle": "Clean code, Smart solutions and Real impact.",
+    "cta": "Download Resume"
+  },
+  "techLogos": {
+    "title": "Powered by modern technologies"
+  },
+  "about": {
+    "title": "About Me",
+    "card1": {
+      "title": "Who am I?",
+      "description": "IT student based in Abu Dhabi, UAE. Front-end expert with back-end skills and solid UI/UX tool experience."
+    },
+    "card2": {
+      "title": "Analytics",
+      "projects": "Projects Completed",
+      "certificates": "Certificates Earned"
+    },
+    "card3": {
+      "title": "Experience & Timeline"
+    },
+    "card4": {
+      "title": "Technical Skills"
+    }
+  },
+  "timeline": [
+    {
+      "id": 1,
+      "date": "Sep 2022 - Present",
+      "title": "University of Science and Technology",
+      "description": "Bachelor's Degree, Information Technology"
+    },
+    {
+      "id": 2,
+      "date": "Jan 2025",
+      "title": "Meta Certifications",
+      "description": "Completed Introduction to Front-End Development and Programming with JavaScript from Meta via Coursera"
+    },
+    {
+      "id": 3,
+      "date": "Jun 2025",
+      "title": "Software Engineer - Freelance",
+      "description": "Built and delivered multiple web applications for clients, strengthening my expertise in full-stack development and scalable solutions."
+    },
+    {
+      "id": 4,
+      "date": "",
+      "title": "",
+      "description": ""
+    }
+  ],
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "Check out my range of amazing projects, from imaginative concepts to live applications. You're welcome to jump in and experience them!",
+    "github": "Source",
+    "live": "Demo",
+    "card1": {
+      "title": "Salaty E-commerce App 🛒",
+      "description": "Welcome to Salaty, your ultimate mobile shopping destination! Salaty (meaning \"my basket\" in Arabic) offers a seamless and intuitive e-commerce experience."
+    },
+    "card2": {
+      "title": "Tanazah Pool System 🥽",
+      "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations."
+    }
+  },
+  "contact": {
+    "title": "Let's Get in Touch",
+    "subtitle": "Got an idea? Let's build something awesome together!",
+    "Illustration": {
+      "title": "Let's Connect",
+      "subtitle": "Send me a message and I’ll get back to you as soon as I can."
+    },
+    "form": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Your full name",
+        "min": "Full name must be at least {min} characters",
+        "max": "Full name must be at most {max} characters"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Your Email",
+        "required": "Please enter a valid email address"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Type in your message here",
+        "min": "Message must be at least {min} characters"
+      },
+      "submit": "Send Message"
+    }
+  },
+  "sections": {
+    "title": "Sections"
+  },
+  "toast": {
+    "loading": "Sending...",
+    "success": "Thanks for reaching out!",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "copyright": "All rights reserved"
+  }
+}

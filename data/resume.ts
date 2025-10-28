@@ -1,0 +1,225 @@
+import { FolderGit2, Medal } from 'lucide-react'
+
+export const DATA = {
+  profile: {
+    nameKey: 'common.name',
+    initialsKey: 'common.initials',
+    roleKey: 'common.role',
+    avatar: '/avatar-1.jpg',
+    logo: '/logo.png',
+    resumeURL: 'https://flowcv.com/resume/j9n4st328u',
+  },
+
+  navItems: [
+    { nameKey: 'header.about', href: '#about' },
+    { nameKey: 'header.projects', href: '#projects' },
+    { nameKey: 'header.contact', href: '#contact' },
+  ],
+
+  hero: {
+    badge: 'hero.badge',
+    welcomeKey: 'hero.welcome',
+    titleKey: 'hero.title',
+    highlightKey: 'hero.highlight',
+    subtitle: 'hero.subtitle',
+    cta: 'hero.cta',
+  },
+
+  techLogos: {
+    titleKey: 'techLogos.title',
+  },
+
+  about: {
+    titleKey: 'about.title',
+    card1: {
+      titleKey: 'about.card1.title',
+      descriptionKey: 'about.card1.description',
+    },
+    card2: {
+      titleKey: 'about.card2.title',
+      analytics: [
+        {
+          icon: FolderGit2,
+          value: 4,
+          labelKey: 'about.card2.projects',
+          showPlus: true,
+        },
+        {
+          icon: Medal,
+          value: 3,
+          labelKey: 'about.card2.certificates',
+          showPlus: true,
+        },
+      ],
+    },
+    card3: {
+      titleKey: 'about.card3.title',
+    },
+    card4: {
+      titleKey: 'about.card4.title',
+      skills: [
+        {
+          name: 'Next.js',
+          delay: 2500,
+        },
+        {
+          name: 'React',
+          delay: 2700,
+        },
+        {
+          name: 'Expo',
+          delay: 3000,
+        },
+        {
+          name: 'Tailwindcss',
+          delay: 3300,
+        },
+        {
+          name: 'TypeScript',
+          delay: 3600,
+        },
+        {
+          name: 'JavaScript',
+          delay: 3900,
+        },
+        {
+          name: 'Laravel',
+          delay: 4200,
+        },
+        {
+          name: 'Git',
+          delay: 4500,
+        },
+        {
+          name: 'GitHub',
+          delay: 4800,
+        },
+        {
+          name: 'Figma',
+          delay: 5100,
+        },
+      ],
+    },
+  },
+
+  timeline: {
+    DefaultValue: 3,
+    entries: [
+      {
+        id: 1,
+        dateKey: 'timeline.0.date',
+        titleKey: 'timeline.0.title',
+        descriptionKey: 'timeline.0.description',
+      },
+      {
+        id: 2,
+        dateKey: 'timeline.1.date',
+        titleKey: 'timeline.1.title',
+        descriptionKey: 'timeline.1.description',
+      },
+      {
+        id: 3,
+        dateKey: 'timeline.2.date',
+        titleKey: 'timeline.2.title',
+        descriptionKey: 'timeline.2.description',
+      },
+      {
+        id: 4,
+        dateKey: 'timeline.3.date',
+        titleKey: 'timeline.3.title',
+        descriptionKey: 'timeline.3.description',
+      },
+    ],
+  },
+
+  projects: {
+    titleKey: 'projects.title',
+    subtitleKey: 'projects.subtitle',
+    cards: [
+      {
+        titleKey: 'projects.card1.title',
+        descriptionKey: 'projects.card1.description',
+        stack: [
+          'Expo',
+          'React Native',
+          'Nativewind',
+          'Zustand',
+          'React Query',
+          'Axios',
+          'Typescript',
+        ],
+        githubUrl: 'https://github.com/AnasX7/e-commerce',
+        isLive: false,
+        liveUrl: null,
+        images: [
+          '/images/projects/salaty/salaty-app.png',
+          '/images/projects/salaty/auth-screens.png',
+          '/images/projects/salaty/salaty-store-screens.png',
+          '/images/projects/salaty/salaty-other-screens.png',
+        ],
+      },
+      {
+        titleKey: 'projects.card2.title',
+        descriptionKey: 'projects.card2.description',
+        stack: [
+          'Laravel',
+          'Tailwindcss',
+          'PostgreSQL',
+          'Docker',
+          'Email: admin@demo.com',
+          'Password: demotest',
+        ],
+        githubUrl: 'https://github.com/AnasX7',
+        isLive: true,
+        liveUrl: 'https://tanazah-demo.onrender.com/',
+        images: [
+          '/images/projects/tanazah/tanazah-login.png',
+          '/images/projects/tanazah/tanazah-admin-dashboard.png',
+          '/images/projects/tanazah/tanazah-owner-dashboard.png',
+        ],
+      },
+    ],
+  },
+
+  contact: {
+    titleKey: 'contact.title',
+    subtitleKey: 'contact.subtitle',
+    Illustration: {
+      titleKey: 'contact.Illustration.title',
+      subtitleKey: 'contact.Illustration.subtitle',
+    },
+    form: {
+      fullName: {
+        labelKey: 'contact.form.fullName.label',
+        placeholderKey: 'contact.form.fullName.placeholder',
+        minKey: 'contact.form.fullName.min',
+        maxKey: 'contact.form.fullName.max',
+      },
+      email: {
+        labelKey: 'contact.form.email.label',
+        placeholderKey: 'contact.form.email.placeholder',
+        requiredKey: 'contact.form.email.required',
+      },
+      message: {
+        labelKey: 'contact.form.message.label',
+        placeholderKey: 'contact.form.message.placeholder',
+        minKey: 'contact.form.message.min',
+      },
+      submitKey: 'contact.form.submit',
+    },
+  },
+
+  sections: {
+    titleKey: 'sections.title',
+  },
+
+  toast: {
+    loadingKey: 'toast.loading',
+    successKey: 'toast.success',
+    errorKey: 'toast.error',
+  },
+
+  footer: {
+    copyrightKey: 'footer.copyright',
+  },
+}
