@@ -20,9 +20,7 @@ export default function ExperinceTimeline() {
   const isRTL = locale === 'ar'
 
   return (
-    <div 
-    className={cn('relative', isRTL ? 'sm:mr-16' : 'sm:ml-16')}
-    >
+    <div className='realtive'>
       <Timeline defaultValue={DATA.timeline.DefaultValue}>
         {DATA.timeline.entries.map((item) => (
           <TimelineItem

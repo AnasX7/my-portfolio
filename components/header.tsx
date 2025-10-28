@@ -164,7 +164,7 @@ export default function Header() {
                 <LanguageSwitcher />
               </motion.div>
 
-              {/* <motion.div
+              <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}>
                 <ThemeSwitcher
@@ -172,7 +172,7 @@ export default function Header() {
                   onChange={setTheme}
                   value={theme as 'light' | 'dark' | 'system'}
                 />
-              </motion.div> */}
+              </motion.div>
             </motion.div>
 
             <motion.button

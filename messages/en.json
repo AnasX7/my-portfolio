@@ -106,12 +106,15 @@
       "submit": "Send Message"
     }
   },
+  "sections": {
+    "title": "Sections"
+  },
   "toast": {
     "loading": "Sending...",
     "success": "Thanks for reaching out!",
     "error": "Something went wrong. Please try again."
   },
   "footer": {
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved"
   }
 }

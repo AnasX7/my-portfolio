@@ -58,7 +58,7 @@ export default function Hero2() {
       <div
         className={cn(
           'absolute inset-0 -z-10 opacity-90 transition-colors duration-700',
-          // 'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(148,163,184,0.28),transparent_75%)]',
+          'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(148,163,184,0.28),transparent_75%)]',
           'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(226,232,240,0.15),transparent_100%)]'
         )}
       />
@@ -70,7 +70,7 @@ export default function Hero2() {
         strokeDasharray={'6 3'}
         className={cn(
           'absolute inset-0 -z-1 h-full w-full pointer-events-none opacity-20',
-          'dark:opacity-30',
+          'dark:opacity-80',
           '[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]'
         )}
       />
@@ -81,8 +81,10 @@ export default function Hero2() {
         initial='hidden'
         animate='visible'
         className='relative z-10 mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8 text-center'>
-        {/* Welcome Badge */}
-        <motion.div variants={staggerItem} className='mb-8'>
+        {/* Badge */}
+        <motion.div
+          variants={staggerItem}
+          className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <motion.div
             whileHover={{ scale: 1.05 }}
             className='inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/80 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors backdrop-blur-md dark:border-white/10 dark:bg-white/5'>
@@ -93,8 +95,10 @@ export default function Hero2() {
           </motion.div>
         </motion.div>
 
-        {/* Enhanced Name Header */}
-        <motion.div variants={staggerItem} className='mb-6'>
+        {/* Name Header */}
+        <motion.div
+          variants={staggerItem}
+          className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
           <motion.h1
             className={`flex justify-center items-center gap-1 md:gap-3 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight ${
               isArabic && 'leading-tight'
@@ -142,11 +146,13 @@ export default function Hero2() {
           </motion.h1>
         </motion.div>
 
-        {/* Enhanced Main Title */}
-        <motion.div variants={staggerItem} className='mb-8'>
+        {/* Main Title */}
+        <motion.div
+          variants={staggerItem}
+          className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <h2
-            className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold tracking-tight ${
-              isArabic && 'leading-tight'
+            className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold tracking-tight ${
+              isArabic && 'md:leading-tight 2xl:leading-28'
             }`}>
             <span className='mb-2 block text-foreground'>
               {t(DATA.hero.titleKey)}
@@ -157,14 +163,16 @@ export default function Hero2() {
           </h2>
         </motion.div>
 
-        {/* Enhanced Subtitle */}
-        <motion.div variants={staggerItem} className='mb-12'>
+        {/* Subtitle */}
+        <motion.div
+          variants={staggerItem}
+          className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
           <p className='mx-auto max-w-2xl text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl  text-muted-foreground/90 leading-relaxed font-light'>
             {t(DATA.hero.subtitle)}
           </p>
         </motion.div>
 
-        {/* Enhanced CTA Section */}
+        {/* CTA Section */}
         <motion.div
           variants={staggerItem}
           className='flex flex-col sm:flex-row gap-4 justify-center items-center'>

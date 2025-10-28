@@ -6,12 +6,12 @@ import type { Metadata } from 'next'
 import { Inter, Tajawal } from 'next/font/google'
 import '../globals.css'
 
-import { ThemeProvider } from '@/components/theme-provider'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
-import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import { ReactLenis } from 'lenis/react'
 import { Toaster } from '@/components/ui/sonner'
+import { ThemeProvider } from '@/components/theme-provider'
+import ScrollProgressProvider from '@/components/scroll-progress-provider'
+import Header from '@/components/header'
+import Footer from '@/components/footer2'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -29,7 +29,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Anas Salem',
+  title: '𝓐𝓷𝖆𝔖 | Portfolio',
   description:
     'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
   applicationName: 'Portfolio',

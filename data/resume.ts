@@ -209,6 +209,10 @@ export const DATA = {
     },
   },
 
+  sections: {
+    titleKey: 'sections.title',
+  },
+
   toast: {
     loadingKey: 'toast.loading',
     successKey: 'toast.success',
