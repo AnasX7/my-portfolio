@@ -86,12 +86,12 @@ export default function TechLogos() {
         transition={{ duration: 1, delay: 0.8 }}
         viewport={{ once: true, amount: 0.3 }}
         className='relative -mt-32 h-96 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t after:border-zinc-500 dark:after:border-[#ffffff66] after:bg-white dark:after:bg-zinc-900'>
-        <SparklesCore
+        {/* <SparklesCore
           id='tsparticles'
           background='transparent'
           particleDensity={300}
           className='absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]'
-        />
+        /> */}
       </motion.div>
     </motion.section>
   )

@@ -14,7 +14,7 @@ export default function LanguageSwitcher() {
     const segments = pathname.split('/')
     segments[1] = lang
     const newPath = segments.join('/')
-    router.push(newPath)
+    router.push(newPath as any)
   }
 
   const nextLocale = currentLocale === 'en' ? 'ar' : 'en'

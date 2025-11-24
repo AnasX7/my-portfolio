@@ -33,31 +33,7 @@ export const metadata: Metadata = {
   description:
     'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
   applicationName: 'Portfolio',
-  generator: 'Next.js 15',
-  keywords: [
-    'Software Engineer',
-    'Software Development',
-    'Full Stack Developer',
-    'Front-end',
-    'Back-end',
-    'Next.js',
-    'React',
-    'TypeScript',
-    'JavaScript',
-    'Laravel',
-    'Tailwind CSS',
-    'Node.js',
-    'Express',
-    'Web Developer',
-    'Mobile Developer',
-    'Figma',
-    'UI/UX',
-    'Portfolio',
-    'UST',
-    'University of Science and Technology',
-    'Yemen',
-    'UAE',
-  ],
+  generator: 'Next.js 16',
   authors: [{ name: 'Anas Salem', url: 'https://anassalem.com' }],
   creator: 'Anas Salem',
   icons: {
@@ -117,6 +93,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
+      <head>
+        <meta name='apple-mobile-web-app-title' content='Portfolio' />
+      </head>
       <ReactLenis
         root
         options={{

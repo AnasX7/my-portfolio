@@ -133,15 +133,6 @@ html.lenis body {
   pointer-events: none;
 }
 
-.neumorphic-button::after {
-  content: '';
-  @apply absolute inset-0 opacity-0 transition-opacity duration-300 bg-gradient-to-br from-black/5 to-transparent rounded-2xl;
-}
-
-.neumorphic-button:hover::after {
-  @apply opacity-100;
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -163,5 +154,141 @@ html.lenis body {
 
   .animate-shine {
     animation: shine 5s linear infinite;
+  }
+}
+
+@layer components {
+  /* Custom CSS for gradients and animations */
+  .anim-btn {
+    background:
+      radial-gradient(
+        65.28% 65.28% at 50% 100%,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      linear-gradient(0deg, #171717, #171717);
+  }
+
+  .anim-btn::before,
+  .anim-btn::after {
+    content: '';
+    position: absolute;
+    transition: all 0.5s ease-in-out;
+    z-index: 0;
+  }
+
+  .anim-btn::before {
+    inset: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border-radius: 9999px;
+  }
+
+  .anim-btn::after {
+    inset: 2px;
+    background:
+      radial-gradient(
+        65.28% 65.28% at 50% 100%,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      linear-gradient(0deg, #0a0a0a, #0a0a0a);
+    border-radius: 9999px;
+  }
+
+  .anim-btn:hover::after {
+    background:
+      radial-gradient(
+        65.28% 65.28% at 50% 100%,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      linear-gradient(0deg, #0a0a0a, #0a0a0a);
+  }
+
+  .point {
+    bottom: -10px;
+    position: absolute;
+    animation: floating-points infinite ease-in-out;
+    pointer-events: none;
+    width: 2px;
+    height: 2px;
+    background-color: #a3a3a3;
+    border-radius: 9999px;
+  }
+
+  @keyframes floating-points {
+    0% {
+      transform: translateY(0);
+    }
+    85% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(-55px);
+      opacity: 0;
+    }
+  }
+
+  .point:nth-child(1) {
+    left: 10%;
+    opacity: 1;
+    animation-duration: 2.35s;
+    animation-delay: 0.2s;
+  }
+  .point:nth-child(2) {
+    left: 30%;
+    opacity: 0.7;
+    animation-duration: 2.5s;
+    animation-delay: 0.5s;
+  }
+  .point:nth-child(3) {
+    left: 25%;
+    opacity: 0.8;
+    animation-duration: 2.2s;
+    animation-delay: 0.1s;
+  }
+  .point:nth-child(4) {
+    left: 44%;
+    opacity: 0.6;
+    animation-duration: 2.05s;
+  }
+  .point:nth-child(5) {
+    left: 50%;
+    opacity: 1;
+    animation-duration: 1.9s;
+  }
+  .point:nth-child(6) {
+    left: 75%;
+    opacity: 0.5;
+    animation-duration: 1.5s;
+    animation-delay: 1.5s;
+  }
+  .point:nth-child(7) {
+    left: 88%;
+    opacity: 0.9;
+    animation-duration: 2.2s;
+    animation-delay: 0.2s;
+  }
+  .point:nth-child(8) {
+    left: 58%;
+    opacity: 0.8;
+    animation-duration: 2.25s;
+    animation-delay: 0.2s;
+  }
+  .point:nth-child(9) {
+    left: 98%;
+    opacity: 0.6;
+    animation-duration: 2.6s;
+    animation-delay: 0.1s;
+  }
+  .point:nth-child(10) {
+    left: 65%;
+    opacity: 1;
+    animation-duration: 2.5s;
+    animation-delay: 0.2s;
   }
 }

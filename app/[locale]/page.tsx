@@ -4,15 +4,16 @@ import HeroSection from '@/components/home/sections/hero'
 import AboutSection from '@/components/home/sections/about'
 import ProjectSection from '@/components/home/sections/projects'
 import ContactSection from '@/components/home/sections/contact'
-// import CurvedLoop from '@/components/ui/curved-loop'
+import LogoCloudSection from '@/components/home/sections/logos'
+import CurvedLoop from '@/components/ui/curved-loop'
 
 export default function Home() {
   return (
     <>
       <Spotlight />
       <HeroSection />
-      <div className='relative'>
-        {/* <div dir='ltr' className='absolute w-full bottom-40 sm:bottom-0'>
+      {/* <div className='relative'>
+        <div dir='ltr' className='absolute w-full bottom-20 sm:bottom-0'>
           <CurvedLoop
             marqueeText='Powered ✦ By ✦ Modern ✦ Technologies ✦ Nextjs ✦ Recat ✦ Expo ✦ Tailwind ✦ Typescript ✦ Javascript ✦ HTML ✦ CSS ✦ Nodejs ✦ Express ✦ Prisma ✦ Laravel ✦ Git ✦ Github✦ Docker ✦ Figma ✦'
             speed={1}
@@ -20,9 +21,10 @@ export default function Home() {
             direction='right'
             interactive={true}
           />
-        </div> */}
-      </div>
+        </div>
+      </div> */}
       {/* <TechLogosSection /> */}
+      <LogoCloudSection />
       <AboutSection />
       <ProjectSection />
       <ContactSection />
