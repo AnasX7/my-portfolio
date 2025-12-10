@@ -30,8 +30,8 @@ export default function About() {
   const t = useTranslations()
 
   return (
-    <section id='about' className='mt-20 sm:mt-32'>
-      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
+    <section id='about' className='mt-18 sm:mt-20'>
+      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
         <motion.div
           className='mx-auto grid gap-6 sm:gap-6 lg:grid-cols-2'
           initial='hidden'
@@ -145,7 +145,7 @@ export default function About() {
                   {(start) => (
                     <>
                       <TypingAnimation start={start}>
-                        &gt; npx anas@latest tech-skills
+                        &gt; npx anas@latest skills
                       </TypingAnimation>
 
                       {DATA.about.card4.skills.map((skill) => (

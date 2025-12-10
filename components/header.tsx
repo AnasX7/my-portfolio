@@ -6,8 +6,8 @@ import { Menu, X } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { ThemeSwitcher } from './ui/theme-switcher'
-import { useTheme } from 'next-themes'
+import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
+import { Button } from './ui/button'
 import { useLenis } from 'lenis/react'
 import LanguageSwitcher from './ui/language-switcher'
 import { DATA } from '@/data/resume'
@@ -18,7 +18,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
-  const { theme, setTheme } = useTheme()
+
   const lenis = useLenis()
 
   useEffect(() => {
@@ -117,7 +117,7 @@ export default function Header() {
               </button>
             </motion.div>
 
-            <nav className='hidden items-center space-x-1 lg:flex'>
+            <nav className='absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-1.5 py-1 lg:flex'>
               {DATA.navItems.map((item) => (
                 <motion.div
                   key={item.nameKey}
@@ -125,7 +125,9 @@ export default function Header() {
                   className='relative'
                   onMouseEnter={() => setHoveredItem(item.nameKey)}
                   onMouseLeave={() => setHoveredItem(null)}>
-                  <button
+                  <Button
+                    variant='ghost'
+                    size='sm'
                     role='link'
                     aria-label={t(item.nameKey)}
                     onClick={() =>
@@ -134,10 +136,10 @@ export default function Header() {
                         duration: 3,
                       })
                     }
-                    className='relative cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-foreground/80 transition-colors duration-200 hover:text-foreground'>
+                    className='relative rounded-full px-4 text-muted-foreground transition-colors duration-200 hover:bg-transparent hover:text-foreground'>
                     {hoveredItem === item.nameKey && (
                       <motion.div
-                        className='absolute inset-0 rounded-lg bg-gradient-to-tr from-zinc-200/60 via-zinc-300/60 to-transparent dark:from-zinc-500/60 dark:via-zinc-600/60 dark:to-transparent'
+                        className='absolute inset-0 rounded-full bg-secondary dark:bg-secondary/80'
                         layoutId='navbar-hover'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -150,7 +152,7 @@ export default function Header() {
                       />
                     )}
                     <span className='relative z-10'>{t(item.nameKey)}</span>
-                  </button>
+                  </Button>
                 </motion.div>
               ))}
             </nav>
@@ -165,13 +167,9 @@ export default function Header() {
               </motion.div>
 
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}>
-                <ThemeSwitcher
-                  defaultValue='system'
-                  onChange={setTheme}
-                  value={theme as 'light' | 'dark' | 'system'}
-                />
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}>
+                <AnimatedThemeToggler />
               </motion.div>
             </motion.div>
 
@@ -225,11 +223,7 @@ export default function Header() {
                 <motion.div
                   className='flex flex-row space-x-3 border-t border-border pt-6'
                   variants={mobileItemVariants}>
-                  <ThemeSwitcher
-                    defaultValue='system'
-                    onChange={setTheme}
-                    value={theme as 'light' | 'dark' | 'system'}
-                  />
+                  <AnimatedThemeToggler />
 
                   <LanguageSwitcher />
                 </motion.div>

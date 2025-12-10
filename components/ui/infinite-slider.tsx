@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { useMotionValue, animate, motion } from 'motion/react'
 import { useState, useEffect } from 'react'
 import useMeasure from 'react-use-measure'
+import { useLocale } from 'next-intl'
 
 export type InfiniteSliderProps = {
   children: React.ReactNode
@@ -30,12 +31,24 @@ export function InfiniteSlider({
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [key, setKey] = useState(0)
 
+  // Detect RTL based on locale
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+
   useEffect(() => {
     let controls
     const size = direction === 'horizontal' ? width : height
     const contentSize = size + gap
-    const from = reverse ? -contentSize / 2 : 0
-    const to = reverse ? 0 : -contentSize / 2
+
+    // Determine animation direction based on RTL and orientation
+    // RTL horizontal: moves Right (positive)
+    // LTR horizontal: moves Left (negative)
+    // Vertical: moves Up (negative)
+    const isHorizontal = direction === 'horizontal'
+    const directionMultiplier = isRTL && isHorizontal ? 1 : -1
+
+    const from = reverse ? (directionMultiplier * contentSize) / 2 : 0
+    const to = reverse ? 0 : (directionMultiplier * contentSize) / 2
 
     const distanceToTravel = Math.abs(to - from)
     const duration = distanceToTravel / currentSpeed
@@ -76,6 +89,7 @@ export function InfiniteSlider({
     isTransitioning,
     direction,
     reverse,
+    isRTL,
   ])
 
   const hoverProps = speedOnHover

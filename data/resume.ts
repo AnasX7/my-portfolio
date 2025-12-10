@@ -1,3 +1,4 @@
+import { Icons } from '@/components/icons'
 import { FolderGit2, Medal } from 'lucide-react'
 
 export const DATA = {
@@ -25,8 +26,9 @@ export const DATA = {
     cta: 'hero.cta',
   },
 
-  techLogos: {
-    titleKey: 'techLogos.title',
+  techStack: {
+    line1Key: 'techStack.line1',
+    line2Key: 'techStack.line2',
   },
 
   about: {
@@ -40,13 +42,13 @@ export const DATA = {
       analytics: [
         {
           icon: FolderGit2,
-          value: 4,
+          value: 5,
           labelKey: 'about.card2.projects',
           showPlus: true,
         },
         {
           icon: Medal,
-          value: 3,
+          value: 4,
           labelKey: 'about.card2.certificates',
           showPlus: true,
         },
@@ -59,43 +61,39 @@ export const DATA = {
       titleKey: 'about.card4.title',
       skills: [
         {
-          name: 'Next.js',
+          name: 'Frontend: Next.js, React',
           delay: 2500,
         },
         {
-          name: 'React',
+          name: 'Backend: Express, Hono, Laravel',
           delay: 2700,
         },
         {
-          name: 'Expo',
+          name: 'Mobile: Expo, React Native',
           delay: 3000,
         },
         {
-          name: 'Tailwindcss',
+          name: 'Styles: Tailwind CSS',
           delay: 3300,
         },
         {
-          name: 'TypeScript',
+          name: 'Languges: TypeScript, JavaScript',
           delay: 3600,
         },
         {
-          name: 'JavaScript',
+          name: 'ORM: Prisma, Drizzle',
           delay: 3900,
         },
         {
-          name: 'Laravel',
-          delay: 4200,
-        },
-        {
-          name: 'Git',
+          name: 'Version Control: Git, GitHub',
           delay: 4500,
         },
         {
-          name: 'GitHub',
+          name: 'Containerization: Docker',
           delay: 4800,
         },
         {
-          name: 'Figma',
+          name: 'Design Tools: Figma',
           delay: 5100,
         },
       ],
@@ -218,6 +216,34 @@ export const DATA = {
     successKey: 'toast.success',
     errorKey: 'toast.error',
   },
+
+  socials: [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/AnasX7',
+      icon: Icons.GitHub,
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://linkedin.com/in/anassalem7',
+      icon: Icons.LinkedIn,
+    },
+    {
+      name: 'X',
+      url: 'https://x.com/An_xr7',
+      icon: Icons.X,
+    },
+    {
+      name: 'Instagram',
+      url: 'https://instagram.com/an_xr7',
+      icon: Icons.Instagram,
+    },
+    {
+      name: 'Email',
+      url: 'mailto:anassalem.aa@gmail.com',
+      icon: Icons.Mail,
+    },
+  ],
 
   footer: {
     copyrightKey: 'footer.copyright',

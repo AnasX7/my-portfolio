@@ -2,7 +2,9 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { Languages } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Button } from './button'
 
 export default function LanguageSwitcher() {
   const router = useRouter()
@@ -14,26 +16,33 @@ export default function LanguageSwitcher() {
     const segments = pathname.split('/')
     segments[1] = lang
     const newPath = segments.join('/')
-    router.push(newPath)
+    router.push(newPath as any)
   }
 
   const nextLocale = currentLocale === 'en' ? 'ar' : 'en'
-  const nextLabel = nextLocale === 'en' ? 'English' : 'العربية'
+  const nextLabel = nextLocale === 'en' ? 'EN' : 'ع'
 
   return (
-    <button
+    <Button
       type='button'
-      className={cn(
-        'inline-flex items-center justify-center h-8 px-3 rounded-full font-semibold text-xs bg-background ring-1 ring-border transition-colors duration-200 cursor-pointer',
-        'hover:bg-secondary hover:text-foreground',
-        {
-          'font-tajawal': nextLocale === 'ar',
-          'font-inter': nextLocale === 'en',
-        }
-      )}
+      variant='outline'
+      size='icon'
+      className={cn('rounded-full', {
+        'font-tajawal': nextLocale === 'ar',
+        'font-inter': nextLocale === 'en',
+      })}
       onClick={() => handleLanguageClick(nextLocale)}
-      aria-label={`Switch language to ${nextLabel}`}>
-      {nextLabel}
-    </button>
+      aria-label={`Switch language to ${nextLocale === 'en' ? 'English' : 'العربية'}`}>
+      <div className='relative flex items-center justify-center'>
+        <Languages className='size-[18px] opacity-0' />
+        <span
+          className={cn(
+            'absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-300',
+            nextLocale === 'ar' ? 'text-base' : ''
+          )}>
+          {nextLabel}
+        </span>
+      </div>
+    </Button>
   )
 }

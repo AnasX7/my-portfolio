@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { getFormSchema, formData } from '@/lib/schemas'
 
 import { Card, CardContent, CardDecorator } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
@@ -92,7 +93,7 @@ export default function ContactForm() {
   return (
     <Card className='relative bg-card/65 rounded-none'>
       <CardDecorator />
-      <CardContent className='grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 gap-8'>
+      <CardContent className='grid grid-rows-1 lg:grid-rows-none lg:grid-cols-2 gap-8'>
         <Form {...form}>
           <form
             ref={formRef}
@@ -165,11 +166,9 @@ export default function ContactForm() {
             <div
               className='cf-turnstile'
               data-sitekey={TURNSTILE_SITE_KEY}></div>
-            <button
-              type='submit'
-              className='neumorphic-button cursor-pointer hover:shadow-[0_0_20px_rgba(155, 135, 245, 0.5)] relative w-full overflow-hidden rounded-full border-[2px] dark:border-white/10 bg-gradient-to-b from-white/10 to-white/5 text-black dark:text-white shadow-lg transition-all duration-300 dark:hover:border-[#ffffff]/30 inline-flex justify-center items-center px-6 sm:px-8 py-3 gap-2'>
+            <Button type='submit' variant='animated' className='w-full'>
               {t(DATA.contact.form.submitKey)}
-            </button>
+            </Button>
           </form>
         </Form>
 
@@ -184,7 +183,7 @@ export default function ContactForm() {
           whileInView={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, delay: 0.6 }}
           viewport={{ once: true }}
-          className='flex flex-col justify-center items-center text-center p-6 bg-muted/45 border-2 border-border rounded-4xl shadow-md'>
+          className='hidden lg:flex flex-col justify-center items-center text-center p-6 bg-muted/45 border-2 border-border rounded-4xl shadow-md'>
           <div className='w-48 h-48 mb-4 animate-bounce animation-duration-[3000ms]'>
             <PaperPlane className={`${isRtl && 'rotate-270'}`} />
           </div>

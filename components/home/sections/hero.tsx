@@ -7,7 +7,6 @@ import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { WavingHand } from '@/components/ui/waving-hand'
 import { DATA } from '@/data/resume'
-import { GridPattern } from '@/components/ui/grid-pattern'
 import { cn } from '@/lib/utils'
 import ShinyText from '@/components/ui/shiny-text'
 
@@ -15,10 +14,6 @@ export default function Hero2() {
   const t = useTranslations()
   const locale = useLocale()
   const isArabic = locale === 'ar'
-
-  const { scrollYProgress } = useScroll()
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -51,10 +46,27 @@ export default function Hero2() {
   return (
     <motion.section
       id='home'
-      style={{ y, opacity }}
       className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden'>
       {/* Background */}
-      <div className='absolute inset-0 -z-20 bg-background transition-colors duration-700 dark:bg-black' />
+      <div className='absolute inset-0 -z-20 bg-background transition-colors duration-700' />
+
+      {/* Grid Background with Rounded Corners - Light Mode */}
+      <div
+        className='absolute inset-0 -z-15 dark:hidden'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+          backgroundSize: '80px 80px',
+        }}
+      />
+      {/* Grid Background with Rounded Corners - Dark Mode */}
+      <div
+        className='absolute inset-0 -z-15 hidden dark:block'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+          backgroundSize: '80px 80px',
+        }}
+      />
+
       <div
         className={cn(
           'absolute inset-0 -z-10 opacity-90 transition-colors duration-700',
@@ -62,25 +74,12 @@ export default function Hero2() {
           'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(226,232,240,0.15),transparent_100%)]'
         )}
       />
-      <GridPattern
-        width={60}
-        height={60}
-        x={-1}
-        y={-1}
-        strokeDasharray={'6 3'}
-        className={cn(
-          'absolute inset-0 -z-1 h-full w-full pointer-events-none opacity-20',
-          'dark:opacity-80',
-          '[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]'
-        )}
-      />
-
       {/* Main Content Container */}
       <motion.div
         variants={staggerContainer}
         initial='hidden'
         animate='visible'
-        className='relative z-10 mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8 text-center'>
+        className='relative z-10 mx-auto max-w-352 px-4 sm:px-6 lg:px-8 text-center'>
         {/* Badge */}
         <motion.div
           variants={staggerItem}
@@ -100,7 +99,7 @@ export default function Hero2() {
           variants={staggerItem}
           className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
           <motion.h1
-            className={`flex justify-center items-center gap-1 md:gap-3 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight ${
+            className={`flex justify-center items-center gap-1 md:gap-3 text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight ${
               isArabic && 'leading-tight'
             }`}>
             <motion.span className='text-muted-foreground font-medium'>
@@ -114,7 +113,7 @@ export default function Hero2() {
                 transition: { type: 'spring', stiffness: 400, damping: 10 },
               }}
               className='relative'>
-              <Avatar className='relative z-10 size-14 rounded-2xl border-2 border-border/60 backdrop-blur-sm md:size-16 md:rounded-3xl lg:size-20 dark:border-white/20'>
+              <Avatar className='relative z-10 size-14 rounded-2xl border-2 border-border/60 backdrop-blur-sm md:size-16 md:rounded-2xl dark:border-white/20'>
                 <AvatarImage
                   alt={t(DATA.profile.nameKey)}
                   src={DATA.profile.avatar}
@@ -151,13 +150,13 @@ export default function Hero2() {
           variants={staggerItem}
           className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <h2
-            className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold tracking-tight ${
-              isArabic && 'md:leading-tight 2xl:leading-28'
+            className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight ${
+              isArabic && 'md:leading-tight'
             }`}>
             <span className='mb-2 block text-foreground'>
               {t(DATA.hero.titleKey)}
             </span>
-            <span className='block bg-gradient-to-r from-purple-400 to-orange-300 dark:from-purple-300 dark:to-orange-200 bg-clip-text text-transparent'>
+            <span className='block bg-gradient-to-b from-foreground to-foreground/65 text-transparent bg-clip-text dark:from-white dark:to-white/65'>
               {t(DATA.hero.highlightKey)}
             </span>
           </h2>
@@ -167,7 +166,7 @@ export default function Hero2() {
         <motion.div
           variants={staggerItem}
           className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
-          <p className='mx-auto max-w-2xl text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl  text-muted-foreground/90 leading-relaxed font-light'>
+          <p className='mx-auto max-w-2xl text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground/90 leading-relaxed font-light'>
             {t(DATA.hero.subtitle)}
           </p>
         </motion.div>
@@ -180,28 +179,10 @@ export default function Hero2() {
             <MagneticLinkPreview
               url={DATA.profile.resumeURL}
               icon={Download}
-              className='rounded-full'>
+              className='rounded-full px-8 py-4'>
               <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
             </MagneticLinkPreview>
           </motion.div>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 1 }}
-        className='absolute bottom-8 left-1/2 transform -translate-x-1/2'>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className='flex h-10 w-6 justify-center rounded-full border-2 border-border/70 dark:border-white/30'>
-          <motion.div
-            animate={{ y: [0, 12, 0], opacity: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className='mt-2 h-3 w-1 rounded-full bg-foreground/60 dark:bg-white/60'
-          />
         </motion.div>
       </motion.div>
     </motion.section>

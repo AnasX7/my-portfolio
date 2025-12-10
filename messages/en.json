@@ -18,8 +18,9 @@
     "subtitle": "Clean code, Smart solutions and Real impact.",
     "cta": "Download Resume"
   },
-  "techLogos": {
-    "title": "Powered by modern technologies"
+  "techStack": {
+    "line1": "Built with cutting-edge tools.",
+    "line2": "Powered by modern technology."
   },
   "about": {
     "title": "About Me",

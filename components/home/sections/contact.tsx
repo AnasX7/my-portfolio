@@ -10,7 +10,7 @@ export default function Contact() {
 
   return (
     <section id='contact' className='mt-20 sm:mt-32'>
-      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
+      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
         <motion.div
           initial={{
             opacity: 0,
