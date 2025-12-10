@@ -7,7 +7,6 @@ import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { WavingHand } from '@/components/ui/waving-hand'
 import { DATA } from '@/data/resume'
-import { GridPattern } from '@/components/ui/grid-pattern'
 import { cn } from '@/lib/utils'
 import ShinyText from '@/components/ui/shiny-text'
 
@@ -15,10 +14,6 @@ export default function Hero2() {
   const t = useTranslations()
   const locale = useLocale()
   const isArabic = locale === 'ar'
-
-  const { scrollYProgress } = useScroll()
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -51,10 +46,27 @@ export default function Hero2() {
   return (
     <motion.section
       id='home'
-      style={{ y, opacity }}
       className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden'>
       {/* Background */}
-      <div className='absolute inset-0 -z-20 bg-background transition-colors duration-700 dark:bg-black' />
+      <div className='absolute inset-0 -z-20 bg-background transition-colors duration-700' />
+
+      {/* Grid Background with Rounded Corners - Light Mode */}
+      <div
+        className='absolute inset-0 -z-15 dark:hidden'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+          backgroundSize: '80px 80px',
+        }}
+      />
+      {/* Grid Background with Rounded Corners - Dark Mode */}
+      <div
+        className='absolute inset-0 -z-15 hidden dark:block'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+          backgroundSize: '80px 80px',
+        }}
+      />
+
       <div
         className={cn(
           'absolute inset-0 -z-10 opacity-90 transition-colors duration-700',
@@ -62,25 +74,12 @@ export default function Hero2() {
           'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(226,232,240,0.15),transparent_100%)]'
         )}
       />
-      <GridPattern
-        width={60}
-        height={60}
-        x={-1}
-        y={-1}
-        strokeDasharray={'6 3'}
-        className={cn(
-          'absolute inset-0 -z-1 h-full w-full pointer-events-none opacity-20',
-          'dark:opacity-80',
-          '[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]'
-        )}
-      />
-
       {/* Main Content Container */}
       <motion.div
         variants={staggerContainer}
         initial='hidden'
         animate='visible'
-        className='relative z-10 mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8 text-center'>
+        className='relative z-10 mx-auto max-w-352 px-4 sm:px-6 lg:px-8 text-center'>
         {/* Badge */}
         <motion.div
           variants={staggerItem}
@@ -157,7 +156,7 @@ export default function Hero2() {
             <span className='mb-2 block text-foreground'>
               {t(DATA.hero.titleKey)}
             </span>
-            <span className='block bg-gradient-to-b from-white to-white/65 text-transparent bg-clip-text'>
+            <span className='block bg-gradient-to-b from-foreground to-foreground/65 text-transparent bg-clip-text dark:from-white dark:to-white/65'>
               {t(DATA.hero.highlightKey)}
             </span>
           </h2>

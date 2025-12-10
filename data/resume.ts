@@ -1,3 +1,4 @@
+import { Icons } from '@/components/icons'
 import { FolderGit2, Medal } from 'lucide-react'
 
 export const DATA = {
@@ -41,13 +42,13 @@ export const DATA = {
       analytics: [
         {
           icon: FolderGit2,
-          value: 4,
+          value: 5,
           labelKey: 'about.card2.projects',
           showPlus: true,
         },
         {
           icon: Medal,
-          value: 3,
+          value: 4,
           labelKey: 'about.card2.certificates',
           showPlus: true,
         },
@@ -215,6 +216,34 @@ export const DATA = {
     successKey: 'toast.success',
     errorKey: 'toast.error',
   },
+
+  socials: [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/AnasX7',
+      icon: Icons.GitHub,
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://linkedin.com/in/anassalem7',
+      icon: Icons.LinkedIn,
+    },
+    {
+      name: 'X',
+      url: 'https://x.com/An_xr7',
+      icon: Icons.X,
+    },
+    {
+      name: 'Instagram',
+      url: 'https://instagram.com/an_xr7',
+      icon: Icons.Instagram,
+    },
+    {
+      name: 'Email',
+      url: 'mailto:anassalem.aa@gmail.com',
+      icon: Icons.Mail,
+    },
+  ],
 
   footer: {
     copyrightKey: 'footer.copyright',

@@ -31,7 +31,7 @@ export default function About() {
 
   return (
     <section id='about' className='mt-18 sm:mt-20'>
-      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
+      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
         <motion.div
           className='mx-auto grid gap-6 sm:gap-6 lg:grid-cols-2'
           initial='hidden'

@@ -11,7 +11,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import Header from '@/components/header'
-import Footer from '@/components/footer2'
+import Footer from '@/components/footer'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -113,7 +113,6 @@ export default async function RootLayout({
               attribute='class'
               defaultTheme='dark'
               enableSystem
-              forcedTheme='dark'
               disableTransitionOnChange>
               <Header />
               <ScrollProgressProvider>

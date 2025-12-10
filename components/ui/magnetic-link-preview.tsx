@@ -34,7 +34,7 @@ export function MagneticLinkPreview({
         <LinkPreview url={url}>
           {children}
           {Icon && (
-            <Icon className='icon text-[#b5b5b5a4] w-4 h-4 transition-transform duration-300' />
+            <Icon className='icon text-muted-foreground dark:text-[#b5b5b5a4] w-4 h-4 transition-transform duration-300' />
           )}
         </LinkPreview>
       </Button>

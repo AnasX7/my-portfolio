@@ -22,7 +22,7 @@ export default function Projects() {
 
   return (
     <section id='projects' className='mt-20 sm:mt-32'>
-      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-5xl'>
+      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
         <motion.div
           initial={{
             opacity: 0,
@@ -51,7 +51,7 @@ export default function Projects() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
             viewport={{ once: true, amount: 0.3 }}
-            className='absolute top-full left-0 right-0 -mt-32 md:-mt-44 h-64 md:h-96 w-full overflow-hidden -z-10 [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t after:border-zinc-500 dark:after:border-[#ffffff66] after:bg-white dark:after:bg-zinc-900 pointer-events-none'
+            className='absolute top-full left-0 right-0 -mt-32 md:-mt-44 h-64 md:h-96 w-full overflow-hidden -z-10 mask-[radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,oklch(0.88_0.02_80),transparent_70%)] dark:before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t after:border-border dark:after:border-[#ffffff66] after:bg-secondary dark:after:bg-zinc-900 pointer-events-none'
           />
         </motion.div>
 

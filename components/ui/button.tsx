@@ -75,7 +75,7 @@ function Button({
                   <i className='point'></i>
                   <i className='point'></i>
                 </div>
-                <span className='inner z-20 gap-2 relative w-full text-gray-300 inline-flex items-center justify-center text-sm font-medium leading-relaxed transition-colors duration-200 hover:text-white'>
+                <span className='inner z-20 gap-2 relative w-full text-foreground/80 inline-flex items-center justify-center text-sm font-medium leading-relaxed transition-colors duration-200 hover:text-foreground dark:text-gray-300 dark:hover:text-white'>
                   {child.props.children}
                 </span>
               </>
@@ -102,7 +102,7 @@ function Button({
           <i className='point'></i>
           <i className='point'></i>
         </div>
-        <span className='inner z-20 gap-2 relative w-full text-gray-300 inline-flex items-center justify-center text-sm font-medium leading-relaxed transition-colors duration-200 hover:text-white'>
+        <span className='inner z-20 gap-2 relative w-full text-foreground/80 inline-flex items-center justify-center text-sm font-medium leading-relaxed transition-colors duration-200 hover:text-foreground dark:text-gray-300 dark:hover:text-white'>
           {props.children}
         </span>
       </Comp>
