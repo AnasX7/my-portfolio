@@ -103,17 +103,20 @@ export default async function RootLayout({
           smoothWheel: true,
           wheelMultiplier: 1.2,
           touchMultiplier: 1,
-        }}>
+        }}
+      >
         <body
           className={`${inter.variable} ${tajawal.variable} ${
             isArabic ? 'font-tajawal' : 'font-inter'
-          } antialiased min-h-screen`}>
+          } min-h-screen antialiased`}
+        >
           <NextIntlClientProvider>
             <ThemeProvider
               attribute='class'
               defaultTheme='dark'
               enableSystem
-              disableTransitionOnChange>
+              disableTransitionOnChange
+            >
               <Header />
               <ScrollProgressProvider>
                 {children}

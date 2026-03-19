@@ -4,12 +4,7 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
 
 import { encode } from 'qss'
 import React from 'react'
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-} from 'motion/react'
+import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 import { Link } from '@/i18n/navigation'
@@ -23,10 +18,7 @@ type LinkPreviewProps = {
   height?: number
   quality?: number
   layout?: string
-} & (
-  | { isStatic: true; imageSrc: string }
-  | { isStatic?: false; imageSrc?: never }
-)
+} & ({ isStatic: true; imageSrc: string } | { isStatic?: false; imageSrc?: never })
 
 export const LinkPreview = ({
   children,
@@ -90,12 +82,14 @@ export const LinkPreview = ({
         closeDelay={100}
         onOpenChange={(open) => {
           setOpen(open)
-        }}>
+        }}
+      >
         <HoverCardPrimitive.Trigger
           onMouseMove={handleMouseMove}
           className={cn('text-black dark:text-white', className)}
           href={url}
-          target='_blank'>
+          target='_blank'
+        >
           {children}
         </HoverCardPrimitive.Trigger>
 
@@ -103,7 +97,8 @@ export const LinkPreview = ({
           className='[transform-origin:var(--radix-hover-card-content-transform-origin)]'
           side='top'
           align='center'
-          sideOffset={10}>
+          sideOffset={10}
+        >
           <AnimatePresence>
             {isOpen && (
               <motion.div
@@ -119,15 +114,17 @@ export const LinkPreview = ({
                   },
                 }}
                 exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                className='shadow-xl rounded-xl'
+                className='rounded-xl shadow-xl'
                 style={{
                   x: translateX,
-                }}>
+                }}
+              >
                 <Link
                   href={url}
                   target='_blank'
-                  className='block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
-                  style={{ fontSize: 0 }}>
+                  className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
+                  style={{ fontSize: 0 }}
+                >
                   <Image
                     src={isStatic ? imageSrc : src}
                     width={width}

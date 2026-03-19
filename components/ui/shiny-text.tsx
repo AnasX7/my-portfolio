@@ -15,14 +15,15 @@ const ShinyText: React.FC<ShinyTextProps> = ({
 
   return (
     <div
-      className={`text-foreground/70 dark:text-[#b5b5b5a4] bg-clip-text inline-block ${disabled ? '' : 'animate-shine'} ${className}`}
+      className={`text-foreground/70 inline-block bg-clip-text dark:text-[#b5b5b5a4] ${disabled ? '' : 'animate-shine'} ${className}`}
       style={{
         backgroundImage:
           'linear-gradient(120deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 60%)',
         backgroundSize: '200% 100%',
         WebkitBackgroundClip: 'text',
         animationDuration: animationDuration,
-      }}>
+      }}
+    >
       <span className='dark:hidden'>{text}</span>
       <span
         className='hidden dark:inline'
@@ -32,10 +33,9 @@ const ShinyText: React.FC<ShinyTextProps> = ({
           backgroundSize: '200% 100%',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
-          animation: disabled
-            ? 'none'
-            : `shine ${animationDuration} linear infinite`,
-        }}>
+          animation: disabled ? 'none' : `shine ${animationDuration} linear infinite`,
+        }}
+      >
         {text}
       </span>
     </div>

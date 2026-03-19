@@ -63,11 +63,12 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   }
 
   return (
-    <div className='w-full lg:w-[50%] h-full pb-0 sm:pb-15 lg:pb-0 lg:pt-62 flex lg:flex-col justify-center items-center'>
+    <div className='flex h-full w-full items-center justify-center pb-0 sm:pb-15 lg:w-[50%] lg:flex-col lg:pt-62 lg:pb-0'>
       <div
         className={`absolute ${
           isRtl ? 'lg:left-0' : 'lg:right-0'
-        } lg:bottom-1/5 w-full lg:w-[50%] h-full overflow-hidden flex justify-center items-center`}>
+        } flex h-full w-full items-center justify-center overflow-hidden lg:bottom-1/5 lg:w-[50%]`}
+      >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentIndex}
@@ -76,26 +77,29 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
             initial='enter'
             animate='center'
             exit='exit'
-            className='absolute w-full h-full flex justify-center items-center'>
+            className='absolute flex h-full w-full items-center justify-center'
+          >
             <Image
               src={currentImage}
               alt={`Project Screenshot ${currentIndex + 1}`}
               width={500}
               height={500}
-              className='max-w-full max-h-full object-contain select-none pointer-events-none'
+              className='pointer-events-none max-h-full max-w-full object-contain select-none'
             />
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className='flex flex-row px-6 gap-4 w-full justify-between lg:justify-center z-10'>
+      <div className='z-10 flex w-full flex-row justify-between gap-4 px-6 lg:justify-center'>
         <button
           onClick={() => navigate(-1)}
-          className='bg-muted rounded-full px-2 py-2 hover:bg-muted-foreground/10 transition-colors cursor-pointer'>
+          className='bg-muted hover:bg-muted-foreground/10 cursor-pointer rounded-full px-2 py-2 transition-colors'
+        >
           <ChevronLeft className={isRtl ? 'rotate-180' : ''} />
         </button>
         <button
           onClick={() => navigate(1)}
-          className='bg-muted rounded-full px-2 py-2 hover:bg-muted-foreground/10 transition-colors cursor-pointer'>
+          className='bg-muted hover:bg-muted-foreground/10 cursor-pointer rounded-full px-2 py-2 transition-colors'
+        >
           <ChevronRight className={isRtl ? 'rotate-180' : ''} />
         </button>
       </div>

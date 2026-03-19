@@ -14,7 +14,8 @@ export function WavingHand() {
         repeatType: 'reverse',
         ease: 'easeInOut',
       }}
-      style={{ originX: 0.7, originY: 0.7, display: 'inline-block' }}>
+      style={{ originX: 0.7, originY: 0.7, display: 'inline-block' }}
+    >
       👋🏻
     </motion.span>
   )

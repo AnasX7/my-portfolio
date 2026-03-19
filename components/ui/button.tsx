@@ -14,10 +14,8 @@ const buttonVariants = cva(
           'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
           'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost:
-          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
         animated:
           'anim-btn cursor-pointer relative inline-flex items-center justify-center overflow-hidden transition-all duration-250 rounded-full border-none outline-none py-[14px] px-[28px] min-h-[48px] active:scale-95',
@@ -35,7 +33,7 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
     },
-  }
+  },
 )
 
 function Button({
@@ -59,11 +57,12 @@ function Button({
         <Comp
           data-slot='button'
           className={cn(buttonVariants({ variant, size, className }))}
-          {...props}>
+          {...props}
+        >
           {React.cloneElement(child, {
             children: (
               <>
-                <div className='points_wrapper overflow-hidden w-full h-full pointer-events-none absolute z-10 rounded-full'>
+                <div className='points_wrapper pointer-events-none absolute z-10 h-full w-full overflow-hidden rounded-full'>
                   <i className='point'></i>
                   <i className='point'></i>
                   <i className='point'></i>
@@ -75,7 +74,7 @@ function Button({
                   <i className='point'></i>
                   <i className='point'></i>
                 </div>
-                <span className='inner z-20 gap-2 relative w-full text-foreground/80 inline-flex items-center justify-center text-sm font-medium leading-relaxed transition-colors duration-200 hover:text-foreground dark:text-gray-300 dark:hover:text-white'>
+                <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
                   {child.props.children}
                 </span>
               </>
@@ -89,8 +88,9 @@ function Button({
       <Comp
         data-slot='button'
         className={cn(buttonVariants({ variant, size, className }))}
-        {...props}>
-        <div className='points_wrapper overflow-hidden w-full h-full pointer-events-none absolute z-10 rounded-full'>
+        {...props}
+      >
+        <div className='points_wrapper pointer-events-none absolute z-10 h-full w-full overflow-hidden rounded-full'>
           <i className='point'></i>
           <i className='point'></i>
           <i className='point'></i>
@@ -102,7 +102,7 @@ function Button({
           <i className='point'></i>
           <i className='point'></i>
         </div>
-        <span className='inner z-20 gap-2 relative w-full text-foreground/80 inline-flex items-center justify-center text-sm font-medium leading-relaxed transition-colors duration-200 hover:text-foreground dark:text-gray-300 dark:hover:text-white'>
+        <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
           {props.children}
         </span>
       </Comp>

@@ -110,14 +110,13 @@ export function InfiniteSlider({
       <motion.div
         className='flex w-max'
         style={{
-          ...(direction === 'horizontal'
-            ? { x: translation }
-            : { y: translation }),
+          ...(direction === 'horizontal' ? { x: translation } : { y: translation }),
           gap: `${gap}px`,
           flexDirection: direction === 'horizontal' ? 'row' : 'column',
         }}
         ref={ref}
-        {...hoverProps}>
+        {...hoverProps}
+      >
         {children}
         {children}
       </motion.div>

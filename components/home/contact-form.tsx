@@ -57,7 +57,7 @@ export default function ContactForm() {
     return () => {
       // Cleanup script on unmount
       const existingScript = document.querySelector(
-        'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]'
+        'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]',
       )
       if (existingScript) {
         document.head.removeChild(existingScript)
@@ -68,7 +68,7 @@ export default function ContactForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const turnstileInput = formRef.current?.querySelector(
-        'input[name="cf-turnstile-response"]'
+        'input[name="cf-turnstile-response"]',
       ) as HTMLInputElement | null
 
       const turnstileResponse = turnstileInput?.value
@@ -91,28 +91,21 @@ export default function ContactForm() {
   }
 
   return (
-    <Card className='relative bg-card/65 rounded-none'>
+    <Card className='bg-card/65 relative rounded-none'>
       <CardDecorator />
-      <CardContent className='grid grid-rows-1 lg:grid-rows-none lg:grid-cols-2 gap-8'>
+      <CardContent className='grid grid-rows-1 gap-8 lg:grid-cols-2 lg:grid-rows-none'>
         <Form {...form}>
-          <form
-            ref={formRef}
-            onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-8'>
+          <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-2'>
               <FormField
                 control={form.control}
                 name='fullName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t(DATA.contact.form.fullName.labelKey)}
-                    </FormLabel>
+                    <FormLabel>{t(DATA.contact.form.fullName.labelKey)}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t(
-                          DATA.contact.form.fullName.placeholderKey
-                        )}
+                        placeholder={t(DATA.contact.form.fullName.placeholderKey)}
                         {...field}
                       />
                     </FormControl>
@@ -129,10 +122,7 @@ export default function ContactForm() {
                   <FormItem>
                     <FormLabel>{t(DATA.contact.form.email.labelKey)}</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={t(DATA.contact.form.email.placeholderKey)}
-                        {...field}
-                      />
+                      <Input placeholder={t(DATA.contact.form.email.placeholderKey)} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -145,15 +135,11 @@ export default function ContactForm() {
                 name='message'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t(DATA.contact.form.message.labelKey)}
-                    </FormLabel>
+                    <FormLabel>{t(DATA.contact.form.message.labelKey)}</FormLabel>
                     <FormControl>
                       <Textarea
                         id='message'
-                        placeholder={t(
-                          DATA.contact.form.message.placeholderKey
-                        )}
+                        placeholder={t(DATA.contact.form.message.placeholderKey)}
                         className='min-h-[120px]'
                         {...field}
                       />
@@ -163,9 +149,7 @@ export default function ContactForm() {
                 )}
               />
             </div>
-            <div
-              className='cf-turnstile'
-              data-sitekey={TURNSTILE_SITE_KEY}></div>
+            <div className='cf-turnstile' data-sitekey={TURNSTILE_SITE_KEY}></div>
             <Button type='submit' variant='animated' className='w-full'>
               {t(DATA.contact.form.submitKey)}
             </Button>
@@ -183,14 +167,15 @@ export default function ContactForm() {
           whileInView={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, delay: 0.6 }}
           viewport={{ once: true }}
-          className='hidden lg:flex flex-col justify-center items-center text-center p-6 bg-muted/45 border-2 border-border rounded-4xl shadow-md'>
-          <div className='w-48 h-48 mb-4 animate-bounce animation-duration-[3000ms]'>
+          className='bg-muted/45 border-border hidden flex-col items-center justify-center rounded-4xl border-2 p-6 text-center shadow-md lg:flex'
+        >
+          <div className='animation-duration-[3000ms] mb-4 h-48 w-48 animate-bounce'>
             <PaperPlane className={`${isRtl && 'rotate-270'}`} />
           </div>
-          <h3 className='text-xl font-semibold text-foreground mb-2'>
+          <h3 className='text-foreground mb-2 text-xl font-semibold'>
             {t(DATA.contact.Illustration.titleKey)}
           </h3>
-          <p className='text-muted-foreground text-sm max-w-xs'>
+          <p className='text-muted-foreground max-w-xs text-sm'>
             {t(DATA.contact.Illustration.subtitleKey)}
           </p>
         </motion.div>

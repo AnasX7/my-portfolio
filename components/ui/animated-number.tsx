@@ -9,11 +9,7 @@ interface AnimatedNumberProps {
   delay?: number
 }
 
-export default function AnimatedNumber({
-  value,
-  className,
-  delay = 0,
-}: AnimatedNumberProps) {
+export default function AnimatedNumber({ value, className, delay = 0 }: AnimatedNumberProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
 
@@ -40,7 +36,8 @@ export default function AnimatedNumber({
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0 }}
-      transition={{ duration: 0.4, delay: delay / 1000 }}>
+      transition={{ duration: 0.4, delay: delay / 1000 }}
+    >
       {displayValue}
     </motion.span>
   )

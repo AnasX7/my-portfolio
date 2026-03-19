@@ -7,8 +7,7 @@ import { flushSync } from 'react-dom'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
 
-interface AnimatedThemeTogglerProps
-  extends React.ComponentPropsWithoutRef<typeof Button> {
+interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<typeof Button> {
   duration?: number
 }
 
@@ -52,27 +51,23 @@ export const AnimatedThemeToggler = ({
       })
     }).ready
 
-    const { top, left, width, height } =
-      buttonRef.current.getBoundingClientRect()
+    const { top, left, width, height } = buttonRef.current.getBoundingClientRect()
     const x = left + width / 2
     const y = top + height / 2
     const maxRadius = Math.hypot(
       Math.max(left, window.innerWidth - left),
-      Math.max(top, window.innerHeight - top)
+      Math.max(top, window.innerHeight - top),
     )
 
     document.documentElement.animate(
       {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${maxRadius}px at ${x}px ${y}px)`,
-        ],
+        clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`],
       },
       {
         duration,
         easing: 'ease-in-out',
         pseudoElement: '::view-transition-new(root)',
-      }
+      },
     )
   }, [isDark, duration])
 
@@ -84,7 +79,8 @@ export const AnimatedThemeToggler = ({
         size={size}
         className={cn('rounded-full', className)}
         disabled
-        {...props}>
+        {...props}
+      >
         <Sun className='size-[18px]' />
         <span className='sr-only'>Toggle theme</span>
       </Button>
@@ -98,19 +94,20 @@ export const AnimatedThemeToggler = ({
       size={size}
       onClick={toggleTheme}
       className={cn('rounded-full', className)}
-      {...props}>
+      {...props}
+    >
       <div className='relative size-[18px]'>
         <Sun
           className={cn(
             'absolute inset-0 size-[18px] rotate-0 scale-100 transition-all duration-300',
-            isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
+            isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0',
           )}
           strokeWidth={2}
         />
         <Moon
           className={cn(
             'absolute inset-0 size-[18px] rotate-90 scale-0 transition-all duration-300',
-            isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
+            isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100',
           )}
           strokeWidth={2}
         />

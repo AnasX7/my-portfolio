@@ -16,11 +16,7 @@ const DEFAULT_SPRING_OPTIONS: SpringOptions = {
   restDelta: 0.001,
 }
 
-export function ScrollProgress({
-  className,
-  springOptions,
-  containerRef,
-}: ScrollProgressProps) {
+export function ScrollProgress({ className, springOptions, containerRef }: ScrollProgressProps) {
   const { scrollYProgress } = useScroll({
     container: containerRef,
   })

@@ -46,9 +46,10 @@ export default function Hero2() {
   return (
     <motion.section
       id='home'
-      className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden'>
+      className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden'
+    >
       {/* Background */}
-      <div className='absolute inset-0 -z-20 bg-background transition-colors duration-700' />
+      <div className='bg-background absolute inset-0 -z-20 transition-colors duration-700' />
 
       {/* Grid Background with Rounded Corners - Light Mode */}
       <div
@@ -71,7 +72,7 @@ export default function Hero2() {
         className={cn(
           'absolute inset-0 -z-10 opacity-90 transition-colors duration-700',
           'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(148,163,184,0.28),transparent_75%)]',
-          'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(226,232,240,0.15),transparent_100%)]'
+          'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(226,232,240,0.15),transparent_100%)]',
         )}
       />
       {/* Main Content Container */}
@@ -79,29 +80,26 @@ export default function Hero2() {
         variants={staggerContainer}
         initial='hidden'
         animate='visible'
-        className='relative z-10 mx-auto max-w-352 px-4 sm:px-6 lg:px-8 text-center'>
+        className='relative z-10 mx-auto max-w-352 px-4 text-center sm:px-6 lg:px-8'
+      >
         {/* Badge */}
-        <motion.div
-          variants={staggerItem}
-          className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
+        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className='inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/80 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors backdrop-blur-md dark:border-white/10 dark:bg-white/5'>
+            className='border-border/60 bg-muted/80 text-muted-foreground inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-md transition-colors dark:border-white/10 dark:bg-white/5'
+          >
             <div className='h-2 w-2 animate-pulse rounded-full bg-green-500 dark:bg-green-400' />
-            <span className='text-sm font-medium text-muted-foreground'>
-              {t(DATA.hero.badge)}
-            </span>
+            <span className='text-muted-foreground text-sm font-medium'>{t(DATA.hero.badge)}</span>
           </motion.div>
         </motion.div>
 
         {/* Name Header */}
-        <motion.div
-          variants={staggerItem}
-          className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
+        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
           <motion.h1
-            className={`flex justify-center items-center gap-1 md:gap-3 text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight ${
+            className={`flex items-center justify-center gap-1 text-2xl font-bold tracking-tight md:gap-3 md:text-3xl lg:text-4xl ${
               isArabic && 'leading-tight'
-            }`}>
+            }`}
+          >
             <motion.span className='text-muted-foreground font-medium'>
               {t(DATA.hero.welcomeKey)}
             </motion.span>
@@ -112,14 +110,15 @@ export default function Hero2() {
                 rotate: isArabic ? 12 : -12,
                 transition: { type: 'spring', stiffness: 400, damping: 10 },
               }}
-              className='relative'>
-              <Avatar className='relative z-10 size-14 rounded-2xl border-2 border-border/60 backdrop-blur-sm md:size-16 md:rounded-2xl dark:border-white/20'>
+              className='relative'
+            >
+              <Avatar className='border-border/60 relative z-10 size-14 rounded-2xl border-2 backdrop-blur-sm md:size-16 md:rounded-2xl dark:border-white/20'>
                 <AvatarImage
                   alt={t(DATA.profile.nameKey)}
                   src={DATA.profile.avatar}
                   className='object-cover'
                 />
-                <AvatarFallback className='bg-gradient-to-br from-purple-500 to-orange-500 text-white font-bold'>
+                <AvatarFallback className='bg-gradient-to-br from-purple-500 to-orange-500 font-bold text-white'>
                   {t(DATA.profile.initialsKey)}
                 </AvatarFallback>
               </Avatar>
@@ -139,34 +138,30 @@ export default function Hero2() {
                 repeat: Infinity,
                 repeatDelay: 3,
                 ease: 'easeInOut',
-              }}>
+              }}
+            >
               <WavingHand />
             </motion.div>
           </motion.h1>
         </motion.div>
 
         {/* Main Title */}
-        <motion.div
-          variants={staggerItem}
-          className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
+        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <h2
-            className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight ${
+            className={`text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl xl:text-7xl ${
               isArabic && 'md:leading-tight'
-            }`}>
-            <span className='mb-2 block text-foreground'>
-              {t(DATA.hero.titleKey)}
-            </span>
-            <span className='block bg-gradient-to-b from-foreground to-foreground/65 text-transparent bg-clip-text dark:from-white dark:to-white/65'>
+            }`}
+          >
+            <span className='text-foreground mb-2 block'>{t(DATA.hero.titleKey)}</span>
+            <span className='from-foreground to-foreground/65 block bg-gradient-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
               {t(DATA.hero.highlightKey)}
             </span>
           </h2>
         </motion.div>
 
         {/* Subtitle */}
-        <motion.div
-          variants={staggerItem}
-          className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
-          <p className='mx-auto max-w-2xl text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground/90 leading-relaxed font-light'>
+        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
+          <p className='text-muted-foreground/90 mx-auto max-w-2xl text-base leading-relaxed font-light sm:text-lg md:text-xl lg:text-2xl'>
             {t(DATA.hero.subtitle)}
           </p>
         </motion.div>
@@ -174,12 +169,14 @@ export default function Hero2() {
         {/* CTA Section */}
         <motion.div
           variants={staggerItem}
-          className='flex flex-col sm:flex-row gap-4 justify-center items-center'>
+          className='flex flex-col items-center justify-center gap-4 sm:flex-row'
+        >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <MagneticLinkPreview
               url={DATA.profile.resumeURL}
               icon={Download}
-              className='rounded-full px-8 py-4'>
+              className='rounded-full px-8 py-4'
+            >
               <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
             </MagneticLinkPreview>
           </motion.div>

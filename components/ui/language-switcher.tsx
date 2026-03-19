@@ -32,14 +32,16 @@ export default function LanguageSwitcher() {
         'font-inter': nextLocale === 'en',
       })}
       onClick={() => handleLanguageClick(nextLocale)}
-      aria-label={`Switch language to ${nextLocale === 'en' ? 'English' : 'العربية'}`}>
+      aria-label={`Switch language to ${nextLocale === 'en' ? 'English' : 'العربية'}`}
+    >
       <div className='relative flex items-center justify-center'>
         <Languages className='size-[18px] opacity-0' />
         <span
           className={cn(
             'absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-300',
-            nextLocale === 'ar' ? 'text-base' : ''
-          )}>
+            nextLocale === 'ar' ? 'text-base' : '',
+          )}
+        >
           {nextLabel}
         </span>
       </div>

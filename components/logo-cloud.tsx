@@ -19,8 +19,9 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
       {...props}
       className={cn(
         'overflow-hidden py-4 mask-[linear-gradient(to_right,transparent,black,transparent)]',
-        className
-      )}>
+        className,
+      )}
+    >
       <InfiniteSlider gap={42} reverse speed={80} speedOnHover={25}>
         {logos.map((logo) => (
           <img

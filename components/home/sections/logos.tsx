@@ -6,20 +6,18 @@ export default function Logos() {
   const t = useTranslations()
 
   return (
-    <div className='w-full place-content-center bg-card/65 py-8 border-y-2 border-border border-dashed'>
+    <div className='bg-card/65 border-border w-full place-content-center border-y-2 border-dashed py-8'>
       <section className='relative mx-auto max-w-5xl'>
-        <h2 className='mb-5 text-center font-medium text-foreground text-xl tracking-tight md:text-3xl'>
-          <span className='text-muted-foreground'>
-            {t(DATA.techStack.line1Key)}
-          </span>
+        <h2 className='text-foreground mb-5 text-center text-xl font-medium tracking-tight md:text-3xl'>
+          <span className='text-muted-foreground'>{t(DATA.techStack.line1Key)}</span>
           <br />
           <span className='font-semibold'>{t(DATA.techStack.line2Key)}</span>
         </h2>
-        <div className='mx-auto my-5 h-px max-w-sm bg-border [mask-image:linear-gradient(to_right,transparent,black,transparent)]' />
+        <div className='bg-border mx-auto my-5 h-px max-w-sm [mask-image:linear-gradient(to_right,transparent,black,transparent)]' />
 
         <LogoCloud logos={logos} />
 
-        <div className='mt-5 h-px bg-border [mask-image:linear-gradient(to_right,transparent,black,transparent)]' />
+        <div className='bg-border mt-5 h-px [mask-image:linear-gradient(to_right,transparent,black,transparent)]' />
       </section>
     </div>
   )

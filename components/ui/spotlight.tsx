@@ -60,7 +60,7 @@ export const Spotlight = ({
       transition={{
         duration: 1.5,
       }}
-      className={`pointer-events-none absolute inset-0 max-w-full max-h-full overflow-hidden z-[-1] ${className}`}
+      className={`pointer-events-none absolute inset-0 z-[-1] max-h-full max-w-full overflow-hidden ${className}`}
       style={
         {
           // Light mode: white gradients, dark mode: black gradients
@@ -69,7 +69,8 @@ export const Spotlight = ({
           '--spotlight-fade': 'hsla(0,0%,100%,.02)',
           '--spotlight-end': 'hsla(0,0%,100%,0)',
         } as React.CSSProperties
-      }>
+      }
+    >
       <motion.div
         animate={{
           x: [0, isMobile ? mobileXOffset : xOffset, 0],
@@ -80,12 +81,11 @@ export const Spotlight = ({
           repeatType: 'reverse',
           ease: 'easeInOut',
         }}
-        className='absolute top-0 left-0 pointer-events-none overflow-visible'>
+        className='pointer-events-none absolute top-0 left-0 overflow-visible'
+      >
         <div
           style={{
-            transform: `translateY(${
-              isMobile ? mobileTranslateY : translateY
-            }px) rotate(-45deg)`,
+            transform: `translateY(${isMobile ? mobileTranslateY : translateY}px) rotate(-45deg)`,
             background: gradientFirst,
             width: `${isMobile ? mobileWidth : width}px`,
             height: `${isMobile ? mobileHeight : height}px`,
@@ -124,12 +124,11 @@ export const Spotlight = ({
           repeatType: 'reverse',
           ease: 'easeInOut',
         }}
-        className='absolute top-0 right-0 pointer-events-none overflow-visible'>
+        className='pointer-events-none absolute top-0 right-0 overflow-visible'
+      >
         <div
           style={{
-            transform: `translateY(${
-              isMobile ? mobileTranslateY : translateY
-            }px) rotate(45deg)`,
+            transform: `translateY(${isMobile ? mobileTranslateY : translateY}px) rotate(45deg)`,
             background: gradientFirst,
             width: `${isMobile ? mobileWidth : width}px`,
             height: `${isMobile ? mobileHeight : height}px`,

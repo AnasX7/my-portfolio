@@ -179,11 +179,7 @@ html.lenis body {
   /* Light theme (warm beige/cream) */
   .anim-btn {
     background:
-      radial-gradient(
-        65.28% 65.28% at 50% 100%,
-        rgba(0, 0, 0, 0.08) 0%,
-        rgba(0, 0, 0, 0) 100%
-      ),
+      radial-gradient(65.28% 65.28% at 50% 100%, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0) 100%),
       linear-gradient(0deg, oklch(0.92 0.015 80), oklch(0.92 0.015 80));
   }
 
@@ -197,33 +193,21 @@ html.lenis body {
 
   .anim-btn::before {
     inset: 1px;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.06) 0%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.02) 100%);
     border-radius: 9999px;
   }
 
   .anim-btn::after {
     inset: 2px;
     background:
-      radial-gradient(
-        65.28% 65.28% at 50% 100%,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0) 100%
-      ),
+      radial-gradient(65.28% 65.28% at 50% 100%, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0) 100%),
       linear-gradient(0deg, oklch(0.955 0.012 85), oklch(0.955 0.012 85));
     border-radius: 9999px;
   }
 
   .anim-btn:hover::after {
     background:
-      radial-gradient(
-        65.28% 65.28% at 50% 100%,
-        rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0) 100%
-      ),
+      radial-gradient(65.28% 65.28% at 50% 100%, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%),
       linear-gradient(0deg, oklch(0.94 0.015 80), oklch(0.94 0.015 80));
   }
 

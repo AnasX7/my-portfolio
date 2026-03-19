@@ -11,7 +11,7 @@ export async function send(emailFormData: formData, turnstileResponse: string) {
   try {
     const verificationResult = await verifyTurnstileToken(
       turnstileResponse,
-      process.env.TURNSTILE_SECRET_KEY!
+      process.env.TURNSTILE_SECRET_KEY!,
     )
 
     if (!verificationResult.success) {

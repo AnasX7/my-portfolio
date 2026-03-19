@@ -74,57 +74,61 @@ export default function Header() {
   return (
     <>
       <motion.header
-        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'border-b border-border/50 bg-background/50 shadow-sm backdrop-blur-md'
+            ? 'border-border/50 bg-background/50 border-b shadow-sm backdrop-blur-md'
             : 'bg-transparent'
         }`}
         variants={containerVariants}
         initial='hidden'
-        animate='visible'>
+        animate='visible'
+      >
         <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
           <div className='flex h-16 items-center justify-between'>
             <motion.div
               className='flex items-center space-x-3'
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}>
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            >
               <button
                 onClick={() =>
                   lenis?.scrollTo(0, {
                     duration: 3,
                   })
                 }
-                className='flex items-center space-x-3 cursor-pointer'>
+                className='flex cursor-pointer items-center space-x-3'
+              >
                 <div className='relative'>
                   <Image
                     src={DATA.profile.avatar}
                     alt={t(DATA.profile.nameKey)}
                     width={36}
                     height={36}
-                    className='h-9 w-9 rounded-xl shadow-lg text-white'
+                    className='h-9 w-9 rounded-xl text-white shadow-lg'
                   />
-                  <div className='absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-green-400'></div>
+                  <div className='absolute -top-1 -right-1 h-3 w-3 animate-pulse rounded-full bg-green-400'></div>
                 </div>
                 <div className='flex flex-col'>
-                  <span className='text-lg font-bold text-foreground'>
+                  <span className='text-foreground text-lg font-bold'>
                     {t(DATA.profile.nameKey)}
                   </span>
-                  <span className='-mt-1 text-xs text-muted-foreground'>
+                  <span className='text-muted-foreground -mt-1 text-xs'>
                     {t(DATA.profile.roleKey)}
                   </span>
                 </div>
               </button>
             </motion.div>
 
-            <nav className='absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-1.5 py-1 lg:flex'>
+            <nav className='absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-1.5 py-1 lg:flex'>
               {DATA.navItems.map((item) => (
                 <motion.div
                   key={item.nameKey}
                   variants={itemVariants}
                   className='relative'
                   onMouseEnter={() => setHoveredItem(item.nameKey)}
-                  onMouseLeave={() => setHoveredItem(null)}>
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
                   <Button
                     variant='ghost'
                     size='sm'
@@ -136,10 +140,11 @@ export default function Header() {
                         duration: 3,
                       })
                     }
-                    className='relative rounded-full px-4 text-muted-foreground transition-colors duration-200 hover:bg-transparent hover:text-foreground'>
+                    className='text-muted-foreground hover:text-foreground relative rounded-full px-4 transition-colors duration-200 hover:bg-transparent'
+                  >
                     {hoveredItem === item.nameKey && (
                       <motion.div
-                        className='absolute inset-0 rounded-full bg-secondary dark:bg-secondary/80'
+                        className='bg-secondary dark:bg-secondary/80 absolute inset-0 rounded-full'
                         layoutId='navbar-hover'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -157,32 +162,23 @@ export default function Header() {
               ))}
             </nav>
 
-            <motion.div
-              className='hidden items-center space-x-3 lg:flex'
-              variants={itemVariants}>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}>
+            <motion.div className='hidden items-center space-x-3 lg:flex' variants={itemVariants}>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <LanguageSwitcher />
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <AnimatedThemeToggler />
               </motion.div>
             </motion.div>
 
             <motion.button
-              className='rounded-lg p-2 text-foreground transition-colors duration-200 hover:bg-muted lg:hidden'
+              className='text-foreground hover:bg-muted rounded-lg p-2 transition-colors duration-200 lg:hidden'
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               variants={itemVariants}
-              whileTap={{ scale: 0.95 }}>
-              {isMobileMenuOpen ? (
-                <X className='h-6 w-6' />
-              ) : (
-                <Menu className='h-6 w-6' />
-              )}
+              whileTap={{ scale: 0.95 }}
+            >
+              {isMobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
             </motion.button>
           </div>
         </div>
@@ -199,21 +195,21 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div
-              className='fixed right-4 top-16 z-50 w-80 overflow-hidden rounded-2xl border border-border bg-background shadow-2xl lg:hidden'
+              className='border-border bg-background fixed top-16 right-4 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
               animate='open'
-              exit='closed'>
+              exit='closed'
+            >
               <div className='space-y-6 p-6'>
                 <div className='space-y-1'>
                   {DATA.navItems.map((item) => (
-                    <motion.div
-                      key={item.nameKey}
-                      variants={mobileItemVariants}>
+                    <motion.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
                         href={item.href}
-                        className='block rounded-lg px-4 py-3 font-medium text-foreground transition-colors duration-200 hover:bg-muted'
-                        onClick={() => setIsMobileMenuOpen(false)}>
+                        className='text-foreground hover:bg-muted block rounded-lg px-4 py-3 font-medium transition-colors duration-200'
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
                         {t(item.nameKey)}
                       </Link>
                     </motion.div>
@@ -221,8 +217,9 @@ export default function Header() {
                 </div>
 
                 <motion.div
-                  className='flex flex-row space-x-3 border-t border-border pt-6'
-                  variants={mobileItemVariants}>
+                  className='border-border flex flex-row space-x-3 border-t pt-6'
+                  variants={mobileItemVariants}
+                >
                   <AnimatedThemeToggler />
 
                   <LanguageSwitcher />

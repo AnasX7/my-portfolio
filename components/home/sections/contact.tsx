@@ -26,11 +26,12 @@ export default function Contact() {
           }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true, amount: 0.3 }}
-          className='flex flex-col items-center py-10'>
-          <h2 className='text-2xl md:text-4xl text-center font-bold mb-4 text-foreground dark:text-foreground'>
+          className='flex flex-col items-center py-10'
+        >
+          <h2 className='text-foreground dark:text-foreground mb-4 text-center text-2xl font-bold md:text-4xl'>
             {t(DATA.contact.titleKey)}
           </h2>
-          <p className='text-muted-foreground dark:text-muted-foreground text-sm md:text-lg text-center max-w-2xl'>
+          <p className='text-muted-foreground dark:text-muted-foreground max-w-2xl text-center text-sm md:text-lg'>
             {t(DATA.contact.subtitleKey)}
           </p>
         </motion.div>
@@ -48,7 +49,8 @@ export default function Contact() {
             filter: 'blur(0px)',
           }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true, amount: 0.3 }}>
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <ContactForm />
         </motion.div>
       </div>

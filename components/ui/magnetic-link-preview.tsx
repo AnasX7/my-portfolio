@@ -25,16 +25,12 @@ export function MagneticLinkPreview({
   range = 250,
 }: MagneticLinkPreviewProps) {
   return (
-    <Magnetic
-      intensity={intensity}
-      springOptions={{ bounce }}
-      actionArea='global'
-      range={range}>
+    <Magnetic intensity={intensity} springOptions={{ bounce }} actionArea='global' range={range}>
       <Button asChild variant='animated' className={className}>
         <LinkPreview url={url}>
           {children}
           {Icon && (
-            <Icon className='icon text-muted-foreground dark:text-[#b5b5b5a4] w-4 h-4 transition-transform duration-300' />
+            <Icon className='icon text-muted-foreground h-4 w-4 transition-transform duration-300 dark:text-[#b5b5b5a4]' />
           )}
         </LinkPreview>
       </Button>

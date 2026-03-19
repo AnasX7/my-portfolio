@@ -35,7 +35,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className='relative mt-32 w-full bg-card/55 border rounded-t-[4rem] overflow-hidden'>
+    <footer className='bg-card/55 relative mt-32 w-full overflow-hidden rounded-t-[4rem] border'>
       {/* Grid Background - Light Mode */}
       <div
         className='absolute inset-0 dark:hidden'
@@ -58,26 +58,28 @@ export default function Footer() {
         className={cn(
           'absolute inset-0 -z-10 opacity-90 transition-colors duration-700 pointer-events-none',
           'bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(148,163,184,0.15),transparent_75%)]',
-          'dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(226,232,240,0.05),transparent_100%)]'
+          'dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(226,232,240,0.05),transparent_100%)]',
         )}
       />
 
       {/* Top border with gradient fade */}
-      <div className='absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-border to-transparent opacity-50' />
+      <div className='via-border absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent to-transparent opacity-50' />
 
       {/* Ambient Lights */}
-      <div className='absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full opacity-0 dark:opacity-50 transition-opacity duration-700 pointer-events-none -z-10' />
+      <div className='bg-primary/10 pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 h-[500px] w-[500px] rounded-full opacity-0 blur-[120px] transition-opacity duration-700 dark:opacity-50' />
 
       <motion.div
         variants={staggerContainer}
         initial='hidden'
         whileInView='visible'
         viewport={{ once: true, amount: 0.3 }}
-        className='container mx-auto flex flex-col items-center justify-center px-4 py-20 sm:py-24'>
+        className='container mx-auto flex flex-col items-center justify-center px-4 py-20 sm:py-24'
+      >
         {/* Name / Hero Text */}
         <motion.div
           variants={staggerItem}
-          className='group relative mb-12 flex flex-col items-center justify-center text-center'>
+          className='group relative mb-12 flex flex-col items-center justify-center text-center'
+        >
           {/* Main "Portfolio" Text with Hero Styling */}
           <button
             onClick={() =>
@@ -85,14 +87,16 @@ export default function Footer() {
                 duration: 3,
               })
             }
-            className='relative cursor-pointer'>
+            className='relative cursor-pointer'
+          >
             <h1
               className={cn(
                 'font-black tracking-tighter text-transparent select-none transition-transform duration-500 group-hover:scale-105',
                 'text-[10vw] sm:text-[80px] md:text-[100px] lg:text-[120px] leading-[0.8]',
                 'bg-linear-to-b from-foreground via-foreground/90 to-foreground/50 bg-clip-text',
-                'dark:from-white dark:via-white/90 dark:to-white/50'
-              )}>
+                'dark:from-white dark:via-white/90 dark:to-white/50',
+              )}
+            >
               𝓐𝓷𝖆𝔖
             </h1>
 
@@ -101,18 +105,20 @@ export default function Footer() {
               className={cn(
                 'absolute inset-0 -z-10 font-black tracking-tighter text-transparent opacity-0 transition-all duration-500 group-hover:opacity-10 blur-xl',
                 'text-[10vw] sm:text-[80px] md:text-[100px] lg:text-[120px] leading-[0.8]',
-                'bg-linear-to-b from-primary to-primary/50 bg-clip-text'
-              )}>
+                'bg-linear-to-b from-primary to-primary/50 bg-clip-text',
+              )}
+            >
               𝓐𝓷𝖆𝔖
             </h1>
 
             {/* Portfolio Overlay Text */}
             <div
-              className='absolute top-[110%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12vw] font-black tracking-widest text-muted-foreground/20 pointer-events-none select-none z-0'
+              className='text-muted-foreground/20 pointer-events-none absolute top-[110%] left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 text-[12vw] font-black tracking-widest select-none'
               style={{
                 WebkitTextFillColor: 'transparent',
                 WebkitTextStroke: '1px currentColor',
-              }}>
+              }}
+            >
               PORTFOLIO
             </div>
           </button>
@@ -121,14 +127,16 @@ export default function Footer() {
         {/* Social Links - Clean & Professional */}
         <motion.div
           variants={staggerItem}
-          className='mb-16 flex flex-wrap justify-center gap-6 z-10'>
+          className='z-10 mb-16 flex flex-wrap justify-center gap-6'
+        >
           {DATA.socials.map((social) => (
             <Link
               key={social.name}
               href={social.url}
               target='_blank'
               className='text-muted-foreground hover:text-foreground transition-colors'
-              aria-label={social.name}>
+              aria-label={social.name}
+            >
               <social.icon className='h-6 w-6' />
             </Link>
           ))}
@@ -137,13 +145,14 @@ export default function Footer() {
         {/* Divider */}
         <motion.div
           variants={staggerItem}
-          className='w-full max-w-xs h-px bg-linear-to-r from-transparent via-border to-transparent mb-8'
+          className='via-border mb-8 h-px w-full max-w-xs bg-linear-to-r from-transparent to-transparent'
         />
 
         {/* Copyright */}
         <motion.div
           variants={staggerItem}
-          className='flex flex-col items-center gap-2 text-center text-sm text-muted-foreground/60 font-light'>
+          className='text-muted-foreground/60 flex flex-col items-center gap-2 text-center text-sm font-light'
+        >
           <p>
             &copy; {currentYear} 𝓐𝓷𝖆𝔖, {t(DATA.footer.copyrightKey)}.
           </p>
