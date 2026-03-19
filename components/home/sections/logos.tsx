@@ -13,11 +13,11 @@ export default function Logos() {
           <br />
           <span className='font-semibold'>{t(DATA.techStack.line2Key)}</span>
         </h2>
-        <div className='bg-border mx-auto my-5 h-px max-w-sm [mask-image:linear-gradient(to_right,transparent,black,transparent)]' />
+        <div className='bg-border mx-auto my-5 h-px max-w-sm mask-[linear-gradient(to_right,transparent,black,transparent)]' />
 
         <LogoCloud logos={logos} />
 
-        <div className='bg-border mt-5 h-px [mask-image:linear-gradient(to_right,transparent,black,transparent)]' />
+        <div className='bg-border mt-5 h-px mask-[linear-gradient(to_right,transparent,black,transparent)]' />
       </section>
     </div>
   )

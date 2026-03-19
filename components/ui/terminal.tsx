@@ -94,7 +94,7 @@ export const Terminal = ({ children, className }: TerminalProps) => {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       viewport={{ once: true, amount: 0.3 }}
       className={cn(
-        'z-0 h-full max-h-[400px] w-full max-w-lg rounded-xl border border-border bg-background',
+        'z-0 h-full max-h-100 w-full max-w-lg rounded-xl border border-border bg-background',
         className,
       )}
     >

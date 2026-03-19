@@ -118,7 +118,7 @@ export default function Hero2() {
                   src={DATA.profile.avatar}
                   className='object-cover'
                 />
-                <AvatarFallback className='bg-gradient-to-br from-purple-500 to-orange-500 font-bold text-white'>
+                <AvatarFallback className='bg-linear-to-br from-purple-500 to-orange-500 font-bold text-white'>
                   {t(DATA.profile.initialsKey)}
                 </AvatarFallback>
               </Avatar>
@@ -153,7 +153,7 @@ export default function Hero2() {
             }`}
           >
             <span className='text-foreground mb-2 block'>{t(DATA.hero.titleKey)}</span>
-            <span className='from-foreground to-foreground/65 block bg-gradient-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
+            <span className='from-foreground to-foreground/65 block bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
               {t(DATA.hero.highlightKey)}
             </span>
           </h2>

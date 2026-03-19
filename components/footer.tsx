@@ -66,7 +66,7 @@ export default function Footer() {
       <div className='via-border absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent to-transparent opacity-50' />
 
       {/* Ambient Lights */}
-      <div className='bg-primary/10 pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 h-[500px] w-[500px] rounded-full opacity-0 blur-[120px] transition-opacity duration-700 dark:opacity-50' />
+      <div className='bg-primary/10 pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 h-125 w-125 rounded-full opacity-0 blur-[120px] transition-opacity duration-700 dark:opacity-50' />
 
       <motion.div
         variants={staggerContainer}

@@ -140,7 +140,7 @@ export default function ContactForm() {
                       <Textarea
                         id='message'
                         placeholder={t(DATA.contact.form.message.placeholderKey)}
-                        className='min-h-[120px]'
+                        className='min-h-30'
                         {...field}
                       />
                     </FormControl>

@@ -81,7 +81,7 @@ export const AnimatedThemeToggler = ({
         disabled
         {...props}
       >
-        <Sun className='size-[18px]' />
+        <Sun className='size-4.5' />
         <span className='sr-only'>Toggle theme</span>
       </Button>
     )
@@ -96,17 +96,17 @@ export const AnimatedThemeToggler = ({
       className={cn('rounded-full', className)}
       {...props}
     >
-      <div className='relative size-[18px]'>
+      <div className='relative size-4.5'>
         <Sun
           className={cn(
-            'absolute inset-0 size-[18px] rotate-0 scale-100 transition-all duration-300',
+            'absolute inset-0 size-4.5 rotate-0 scale-100 transition-all duration-300',
             isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0',
           )}
           strokeWidth={2}
         />
         <Moon
           className={cn(
-            'absolute inset-0 size-[18px] rotate-90 scale-0 transition-all duration-300',
+            'absolute inset-0 size-4.5 rotate-90 scale-0 transition-all duration-300',
             isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100',
           )}
           strokeWidth={2}
