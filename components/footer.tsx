@@ -137,7 +137,7 @@ export default function Footer() {
               className='text-muted-foreground hover:text-foreground transition-colors'
               aria-label={social.name}
             >
-              <social.icon className='h-6 w-6' />
+              <social.icon className='size-6' />
             </Link>
           ))}
         </motion.div>

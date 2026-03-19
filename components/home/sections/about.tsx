@@ -171,7 +171,7 @@ const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
       <Icon className='size-5 md:size-6' />
       {title}
     </span>
-    {description && <p className='my-2 text-sm md:text-base'>{description}</p>}
+    {description ? <p className='my-2 text-sm text-pretty md:text-base'>{description}</p> : null}
   </div>
 )
 
@@ -197,7 +197,7 @@ const AnalyticCard = ({
     <div className='flex flex-col gap-1'>
       <div className='flex items-baseline'>
         <AnimatedNumber value={value} delay={delay} className='text-2xl font-bold' />
-        {showPlus && <span className='text-2xl font-bold'>+</span>}
+        {showPlus ? <span className='text-2xl font-bold'>+</span> : null}
       </div>
       <span className='text-muted-foreground text-sm'>{label}</span>
     </div>

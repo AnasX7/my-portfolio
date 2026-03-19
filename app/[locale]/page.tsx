@@ -1,11 +1,21 @@
+import dynamic from 'next/dynamic'
+import { setRequestLocale } from 'next-intl/server'
 import { Spotlight } from '@/components/ui/spotlight'
 import HeroSection from '@/components/home/sections/hero'
-import AboutSection from '@/components/home/sections/about'
-import ProjectSection from '@/components/home/sections/projects'
-import ContactSection from '@/components/home/sections/contact'
-import LogoCloudSection from '@/components/home/sections/logos'
 
-export default function Home() {
+const LogoCloudSection = dynamic(() => import('@/components/home/sections/logos'))
+const AboutSection = dynamic(() => import('@/components/home/sections/about'))
+const ProjectSection = dynamic(() => import('@/components/home/sections/projects'))
+const ContactSection = dynamic(() => import('@/components/home/sections/contact'))
+
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function Home({ params }: Props) {
+  const { locale } = await params
+  setRequestLocale(locale)
+
   return (
     <>
       <Spotlight />

@@ -105,9 +105,9 @@ export default function Header() {
                     alt={t(DATA.profile.nameKey)}
                     width={36}
                     height={36}
-                    className='h-9 w-9 rounded-xl text-white shadow-lg'
+                    className='size-9 rounded-xl text-white shadow-lg'
                   />
-                  <div className='absolute -top-1 -right-1 h-3 w-3 animate-pulse rounded-full bg-green-400'></div>
+                  <div className='absolute -top-1 -right-1 size-3 animate-pulse rounded-full bg-green-400'></div>
                 </div>
                 <div className='flex flex-col'>
                   <span className='text-foreground text-lg font-bold'>
@@ -178,7 +178,7 @@ export default function Header() {
               variants={itemVariants}
               whileTap={{ scale: 0.95 }}
             >
-              {isMobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
+              {isMobileMenuOpen ? <X className='size-6' /> : <Menu className='size-6' />}
             </motion.button>
           </div>
         </div>

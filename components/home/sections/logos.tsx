@@ -8,7 +8,7 @@ export default function Logos() {
   return (
     <div className='bg-card/65 border-border w-full place-content-center border-y-2 border-dashed py-8'>
       <section className='relative mx-auto max-w-5xl'>
-        <h2 className='text-foreground mb-5 text-center text-xl font-medium tracking-tight md:text-3xl'>
+        <h2 className='text-foreground mb-5 text-center text-xl font-medium tracking-tight text-balance md:text-3xl'>
           <span className='text-muted-foreground'>{t(DATA.techStack.line1Key)}</span>
           <br />
           <span className='font-semibold'>{t(DATA.techStack.line2Key)}</span>

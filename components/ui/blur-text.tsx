@@ -119,7 +119,7 @@ const BlurText: React.FC<BlurTextProps> = ({
             }}
           >
             {segment === ' ' ? '\u00A0' : segment}
-            {animateBy === 'words' && index < elements.length - 1 && '\u00A0'}
+            {animateBy === 'words' && index < elements.length - 1 ? '\u00A0' : null}
           </motion.span>
         )
       })}

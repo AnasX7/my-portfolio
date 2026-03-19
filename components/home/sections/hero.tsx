@@ -46,7 +46,7 @@ export default function Hero2() {
   return (
     <motion.section
       id='home'
-      className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden'
+      className='relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden'
     >
       {/* Background */}
       <div className='bg-background absolute inset-0 -z-20 transition-colors duration-700' />
@@ -88,7 +88,7 @@ export default function Hero2() {
             whileHover={{ scale: 1.05 }}
             className='border-border/60 bg-muted/80 text-muted-foreground inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-md transition-colors dark:border-white/10 dark:bg-white/5'
           >
-            <div className='h-2 w-2 animate-pulse rounded-full bg-green-500 dark:bg-green-400' />
+            <div className='size-2 animate-pulse rounded-full bg-green-500 dark:bg-green-400' />
             <span className='text-muted-foreground text-sm font-medium'>{t(DATA.hero.badge)}</span>
           </motion.div>
         </motion.div>
@@ -161,7 +161,7 @@ export default function Hero2() {
 
         {/* Subtitle */}
         <motion.div variants={staggerItem} className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
-          <p className='text-muted-foreground/90 mx-auto max-w-2xl text-base leading-relaxed font-light sm:text-lg md:text-xl lg:text-2xl'>
+          <p className='text-muted-foreground/90 mx-auto max-w-2xl text-base leading-relaxed font-light text-pretty sm:text-lg md:text-xl lg:text-2xl'>
             {t(DATA.hero.subtitle)}
           </p>
         </motion.div>

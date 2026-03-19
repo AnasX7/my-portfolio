@@ -166,16 +166,16 @@ export default function ContactForm() {
           }}
           whileInView={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
           className='bg-muted/45 border-border hidden flex-col items-center justify-center rounded-4xl border-2 p-6 text-center shadow-md lg:flex'
         >
-          <div className='animation-duration-[3000ms] mb-4 h-48 w-48 animate-bounce'>
+          <div className='animation-duration-[3000ms] mb-4 size-48 animate-bounce'>
             <PaperPlane className={`${isRtl && 'rotate-270'}`} />
           </div>
-          <h3 className='text-foreground mb-2 text-xl font-semibold'>
+          <h3 className='text-foreground mb-2 text-xl font-semibold text-balance'>
             {t(DATA.contact.Illustration.titleKey)}
           </h3>
-          <p className='text-muted-foreground max-w-xs text-sm'>
+          <p className='text-muted-foreground max-w-xs text-sm text-pretty'>
             {t(DATA.contact.Illustration.subtitleKey)}
           </p>
         </motion.div>

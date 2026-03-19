@@ -108,7 +108,7 @@ export default async function RootLayout({
         <body
           className={`${inter.variable} ${tajawal.variable} ${
             isArabic ? 'font-tajawal' : 'font-inter'
-          } min-h-screen antialiased`}
+          } min-h-dvh antialiased`}
         >
           <NextIntlClientProvider>
             <ThemeProvider

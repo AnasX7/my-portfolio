@@ -11,7 +11,7 @@ export default function Logos() {
           height='100'
           viewBox='0 0 48 48'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -31,7 +31,7 @@ export default function Logos() {
           height='100'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -53,7 +53,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -73,7 +73,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 24 24'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -93,7 +93,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -113,7 +113,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -133,7 +133,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 30 30'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -153,7 +153,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 30 30'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -173,7 +173,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -193,7 +193,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -213,7 +213,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 32 32'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -233,7 +233,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -253,7 +253,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 30 30'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
@@ -273,7 +273,7 @@ export default function Logos() {
           height='64'
           viewBox='0 0 50 50'
           fill='currentColor'
-          className='mx-auto h-16 w-16 fill-black dark:fill-white'
+          className='mx-auto size-16 fill-black dark:fill-white'
         >
           <path
             d={
