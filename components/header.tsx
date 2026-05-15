@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence, Variants } from 'motion/react'
+import { m, AnimatePresence, Variants } from 'motion/react'
 import { Menu, X } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
@@ -25,7 +25,7 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -73,7 +73,7 @@ export default function Header() {
 
   return (
     <>
-      <motion.header
+      <m.header
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'border-border/50 bg-background/50 border-b shadow-sm backdrop-blur-md'
@@ -85,7 +85,7 @@ export default function Header() {
       >
         <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
           <div className='flex h-16 items-center justify-between'>
-            <motion.div
+            <m.div
               className='flex items-center space-x-3'
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
@@ -118,11 +118,11 @@ export default function Header() {
                   </span>
                 </div>
               </button>
-            </motion.div>
+            </m.div>
 
             <nav className='absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-1.5 py-1 lg:flex'>
               {DATA.navItems.map((item) => (
-                <motion.div
+                <m.div
                   key={item.nameKey}
                   variants={itemVariants}
                   className='relative'
@@ -143,7 +143,7 @@ export default function Header() {
                     className='text-muted-foreground hover:text-foreground relative rounded-full px-4 transition-colors duration-200 hover:bg-transparent'
                   >
                     {hoveredItem === item.nameKey && (
-                      <motion.div
+                      <m.div
                         className='bg-secondary dark:bg-secondary/80 absolute inset-0 rounded-full'
                         layoutId='navbar-hover'
                         initial={{ opacity: 0 }}
@@ -158,43 +158,43 @@ export default function Header() {
                     )}
                     <span className='relative z-10'>{t(item.nameKey)}</span>
                   </Button>
-                </motion.div>
+                </m.div>
               ))}
             </nav>
 
-            <motion.div className='hidden items-center space-x-3 lg:flex' variants={itemVariants}>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <m.div className='hidden items-center space-x-3 lg:flex' variants={itemVariants}>
+              <m.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <LanguageSwitcher />
-              </motion.div>
+              </m.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <AnimatedThemeToggler />
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
-            <motion.button
+            <m.button
               className='text-foreground hover:bg-muted rounded-lg p-2 transition-colors duration-200 lg:hidden'
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               variants={itemVariants}
               whileTap={{ scale: 0.95 }}
             >
               {isMobileMenuOpen ? <X className='size-6' /> : <Menu className='size-6' />}
-            </motion.button>
+            </m.button>
           </div>
         </div>
-      </motion.header>
+      </m.header>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            <motion.div
+            <m.div
               className='fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <motion.div
+            <m.div
               className='border-border bg-background fixed top-16 right-4 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
@@ -204,7 +204,7 @@ export default function Header() {
               <div className='space-y-6 p-6'>
                 <div className='space-y-1'>
                   {DATA.navItems.map((item) => (
-                    <motion.div key={item.nameKey} variants={mobileItemVariants}>
+                    <m.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
                         href={item.href}
                         className='text-foreground hover:bg-muted block rounded-lg px-4 py-3 font-medium transition-colors duration-200'
@@ -212,20 +212,20 @@ export default function Header() {
                       >
                         {t(item.nameKey)}
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
-                <motion.div
+                <m.div
                   className='border-border flex flex-row space-x-3 border-t pt-6'
                   variants={mobileItemVariants}
                 >
                   <AnimatedThemeToggler />
 
                   <LanguageSwitcher />
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

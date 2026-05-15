@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence, Transition, Variants } from 'motion/react' // Import Variants and Transition
+import { m, AnimatePresence, Transition, Variants, useReducedMotion } from 'motion/react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLocale } from 'next-intl'
@@ -12,6 +12,7 @@ interface ImageCarouselProps {
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [direction, setDirection] = useState<number>(0) // 0 for initial, 1 for next, -1 for prev
+  const shouldReduceMotion = useReducedMotion()
 
   const local = useLocale()
   const isRtl = local === 'ar'
@@ -70,13 +71,13 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
         } flex h-full w-full items-center justify-center overflow-hidden lg:bottom-1/5 lg:w-[50%]`}
       >
         <AnimatePresence initial={false} custom={direction}>
-          <motion.div
+          <m.div
             key={currentIndex}
             custom={direction}
             variants={variants}
-            initial='enter'
+            initial={shouldReduceMotion ? false : 'enter'}
             animate='center'
-            exit='exit'
+            exit={shouldReduceMotion ? undefined : 'exit'}
             className='absolute flex h-full w-full items-center justify-center'
           >
             <Image
@@ -86,7 +87,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
               height={500}
               className='pointer-events-none max-h-full max-w-full object-contain select-none'
             />
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
       <div className='z-10 flex w-full flex-row justify-between gap-4 px-6 lg:justify-center'>

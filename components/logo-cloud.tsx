@@ -1,4 +1,5 @@
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
+import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
 
@@ -24,14 +25,14 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
     >
       <InfiniteSlider gap={42} reverse speed={80} speedOnHover={25}>
         {logos.map((logo) => (
-          <img
+          <Image
             alt={logo.alt}
             className='pointer-events-none h-10 select-none md:h-12 dark:brightness-0 dark:invert'
-            height={logo.height || 'auto'}
+            height={logo.height ?? 48}
             key={`logo-${logo.alt}`}
-            loading='lazy'
+            sizes='(max-width: 768px) 120px, 160px'
             src={logo.src}
-            width={logo.width || 'auto'}
+            width={logo.width ?? 48}
           />
         ))}
       </InfiniteSlider>

@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'motion/react'
+import { m, useReducedMotion } from 'motion/react'
+import { useSyncExternalStore, type CSSProperties } from 'react'
 
 type SpotlightProps = {
   gradientFirst?: string
@@ -28,14 +28,16 @@ export const Spotlight = ({
   xOffset = 100,
   className = '',
 }: SpotlightProps = {}) => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  const shouldReduceMotion = useReducedMotion()
+  const isMobile = useSyncExternalStore(
+    (onStoreChange) => {
+      if (typeof window === 'undefined') return () => {}
+      window.addEventListener('resize', onStoreChange)
+      return () => window.removeEventListener('resize', onStoreChange)
+    },
+    () => (typeof window !== 'undefined' ? window.innerWidth < 640 : false),
+    () => false,
+  )
 
   const mobileWidth = 320
   const mobileHeight = 600
@@ -43,14 +45,8 @@ export const Spotlight = ({
   const mobileTranslateY = -120
   const mobileXOffset = 40
 
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => setMounted(true), [])
-
-  if (!mounted) return null
-
   return (
-    <motion.div
+    <m.div
       initial={{
         opacity: 0,
       }}
@@ -68,19 +64,27 @@ export const Spotlight = ({
           '--spotlight-main': 'hsla(0,0%,100%,.08)',
           '--spotlight-fade': 'hsla(0,0%,100%,.02)',
           '--spotlight-end': 'hsla(0,0%,100%,0)',
-        } as React.CSSProperties
+        } as CSSProperties
       }
     >
-      <motion.div
-        animate={{
-          x: [0, isMobile ? mobileXOffset : xOffset, 0],
-        }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-        }}
+      <m.div
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                x: [0, isMobile ? mobileXOffset : xOffset, 0],
+              }
+        }
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : {
+                duration,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }
+        }
         className='pointer-events-none absolute top-0 left-0 overflow-visible'
       >
         <div
@@ -112,18 +116,26 @@ export const Spotlight = ({
           }}
           className={`absolute top-0 left-0 origin-top-left`}
         />
-      </motion.div>
+      </m.div>
 
-      <motion.div
-        animate={{
-          x: [0, -(isMobile ? mobileXOffset : xOffset), 0],
-        }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-        }}
+      <m.div
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                x: [0, -(isMobile ? mobileXOffset : xOffset), 0],
+              }
+        }
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : {
+                duration,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }
+        }
         className='pointer-events-none absolute top-0 right-0 overflow-visible'
       >
         <div
@@ -155,7 +167,7 @@ export const Spotlight = ({
           }}
           className={`absolute top-0 right-0 origin-top-right`}
         />
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }

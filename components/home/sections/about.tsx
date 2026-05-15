@@ -7,7 +7,7 @@ import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/termina
 import ExperinceTimeline from '@/components/home/experince-timeline'
 import AnimatedNumber from '@/components/ui/animated-number'
 import { UserRound, ChartLine, ToolCase, BriefcaseBusiness, LucideIcon } from 'lucide-react'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 
@@ -17,7 +17,7 @@ export default function About() {
   return (
     <section id='about' className='mt-18 sm:mt-20'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
-        <motion.div
+        <m.div
           className='mx-auto grid gap-6 sm:gap-6 lg:grid-cols-2'
           initial='hidden'
           whileInView='show'
@@ -141,7 +141,7 @@ export default function About() {
               </div>
             </div>
           </AboutCard>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

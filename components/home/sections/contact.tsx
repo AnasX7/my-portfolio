@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 import ContactForm from '@/components/home/contact-form'
@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <section id='contact' className='mt-20 sm:mt-32'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
-        <motion.div
+        <m.div
           initial={{
             opacity: 0,
             y: 30,
@@ -34,8 +34,8 @@ export default function Contact() {
           <p className='text-muted-foreground dark:text-muted-foreground max-w-2xl text-center text-sm text-pretty md:text-lg'>
             {t(DATA.contact.subtitleKey)}
           </p>
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           initial={{
             opacity: 0,
             y: 30,
@@ -52,7 +52,7 @@ export default function Contact() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <ContactForm />
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

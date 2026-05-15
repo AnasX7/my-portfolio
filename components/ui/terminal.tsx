@@ -1,8 +1,9 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { motion, MotionProps, useInView } from 'motion/react'
-import { useEffect, useRef, useState } from 'react'
+import { m, MotionProps, useInView } from 'motion/react'
+import { useRef } from 'react'
+import type { CSSProperties } from 'react'
 
 interface AnimatedSpanProps extends MotionProps {
   children: React.ReactNode
@@ -18,7 +19,7 @@ export const AnimatedSpan = ({
   start = true,
   ...props
 }: AnimatedSpanProps) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0, y: -5 }}
     animate={start ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.3, delay: delay / 1000 }}
@@ -26,7 +27,7 @@ export const AnimatedSpan = ({
     {...props}
   >
     {children}
-  </motion.div>
+  </m.div>
 )
 
 interface TypingAnimationProps extends MotionProps {
@@ -34,7 +35,6 @@ interface TypingAnimationProps extends MotionProps {
   className?: string
   duration?: number
   delay?: number
-  as?: React.ElementType
   start?: boolean
 }
 
@@ -42,8 +42,7 @@ export const TypingAnimation = ({
   children,
   className,
   duration = 60,
-  // delay = 0,
-  as: Component = 'span',
+  delay = 0,
   start = true,
   ...props
 }: TypingAnimationProps) => {
@@ -51,29 +50,22 @@ export const TypingAnimation = ({
     throw new Error('TypingAnimation: children must be a string.')
   }
 
-  const MotionComponent = motion.create(Component)
-  const [displayedText, setDisplayedText] = useState<string>('')
-
-  useEffect(() => {
-    if (!start) return
-
-    let i = 0
-    const typingEffect = setInterval(() => {
-      if (i < children.length) {
-        setDisplayedText(children.substring(0, i + 1))
-        i++
-      } else {
-        clearInterval(typingEffect)
-      }
-    }, duration)
-
-    return () => clearInterval(typingEffect)
-  }, [children, duration, start])
-
   return (
-    <MotionComponent className={cn('text-sm font-normal tracking-tight', className)} {...props}>
-      {displayedText}
-    </MotionComponent>
+    <m.span
+      className={cn('typing-text text-sm font-normal tracking-tight', className)}
+      data-start={start}
+      style={
+        {
+          '--typing-duration': `${Math.max(children.length, 1) * duration}ms`,
+          '--typing-steps': Math.max(children.length, 1),
+          '--typing-delay': `${delay}ms`,
+          '--typing-width': `${children.length}ch`,
+        } as CSSProperties
+      }
+      {...props}
+    >
+      {children}
+    </m.span>
   )
 }
 
@@ -87,7 +79,7 @@ export const Terminal = ({ children, className }: TerminalProps) => {
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -108,6 +100,6 @@ export const Terminal = ({ children, className }: TerminalProps) => {
       <pre className='p-4'>
         <code className='grid gap-y-1 overflow-auto'>{children(isInView)}</code>
       </pre>
-    </motion.div>
+    </m.div>
   )
 }

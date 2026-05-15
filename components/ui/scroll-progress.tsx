@@ -1,10 +1,10 @@
 'use client'
 
-import { motion, SpringOptions, useScroll, useSpring } from 'motion/react'
+import { m, SpringOptions, useScroll, useSpring } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { RefObject } from 'react'
 
-export type ScrollProgressProps = {
+type ScrollProgressProps = {
   className?: string
   springOptions?: SpringOptions
   containerRef?: RefObject<HTMLDivElement | null>
@@ -27,7 +27,7 @@ export function ScrollProgress({ className, springOptions, containerRef }: Scrol
   })
 
   return (
-    <motion.div
+    <m.div
       className={cn('inset-x-0 top-0 h-1 origin-left', className)}
       style={{
         scaleX,

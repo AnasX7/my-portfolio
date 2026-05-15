@@ -1,7 +1,7 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { m, useReducedMotion } from 'motion/react'
 import { Download } from 'lucide-react'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -14,6 +14,7 @@ export default function Hero2() {
   const t = useTranslations()
   const locale = useLocale()
   const isArabic = locale === 'ar'
+  const shouldReduceMotion = useReducedMotion()
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -44,7 +45,7 @@ export default function Hero2() {
   } as const
 
   return (
-    <motion.section
+    <m.section
       id='home'
       className='relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden'
     >
@@ -76,35 +77,33 @@ export default function Hero2() {
         )}
       />
       {/* Main Content Container */}
-      <motion.div
+      <m.div
         variants={staggerContainer}
         initial='hidden'
         animate='visible'
         className='relative z-10 mx-auto max-w-352 px-4 text-center sm:px-6 lg:px-8'
       >
         {/* Badge */}
-        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
-          <motion.div
+        <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
+          <m.div
             whileHover={{ scale: 1.05 }}
             className='border-border/60 bg-muted/80 text-muted-foreground inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-md transition-colors dark:border-white/10 dark:bg-white/5'
           >
             <div className='size-2 animate-pulse rounded-full bg-green-500 dark:bg-green-400' />
             <span className='text-muted-foreground text-sm font-medium'>{t(DATA.hero.badge)}</span>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Name Header */}
-        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
-          <motion.h1
+        <m.div variants={staggerItem} className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
+          <m.h1
             className={`flex items-center justify-center gap-1 text-2xl font-bold tracking-tight md:gap-3 md:text-3xl lg:text-4xl ${
               isArabic && 'leading-tight'
             }`}
           >
-            <motion.span className='text-muted-foreground font-medium'>
-              {t(DATA.hero.welcomeKey)}
-            </motion.span>
+            <m.span className='text-muted-foreground font-medium'>{t(DATA.hero.welcomeKey)}</m.span>
 
-            <motion.div
+            <m.div
               whileHover={{
                 scale: 1.1,
                 rotate: isArabic ? 12 : -12,
@@ -122,31 +121,37 @@ export default function Hero2() {
                   {t(DATA.profile.initialsKey)}
                 </AvatarFallback>
               </Avatar>
-            </motion.div>
+            </m.div>
 
-            <motion.span className='text-muted-foreground font-medium'>
-              {t(DATA.profile.nameKey)}
-            </motion.span>
+            <m.span className='text-muted-foreground font-medium'>{t(DATA.profile.nameKey)}</m.span>
 
-            <motion.div
-              animate={{
-                rotate: [0, 14, -8, 14, -4, 10, 0],
-                scale: [1, 1.1, 1, 1.1, 1],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                repeatDelay: 3,
-                ease: 'easeInOut',
-              }}
+            <m.div
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      rotate: [0, 14, -8, 14, -4, 10, 0],
+                      scale: [1, 1.1, 1, 1.1, 1],
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatDelay: 3,
+                      ease: 'easeInOut',
+                    }
+              }
             >
               <WavingHand />
-            </motion.div>
-          </motion.h1>
-        </motion.div>
+            </m.div>
+          </m.h1>
+        </m.div>
 
         {/* Main Title */}
-        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
+        <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <h2
             className={`text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl xl:text-7xl ${
               isArabic && 'md:leading-tight'
@@ -157,21 +162,21 @@ export default function Hero2() {
               {t(DATA.hero.highlightKey)}
             </span>
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Subtitle */}
-        <motion.div variants={staggerItem} className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
+        <m.div variants={staggerItem} className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
           <p className='text-muted-foreground/90 mx-auto max-w-2xl text-base leading-relaxed font-light text-pretty sm:text-lg md:text-xl lg:text-2xl'>
             {t(DATA.hero.subtitle)}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* CTA Section */}
-        <motion.div
+        <m.div
           variants={staggerItem}
           className='flex flex-col items-center justify-center gap-4 sm:flex-row'
         >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <MagneticLinkPreview
               url={DATA.profile.resumeURL}
               icon={Download}
@@ -179,9 +184,9 @@ export default function Hero2() {
             >
               <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
             </MagneticLinkPreview>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+          </m.div>
+        </m.div>
+      </m.div>
+    </m.section>
   )
 }

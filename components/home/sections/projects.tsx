@@ -1,7 +1,7 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { ArrowUpLeft, ArrowUpRight } from 'lucide-react'
 import { DATA } from '@/data/resume'
 import { Badge } from '@/components/ui/badge'
@@ -17,7 +17,7 @@ export default function Projects() {
   return (
     <section id='projects' className='mt-20 sm:mt-32'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
-        <motion.div
+        <m.div
           initial={{
             opacity: 0,
             y: 30,
@@ -41,19 +41,19 @@ export default function Projects() {
             {t(DATA.projects.subtitleKey)}
           </p>
           {/* Bottom decorative element */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
             viewport={{ once: true, amount: 0.3 }}
             className='after:border-border after:bg-secondary pointer-events-none absolute top-full right-0 left-0 -z-10 -mt-32 h-64 w-full overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,oklch(0.88_0.02_80),transparent_70%)] before:opacity-40 after:absolute after:top-1/2 after:-left-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t md:-mt-44 md:h-96 dark:before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] dark:after:border-[#ffffff66] dark:after:bg-zinc-900'
           />
-        </motion.div>
+        </m.div>
 
         <div className='mt-6 flex flex-col gap-6 md:mt-8 lg:mt-14 lg:gap-25'>
           {DATA.projects.cards.map((project, index) => (
-            <motion.div
-              key={index}
+            <m.div
+              key={project.titleKey}
               initial={{
                 opacity: 0,
                 y: 30,
@@ -78,7 +78,7 @@ export default function Projects() {
                 liveUrl={project.liveUrl}
                 images={project.images}
               />
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -116,9 +116,9 @@ function ProjectCard({
         <CardTitle className='text-xl font-semibold md:text-2xl'>{title}</CardTitle>
         <CardDescription className='text-sm md:text-base'>{description}</CardDescription>
         <div className='flex flex-wrap gap-2'>
-          {stack.map((item, index) => (
+          {stack.map((item) => (
             <Badge
-              key={index}
+              key={`${title}-${item}`}
               variant='outline'
               className='font-inter border-primary/20 bg-primary/5 rounded-full px-3 py-0.5 text-xs font-medium sm:px-4 sm:py-1 sm:text-sm'
             >

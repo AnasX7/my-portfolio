@@ -12,6 +12,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { MotionProvider } from '@/components/motion-provider'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -111,19 +112,21 @@ export default async function RootLayout({
           } min-h-dvh antialiased`}
         >
           <NextIntlClientProvider>
-            <ThemeProvider
-              attribute='class'
-              defaultTheme='dark'
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Header />
-              <ScrollProgressProvider>
-                {children}
-                <Toaster />
-              </ScrollProgressProvider>
-              <Footer />
-            </ThemeProvider>
+            <MotionProvider>
+              <ThemeProvider
+                attribute='class'
+                defaultTheme='dark'
+                enableSystem
+                disableTransitionOnChange
+              >
+                <Header />
+                <ScrollProgressProvider>
+                  {children}
+                  <Toaster />
+                </ScrollProgressProvider>
+                <Footer />
+              </ThemeProvider>
+            </MotionProvider>
           </NextIntlClientProvider>
         </body>
       </ReactLenis>

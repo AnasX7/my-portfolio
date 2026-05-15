@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { useLenis } from 'lenis/react'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
@@ -68,7 +68,7 @@ export default function Footer() {
       {/* Ambient Lights */}
       <div className='bg-primary/10 pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 h-125 w-125 rounded-full opacity-0 blur-[120px] transition-opacity duration-700 dark:opacity-50' />
 
-      <motion.div
+      <m.div
         variants={staggerContainer}
         initial='hidden'
         whileInView='visible'
@@ -76,7 +76,7 @@ export default function Footer() {
         className='container mx-auto flex flex-col items-center justify-center px-4 py-20 sm:py-24'
       >
         {/* Name / Hero Text */}
-        <motion.div
+        <m.div
           variants={staggerItem}
           className='group relative mb-12 flex flex-col items-center justify-center text-center'
         >
@@ -122,13 +122,10 @@ export default function Footer() {
               PORTFOLIO
             </div>
           </button>
-        </motion.div>
+        </m.div>
 
         {/* Social Links - Clean & Professional */}
-        <motion.div
-          variants={staggerItem}
-          className='z-10 mb-16 flex flex-wrap justify-center gap-6'
-        >
+        <m.div variants={staggerItem} className='z-10 mb-16 flex flex-wrap justify-center gap-6'>
           {DATA.socials.map((social) => (
             <Link
               key={social.name}
@@ -140,24 +137,24 @@ export default function Footer() {
               <social.icon className='size-6' />
             </Link>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Divider */}
-        <motion.div
+        <m.div
           variants={staggerItem}
           className='via-border mb-8 h-px w-full max-w-xs bg-linear-to-r from-transparent to-transparent'
         />
 
         {/* Copyright */}
-        <motion.div
+        <m.div
           variants={staggerItem}
           className='text-muted-foreground/60 flex flex-col items-center gap-2 text-center text-sm font-light'
         >
           <p>
             &copy; {currentYear} 𝓐𝓷𝖆𝔖, {t(DATA.footer.copyrightKey)}.
           </p>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </footer>
   )
 }

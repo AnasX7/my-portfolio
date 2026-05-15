@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useSyncExternalStore } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { flushSync } from 'react-dom'
 
@@ -11,6 +11,25 @@ interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<typeo
   duration?: number
 }
 
+const subscribeThemeClass = (onStoreChange: () => void) => {
+  if (typeof document === 'undefined') {
+    return () => {}
+  }
+
+  const observer = new MutationObserver(onStoreChange)
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  })
+
+  return () => observer.disconnect()
+}
+
+const getThemeSnapshot = () =>
+  typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+
+const getServerThemeSnapshot = () => false
+
 export const AnimatedThemeToggler = ({
   className,
   duration = 400,
@@ -18,26 +37,8 @@ export const AnimatedThemeToggler = ({
   size = 'icon',
   ...props
 }: AnimatedThemeTogglerProps) => {
-  const [isDark, setIsDark] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const isDark = useSyncExternalStore(subscribeThemeClass, getThemeSnapshot, getServerThemeSnapshot)
   const buttonRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    setMounted(true)
-    const updateTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-
-    updateTheme()
-
-    const observer = new MutationObserver(updateTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-
-    return () => observer.disconnect()
-  }, [])
 
   const toggleTheme = useCallback(async () => {
     if (!buttonRef.current) return
@@ -45,7 +46,6 @@ export const AnimatedThemeToggler = ({
     await document.startViewTransition(() => {
       flushSync(() => {
         const newTheme = !isDark
-        setIsDark(newTheme)
         document.documentElement.classList.toggle('dark')
         localStorage.setItem('theme', newTheme ? 'dark' : 'light')
       })
@@ -70,22 +70,6 @@ export const AnimatedThemeToggler = ({
       },
     )
   }, [isDark, duration])
-
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return (
-      <Button
-        variant={variant}
-        size={size}
-        className={cn('rounded-full', className)}
-        disabled
-        {...props}
-      >
-        <Sun className='size-4.5' />
-        <span className='sr-only'>Toggle theme</span>
-      </Button>
-    )
-  }
 
   return (
     <Button

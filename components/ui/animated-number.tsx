@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, animate, useInView } from 'motion/react'
+import { m, useMotionValue, animate, useInView, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 interface AnimatedNumberProps {
@@ -12,12 +12,17 @@ interface AnimatedNumberProps {
 export default function AnimatedNumber({ value, className, delay = 0 }: AnimatedNumberProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
+  const shouldReduceMotion = useReducedMotion()
 
   const [displayValue, setDisplayValue] = useState(0)
   const motionValue = useMotionValue(0)
 
   useEffect(() => {
     if (!isInView) return
+
+    if (shouldReduceMotion) {
+      return
+    }
 
     const controls = animate(motionValue, value, {
       duration: 1.5,
@@ -27,18 +32,18 @@ export default function AnimatedNumber({ value, className, delay = 0 }: Animated
     })
 
     return controls.stop
-  }, [isInView, value, motionValue, delay])
+  }, [isInView, shouldReduceMotion, value, motionValue, delay])
 
   return (
-    <motion.span
+    <m.span
       ref={ref}
       className={className}
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.8 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0 }}
-      transition={{ duration: 0.4, delay: delay / 1000 }}
+      transition={shouldReduceMotion ? undefined : { duration: 0.4, delay: delay / 1000 }}
     >
-      {displayValue}
-    </motion.span>
+      {shouldReduceMotion ? value : displayValue}
+    </m.span>
   )
 }

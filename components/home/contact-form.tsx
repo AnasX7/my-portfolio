@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, type BaseSyntheticEvent } from 'react'
 import { getFormSchema, formData } from '@/lib/schemas'
 
 import { Card, CardContent, CardDecorator } from '@/components/ui/card'
@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/form'
 import { PaperPlane } from '@/components/icons/paper-plane'
 import { useTranslations, useLocale } from 'next-intl'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import { z } from 'zod'
 import { send } from '@/lib/email'
@@ -45,8 +45,6 @@ export default function ContactForm() {
     },
   })
 
-  const formRef = useRef<HTMLFormElement>(null)
-
   useEffect(() => {
     // Load Turnstile script
     const script = document.createElement('script')
@@ -65,29 +63,31 @@ export default function ContactForm() {
     }
   }, [])
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      const turnstileInput = formRef.current?.querySelector(
-        'input[name="cf-turnstile-response"]',
-      ) as HTMLInputElement | null
+  async function onSubmit(values: z.infer<typeof formSchema>, event?: BaseSyntheticEvent) {
+    const formElement = event?.target
+    const submittedFormData =
+      formElement instanceof HTMLFormElement ? new FormData(formElement) : null
+    const turnstileResponse = submittedFormData?.get('cf-turnstile-response')
 
-      const turnstileResponse = turnstileInput?.value
-
-      if (!turnstileResponse) {
-        toast.error(t(DATA.toast.errorKey))
-        return
-      }
-
-      const promiseWrapper = toast.promise(send(values, turnstileResponse), {
-        loading: t(DATA.toast.loadingKey),
-        success: () => t(DATA.toast.successKey),
-      })
-
-      await promiseWrapper.unwrap()
-      form.reset()
-    } catch {
+    if (typeof turnstileResponse !== 'string' || turnstileResponse.length === 0) {
       toast.error(t(DATA.toast.errorKey))
+      return
     }
+
+    const sendPromise = send(values, turnstileResponse)
+    toast.promise(sendPromise, {
+      loading: t(DATA.toast.loadingKey),
+      success: () => t(DATA.toast.successKey),
+      error: () => t(DATA.toast.errorKey),
+    })
+
+    const isSent = await sendPromise.then(() => true).catch(() => false)
+
+    if (!isSent) {
+      return
+    }
+
+    form.reset()
   }
 
   return (
@@ -95,7 +95,7 @@ export default function ContactForm() {
       <CardDecorator />
       <CardContent className='grid grid-rows-1 gap-8 lg:grid-cols-2 lg:grid-rows-none'>
         <Form {...form}>
-          <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-2'>
               <FormField
                 control={form.control}
@@ -157,7 +157,7 @@ export default function ContactForm() {
         </Form>
 
         {/*  Illustration */}
-        <motion.div
+        <m.div
           initial={{
             opacity: 0,
             x: isRtl ? -20 : 20,
@@ -178,7 +178,7 @@ export default function ContactForm() {
           <p className='text-muted-foreground max-w-xs text-sm text-pretty'>
             {t(DATA.contact.Illustration.subtitleKey)}
           </p>
-        </motion.div>
+        </m.div>
       </CardContent>
     </Card>
   )

@@ -1,12 +1,12 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { useMotionValue, animate, motion } from 'motion/react'
+import { useMotionValue, animate, m, useReducedMotion } from 'motion/react'
 import { useState, useEffect } from 'react'
 import useMeasure from 'react-use-measure'
 import { useLocale } from 'next-intl'
 
-export type InfiniteSliderProps = {
+type InfiniteSliderProps = {
   children: React.ReactNode
   gap?: number
   speed?: number
@@ -25,7 +25,9 @@ export function InfiniteSlider({
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const [currentSpeed, setCurrentSpeed] = useState(speed)
+  const shouldReduceMotion = useReducedMotion()
+  const [isHovering, setIsHovering] = useState(false)
+  const currentSpeed = isHovering && speedOnHover ? speedOnHover : speed
   const [ref, { width, height }] = useMeasure()
   const translation = useMotionValue(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
@@ -36,6 +38,11 @@ export function InfiniteSlider({
   const isRTL = locale === 'ar'
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      translation.set(0)
+      return
+    }
+
     let controls
     const size = direction === 'horizontal' ? width : height
     const contentSize = size + gap
@@ -82,6 +89,7 @@ export function InfiniteSlider({
   }, [
     key,
     translation,
+    shouldReduceMotion,
     currentSpeed,
     width,
     height,
@@ -95,19 +103,19 @@ export function InfiniteSlider({
   const hoverProps = speedOnHover
     ? {
         onHoverStart: () => {
+          setIsHovering(true)
           setIsTransitioning(true)
-          setCurrentSpeed(speedOnHover)
         },
         onHoverEnd: () => {
+          setIsHovering(false)
           setIsTransitioning(true)
-          setCurrentSpeed(speed)
         },
       }
     : {}
 
   return (
     <div className={cn('overflow-hidden', className)}>
-      <motion.div
+      <m.div
         className='flex w-max'
         style={{
           ...(direction === 'horizontal' ? { x: translation } : { y: translation }),
@@ -119,7 +127,7 @@ export function InfiniteSlider({
       >
         {children}
         {children}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

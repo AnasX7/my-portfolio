@@ -172,6 +172,33 @@ html.lenis body {
   .animate-shine {
     animation: shine 5s linear infinite;
   }
+
+  @keyframes typing-reveal {
+    from {
+      width: 0;
+    }
+    to {
+      width: var(--typing-width);
+    }
+  }
+
+  .typing-text[data-start='true'] {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation-name: typing-reveal;
+    animation-duration: var(--typing-duration);
+    animation-timing-function: steps(var(--typing-steps));
+    animation-delay: var(--typing-delay);
+    animation-fill-mode: forwards;
+  }
+
+  .typing-text[data-start='false'] {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+  }
 }
 
 @layer components {
@@ -335,6 +362,17 @@ html.lenis body {
     opacity: 1;
     animation-duration: 2.5s;
     animation-delay: 0.2s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
