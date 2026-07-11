@@ -32,6 +32,7 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
             key={`logo-${logo.alt}`}
             sizes='(max-width: 768px) 120px, 160px'
             src={logo.src}
+            unoptimized
             width={logo.width ?? 48}
           />
         ))}
