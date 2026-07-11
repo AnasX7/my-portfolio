@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
+import { Button as ButtonPrimitive } from '@base-ui/react/button'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
@@ -36,86 +36,48 @@ const buttonVariants = cva(
   },
 )
 
+function AnimatedButtonContent({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <div className='points_wrapper pointer-events-none absolute z-10 h-full w-full overflow-hidden rounded-full'>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+        <i className='point'></i>
+      </div>
+      <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
+        {children}
+      </span>
+    </>
+  )
+}
+
 function Button({
   className,
   variant,
   size,
-  asChild = false,
+  children,
   ...props
-}: React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : 'button'
-
-  if (variant === 'animated') {
-    if (asChild) {
-      const child = React.Children.only(props.children) as React.ReactElement<{
-        children?: React.ReactNode
-      }>
-      return (
-        <Comp
-          data-slot='button'
-          className={cn(buttonVariants({ variant, size, className }))}
-          {...props}
-        >
-          {React.cloneElement(child, {
-            children: (
-              <>
-                <div className='points_wrapper pointer-events-none absolute z-10 h-full w-full overflow-hidden rounded-full'>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                  <i className='point'></i>
-                </div>
-                <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
-                  {child.props.children}
-                </span>
-              </>
-            ),
-          })}
-        </Comp>
-      )
-    }
-
-    return (
-      <Comp
-        data-slot='button'
-        className={cn(buttonVariants({ variant, size, className }))}
-        {...props}
-      >
-        <div className='points_wrapper pointer-events-none absolute z-10 h-full w-full overflow-hidden rounded-full'>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-          <i className='point'></i>
-        </div>
-        <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
-          {props.children}
-        </span>
-      </Comp>
-    )
-  }
-
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
-    <Comp
+    <ButtonPrimitive
       data-slot='button'
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {variant === 'animated' ? (
+        <AnimatedButtonContent>{children}</AnimatedButtonContent>
+      ) : (
+        children
+      )}
+    </ButtonPrimitive>
   )
 }
 
-export { Button }
+export { AnimatedButtonContent, Button, buttonVariants }

@@ -2,7 +2,7 @@
 
 import { Magnetic } from './magnetic'
 import { LinkPreview } from './link-preview'
-import { Button } from './button'
+import { AnimatedButtonContent, buttonVariants } from './button'
 import { LucideIcon } from 'lucide-react'
 
 interface MagneticLinkPreviewProps {
@@ -26,14 +26,14 @@ export function MagneticLinkPreview({
 }: MagneticLinkPreviewProps) {
   return (
     <Magnetic intensity={intensity} springOptions={{ bounce }} actionArea='global' range={range}>
-      <Button asChild variant='animated' className={className}>
-        <LinkPreview url={url}>
+      <LinkPreview url={url} className={buttonVariants({ variant: 'animated', className })}>
+        <AnimatedButtonContent>
           {children}
           {Icon && (
             <Icon className='icon text-muted-foreground size-4 transition-transform duration-300 dark:text-[#b5b5b5a4]' />
           )}
-        </LinkPreview>
-      </Button>
+        </AnimatedButtonContent>
+      </LinkPreview>
     </Magnetic>
   )
 }

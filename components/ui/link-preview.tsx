@@ -1,6 +1,6 @@
 'use client'
 
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
+import { Popover } from '@base-ui/react/popover'
 
 import { encode } from 'qss'
 import React from 'react'
@@ -62,7 +62,7 @@ export const LinkPreview = ({
 
   const translateX = useSpring(x, springConfig)
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     const targetRect = event.currentTarget.getBoundingClientRect()
     const eventOffsetX = event.clientX - targetRect.left
     const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2 // Reduce the effect to make it subtle
@@ -77,67 +77,68 @@ export const LinkPreview = ({
         </div>
       ) : null}
 
-      <HoverCardPrimitive.Root
-        openDelay={50}
-        closeDelay={100}
-        onOpenChange={(open) => {
-          setOpen(open)
-        }}
-      >
-        <HoverCardPrimitive.Trigger
+      <Popover.Root open={isOpen} onOpenChange={setOpen} modal={false}>
+        <Popover.Trigger
+          render={<Link href={url} target='_blank' />}
+          nativeButton={false}
+          openOnHover
+          delay={50}
+          closeDelay={100}
           onMouseMove={handleMouseMove}
           className={cn('text-black dark:text-white', className)}
-          href={url}
-          target='_blank'
         >
           {children}
-        </HoverCardPrimitive.Trigger>
+        </Popover.Trigger>
 
-        <HoverCardPrimitive.Content
-          className='origin-(--radix-hover-card-content-transform-origin)'
-          side='top'
-          align='center'
-          sideOffset={10}
-        >
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.6 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: {
-                    type: 'spring',
-                    stiffness: 260,
-                    damping: 20,
-                  },
-                }}
-                exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                className='rounded-xl shadow-xl'
-                style={{
-                  x: translateX,
-                }}
-              >
-                <Link
-                  href={url}
-                  target='_blank'
-                  className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
-                  style={{ fontSize: 0 }}
-                >
-                  <Image
-                    src={isStatic ? imageSrc : src}
-                    width={width}
-                    height={height}
-                    className='rounded-lg'
-                    alt='preview image'
-                  />
-                </Link>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </HoverCardPrimitive.Content>
-      </HoverCardPrimitive.Root>
+        <Popover.Portal>
+          <Popover.Positioner
+            className='origin-(--transform-origin)'
+            side='top'
+            align='center'
+            sideOffset={10}
+          >
+            <Popover.Popup>
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      transition: {
+                        type: 'spring',
+                        stiffness: 260,
+                        damping: 20,
+                      },
+                    }}
+                    exit={{ opacity: 0, y: 20, scale: 0.6 }}
+                    className='rounded-xl shadow-xl'
+                    style={{
+                      x: translateX,
+                    }}
+                  >
+                    <Link
+                      href={url}
+                      target='_blank'
+                      className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
+                      style={{ fontSize: 0 }}
+                    >
+                      <Image
+                        src={isStatic ? imageSrc : src}
+                        width={width}
+                        height={height}
+                        className='rounded-lg'
+                        alt='preview image'
+                      />
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Popover.Popup>
+          </Popover.Positioner>
+        </Popover.Portal>
+      </Popover.Root>
     </>
   )
 }

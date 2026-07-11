@@ -6,7 +6,7 @@ import { ArrowUpLeft, ArrowUpRight } from 'lucide-react'
 import { DATA } from '@/data/resume'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardDecorator, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
 import ImageCarousel from '@/components/ui/image-carousel'
 import { Link } from '@/i18n/navigation'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
@@ -127,8 +127,12 @@ function ProjectCard({
           ))}
         </div>
         <div className='flex w-full items-center gap-4'>
-          <Button asChild variant='animated' className='w-auto'>
-            <Link href={githubUrl} target='_blank'>
+          <Link
+            href={githubUrl}
+            target='_blank'
+            className={buttonVariants({ variant: 'animated', className: 'w-auto' })}
+          >
+            <AnimatedButtonContent>
               <div className='flex items-center gap-2'>
                 <svg
                   role='img'
@@ -141,8 +145,8 @@ function ProjectCard({
                 </svg>
                 <span className='text-sm font-medium'>{t('projects.github')}</span>
               </div>
-            </Link>
-          </Button>
+            </AnimatedButtonContent>
+          </Link>
 
           {isLive && liveUrl ? (
             <MagneticLinkPreview

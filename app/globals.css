@@ -156,6 +156,7 @@ html.lenis body {
   }
   body {
     @apply bg-background text-foreground;
+    isolation: isolate;
   }
 }
 

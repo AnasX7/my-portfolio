@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from 'radix-ui'
 import { useLocale } from 'next-intl'
 
 import { cn } from '@/lib/utils'
@@ -80,15 +79,9 @@ function TimelineContent({ className, ...props }: React.HTMLAttributes<HTMLDivEl
 }
 
 // TimelineDate
-interface TimelineDateProps extends React.HTMLAttributes<HTMLTimeElement> {
-  asChild?: boolean
-}
-
-function TimelineDate({ asChild = false, className, ...props }: TimelineDateProps) {
-  const Comp = asChild ? Slot.Root : 'time'
-
+function TimelineDate({ className, ...props }: React.HTMLAttributes<HTMLTimeElement>) {
   return (
-    <Comp
+    <time
       data-slot='timeline-date'
       className={cn(
         'text-muted-foreground mb-1 block text-xs font-medium group-data-[orientation=vertical]/timeline:max-sm:h-4',
@@ -105,11 +98,11 @@ function TimelineHeader({ className, ...props }: React.HTMLAttributes<HTMLDivEle
 }
 
 // TimelineIndicator
-interface TimelineIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
-  asChild?: boolean
-}
-
-function TimelineIndicator({ className, children, ...props }: TimelineIndicatorProps) {
+function TimelineIndicator({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   const locale = useLocale()
   const isRTL = locale === 'ar'
 
