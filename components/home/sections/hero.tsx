@@ -104,7 +104,7 @@ export default function HeroV2() {
   return (
     <m.section
       id='home'
-      className='relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden'
+      className='relative flex w-full flex-col items-center justify-start overflow-hidden pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20'
     >
       {/* Background */}
       <div className='bg-background absolute inset-0 -z-20 transition-colors duration-700' />
