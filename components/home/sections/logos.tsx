@@ -8,7 +8,7 @@ export default function Logos() {
   return (
     <div className='w-full place-content-center py-6'>
       <section className='relative mx-auto max-w-5xl'>
-        <h2 className='text-muted-foreground/80 mb-6 text-center text-xs font-semibold tracking-widest uppercase'>
+        <h2 className='text-muted-foreground/85 mb-6 text-center text-sm font-normal sm:text-base'>
           {t(DATA.techStack.line1Key)}
         </h2>
 
