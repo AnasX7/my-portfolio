@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, type BaseSyntheticEvent } from 'react'
+import { useEffect, useRef, type BaseSyntheticEvent } from 'react'
 import { getFormSchema, formData } from '@/lib/schemas'
+import Script from 'next/script'
 
 import { Card, CardContent, CardDecorator } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -45,20 +46,38 @@ export default function ContactForm() {
     },
   })
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string | null>(null)
+
+  // Explicitly render Turnstile widget
+  const renderWidget = () => {
+    const turnstile = (window as any).turnstile
+    if (turnstile && containerRef.current && !widgetIdRef.current) {
+      try {
+        widgetIdRef.current = turnstile.render(containerRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+        })
+      } catch (err) {
+        console.error('Error rendering Turnstile widget:', err)
+      }
+    }
+  }
+
   useEffect(() => {
-    // Load Turnstile script
-    const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
-    script.async = true
-    document.head.appendChild(script)
+    // If turnstile script is already loaded, render immediately
+    if ((window as any).turnstile) {
+      renderWidget()
+    }
 
     return () => {
-      // Cleanup script on unmount
-      const existingScript = document.querySelector(
-        'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]',
-      )
-      if (existingScript) {
-        document.head.removeChild(existingScript)
+      // Clean up widget instance when component unmounts
+      if (widgetIdRef.current && (window as any).turnstile) {
+        try {
+          ;(window as any).turnstile.remove(widgetIdRef.current)
+        } catch (err) {
+          console.error('Error removing Turnstile widget:', err)
+        }
+        widgetIdRef.current = null
       }
     }
   }, [])
@@ -82,6 +101,15 @@ export default function ContactForm() {
     })
 
     const isSent = await sendPromise.then(() => true).catch(() => false)
+
+    // Reset Turnstile token after form submission attempt (success or failure)
+    if (widgetIdRef.current && (window as any).turnstile) {
+      try {
+        ;(window as any).turnstile.reset(widgetIdRef.current)
+      } catch (err) {
+        console.error('Error resetting Turnstile widget:', err)
+      }
+    }
 
     if (!isSent) {
       return
@@ -149,7 +177,12 @@ export default function ContactForm() {
                 )}
               />
             </div>
-            <div className='cf-turnstile' data-sitekey={TURNSTILE_SITE_KEY}></div>
+            <div ref={containerRef} />
+            <Script
+              src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+              strategy='afterInteractive'
+              onLoad={renderWidget}
+            />
             <Button type='submit' variant='animated' className='w-full'>
               {t(DATA.contact.form.submitKey)}
             </Button>

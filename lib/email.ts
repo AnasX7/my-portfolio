@@ -24,7 +24,7 @@ export async function send(emailFormData: formData, turnstileResponse: string) {
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: process.env.EMAIL_TO!,
       subject: `New contact from ${fullName}`,
-      react: await EmailTemplate({
+      react: EmailTemplate({
         fullName,
         email,
         message,
