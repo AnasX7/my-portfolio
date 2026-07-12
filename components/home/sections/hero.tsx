@@ -200,9 +200,9 @@ export default function HeroV2() {
         </m.div>
 
         {/* Main Title */}
-        <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
+        <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'} max-w-4xl mx-auto`}>
           <h2
-            className={`text-3xl font-semibold tracking-tight text-balance md:text-5xl lg:text-6xl xl:text-7xl ${
+            className={`text-3xl font-semibold tracking-tight text-balance md:text-4xl lg:text-5xl xl:text-6xl ${
               isArabic && 'md:leading-tight'
             }`}
           >
