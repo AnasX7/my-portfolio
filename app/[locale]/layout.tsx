@@ -1,7 +1,8 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
 import { Inter, Tajawal } from 'next/font/google'
 import '../globals.css'
@@ -29,48 +30,67 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-export const metadata: Metadata = {
-  title: '𝓐𝓷𝖆𝔖 | Portfolio',
-  description:
-    'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
-  applicationName: 'Portfolio',
-  generator: 'Next.js 16',
-  authors: [{ name: 'Anas Salem', url: 'https://anassalem.com' }],
-  creator: 'Anas Salem',
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://anassalem.com',
-    siteName: 'Anas Salem',
-    title: 'Anas Salem',
-    description:
-      'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
-    images: [
-      {
-        url: 'https://anassalem.com/avatar-1.jpg',
-        alt: 'My Portfolio Open Graph Image',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'seo' })
+
+  const title = t('title')
+  const description = t('description')
+  const ogImageAlt = t('ogImageAlt')
+  const localeUrl = `${SITE_URL}/${locale}`
+  const ogLocale = locale === 'ar' ? 'ar_AE' : 'en_US'
+
+  return {
+    title,
+    description,
+    applicationName: 'Portfolio',
+    generator: 'Next.js 16',
+    authors: [{ name: 'Anas Salem', url: SITE_URL }],
+    creator: 'Anas Salem',
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
+    alternates: {
+      canonical: localeUrl,
+      languages: {
+        en: `${SITE_URL}/en`,
+        ar: `${SITE_URL}/ar`,
+        'x-default': `${SITE_URL}/en`,
       },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Anas Salem',
-    description:
-      'I’m a Software Engineer with a passion for building scalable web applications and intuitive user experiences. I specialize in both front-end and back-end development, using modern technologies like JavaScript, TypeScript, React, Node.js, and Laravel. I enjoy solving real-world problems with clean, efficient code and love working on products that make a positive impact. Always learning, always improving.',
-    images: ['https://anassalem.com/avatar-1.jpg'],
-    creator: '@An_xr7',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: true,
-  },
-  metadataBase: new URL('https://anassalem.com'),
+    },
+    openGraph: {
+      type: 'website',
+      locale: ogLocale,
+      url: localeUrl,
+      siteName: 'Anas Salem',
+      title,
+      description,
+      images: [
+        {
+          url: `${SITE_URL}/avatar-1.jpg`,
+          alt: ogImageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${SITE_URL}/avatar-1.jpg`],
+      creator: '@An_xr7',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    metadataBase: new URL(SITE_URL),
+  }
 }
 
 export default async function RootLayout({

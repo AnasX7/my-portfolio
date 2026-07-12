@@ -77,6 +77,7 @@ export default function Projects() {
                 isLive={project.isLive}
                 liveUrl={project.liveUrl}
                 images={project.images}
+                imageAlts={project.imageAltKeys.map((key) => t(key))}
               />
             </m.div>
           ))}
@@ -94,6 +95,7 @@ interface ProjectCardProps {
   isLive: boolean
   liveUrl?: string | null
   images: string[]
+  imageAlts: string[]
 }
 
 function ProjectCard({
@@ -104,6 +106,7 @@ function ProjectCard({
   isLive,
   liveUrl,
   images,
+  imageAlts,
 }: ProjectCardProps) {
   const t = useTranslations()
   const local = useLocale()
@@ -160,7 +163,7 @@ function ProjectCard({
         </div>
       </CardHeader>
 
-      <ImageCarousel images={images} />
+      <ImageCarousel images={images} imageAlts={imageAlts} />
     </Card>
   )
 }

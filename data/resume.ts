@@ -155,6 +155,12 @@ export const DATA = {
           '/images/projects/salaty/salaty-store-screens.png',
           '/images/projects/salaty/salaty-other-screens.png',
         ],
+        imageAltKeys: [
+          'projects.card1.imageAlts.0',
+          'projects.card1.imageAlts.1',
+          'projects.card1.imageAlts.2',
+          'projects.card1.imageAlts.3',
+        ],
       },
       {
         titleKey: 'projects.card2.title',
@@ -174,6 +180,11 @@ export const DATA = {
           '/images/projects/tanazah/tanazah-login.png',
           '/images/projects/tanazah/tanazah-admin-dashboard.png',
           '/images/projects/tanazah/tanazah-owner-dashboard.png',
+        ],
+        imageAltKeys: [
+          'projects.card2.imageAlts.0',
+          'projects.card2.imageAlts.1',
+          'projects.card2.imageAlts.2',
         ],
       },
     ],

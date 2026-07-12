@@ -89,7 +89,8 @@ export default function Footer() {
             }
             className='relative cursor-pointer'
           >
-            <h1
+            <span
+              aria-hidden='true'
               className={cn(
                 'font-black tracking-tighter text-transparent select-none transition-transform duration-500 group-hover:scale-105',
                 'text-[10vw] sm:text-[80px] md:text-[100px] lg:text-[120px] leading-[0.8]',
@@ -98,10 +99,11 @@ export default function Footer() {
               )}
             >
               𝓐𝓷𝖆𝔖
-            </h1>
+            </span>
 
             {/* Glow / Stroke effect behind */}
-            <h1
+            <span
+              aria-hidden='true'
               className={cn(
                 'absolute inset-0 -z-10 font-black tracking-tighter text-transparent opacity-0 transition-all duration-500 group-hover:opacity-10 blur-xl',
                 'text-[10vw] sm:text-[80px] md:text-[100px] lg:text-[120px] leading-[0.8]',
@@ -109,7 +111,7 @@ export default function Footer() {
               )}
             >
               𝓐𝓷𝖆𝔖
-            </h1>
+            </span>
 
             {/* Portfolio Overlay Text */}
             <div

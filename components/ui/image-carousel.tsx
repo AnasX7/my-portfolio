@@ -7,9 +7,10 @@ import { useLocale } from 'next-intl'
 // Define the types for ImageCarousel's props
 interface ImageCarouselProps {
   images: string[] // Array of image URLs
+  imageAlts: string[] // Array of descriptive alt texts
 }
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, imageAlts }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [direction, setDirection] = useState<number>(0) // 0 for initial, 1 for next, -1 for prev
   const shouldReduceMotion = useReducedMotion()
@@ -82,9 +83,10 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
           >
             <Image
               src={currentImage}
-              alt={`Project Screenshot ${currentIndex + 1}`}
+              alt={imageAlts[currentIndex] ?? `Project screenshot ${currentIndex + 1}`}
               width={500}
               height={500}
+              style={{ width: 'auto', height: 'auto' }}
               className='pointer-events-none max-h-full max-w-full object-contain select-none'
             />
           </m.div>

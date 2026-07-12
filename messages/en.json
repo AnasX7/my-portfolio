@@ -73,11 +73,22 @@
     "live": "Demo",
     "card1": {
       "title": "Salaty E-commerce App 🛒",
-      "description": "Welcome to Salaty, your ultimate mobile shopping destination! Salaty (meaning \"my basket\" in Arabic) offers a seamless and intuitive e-commerce experience."
+      "description": "Welcome to Salaty, your ultimate mobile shopping destination! Salaty (meaning \"my basket\" in Arabic) offers a seamless and intuitive e-commerce experience.",
+      "imageAlts": [
+        "Salaty e-commerce app home screen",
+        "Salaty authentication and sign-up screens",
+        "Salaty store browsing and product screens",
+        "Salaty cart, checkout, and account screens"
+      ]
     },
     "card2": {
       "title": "Tanazah Pool System 🥽",
-      "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations."
+      "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations.",
+      "imageAlts": [
+        "Tanazah pool management login page",
+        "Tanazah admin dashboard with reservations overview",
+        "Tanazah pool owner dashboard with operations panel"
+      ]
     }
   },
   "contact": {
@@ -114,6 +125,11 @@
     "loading": "Sending...",
     "success": "Thanks for reaching out!",
     "error": "Something went wrong. Please try again."
+  },
+  "seo": {
+    "title": "Anas Salem — Software Engineer in Abu Dhabi",
+    "description": "Software engineer based in Abu Dhabi building scalable web applications with exceptional UI/UX. Explore projects, experience, and get in touch.",
+    "ogImageAlt": "Anas Salem — Software Engineer portfolio"
   },
   "footer": {
     "copyright": "All rights reserved"
