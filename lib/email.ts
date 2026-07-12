@@ -4,6 +4,7 @@ import { EmailTemplate } from '@/components/ui/email-template'
 import { Resend } from 'resend'
 import { formData } from '@/lib/schemas'
 import { verifyTurnstileToken } from '@/lib/turnstile'
+import { ReactElement } from 'react'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -28,7 +29,7 @@ export async function send(emailFormData: formData, turnstileResponse: string) {
         fullName,
         email,
         message,
-      }),
+      }) as ReactElement,
       text: `Hello, you have a new contact from ${fullName} (${email}) with the following message: ${message}`,
     })
 
