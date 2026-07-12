@@ -61,16 +61,8 @@ const logos = [
     alt: 'NestJS Logo',
   },
   {
-    src: 'https://cdn.simpleicons.org/express',
-    alt: 'Express Logo',
-  },
-  {
     src: 'https://cdn.simpleicons.org/hono',
     alt: 'Hono Logo',
-  },
-  {
-    src: 'https://cdn.simpleicons.org/laravel',
-    alt: 'Laravel Logo',
   },
   {
     src: 'https://cdn.simpleicons.org/figma',

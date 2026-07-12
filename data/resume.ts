@@ -65,7 +65,7 @@ export const DATA = {
           delay: 2500,
         },
         {
-          name: 'Backend: Express, Hono, Laravel',
+          name: 'Backend: NestJS, Hono',
           delay: 2700,
         },
         {
