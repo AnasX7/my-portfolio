@@ -27,7 +27,7 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
         {logos.map((logo) => (
           <Image
             alt={logo.alt}
-            className='pointer-events-none h-10 select-none md:h-12 dark:brightness-0 dark:invert'
+            className='pointer-events-none h-10 w-auto select-none md:h-12 dark:brightness-0 dark:invert'
             height={logo.height ?? 48}
             key={`logo-${logo.alt}`}
             sizes='(max-width: 768px) 120px, 160px'
