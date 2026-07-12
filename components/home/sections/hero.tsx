@@ -49,7 +49,7 @@ export default function HeroV2() {
     transition: {
       duration,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: 'easeInOut' as const,
       delay,
     },
   })
