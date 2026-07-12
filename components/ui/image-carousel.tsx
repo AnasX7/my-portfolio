@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { m, AnimatePresence, Transition, Variants, useReducedMotion } from 'motion/react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 // Define the types for ImageCarousel's props
 interface ImageCarouselProps {
@@ -16,6 +16,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, imageAlts }) => {
   const shouldReduceMotion = useReducedMotion()
 
   const local = useLocale()
+  const t = useTranslations()
   const isRtl = local === 'ar'
 
   const navigate = (newDirection: number) => {
@@ -96,12 +97,14 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, imageAlts }) => {
         <button
           onClick={() => navigate(-1)}
           className='bg-muted hover:bg-muted-foreground/10 cursor-pointer rounded-full px-2 py-2 transition-colors'
+          aria-label={t('carousel.prev')}
         >
           <ChevronLeft className={isRtl ? 'rotate-180' : ''} />
         </button>
         <button
           onClick={() => navigate(1)}
           className='bg-muted hover:bg-muted-foreground/10 cursor-pointer rounded-full px-2 py-2 transition-colors'
+          aria-label={t('carousel.next')}
         >
           <ChevronRight className={isRtl ? 'rotate-180' : ''} />
         </button>

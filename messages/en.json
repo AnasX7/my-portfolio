@@ -8,7 +8,12 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "toggleMenu": "Toggle menu"
+  },
+  "carousel": {
+    "prev": "Previous slide",
+    "next": "Next slide"
   },
   "hero": {
     "badge": "Available for opportunities",

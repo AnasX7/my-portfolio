@@ -177,6 +177,7 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               variants={itemVariants}
               whileTap={{ scale: 0.95 }}
+              aria-label={t('header.toggleMenu')}
             >
               {isMobileMenuOpen ? <X className='size-6' /> : <Menu className='size-6' />}
             </m.button>
