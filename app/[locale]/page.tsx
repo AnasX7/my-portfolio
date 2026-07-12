@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { Spotlight } from '@/components/ui/spotlight'
-import HeroSection from '@/components/home/sections/hero-v2'
+import HeroSection from '@/components/home/sections/hero'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'

@@ -4,13 +4,11 @@ import { useLocale, useTranslations } from 'next-intl'
 import { m, useReducedMotion } from 'motion/react'
 import { Download } from 'lucide-react'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { WavingHand } from '@/components/ui/waving-hand'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
 import ShinyText from '@/components/ui/shiny-text'
 
-export default function Hero2() {
+export default function HeroV2() {
   const t = useTranslations()
   const locale = useLocale()
   const isArabic = locale === 'ar'
@@ -43,6 +41,65 @@ export default function Hero2() {
       },
     },
   } as const
+
+  const floatAnimation = (delay: number, duration: number, xOffset = 5, yOffset = 8, rotateOffset = 3) => ({
+    y: [0, -yOffset, 0],
+    x: [0, xOffset, 0],
+    rotate: [0, rotateOffset, 0],
+    transition: {
+      duration,
+      repeat: Infinity,
+      ease: 'easeInOut',
+      delay,
+    },
+  })
+
+  const techIcons = [
+    {
+      name: 'React',
+      src: 'https://cdn.simpleicons.org/react',
+      className: 'absolute z-0 top-[5%] -left-12 sm:-left-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      delay: 0,
+      duration: 3.8,
+      xOffset: 4,
+      yOffset: 10,
+      rotateOffset: -3,
+      invertDark: false,
+    },
+    {
+      name: 'TypeScript',
+      src: 'https://cdn.simpleicons.org/typescript',
+      className: 'absolute z-0 top-[15%] -right-12 sm:-right-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      delay: 0.6,
+      duration: 4.2,
+      xOffset: -5,
+      yOffset: 12,
+      rotateOffset: 4,
+      invertDark: false,
+    },
+    {
+      name: 'Next.js',
+      src: 'https://cdn.simpleicons.org/nextdotjs',
+      className: 'absolute z-0 bottom-[18%] -left-14 sm:-left-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      delay: 1.2,
+      duration: 4.6,
+      xOffset: 6,
+      yOffset: 8,
+      rotateOffset: -2,
+      invertDark: true,
+    },
+    {
+      name: 'NestJS',
+      src: 'https://cdn.simpleicons.org/nestjs',
+      className: 'absolute z-0 bottom-[10%] -right-14 sm:-right-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      delay: 1.8,
+      duration: 4,
+      xOffset: -4,
+      yOffset: 11,
+      rotateOffset: 3,
+      invertDark: false,
+    },
+  ]
 
   return (
     <m.section
@@ -83,82 +140,74 @@ export default function Hero2() {
         animate='visible'
         className='relative z-10 mx-auto max-w-352 px-4 text-center sm:px-6 lg:px-8'
       >
-        {/* Badge */}
-        <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
-          <m.div
-            whileHover={{ scale: 1.05 }}
-            className='border-border/60 bg-muted/80 text-muted-foreground inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-md transition-colors dark:border-white/10 dark:bg-white/5'
-          >
-            <div className='size-2 animate-pulse rounded-full bg-green-500 dark:bg-green-400' />
-            <span className='text-muted-foreground text-sm font-medium'>{t(DATA.hero.badge)}</span>
-          </m.div>
-        </m.div>
-
-        {/* Name Header */}
-        <m.div variants={staggerItem} className={`${isArabic ? 'mb-4' : 'mb-6'}`}>
-          <m.h1
-            className={`flex items-center justify-center gap-1 text-2xl font-bold tracking-tight md:gap-3 md:text-3xl lg:text-4xl ${
-              isArabic && 'leading-tight'
-            }`}
-          >
-            <m.span className='text-muted-foreground font-medium'>{t(DATA.hero.welcomeKey)}</m.span>
-
+        {/* Centered Tilted Avatar Card */}
+        <m.div
+          variants={staggerItem}
+          className='mb-10 flex justify-center'
+        >
+          <div className='relative w-fit select-none'>
+            {/* Tilted Avatar Card */}
             <m.div
-              whileHover={{
-                scale: 1.1,
-                rotate: isArabic ? 12 : -12,
-                transition: { type: 'spring', stiffness: 400, damping: 10 },
-              }}
-              className='relative'
+              whileHover={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      scale: 1.05,
+                      rotate: 0,
+                      transition: { type: 'spring', stiffness: 200, damping: 15 },
+                    }
+              }
+              style={shouldReduceMotion ? {} : { rotate: -4 }}
+              className='border-border/60 relative z-10 size-32 cursor-pointer rounded-[2rem] border-2 bg-muted/30 p-2 shadow-xl backdrop-blur-md select-none sm:size-36 md:size-40 dark:border-white/10 dark:bg-white/5'
             >
-              <Avatar className='border-border/60 relative z-10 size-14 rounded-2xl border-2 backdrop-blur-sm md:size-16 md:rounded-2xl dark:border-white/20'>
-                <AvatarImage
+              <div className='h-full w-full overflow-hidden rounded-[1.75rem]'>
+                <img
                   alt={t(DATA.profile.nameKey)}
                   src={DATA.profile.avatar}
-                  className='object-cover'
+                  className='h-full w-full object-cover select-none'
                 />
-                <AvatarFallback className='bg-linear-to-br from-purple-500 to-orange-500 font-bold text-white'>
-                  {t(DATA.profile.initialsKey)}
-                </AvatarFallback>
-              </Avatar>
+              </div>
             </m.div>
 
-            <m.span className='text-muted-foreground font-medium'>{t(DATA.profile.nameKey)}</m.span>
-
-            <m.div
-              animate={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      rotate: [0, 14, -8, 14, -4, 10, 0],
-                      scale: [1, 1.1, 1, 1.1, 1],
-                    }
-              }
-              transition={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      duration: 2.5,
-                      repeat: Infinity,
-                      repeatDelay: 3,
-                      ease: 'easeInOut',
-                    }
-              }
-            >
-              <WavingHand />
-            </m.div>
-          </m.h1>
+            {/* Floating Tech Icons */}
+            {techIcons.map((icon) => (
+              <m.div
+                key={icon.name}
+                animate={
+                  shouldReduceMotion
+                    ? {}
+                    : floatAnimation(
+                        icon.delay,
+                        icon.duration,
+                        icon.xOffset,
+                        icon.yOffset,
+                        icon.rotateOffset,
+                      )
+                }
+                className={icon.className}
+              >
+                <img
+                  src={icon.src}
+                  alt={icon.name}
+                  className={cn(
+                    'size-6 object-contain pointer-events-none select-none transition-all duration-300',
+                    icon.invertDark && 'dark:brightness-0 dark:invert',
+                  )}
+                />
+              </m.div>
+            ))}
+          </div>
         </m.div>
 
         {/* Main Title */}
         <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'}`}>
           <h2
-            className={`text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl xl:text-7xl ${
+            className={`text-3xl font-semibold tracking-tight text-balance md:text-5xl lg:text-6xl xl:text-7xl ${
               isArabic && 'md:leading-tight'
             }`}
           >
-            <span className='text-foreground mb-2 block'>{t(DATA.hero.titleKey)}</span>
-            <span className='from-foreground to-foreground/65 block bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
+            <span className='text-foreground'>{t(DATA.hero.titleKey)}</span>{' '}
+            <span className='from-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
               {t(DATA.hero.highlightKey)}
             </span>
           </h2>
@@ -171,10 +220,10 @@ export default function Hero2() {
           </p>
         </m.div>
 
-        {/* CTA Section */}
+        {/* CTA and Social Media Buttons Row */}
         <m.div
           variants={staggerItem}
-          className='flex flex-col items-center justify-center gap-4 sm:flex-row'
+          className='flex flex-row flex-wrap items-center justify-center gap-4'
         >
           <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <MagneticLinkPreview
@@ -185,6 +234,29 @@ export default function Hero2() {
               <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
             </MagneticLinkPreview>
           </m.div>
+
+          {/* Social Buttons with Link Preview & Point Animations */}
+          <div className='flex flex-row items-center gap-3'>
+            {DATA.socials.slice(0, 3).map((social) => {
+              const IconComponent = social.icon
+              return (
+                <div key={social.name} className='group relative'>
+                  <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <MagneticLinkPreview
+                      url={social.url}
+                      className={cn(
+                        'size-12 p-0 min-h-0 flex items-center justify-center rounded-full border border-border/50 bg-background/60 backdrop-blur-md shadow-xs transition-all duration-300',
+                        'before:bg-none after:bg-none after:bg-background/60 after:backdrop-blur-md',
+                        'dark:border-white/10 dark:bg-white/5 dark:after:bg-[#0a0a0a]/50',
+                      )}
+                    >
+                      <IconComponent className='text-muted-foreground size-5 transition-transform duration-300 group-hover:scale-110 dark:text-gray-300' />
+                    </MagneticLinkPreview>
+                  </m.div>
+                </div>
+              )
+            })}
+          </div>
         </m.div>
       </m.div>
     </m.section>
