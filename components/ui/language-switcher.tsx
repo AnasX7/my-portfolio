@@ -28,7 +28,7 @@ export default function LanguageSwitcher() {
       variant='outline'
       size='icon'
       className={cn('rounded-full', {
-        'font-tajawal': nextLocale === 'ar',
+        'font-sans': nextLocale === 'ar',
         'font-inter': nextLocale === 'en',
       })}
       onClick={() => handleLanguageClick(nextLocale)}

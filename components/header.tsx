@@ -85,40 +85,36 @@ export default function Header() {
       >
         <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
           <div className='flex h-16 items-center justify-between'>
-            <m.div
-              className='flex items-center space-x-3'
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            >
+            <div className='flex min-w-0 items-center'>
               <button
                 onClick={() =>
                   lenis?.scrollTo(0, {
                     duration: 3,
                   })
                 }
-                className='flex cursor-pointer items-center space-x-3'
+                className='group flex min-w-0 cursor-pointer items-center gap-3 text-start'
               >
-                <div className='relative'>
+                <div className='relative shrink-0'>
                   <Image
                     src={DATA.profile.avatar}
                     alt={t(DATA.profile.nameKey)}
                     width={36}
                     height={36}
-                    className='size-9 rounded-xl text-white shadow-lg'
+                    className='size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105'
                   />
                   <div className='absolute -top-1 -right-1 size-3 animate-pulse rounded-full bg-green-400'></div>
                 </div>
-                <div className='flex flex-col'>
-                  <span className='text-foreground text-lg font-bold'>
+
+                <div className='flex min-w-0 flex-col'>
+                  <span className='text-foreground truncate text-lg leading-tight font-bold'>
                     {t(DATA.profile.nameKey)}
                   </span>
-                  <span className='text-muted-foreground -mt-1 text-xs'>
+                  <span className='text-muted-foreground truncate text-xs leading-none'>
                     {t(DATA.profile.roleKey)}
                   </span>
                 </div>
               </button>
-            </m.div>
+            </div>
 
             <nav className='absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-1.5 py-1 lg:flex'>
               {DATA.navItems.map((item) => (

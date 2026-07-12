@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
-import { Inter, Tajawal } from 'next/font/google'
+import { Inter, Noto_Sans_Arabic } from 'next/font/google'
 import '../globals.css'
 
 import { ReactLenis } from 'lenis/react'
@@ -20,10 +20,9 @@ const inter = Inter({
   subsets: ['latin'],
 })
 
-const tajawal = Tajawal({
-  variable: '--font-tajawal',
-  subsets: ['arabic'],
-  weight: ['300', '400', '500', '700'],
+const fontSans = Noto_Sans_Arabic({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-sans',
 })
 
 export function generateStaticParams() {
@@ -127,8 +126,8 @@ export default async function RootLayout({
         }}
       >
         <body
-          className={`${inter.variable} ${tajawal.variable} ${
-            isArabic ? 'font-tajawal' : 'font-inter'
+          className={`${inter.variable} ${fontSans.variable} ${
+            isArabic ? 'font-sans' : 'font-inter'
           } min-h-dvh antialiased`}
         >
           <NextIntlClientProvider>
