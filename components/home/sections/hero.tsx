@@ -138,12 +138,12 @@ export default function HeroV2() {
         variants={staggerContainer}
         initial='hidden'
         animate='visible'
-        className='relative z-10 mx-auto max-w-352 px-4 text-center sm:px-6 lg:px-8'
+        className='relative z-10 mx-auto max-w-352 px-6 text-center sm:px-8 md:px-12 lg:px-16'
       >
         {/* Centered Tilted Avatar Card */}
         <m.div
           variants={staggerItem}
-          className='mb-10 flex justify-center'
+          className='mb-8 flex justify-center'
         >
           <div className='relative w-fit select-none'>
             {/* Tilted Avatar Card */}
@@ -200,9 +200,9 @@ export default function HeroV2() {
         </m.div>
 
         {/* Main Title */}
-        <m.div variants={staggerItem} className={`${isArabic ? 'mb-6' : 'mb-8'} max-w-4xl mx-auto`}>
+        <m.div variants={staggerItem} className='mb-5 max-w-3xl mx-auto'>
           <h2
-            className={`text-3xl font-semibold tracking-tight text-balance md:text-4xl lg:text-5xl xl:text-6xl ${
+            className={`text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl ${
               isArabic && 'md:leading-tight'
             }`}
           >
@@ -214,8 +214,8 @@ export default function HeroV2() {
         </m.div>
 
         {/* Subtitle */}
-        <m.div variants={staggerItem} className={`${isArabic ? 'mb-9' : 'mb-12'}`}>
-          <p className='text-muted-foreground/90 mx-auto max-w-2xl text-base leading-relaxed font-light text-pretty sm:text-lg md:text-xl lg:text-2xl'>
+        <m.div variants={staggerItem} className='mb-8 max-w-2xl mx-auto'>
+          <p className='text-muted-foreground/80 mx-auto max-w-2xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
             {t(DATA.hero.subtitle)}
           </p>
         </m.div>
