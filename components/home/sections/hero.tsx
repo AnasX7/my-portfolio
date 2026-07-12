@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 import { m, useReducedMotion } from 'motion/react'
-import { Download } from 'lucide-react'
+import { Download01Icon } from '@hugeicons/core-free-icons'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
@@ -228,7 +228,7 @@ export default function HeroV2() {
           <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <MagneticLinkPreview
               url={DATA.profile.resumeURL}
-              icon={Download}
+              icon={Download01Icon}
               className='rounded-full px-8 py-4'
             >
               <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />

@@ -3,12 +3,12 @@
 import { Magnetic } from './magnetic'
 import { LinkPreview } from './link-preview'
 import { AnimatedButtonContent, buttonVariants } from './button'
-import { LucideIcon } from 'lucide-react'
+import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
 
 interface MagneticLinkPreviewProps {
   url: string
   children: React.ReactNode
-  icon?: LucideIcon
+  icon?: IconSvgElement
   className?: string
   intensity?: number
   bounce?: number
@@ -30,7 +30,10 @@ export function MagneticLinkPreview({
         <AnimatedButtonContent>
           {children}
           {Icon && (
-            <Icon className='icon text-muted-foreground size-4 transition-transform duration-300 dark:text-[#b5b5b5a4]' />
+            <HugeiconsIcon
+              icon={Icon}
+              className='icon text-muted-foreground size-4 transition-transform duration-300 dark:text-[#b5b5b5a4]'
+            />
           )}
         </AnimatedButtonContent>
       </LinkPreview>

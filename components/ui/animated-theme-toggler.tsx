@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useRef, useSyncExternalStore } from 'react'
-import { Moon, Sun } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Sun01Icon, Moon01Icon } from '@hugeicons/core-free-icons'
 import { flushSync } from 'react-dom'
 
 import { cn } from '@/lib/utils'
@@ -81,14 +82,16 @@ export const AnimatedThemeToggler = ({
       {...props}
     >
       <div className='relative size-4.5'>
-        <Sun
+        <HugeiconsIcon
+          icon={Sun01Icon}
           className={cn(
             'absolute inset-0 size-4.5 rotate-0 scale-100 transition-all duration-300',
             isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0',
           )}
           strokeWidth={2}
         />
-        <Moon
+        <HugeiconsIcon
+          icon={Moon01Icon}
           className={cn(
             'absolute inset-0 size-4.5 rotate-90 scale-0 transition-all duration-300',
             isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100',

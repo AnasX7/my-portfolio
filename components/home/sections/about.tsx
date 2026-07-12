@@ -6,7 +6,8 @@ import { Card, CardContent, CardDecorator, CardHeader } from '@/components/ui/ca
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal'
 import ExperinceTimeline from '@/components/home/experince-timeline'
 import AnimatedNumber from '@/components/ui/animated-number'
-import { UserRound, ChartLine, ToolCase, BriefcaseBusiness, LucideIcon } from 'lucide-react'
+import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
+import { UserIcon, ChartLineIcon, ToolCaseIcon, BriefcaseBusinessIcon } from '@hugeicons/core-free-icons'
 import { m } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
@@ -35,7 +36,7 @@ export default function About() {
           <AboutCard className='bg-card/65 gap-0 pb-0'>
             <CardHeader className='pb-0'>
               <CardHeading
-                icon={UserRound}
+                icon={UserIcon}
                 title={t(DATA.about.card1.titleKey)}
                 description={t(DATA.about.card1.descriptionKey)}
               />
@@ -83,7 +84,7 @@ export default function About() {
           {/* Analytics Card */}
           <AboutCard className='bg-card/65 gap-0'>
             <CardHeader>
-              <CardHeading icon={ChartLine} title={t(DATA.about.card2.titleKey)} />
+              <CardHeading icon={ChartLineIcon} title={t(DATA.about.card2.titleKey)} />
             </CardHeader>
 
             <div className='mt-3 flex flex-col justify-center gap-3 px-6'>
@@ -103,7 +104,7 @@ export default function About() {
           {/* Experience Card */}
           <AboutCard className='bg-card/65'>
             <CardHeader>
-              <CardHeading icon={BriefcaseBusiness} title={t(DATA.about.card3.titleKey)} />
+              <CardHeading icon={BriefcaseBusinessIcon} title={t(DATA.about.card3.titleKey)} />
             </CardHeader>
 
             <CardContent>
@@ -114,7 +115,7 @@ export default function About() {
           {/* Tech Skills Card */}
           <AboutCard className='bg-card/65 pb-0'>
             <CardHeader className='pb-3'>
-              <CardHeading icon={ToolCase} title={t(DATA.about.card4.titleKey)} />
+              <CardHeading icon={ToolCaseIcon} title={t(DATA.about.card4.titleKey)} />
             </CardHeader>
 
             <div className='relative h-full'>
@@ -160,7 +161,7 @@ const AboutCard = ({ children, className }: AboutCardProps) => (
 )
 
 interface CardHeadingProps {
-  icon: LucideIcon
+  icon: IconSvgElement
   title: string
   description?: string
 }
@@ -168,7 +169,7 @@ interface CardHeadingProps {
 const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
   <div>
     <span className='text-muted-foreground flex items-center gap-2 text-xl md:text-2xl'>
-      <Icon className='size-5 md:size-6' />
+      <HugeiconsIcon icon={Icon} className='size-5 md:size-6' />
       {title}
     </span>
     {description ? <p className='my-2 text-sm text-pretty md:text-base'>{description}</p> : null}
@@ -176,7 +177,7 @@ const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
 )
 
 interface AnalyticCardProps {
-  icon: LucideIcon
+  icon: IconSvgElement
   value: number
   label: string
   delay?: number
@@ -192,7 +193,7 @@ const AnalyticCard = ({
 }: AnalyticCardProps) => (
   <div className='flex items-center gap-6 rounded-lg border p-4 dark:border-white/10'>
     <div className='rounded-full border p-2 dark:border-white/10'>
-      <Icon className='text-primary size-5' />
+      <HugeiconsIcon icon={Icon} className='text-primary size-5' />
     </div>
     <div className='flex flex-col gap-1'>
       <div className='flex items-baseline'>

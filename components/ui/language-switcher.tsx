@@ -2,7 +2,8 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
-import { Languages } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { TranslateIcon } from '@hugeicons/core-free-icons'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
 
@@ -35,7 +36,7 @@ export default function LanguageSwitcher() {
       aria-label={`Switch language to ${nextLocale === 'en' ? 'English' : 'العربية'}`}
     >
       <div className='relative flex items-center justify-center'>
-        <Languages className='size-4.5 opacity-0' />
+        <HugeiconsIcon icon={TranslateIcon} className='size-4.5 opacity-0' />
         <span
           className={cn(
             'absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-300',

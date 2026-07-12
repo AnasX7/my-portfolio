@@ -1,5 +1,5 @@
 import { Icons } from '@/components/icons'
-import { FolderGit2, Medal } from 'lucide-react'
+import { FolderGitTwoIcon, Medal01Icon } from '@hugeicons/core-free-icons'
 
 export const DATA = {
   profile: {
@@ -41,13 +41,13 @@ export const DATA = {
       titleKey: 'about.card2.title',
       analytics: [
         {
-          icon: FolderGit2,
+          icon: FolderGitTwoIcon,
           value: 5,
           labelKey: 'about.card2.projects',
           showPlus: true,
         },
         {
-          icon: Medal,
+          icon: Medal01Icon,
           value: 4,
           labelKey: 'about.card2.certificates',
           showPlus: true,

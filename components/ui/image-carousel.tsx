@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { m, AnimatePresence, Transition, Variants, useReducedMotion } from 'motion/react'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { ChevronLeftIcon, ChevronRightIcon } from '@hugeicons/core-free-icons'
 import { useLocale, useTranslations } from 'next-intl'
 
 // Define the types for ImageCarousel's props
@@ -99,14 +100,14 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, imageAlts }) => {
           className='bg-muted hover:bg-muted-foreground/10 cursor-pointer rounded-full px-2 py-2 transition-colors'
           aria-label={t('carousel.prev')}
         >
-          <ChevronLeft className={isRtl ? 'rotate-180' : ''} />
+          <HugeiconsIcon icon={ChevronLeftIcon} className={isRtl ? 'rotate-180' : ''} />
         </button>
         <button
           onClick={() => navigate(1)}
           className='bg-muted hover:bg-muted-foreground/10 cursor-pointer rounded-full px-2 py-2 transition-colors'
           aria-label={t('carousel.next')}
         >
-          <ChevronRight className={isRtl ? 'rotate-180' : ''} />
+          <HugeiconsIcon icon={ChevronRightIcon} className={isRtl ? 'rotate-180' : ''} />
         </button>
       </div>
     </div>

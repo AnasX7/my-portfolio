@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 import { m } from 'motion/react'
-import { ArrowUpLeft, ArrowUpRight } from 'lucide-react'
+import { ArrowUpLeftIcon, ArrowUpRightIcon } from '@hugeicons/core-free-icons'
 import { DATA } from '@/data/resume'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardDecorator, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -154,7 +154,7 @@ function ProjectCard({
           {isLive && liveUrl ? (
             <MagneticLinkPreview
               url={liveUrl}
-              icon={isRtl ? ArrowUpLeft : ArrowUpRight}
+              icon={isRtl ? ArrowUpLeftIcon : ArrowUpRightIcon}
               className='rounded-full sm:py-3'
             >
               {t('projects.live')}

@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { m, AnimatePresence, Variants } from 'motion/react'
-import { Menu, X } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Menu01Icon, Cancel01Icon } from '@hugeicons/core-free-icons'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -175,7 +176,7 @@ export default function Header() {
               whileTap={{ scale: 0.95 }}
               aria-label={t('header.toggleMenu')}
             >
-              {isMobileMenuOpen ? <X className='size-6' /> : <Menu className='size-6' />}
+              {isMobileMenuOpen ? <HugeiconsIcon icon={Cancel01Icon} className='size-6' /> : <HugeiconsIcon icon={Menu01Icon} className='size-6' />}
             </m.button>
           </div>
         </div>
