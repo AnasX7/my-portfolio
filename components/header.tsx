@@ -192,7 +192,7 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <m.div
-              className='border-border bg-background fixed top-16 right-4 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
+              className='border-border bg-background fixed top-14 right-4 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
               animate='open'
