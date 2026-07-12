@@ -111,7 +111,7 @@ export default function HeroV2() {
 
       {/* Grid Background with Rounded Corners - Light Mode */}
       <div
-        className='absolute inset-0 -z-15 dark:hidden'
+        className='absolute inset-0 -z-15 dark:hidden mask-[linear-gradient(to_bottom,black_60%,transparent)]'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
           backgroundSize: '80px 80px',
@@ -119,7 +119,7 @@ export default function HeroV2() {
       />
       {/* Grid Background with Rounded Corners - Dark Mode */}
       <div
-        className='absolute inset-0 -z-15 hidden dark:block'
+        className='absolute inset-0 -z-15 hidden dark:block mask-[linear-gradient(to_bottom,black_60%,transparent)]'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
           backgroundSize: '80px 80px',
