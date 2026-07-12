@@ -200,10 +200,10 @@ export default function HeroV2() {
         </m.div>
 
         {/* Main Title */}
-        <m.div variants={staggerItem} className='mb-5 max-w-3xl mx-auto'>
+        <m.div variants={staggerItem} className={`${isArabic ? 'mb-1.5' : 'mb-3'} max-w-3xl mx-auto`}>
           <h2
             className={`text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl ${
-              isArabic && 'md:leading-tight'
+              isArabic ? 'leading-[1.15] md:leading-[1.2]' : 'leading-tight'
             }`}
           >
             <span className='text-foreground'>{t(DATA.hero.titleKey)}</span>{' '}
@@ -214,8 +214,8 @@ export default function HeroV2() {
         </m.div>
 
         {/* Subtitle */}
-        <m.div variants={staggerItem} className='mb-8 max-w-2xl mx-auto'>
-          <p className='text-muted-foreground/80 mx-auto max-w-2xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
+        <m.div variants={staggerItem} className='mb-8 max-w-xl mx-auto'>
+          <p className='text-muted-foreground/80 mx-auto max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
             {t(DATA.hero.subtitle)}
           </p>
         </m.div>
