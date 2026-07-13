@@ -102,13 +102,13 @@ export default function Footer() {
         initial='hidden'
         whileInView='visible'
         viewport={{ once: true, amount: 0.2 }}
-        className='container mx-auto px-6 py-6 sm:py-8 md:max-w-5xl'
+        className='mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8'
       >
-        <div className='grid grid-cols-6 gap-6 sm:gap-8'>
+        <div className='grid grid-cols-12 gap-6 sm:gap-8'>
           {/* Left Column: Brand, Socials */}
           <m.div
             variants={staggerItem}
-            className='col-span-6 flex flex-col items-center gap-3 text-center sm:col-span-3 sm:items-start sm:text-start'
+            className='col-span-12 flex flex-col items-center gap-3 text-center sm:col-span-6 sm:items-start sm:text-start'
           >
             <div className='group relative flex flex-col items-center sm:items-start'>
               <button
@@ -169,7 +169,7 @@ export default function Footer() {
           {/* Middle Column: Sections */}
           <m.div
             variants={staggerItem}
-            className='col-span-6 flex w-full flex-col items-center text-center sm:col-span-1 sm:items-start sm:text-start'
+            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-2 sm:col-start-8 sm:items-start sm:text-start'
           >
             <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
               {t(DATA.sections.titleKey)}
@@ -190,7 +190,7 @@ export default function Footer() {
           {/* Right Column: Projects */}
           <m.div
             variants={staggerItem}
-            className='col-span-6 flex w-full flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-start'
+            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-2 sm:col-start-11 sm:items-start sm:text-start'
           >
             <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
               {t(DATA.projects.titleKey)}
