@@ -7,7 +7,12 @@ import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/termina
 import ExperinceTimeline from '@/components/home/experince-timeline'
 import AnimatedNumber from '@/components/ui/animated-number'
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
-import { UserIcon, ChartLineIcon, ToolCaseIcon, BriefcaseBusinessIcon } from '@hugeicons/core-free-icons'
+import {
+  UserIcon,
+  ChartLineIcon,
+  ToolCaseIcon,
+  BriefcaseBusinessIcon,
+} from '@hugeicons/core-free-icons'
 import { m } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'

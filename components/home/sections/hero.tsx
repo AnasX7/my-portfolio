@@ -42,7 +42,13 @@ export default function HeroV2() {
     },
   } as const
 
-  const floatAnimation = (delay: number, duration: number, xOffset = 5, yOffset = 8, rotateOffset = 3) => ({
+  const floatAnimation = (
+    delay: number,
+    duration: number,
+    xOffset = 5,
+    yOffset = 8,
+    rotateOffset = 3,
+  ) => ({
     y: [0, -yOffset, 0],
     x: [0, xOffset, 0],
     rotate: [0, rotateOffset, 0],
@@ -58,7 +64,8 @@ export default function HeroV2() {
     {
       name: 'React',
       src: 'https://cdn.simpleicons.org/react',
-      className: 'absolute z-0 top-[5%] -left-12 sm:-left-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      className:
+        'absolute z-0 top-[5%] -left-12 sm:-left-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
       delay: 0,
       duration: 3.8,
       xOffset: 4,
@@ -69,7 +76,8 @@ export default function HeroV2() {
     {
       name: 'TypeScript',
       src: 'https://cdn.simpleicons.org/typescript',
-      className: 'absolute z-0 top-[15%] -right-12 sm:-right-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      className:
+        'absolute z-0 top-[15%] -right-12 sm:-right-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
       delay: 0.6,
       duration: 4.2,
       xOffset: -5,
@@ -80,7 +88,8 @@ export default function HeroV2() {
     {
       name: 'Next.js',
       src: 'https://cdn.simpleicons.org/nextdotjs',
-      className: 'absolute z-0 bottom-[18%] -left-14 sm:-left-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      className:
+        'absolute z-0 bottom-[18%] -left-14 sm:-left-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
       delay: 1.2,
       duration: 4.6,
       xOffset: 6,
@@ -91,7 +100,8 @@ export default function HeroV2() {
     {
       name: 'NestJS',
       src: 'https://cdn.simpleicons.org/nestjs',
-      className: 'absolute z-0 bottom-[10%] -right-14 sm:-right-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
+      className:
+        'absolute z-0 bottom-[10%] -right-14 sm:-right-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
       delay: 1.8,
       duration: 4,
       xOffset: -4,
@@ -111,7 +121,7 @@ export default function HeroV2() {
 
       {/* Grid Background with Rounded Corners - Light Mode */}
       <div
-        className='absolute inset-0 -z-15 dark:hidden mask-[linear-gradient(to_bottom,black_60%,transparent)]'
+        className='absolute inset-0 -z-15 mask-[linear-gradient(to_bottom,black_60%,transparent)] dark:hidden'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
           backgroundSize: '80px 80px',
@@ -119,7 +129,7 @@ export default function HeroV2() {
       />
       {/* Grid Background with Rounded Corners - Dark Mode */}
       <div
-        className='absolute inset-0 -z-15 hidden dark:block mask-[linear-gradient(to_bottom,black_60%,transparent)]'
+        className='absolute inset-0 -z-15 hidden mask-[linear-gradient(to_bottom,black_60%,transparent)] dark:block'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
           backgroundSize: '80px 80px',
@@ -141,10 +151,7 @@ export default function HeroV2() {
         className='relative z-10 mx-auto max-w-352 px-6 text-center sm:px-8 md:px-12 lg:px-16'
       >
         {/* Centered Tilted Avatar Card */}
-        <m.div
-          variants={staggerItem}
-          className='mb-8 flex justify-center'
-        >
+        <m.div variants={staggerItem} className='mb-8 flex justify-center'>
           <div className='relative w-fit select-none'>
             {/* Tilted Avatar Card */}
             <m.div
@@ -158,7 +165,7 @@ export default function HeroV2() {
                     }
               }
               style={shouldReduceMotion ? {} : { rotate: -4 }}
-              className='border-border/60 relative z-10 size-32 cursor-pointer rounded-[2rem] border-2 bg-muted/30 p-2 shadow-xl backdrop-blur-md select-none sm:size-36 md:size-40 dark:border-white/10 dark:bg-white/5'
+              className='border-border/60 bg-muted/30 relative z-10 size-32 cursor-pointer rounded-[2rem] border-2 p-2 shadow-xl backdrop-blur-md select-none sm:size-36 md:size-40 dark:border-white/10 dark:bg-white/5'
             >
               <div className='h-full w-full overflow-hidden rounded-[1.75rem]'>
                 <img
@@ -200,7 +207,10 @@ export default function HeroV2() {
         </m.div>
 
         {/* Main Title */}
-        <m.div variants={staggerItem} className={`${isArabic ? 'mb-1.5' : 'mb-3'} max-w-3xl mx-auto`}>
+        <m.div
+          variants={staggerItem}
+          className={`${isArabic ? 'mb-1.5' : 'mb-3'} mx-auto max-w-3xl`}
+        >
           <h2
             className={`text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl ${
               isArabic ? 'leading-[1.15] md:leading-[1.2]' : 'leading-tight'
@@ -214,7 +224,7 @@ export default function HeroV2() {
         </m.div>
 
         {/* Subtitle */}
-        <m.div variants={staggerItem} className='mb-8 max-w-xl mx-auto'>
+        <m.div variants={staggerItem} className='mx-auto mb-8 max-w-xl'>
           <p className='text-muted-foreground/80 mx-auto max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
             {t(DATA.hero.subtitle)}
           </p>

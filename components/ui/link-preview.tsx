@@ -92,7 +92,7 @@ export const LinkPreview = ({
 
         <Popover.Portal>
           <Popover.Positioner
-            className='origin-(--transform-origin) z-50'
+            className='z-50 origin-(--transform-origin)'
             side='top'
             align='center'
             sideOffset={10}

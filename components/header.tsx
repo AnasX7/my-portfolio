@@ -176,7 +176,11 @@ export default function Header() {
               whileTap={{ scale: 0.95 }}
               aria-label={t('header.toggleMenu')}
             >
-              {isMobileMenuOpen ? <HugeiconsIcon icon={Cancel01Icon} className='size-6' /> : <HugeiconsIcon icon={Menu01Icon} className='size-6' />}
+              {isMobileMenuOpen ? (
+                <HugeiconsIcon icon={Cancel01Icon} className='size-6' />
+              ) : (
+                <HugeiconsIcon icon={Menu01Icon} className='size-6' />
+              )}
             </m.button>
           </div>
         </div>
