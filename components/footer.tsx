@@ -69,28 +69,32 @@ export default function Footer() {
         }}
       />
 
-      {/* Radial Gradient overlay */}
-      <div
-        className={cn(
-          'absolute inset-0 -z-10 opacity-90 transition-colors duration-700 pointer-events-none',
-          'bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(148,163,184,0.1),transparent_75%)]',
-          'dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(226,232,240,0.02),transparent_100%)]',
-        )}
-      />
-
-      {/* Floating Ambient Glow Light Bubble */}
+      {/* Bottom Ambient Backlight Beam (Shining Upward, breathing in sync) */}
       <m.div
         animate={{
-          scale: [1, 1.15, 0.95, 1],
-          x: [0, 20, -15, 0],
-          y: [0, -20, 15, 0],
+          opacity: [0.4, 0.8, 0.4],
         }}
         transition={{
-          duration: 12,
+          duration: 5,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className='bg-primary/5 dark:bg-primary/10 pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 h-100 w-100 rounded-full opacity-40 blur-[100px]'
+        className='from-primary/10 dark:from-primary/15 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-20 origin-bottom bg-linear-to-t to-transparent'
+      />
+
+      {/* Bottom Glowing Accent Line (Core + Animating Bloom) */}
+      <div className='via-primary/30 dark:via-primary/50 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[1px] bg-linear-to-r from-transparent to-transparent' />
+      <m.div
+        animate={{
+          opacity: [0.15, 0.45, 0.15],
+          scaleY: [1, 1.4, 1],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className='via-primary/20 dark:via-primary/40 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[3px] origin-bottom bg-linear-to-r from-transparent to-transparent blur-[2px]'
       />
 
       <m.div
