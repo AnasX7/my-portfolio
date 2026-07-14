@@ -21,31 +21,21 @@ export default function LanguageSwitcher() {
   }
 
   const nextLocale = currentLocale === 'en' ? 'ar' : 'en'
-  const nextLabel = nextLocale === 'en' ? 'EN' : 'ع'
+  const nextLabel = nextLocale === 'en' ? 'English' : 'العربية'
 
   return (
     <Button
       type='button'
       variant='outline'
-      size='icon'
-      className={cn('rounded-full', {
+      className={cn('rounded-full h-9 px-4 text-xs font-bold flex items-center gap-1.5', {
         'font-sans': nextLocale === 'ar',
         'font-inter': nextLocale === 'en',
       })}
       onClick={() => handleLanguageClick(nextLocale)}
       aria-label={`Switch language to ${nextLocale === 'en' ? 'English' : 'العربية'}`}
     >
-      <div className='relative flex items-center justify-center'>
-        <HugeiconsIcon icon={TranslateIcon} className='size-4.5 opacity-0' />
-        <span
-          className={cn(
-            'absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-300',
-            nextLocale === 'ar' ? 'text-base' : '',
-          )}
-        >
-          {nextLabel}
-        </span>
-      </div>
+      <span>{nextLabel}</span>
+      <HugeiconsIcon icon={TranslateIcon} className='text-muted-foreground size-4' />
     </Button>
   )
 }

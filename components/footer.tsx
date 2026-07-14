@@ -196,14 +196,14 @@ export default function Footer() {
               {t(DATA.projects.titleKey)}
             </span>
             <div className='flex flex-row flex-wrap justify-center gap-x-4 gap-y-1.5 sm:flex-col sm:items-start sm:gap-2.5'>
-              {DATA.projects.cards.map(({ githubUrl, titleKey }) => (
-                <a
+              {DATA.projects.cards.map(({ id: slug }) => (
+                <Link
                   className='text-muted-foreground hover:text-foreground after:bg-foreground relative w-max pb-0.5 text-xs transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100'
-                  href={githubUrl}
-                  key={t(titleKey)}
+                  href={`/projects/${slug}`}
+                  key={slug}
                 >
-                  {t(titleKey)}
-                </a>
+                  {t(`projects.slugs.${slug}`)}
+                </Link>
               ))}
             </div>
           </m.div>

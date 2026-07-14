@@ -7,6 +7,7 @@ import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
 import ShinyText from '@/components/ui/shiny-text'
+import GlareHover from '@/components/ui/glare-hover'
 
 export default function HeroV2() {
   const t = useTranslations()
@@ -167,13 +168,24 @@ export default function HeroV2() {
               style={shouldReduceMotion ? {} : { rotate: -4 }}
               className='border-border/60 bg-muted/30 relative z-10 size-32 cursor-pointer rounded-[2rem] border-2 p-2 shadow-xl backdrop-blur-md select-none sm:size-36 md:size-40 dark:border-white/10 dark:bg-white/5'
             >
-              <div className='h-full w-full overflow-hidden rounded-[1.75rem]'>
+              <GlareHover
+                width='100%'
+                height='100%'
+                borderRadius='1.75rem'
+                background='transparent'
+                borderColor='transparent'
+                glareColor='#ffffff'
+                glareOpacity={0.35}
+                glareAngle={-30}
+                glareSize={200}
+                className='overflow-hidden'
+              >
                 <img
                   alt={t(DATA.profile.nameKey)}
                   src={DATA.profile.avatar}
                   className='h-full w-full object-cover select-none'
                 />
-              </div>
+              </GlareHover>
             </m.div>
 
             {/* Floating Tech Icons */}

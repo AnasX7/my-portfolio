@@ -113,6 +113,7 @@ export const DATA = {
     subtitleKey: 'projects.subtitle',
     cards: [
       {
+        id: 'salaty',
         titleKey: 'projects.card1.title',
         descriptionKey: 'projects.card1.description',
         stack: [
@@ -141,16 +142,14 @@ export const DATA = {
         ],
       },
       {
+        id: 'tanazah',
         titleKey: 'projects.card2.title',
         descriptionKey: 'projects.card2.description',
-        stack: [
-          'Laravel',
-          'Tailwindcss',
-          'PostgreSQL',
-          'Docker',
-          'Email: admin@demo.com',
-          'Password: demotest',
-        ],
+        stack: ['Laravel', 'Tailwindcss', 'PostgreSQL', 'Docker'],
+        demoCredentials: {
+          email: 'admin@demo.com',
+          password: 'demotest',
+        },
         githubUrl: 'https://github.com/AnasX7',
         isLive: true,
         liveUrl: 'https://tanazah-demo.onrender.com/',

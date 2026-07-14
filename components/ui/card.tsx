@@ -1,25 +1,30 @@
-import * as React from 'react'
+'use client'
 
+import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { m } from 'motion/react'
 
-function Card({ className, ...props }: React.ComponentPropsWithoutRef<typeof m.div>) {
-  return (
-    <m.div
-      data-slot='card'
-      className={cn(
-        'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm group',
-        className,
-      )}
-      variants={{
-        hidden: { opacity: 0, filter: 'blur(10px)', scale: 0.8, rotateX: 15 },
-        show: { opacity: 1, filter: 'blur(0px)', scale: 1, rotateX: 0 },
-      }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      {...props}
-    />
-  )
-}
+const Card = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof m.div>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <m.div
+        ref={ref}
+        data-slot='card'
+        className={cn(
+          'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm group',
+          className,
+        )}
+        variants={{
+          hidden: { opacity: 0, filter: 'blur(10px)', scale: 0.8, rotateX: 15 },
+          show: { opacity: 1, filter: 'blur(0px)', scale: 1, rotateX: 0 },
+        }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        {...props}
+      />
+    )
+  },
+)
+Card.displayName = 'Card'
 
 function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (

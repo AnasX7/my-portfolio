@@ -87,9 +87,16 @@
     "title": "My Projects",
     "subtitle": "Check out my range of amazing projects, from imaginative concepts to live applications. You're welcome to jump in and experience them!",
     "github": "Source",
-    "live": "Demo",
+    "live": "Live Preview",
+    "viewDetails": "View Details",
+    "slugs": {
+      "salaty": "Salaty",
+      "tanazah": "Tanazah",
+      "salaty-test": "Salaty-Test",
+      "tanazah-test": "Tanazah-Test"
+    },
     "card1": {
-      "title": "Salaty E-commerce App 🛒",
+      "title": "Salaty E-commerce App",
       "description": "Welcome to Salaty, your ultimate mobile shopping destination! Salaty (meaning \"my basket\" in Arabic) offers a seamless and intuitive e-commerce experience.",
       "imageAlts": [
         "Salaty e-commerce app home screen",
@@ -99,7 +106,26 @@
       ]
     },
     "card2": {
-      "title": "Tanazah Pool System 🥽",
+      "title": "Tanazah Pool System",
+      "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations.",
+      "imageAlts": [
+        "Tanazah pool management login page",
+        "Tanazah admin dashboard with reservations overview",
+        "Tanazah pool owner dashboard with operations panel"
+      ]
+    },
+    "card3": {
+      "title": "Salaty E-commerce App [Test Duplicate]",
+      "description": "Welcome to Salaty, your ultimate mobile shopping destination! Salaty (meaning \"my basket\" in Arabic) offers a seamless and intuitive e-commerce experience.",
+      "imageAlts": [
+        "Salaty e-commerce app home screen",
+        "Salaty authentication and sign-up screens",
+        "Salaty store browsing and product screens",
+        "Salaty cart, checkout, and account screens"
+      ]
+    },
+    "card4": {
+      "title": "Tanazah Pool System [Test Duplicate]",
       "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations.",
       "imageAlts": [
         "Tanazah pool management login page",
