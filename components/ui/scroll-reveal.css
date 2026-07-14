@@ -1,0 +1,11 @@
+.scroll-reveal {
+  margin: 0;
+}
+
+.scroll-reveal-text {
+  /* Let textClass from Tailwind drive font-size and spacing */
+}
+
+.word {
+  display: inline-block;
+}

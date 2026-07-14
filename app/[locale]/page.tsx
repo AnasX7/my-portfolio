@@ -7,6 +7,7 @@ import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
 
 const LogoCloudSection = dynamic(() => import('@/components/home/sections/logos'))
+const WhoAmISection = dynamic(() => import('@/components/home/who-am-i'))
 const AboutSection = dynamic(() => import('@/components/home/sections/about'))
 const ProjectSection = dynamic(() => import('@/components/home/sections/projects'))
 const ContactSection = dynamic(() => import('@/components/home/sections/contact'))
@@ -62,8 +63,9 @@ export default async function Home({ params }: Props) {
       <Spotlight />
       <HeroSection />
       <LogoCloudSection />
-      <AboutSection />
       <ProjectSection />
+      <WhoAmISection />
+      <AboutSection />
       <ContactSection />
     </>
   )

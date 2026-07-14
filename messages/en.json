@@ -29,14 +29,26 @@
   },
   "about": {
     "title": "About Me",
-    "card1": {
-      "title": "Who am I?",
-      "description": "IT student based in Abu Dhabi, UAE. Front-end expert with back-end skills and solid UI/UX tool experience."
-    },
-    "card2": {
-      "title": "Analytics",
-      "projects": "Projects Completed",
-      "certificates": "Certificates Earned"
+    "whoAmI": {
+      "line1": {
+        "pre": "Software engineer and expert in",
+        "badge1": "Full-Stack Development",
+        "mid": "with over",
+        "badge2": "2+ years",
+        "post": "of hands-on experience."
+      },
+      "line2": {
+        "pre": "Expertise extends to modern systems like",
+        "badge1": "Next.js",
+        "mid": "and",
+        "badge2": "NestJS",
+        "post": "for fast, production-ready apps."
+      },
+      "line3": {
+        "pre": "Currently works as",
+        "role": "Software Engineer",
+        "post": "as freelancer"
+      }
     },
     "card3": {
       "title": "Experience & Timeline"

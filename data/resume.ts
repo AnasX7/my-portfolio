@@ -1,5 +1,4 @@
 import { Icons } from '@/components/icons'
-import { FolderGitTwoIcon, Medal01Icon } from '@hugeicons/core-free-icons'
 
 export const DATA = {
   profile: {
@@ -33,27 +32,6 @@ export const DATA = {
 
   about: {
     titleKey: 'about.title',
-    card1: {
-      titleKey: 'about.card1.title',
-      descriptionKey: 'about.card1.description',
-    },
-    card2: {
-      titleKey: 'about.card2.title',
-      analytics: [
-        {
-          icon: FolderGitTwoIcon,
-          value: 5,
-          labelKey: 'about.card2.projects',
-          showPlus: true,
-        },
-        {
-          icon: Medal01Icon,
-          value: 4,
-          labelKey: 'about.card2.certificates',
-          showPlus: true,
-        },
-      ],
-    },
     card3: {
       titleKey: 'about.card3.title',
     },
