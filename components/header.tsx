@@ -103,14 +103,18 @@ export default function Header() {
                     height={36}
                     className='size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105'
                   />
-                  <div className='absolute -top-1 -right-1 size-3 animate-pulse rounded-full bg-green-400'></div>
+                  {/* Glowing Status Indicator Dot overlaying the avatar (adapts to LTR/RTL bottom corner) */}
+                  <span className='absolute -bottom-0.5 flex size-2.5 ltr:-right-0.5 ltr:left-auto rtl:right-auto rtl:-left-0.5'>
+                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75'></span>
+                    <span className='relative inline-flex size-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#34d399]'></span>
+                  </span>
                 </div>
 
-                <div className='flex min-w-0 flex-col'>
+                <div className='flex min-w-0 flex-col justify-center'>
                   <span className='text-foreground truncate text-lg leading-tight font-bold'>
                     {t(DATA.profile.nameKey)}
                   </span>
-                  <span className='text-muted-foreground truncate text-xs leading-none'>
+                  <span className='text-muted-foreground mt-0.5 truncate text-xs leading-none'>
                     {t(DATA.profile.roleKey)}
                   </span>
                 </div>

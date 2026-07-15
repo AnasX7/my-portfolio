@@ -146,6 +146,15 @@ export default function Footer() {
               </button>
             </div>
 
+            {/* Active Status Badge */}
+            <div className='border-border/30 flex w-fit items-center gap-2.5 rounded-full border bg-zinc-950/80 px-4 py-1.5 text-sm font-medium text-zinc-200 backdrop-blur-xs select-none dark:bg-zinc-900/60 dark:text-zinc-200'>
+              <span className='relative flex size-2.5'>
+                <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75'></span>
+                <span className='relative inline-flex size-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#34d399]'></span>
+              </span>
+              <span>{t('contact.availableForWork')}</span>
+            </div>
+
             {/* Social Buttons */}
             <div className='mt-0.5 flex justify-center gap-2 sm:justify-start'>
               {DATA.socials.map((social, index) => (

@@ -119,7 +119,7 @@ export default function ContactForm() {
   }
 
   return (
-    <Card className='bg-card/65 relative rounded-none'>
+    <Card className='bg-card relative overflow-hidden shadow-md transition-all duration-300 hover:scale-[1.005] hover:brightness-[1.03] dark:shadow-2xl'>
       <CardDecorator />
       <CardContent className='grid grid-rows-1 gap-8 lg:grid-cols-2 lg:grid-rows-none'>
         <Form {...form}>
@@ -200,7 +200,7 @@ export default function ContactForm() {
           whileInView={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, delay: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
-          className='bg-muted/45 border-border hidden flex-col items-center justify-center rounded-4xl border-2 p-6 text-center shadow-md lg:flex'
+          className='bg-muted/45 border-border hidden flex-col items-center justify-center rounded-xl border-2 p-6 text-center shadow-md lg:flex'
         >
           <div className='animation-duration-[3000ms] mb-4 size-48 animate-bounce'>
             <PaperPlane className={`${isRtl && 'rotate-270'}`} />
