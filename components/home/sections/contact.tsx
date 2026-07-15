@@ -9,7 +9,7 @@ export default function Contact() {
   const t = useTranslations()
 
   return (
-    <section id='contact' className='mt-20 sm:mt-32'>
+    <section id='contact' className='mt-12 sm:mt-16'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
         <m.div
           initial={{

@@ -63,9 +63,9 @@ export default async function Home({ params }: Props) {
       <Spotlight />
       <HeroSection />
       <LogoCloudSection />
-      <ProjectSection />
       <WhoAmISection />
       <AboutSection />
+      <ProjectSection />
       <ContactSection />
     </>
   )

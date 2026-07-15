@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import { m } from 'motion/react'
 import Image from 'next/image'
 import { ArrowUpLeftIcon, ArrowUpRightIcon } from '@hugeicons/core-free-icons'
 import { DATA } from '@/data/resume'
@@ -12,6 +11,7 @@ import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
 import { Link, useRouter } from '@/i18n/navigation'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import ScrollStack, { ScrollStackItem } from '@/components/ui/scroll-stack'
+import { PROJECT_DETAILS_PUBLIC } from '@/lib/features'
 import { cn } from '@/lib/utils'
 
 const getTechIconUrl = (tech: string) => {
@@ -40,13 +40,18 @@ export default function Projects() {
   const t = useTranslations()
 
   return (
-    <section id='projects' className='relative mt-2 sm:mt-4'>
+    <section id='projects' className='relative mt-12 sm:mt-16'>
       <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
+        <h2 className='text-foreground mb-8 text-2xl font-bold tracking-tight sm:text-3xl'>
+          {t('projects.title')}
+        </h2>
         <ScrollStack
           useWindowScroll={true}
-          itemDistance={54}
+          itemDistance={30}
           itemScale={0.03}
           itemStackDistance={35}
+          stackPosition='12%'
+          scaleEndPosition='4%'
         >
           {DATA.projects.cards.map((project) => (
             <ScrollStackItem key={project.titleKey}>
@@ -66,15 +71,6 @@ export default function Projects() {
           ))}
         </ScrollStack>
       </div>
-
-      {/* Curved glowing separator pattern transitioning to Who Am I */}
-      <m.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.8 }}
-        viewport={{ once: true, amount: 0.3 }}
-        className='after:border-border after:bg-secondary pointer-events-none absolute top-full right-0 left-0 -z-10 -mt-32 h-64 w-full overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,oklch(0.88_0.02_80),transparent_70%)] before:opacity-40 after:absolute after:top-1/2 after:-left-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t md:-mt-44 md:h-96 dark:before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] dark:after:border-[#ffffff66] dark:after:bg-zinc-900'
-      />
     </section>
   )
 }
@@ -84,7 +80,7 @@ interface ProjectCardProps {
   title: string
   description: string
   stack: string[]
-  githubUrl: string
+  githubUrl?: string | null
   isLive: boolean
   liveUrl?: string | null
   images: string[]
@@ -124,6 +120,8 @@ function ProjectCard({
 
   // Click card to navigate
   const handleCardClick = (e: React.MouseEvent) => {
+    if (!PROJECT_DETAILS_PUBLIC) return
+
     const target = e.target as HTMLElement
     // Ignore interactive elements
     if (
@@ -140,7 +138,10 @@ function ProjectCard({
   return (
     <Card
       onClick={handleCardClick}
-      className='bg-card border-border/60 hover:border-border/80 relative flex h-auto cursor-pointer flex-col gap-6 overflow-hidden rounded-3xl p-6 transition-all hover:brightness-[1.03] lg:h-80 lg:flex-row lg:gap-8 lg:p-6'
+      className={cn(
+        'bg-card border-border/60 hover:border-border/80 relative flex h-auto flex-col gap-6 overflow-hidden rounded-3xl p-6 transition-all hover:brightness-[1.03] lg:h-80 lg:flex-row lg:gap-8 lg:p-6',
+        PROJECT_DETAILS_PUBLIC && 'cursor-pointer',
+      )}
     >
       <CardDecorator />
       <div className='z-10 flex h-full w-full flex-col gap-6 p-0 lg:w-[65%] lg:justify-center lg:gap-4'>
@@ -231,25 +232,27 @@ function ProjectCard({
         </div>
 
         <div className='mt-2 flex flex-wrap items-center gap-4'>
-          <Link
-            href={githubUrl}
-            target='_blank'
-            className={cn(
-              buttonVariants({ variant: 'outline' }),
-              'rounded-full px-5 py-2.5 text-sm font-medium flex items-center gap-2',
-            )}
-          >
-            <svg
-              role='img'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
-              className='fill-foreground dark:fill-foreground size-4'
+          {githubUrl ? (
+            <Link
+              href={githubUrl}
+              target='_blank'
+              className={cn(
+                buttonVariants({ variant: 'outline' }),
+                'rounded-full px-5 py-2.5 text-sm font-medium flex items-center gap-2',
+              )}
             >
-              <title>GitHub</title>
-              <path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' />
-            </svg>
-            <span className='text-sm font-medium'>{t('projects.github')}</span>
-          </Link>
+              <svg
+                role='img'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+                className='fill-foreground dark:fill-foreground size-4'
+              >
+                <title>GitHub</title>
+                <path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' />
+              </svg>
+              <span className='text-sm font-medium'>{t('projects.github')}</span>
+            </Link>
+          ) : null}
 
           {isLive && liveUrl ? (
             <MagneticLinkPreview
@@ -262,15 +265,17 @@ function ProjectCard({
             </MagneticLinkPreview>
           ) : null}
 
-          <Link
-            href={`/projects/${slug}`}
-            className={cn(
-              buttonVariants({ variant: 'outline' }),
-              'rounded-full px-5 py-2.5 text-sm font-medium',
-            )}
-          >
-            {t('projects.viewDetails')}
-          </Link>
+          {PROJECT_DETAILS_PUBLIC ? (
+            <Link
+              href={`/projects/${slug}`}
+              className={cn(
+                buttonVariants({ variant: 'outline' }),
+                'rounded-full px-5 py-2.5 text-sm font-medium',
+              )}
+            >
+              {t('projects.viewDetails')}
+            </Link>
+          ) : null}
         </div>
       </div>
 

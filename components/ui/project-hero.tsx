@@ -1,24 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Card, CardDecorator, CardDescription, CardTitle } from './card'
-import { buttonVariants } from './button'
-import { Link } from '@/i18n/navigation'
-import { cn } from '@/lib/utils'
+import { m, useReducedMotion } from 'motion/react'
 
 interface ProjectHeroProps {
   project: {
     id: string
-    titleKey: string
-    descriptionKey: string
-    stack: string[]
-    githubUrl: string
+    stack: readonly string[]
+    githubUrl: string | null
     isLive: boolean
     liveUrl: string | null
-    images: string[]
-    imageAltKeys: string[]
+    images: readonly string[]
     demoCredentials?: {
       email: string
       password: string
@@ -26,7 +19,20 @@ interface ProjectHeroProps {
   }
   title: string
   description: string
+  heroAlt: string
   isRtl: boolean
+  projectNumber: number
+  labels: {
+    project: string
+    github: string
+    live: string
+    technologies: string
+    demoAccount: string
+    email: string
+    password: string
+    copy: string
+    copied: string
+  }
 }
 
 const getTechIconUrl = (tech: string) => {
@@ -45,175 +51,239 @@ const getTechIconUrl = (tech: string) => {
   }
   const clean = tech.toLowerCase().trim()
   const slug = slugMap[clean] || clean.replace(/\s+/g, '')
-  if (slug.startsWith('/')) {
-    return slug
-  }
-  return `https://cdn.simpleicons.org/${slug}`
+  return slug.startsWith('/') ? slug : `https://cdn.simpleicons.org/${slug}`
 }
 
-export default function ProjectHero({ project, title, description, isRtl }: ProjectHeroProps) {
-  const t = useTranslations()
+export default function ProjectHero({
+  project,
+  title,
+  description,
+  heroAlt,
+  isRtl,
+  projectNumber,
+  labels,
+}: ProjectHeroProps) {
+  const shouldReduceMotion = useReducedMotion()
   const [copiedText, setCopiedText] = useState<'email' | 'password' | null>(null)
 
-  const handleCopy = (text: string, type: 'email' | 'password') => {
-    navigator.clipboard.writeText(text)
+  const reveal = { initial: false as const, animate: { opacity: 1, y: 0 } }
+
+  const handleCopy = async (text: string, type: 'email' | 'password') => {
+    await navigator.clipboard.writeText(text)
     setCopiedText(type)
-    setTimeout(() => setCopiedText(null), 2000)
+    window.setTimeout(() => setCopiedText(null), 1800)
   }
 
   return (
-    <Card className='bg-card relative mb-12 flex flex-col gap-8 overflow-hidden rounded-2xl p-8 lg:flex-row lg:items-center'>
-      <CardDecorator />
-      <div className='z-10 flex-1'>
-        <CardTitle className='text-foreground mb-4 w-fit text-3xl font-bold tracking-tight sm:text-4xl'>
-          {title}
-        </CardTitle>
-        <CardDescription className='text-muted-foreground mb-6 text-lg leading-relaxed'>
-          {description}
-        </CardDescription>
-
-        {/* Demo Credentials */}
-        {project.demoCredentials && (
-          <div className='text-muted-foreground mb-6 flex w-fit flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg border border-zinc-500/10 bg-zinc-500/5 px-3 py-1.5 font-mono text-xs select-none dark:border-zinc-400/10 dark:bg-zinc-400/5'>
-            <span className='text-foreground flex items-center gap-1.5 font-sans font-medium'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='14'
-                height='14'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='size-3.5'
-              >
-                <rect width='18' height='11' x='3' y='11' rx='2' ry='2' />
-                <path d='M7 11V7a5 5 0 0 1 10 0v4' />
-              </svg>
-              {isRtl ? 'حساب تجريبي:' : 'Demo Account:'}
-            </span>
-            <span>
-              {isRtl ? 'البريد:' : 'Email:'}{' '}
-              <code
-                onClick={() => handleCopy(project.demoCredentials!.email, 'email')}
-                className='text-foreground cursor-pointer rounded bg-zinc-500/10 px-1.5 py-0.5 transition-all select-all hover:bg-zinc-500/20 active:scale-95 dark:bg-zinc-400/10 dark:hover:bg-zinc-400/20'
-                title={isRtl ? 'اضغط للنسخ' : 'Click to copy'}
-              >
-                {copiedText === 'email'
-                  ? isRtl
-                    ? 'تم النسخ!'
-                    : 'Copied!'
-                  : project.demoCredentials.email}
-              </code>
-            </span>
-            <span className='text-zinc-400'>•</span>
-            <span>
-              {isRtl ? 'الرمز:' : 'Password:'}{' '}
-              <code
-                onClick={() => handleCopy(project.demoCredentials!.password, 'password')}
-                className='text-foreground cursor-pointer rounded bg-zinc-500/10 px-1.5 py-0.5 transition-all select-all hover:bg-zinc-500/20 active:scale-95 dark:bg-zinc-400/10 dark:hover:bg-zinc-400/20'
-                title={isRtl ? 'اضغط للنسخ' : 'Click to copy'}
-              >
-                {copiedText === 'password'
-                  ? isRtl
-                    ? 'تم النسخ!'
-                    : 'Copied!'
-                  : project.demoCredentials.password}
-              </code>
-            </span>
-          </div>
-        )}
-
-        {/* Action Links */}
-        <div className='mb-8 flex flex-wrap items-center gap-4'>
-          <Link
-            href={project.githubUrl}
-            target='_blank'
-            className={cn(
-              buttonVariants({ variant: 'outline' }),
-              'rounded-full px-5 py-2.5 text-sm font-medium flex items-center gap-2',
-            )}
-          >
-            <svg
-              role='img'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
-              className='fill-foreground dark:fill-foreground size-4'
-            >
-              <title>GitHub</title>
-              <path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' />
-            </svg>
-            <span className='text-sm font-medium'>{t('projects.github')}</span>
-          </Link>
-
-          {project.isLive && project.liveUrl ? (
-            <Link
-              href={project.liveUrl}
-              target='_blank'
-              className={cn(
-                buttonVariants({ variant: 'outline' }),
-                'rounded-full px-5 py-2.5 text-sm font-medium flex items-center gap-2',
-              )}
-            >
-              {t('projects.live')}
-              <svg
-                role='img'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className={`size-4 ${isRtl ? 'rotate-180' : ''}`}
-              >
-                <line x1='7' y1='17' x2='17' y2='7'></line>
-                <polyline points='7 7 17 7 17 17'></polyline>
-              </svg>
-            </Link>
-          ) : null}
-        </div>
-
-        {/* Technologies Used */}
-        <div className='border-border/40 border-t pt-6'>
-          <h2 className='text-foreground mb-4 text-sm font-semibold tracking-wide uppercase'>
-            {isRtl ? 'التقنيات المستخدمة' : 'Technologies Used'}
-          </h2>
-          <div className='flex flex-wrap items-center gap-3'>
-            {project.stack.map((item) => {
-              const iconUrl = getTechIconUrl(item)
-              return (
-                <div
-                  key={`${title}-${item}`}
-                  className='bg-secondary/40 border-border/40 hover:bg-secondary/80 flex size-9 items-center justify-center rounded-lg border p-1.5 transition-all duration-200'
-                  title={item}
-                >
-                  <img
-                    src={iconUrl}
-                    alt={item}
-                    className={`size-6 object-contain ${
-                      ['expo', 'next.js', 'nextdotjs', 'github'].includes(item.toLowerCase())
-                        ? 'dark:brightness-0 dark:invert'
-                        : ''
-                    }`}
-                  />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Hero Image / Mockup on the right */}
-      <div className='relative flex h-64 w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-zinc-900/5 sm:h-80 lg:h-80 lg:w-[40%] dark:bg-zinc-100/5'>
+    <section
+      data-editorial-hero='true'
+      aria-labelledby='project-title'
+      className='relative isolate min-h-[720px] overflow-hidden rounded-[2rem] bg-zinc-950 text-white shadow-2xl shadow-black/10 md:min-h-[calc(100svh-7rem)]'
+    >
+      <m.div
+        className='absolute inset-0'
+        initial={false}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      >
         <Image
           src={project.images[0]}
-          alt={title}
-          width={400}
-          height={400}
-          className='pointer-events-none max-h-[85%] max-w-[85%] object-contain select-none'
+          alt={heroAlt}
+          fill
+          priority
+          unoptimized
+          sizes='(max-width: 1280px) 100vw, 1280px'
+          className='object-contain object-top select-none'
         />
+      </m.div>
+
+      <div className='absolute inset-0 bg-black/60' aria-hidden='true' />
+
+      <div className='relative flex min-h-[720px] flex-col justify-between p-6 sm:p-9 md:min-h-[calc(100svh-7rem)] md:p-12 lg:p-16'>
+        <m.div
+          {...reveal}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className='flex items-center justify-between gap-4 text-[0.7rem] font-semibold tracking-[0.24em] text-white/75 uppercase'
+        >
+          <span>
+            {labels.project} {projectNumber.toString().padStart(2, '0')}
+          </span>
+          <span className='h-px flex-1 bg-white/25' aria-hidden='true' />
+          <span>{project.id.replaceAll('-', ' ')}</span>
+        </m.div>
+
+        <div className='max-w-4xl'>
+          <m.h1
+            id='project-title'
+            {...reveal}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.08,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className={`max-w-4xl font-semibold text-balance ${
+              isRtl
+                ? 'text-5xl leading-[1.08] tracking-[-0.035em] sm:text-6xl lg:text-7xl'
+                : 'text-5xl leading-[0.95] tracking-[-0.055em] sm:text-7xl lg:text-8xl'
+            }`}
+          >
+            {title}
+          </m.h1>
+
+          <m.p
+            {...reveal}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.16,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className='mt-6 max-w-2xl text-base leading-7 text-pretty text-white/78 sm:text-lg sm:leading-8'
+          >
+            {description}
+          </m.p>
+
+          <m.div
+            {...reveal}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.24,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className='mt-8 flex flex-wrap items-center gap-x-7 gap-y-4'
+          >
+            {project.isLive && project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target='_blank'
+                rel='noreferrer'
+                className='group inline-flex min-h-11 items-center gap-3 border-b border-white pb-1 text-sm font-semibold text-white transition-colors duration-150 outline-none hover:border-white/45 focus-visible:ring-2 focus-visible:ring-white'
+              >
+                {labels.live}
+                <ArrowIcon isRtl={isRtl} />
+              </a>
+            ) : null}
+            {project.githubUrl ? (
+              <a
+                href={project.githubUrl}
+                target='_blank'
+                rel='noreferrer'
+                className='group inline-flex min-h-11 items-center gap-3 border-b border-white/45 pb-1 text-sm font-semibold text-white transition-colors duration-150 outline-none hover:border-white focus-visible:ring-2 focus-visible:ring-white'
+              >
+                {labels.github}
+                <ArrowIcon isRtl={isRtl} />
+              </a>
+            ) : null}
+          </m.div>
+
+          <m.div
+            {...reveal}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.3,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className='mt-10 grid gap-7 border-t border-white/25 pt-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end'
+          >
+            <div>
+              <h2 className='text-xs font-semibold tracking-[0.2em] text-white/60 uppercase'>
+                {labels.technologies}
+              </h2>
+              <ul className='mt-4 flex flex-wrap gap-x-5 gap-y-3'>
+                {project.stack.map((item) => (
+                  <li
+                    key={`${title}-${item}`}
+                    className='flex items-center gap-2.5 text-sm text-white/90'
+                  >
+                    <span className='flex size-6 items-center justify-center' aria-hidden='true'>
+                      <img
+                        src={getTechIconUrl(item)}
+                        alt=''
+                        className={`size-4 object-contain ${
+                          ['expo', 'next.js', 'nextdotjs', 'github'].includes(item.toLowerCase())
+                            ? 'brightness-0 invert'
+                            : ''
+                        }`}
+                      />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {project.demoCredentials ? (
+              <div className='border-white/25 lg:border-s lg:ps-7'>
+                <p className='text-xs font-semibold tracking-[0.18em] text-white/60 uppercase'>
+                  {labels.demoAccount}
+                </p>
+                <div className='mt-3 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-white/85'>
+                  <CredentialButton
+                    label={labels.email}
+                    value={project.demoCredentials.email}
+                    copyLabel={labels.copy}
+                    copiedLabel={labels.copied}
+                    isCopied={copiedText === 'email'}
+                    onCopy={() => handleCopy(project.demoCredentials!.email, 'email')}
+                  />
+                  <CredentialButton
+                    label={labels.password}
+                    value={project.demoCredentials.password}
+                    copyLabel={labels.copy}
+                    copiedLabel={labels.copied}
+                    isCopied={copiedText === 'password'}
+                    onCopy={() => handleCopy(project.demoCredentials!.password, 'password')}
+                  />
+                </div>
+              </div>
+            ) : null}
+          </m.div>
+        </div>
       </div>
-    </Card>
+    </section>
+  )
+}
+
+function CredentialButton({
+  label,
+  value,
+  copyLabel,
+  copiedLabel,
+  isCopied,
+  onCopy,
+}: {
+  label: string
+  value: string
+  copyLabel: string
+  copiedLabel: string
+  isCopied: boolean
+  onCopy: () => void
+}) {
+  return (
+    <button
+      type='button'
+      onClick={onCopy}
+      title={`${copyLabel} ${label}`}
+      className='min-h-8 cursor-copy border-b border-dashed border-white/35 text-start transition-colors duration-150 hover:border-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white'
+    >
+      <span className='text-white/55'>{label}: </span>
+      {isCopied ? copiedLabel : value}
+    </button>
+  )
+}
+
+function ArrowIcon({ isRtl }: { isRtl: boolean }) {
+  return (
+    <svg
+      viewBox='0 0 20 20'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      className={`size-4 transition-transform duration-150 group-hover:-translate-y-0.5 ${
+        isRtl ? 'rotate-[-90deg]' : 'rotate-0'
+      }`}
+      aria-hidden='true'
+    >
+      <path d='M5 15 15 5M7 5h8v8' />
+    </svg>
   )
 }

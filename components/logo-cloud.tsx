@@ -1,4 +1,4 @@
-import { InfiniteSlider } from '@/components/ui/infinite-slider'
+import { CurvedInfiniteSlider } from '@/components/ui/curved-infinite-slider'
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
@@ -19,11 +19,11 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
     <div
       {...props}
       className={cn(
-        'overflow-hidden py-4 mask-[linear-gradient(to_right,transparent,black,transparent)]',
+        'overflow-hidden pt-4 pb-1 mask-[linear-gradient(to_right,transparent,black,transparent)]',
         className,
       )}
     >
-      <InfiniteSlider gap={42} reverse speed={80} speedOnHover={25}>
+      <CurvedInfiniteSlider arcDepth={28} gap={42} reverse speed={80} speedOnHover={25}>
         {logos.map((logo) => (
           <Image
             alt={logo.alt}
@@ -36,7 +36,7 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
             width={logo.width ?? 48}
           />
         ))}
-      </InfiniteSlider>
+      </CurvedInfiniteSlider>
     </div>
   )
 }
