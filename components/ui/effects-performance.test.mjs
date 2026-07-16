@@ -66,6 +66,20 @@ test('shine effects are finite instead of permanently animating off-screen', asy
   assert.doesNotMatch(globalCss, /\.animate-shine\s*\{[^}]*infinite/s)
 })
 
+test('inline badges leave vertical room for letter descenders', async () => {
+  const source = await read('components/home/who-am-i.tsx')
+
+  assert.match(source, /select-none leading-tight/)
+  assert.doesNotMatch(source, /select-none leading-none/)
+})
+
+test('about copy leaves space between wrapped badge lines', async () => {
+  const source = await read('components/home/who-am-i.tsx')
+
+  assert.match(source, /leading-\[3\.6\] sm:leading-\[3\.4\]/)
+  assert.doesNotMatch(source, /leading-\[2\.8\] sm:leading-\[2\.9\]/)
+})
+
 test('hero and footer ambient loops are scoped to the viewport', async () => {
   const [hero, footer] = await Promise.all([
     read('components/home/sections/hero.tsx'),

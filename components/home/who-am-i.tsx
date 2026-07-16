@@ -13,7 +13,7 @@ interface InlineBadgeProps {
 const InlineBadge = ({ children, icons, className }: InlineBadgeProps) => (
   <span
     className={cn(
-      'inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/[0.02] px-4 py-3 select-none leading-none',
+      'inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/[0.02] px-4 py-3 select-none leading-tight',
       'mx-1 align-middle backdrop-blur-xs',
       'dark:border-white/20 dark:bg-white/[0.03]',
       'shadow-[0_0_8px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.06)]',
@@ -57,7 +57,7 @@ export default function WhoAmI() {
   const textClass = cn(
     'text-foreground text-center font-light tracking-tight text-balance',
     'text-base sm:text-lg md:text-xl',
-    isArabic ? 'leading-[2.8] sm:leading-[2.9]' : 'leading-[2.8] sm:leading-[2.9]',
+    isArabic ? 'leading-[3.6] sm:leading-[3.4]' : 'leading-[3.6] sm:leading-[3.4]',
   )
 
   return (
