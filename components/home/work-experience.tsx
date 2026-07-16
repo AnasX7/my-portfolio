@@ -9,6 +9,13 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import { ChevronRightIcon } from '@hugeicons/core-free-icons'
 import { getAboutMotion } from '@/components/home/about-motion'
 import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
+import { useCurrentMonth } from '@/hooks/use-current-month'
+import {
+  calculateExperienceDuration,
+  formatExperienceMonth,
+  getExperienceRange,
+  type YearMonth,
+} from '@/lib/experience-duration'
 
 interface CompanyLogoProps {
   name: string
@@ -75,6 +82,7 @@ export default function WorkExperience() {
   const locale = useLocale()
   const isRtl = locale === 'ar'
   const reduceMotion = useHydratedReducedMotion()
+  const currentMonth = useCurrentMonth()
   const motion = getAboutMotion(Boolean(reduceMotion), isRtl ? -1 : 1)
 
   // Manage expanded items
@@ -87,13 +95,43 @@ export default function WorkExperience() {
     }))
   }
 
+  const formatDuration = (startDate: YearMonth, endDate?: YearMonth) => {
+    const effectiveEndDate = endDate ?? currentMonth
+
+    if (!effectiveEndDate) return null
+
+    const duration = calculateExperienceDuration(startDate, effectiveEndDate)
+    const parts = [
+      duration.years > 0 ? t('work.duration.year', { count: duration.years }) : null,
+      duration.months > 0 ? t('work.duration.month', { count: duration.months }) : null,
+    ].filter((part): part is string => Boolean(part))
+
+    return parts.length === 2
+      ? t('work.duration.join', { left: parts[0], right: parts[1] })
+      : parts[0]
+  }
+
+  const formatDateRange = (startDate: YearMonth, endDate?: YearMonth) => {
+    const startLabel = formatExperienceMonth(locale, startDate)
+    const endLabel = endDate ? formatExperienceMonth(locale, endDate) : t('work.duration.present')
+    const duration = formatDuration(startDate, endDate)
+    const range = `${startLabel} – ${endLabel}`
+
+    return duration ? `${range} · ${duration}` : range
+  }
+
   return (
-    <m.div variants={motion.list} className='flex flex-col gap-6 py-2'>
+    <m.div variants={motion.list} className='flex flex-col gap-6 overflow-x-clip py-2'>
       {DATA.workExperience.map((item) => {
         const fallbackChar = t(item.companyKey).charAt(0)
 
         // 1. Grouped roles layout (e.g. GTK TECH Pro)
         if (item.roles) {
+          const groupedRange = currentMonth ? getExperienceRange(item.roles, currentMonth) : null
+          const groupedDuration = groupedRange
+            ? formatDuration(groupedRange.start, groupedRange.end)
+            : null
+
           return (
             <m.div
               key={item.id}
@@ -113,9 +151,9 @@ export default function WorkExperience() {
                   <span className='text-foreground text-base font-semibold sm:text-lg'>
                     {t(item.companyKey)}
                   </span>
-                  {item.totalDurationKey && (
+                  {groupedDuration && (
                     <span className='text-muted-foreground mt-0.5 text-sm font-normal'>
-                      {t(item.totalDurationKey)}
+                      {groupedDuration}
                     </span>
                   )}
                   {item.globalLocationKey && (
@@ -146,17 +184,17 @@ export default function WorkExperience() {
                       {/* Accordion Role Toggle Button */}
                       <button
                         onClick={() => toggleItem(role.id)}
-                        className='group flex cursor-pointer items-start justify-between gap-4 text-start focus:outline-hidden'
+                        className='group flex w-full cursor-pointer flex-col items-stretch gap-1 text-start focus:outline-hidden sm:flex-row sm:items-start sm:justify-between sm:gap-4'
                       >
-                        <div className='flex min-w-0 flex-col'>
-                          <div className='flex items-center gap-1.5'>
-                            <span className='text-foreground group-hover:text-primary text-base font-semibold transition-colors'>
+                        <div className='flex min-w-0 flex-col sm:flex-1'>
+                          <div className='flex items-start gap-1.5'>
+                            <span className='text-foreground group-hover:text-primary text-base font-semibold text-pretty break-words transition-colors'>
                               {t(role.titleKey)}
                             </span>
                             <HugeiconsIcon
                               icon={ChevronRightIcon}
                               className={cn(
-                                'size-4 text-muted-foreground transition-transform duration-300',
+                                'text-muted-foreground mt-1 size-4 shrink-0 transition-transform duration-300',
                                 isRtl
                                   ? isExpanded
                                     ? 'rotate-270'
@@ -173,8 +211,8 @@ export default function WorkExperience() {
                         </div>
 
                         {/* Role Date Range */}
-                        <span className='text-muted-foreground/80 shrink-0 pt-0.5 text-right text-xs font-normal sm:text-sm'>
-                          {t(role.dateKey)}
+                        <span className='text-muted-foreground/80 shrink-0 self-start pt-0 text-start text-xs font-normal whitespace-nowrap tabular-nums sm:self-auto sm:pt-0.5 sm:text-end sm:text-sm'>
+                          {formatDateRange(role.startDate, role.endDate)}
                         </span>
                       </button>
 
@@ -244,9 +282,9 @@ export default function WorkExperience() {
             {/* Header Row */}
             <button
               onClick={() => toggleItem(item.id)}
-              className='group flex cursor-pointer items-start justify-between gap-4 text-start focus:outline-hidden'
+              className='group flex w-full cursor-pointer flex-col items-stretch gap-2 text-start focus:outline-hidden sm:flex-row sm:items-start sm:justify-between sm:gap-4'
             >
-              <div className='flex min-w-0 items-start gap-4'>
+              <div className='flex w-full min-w-0 items-start gap-4 sm:flex-1'>
                 <CompanyLogo
                   name={t(item.companyKey)}
                   url={item.logo}
@@ -255,14 +293,14 @@ export default function WorkExperience() {
                   logoPadding={item.logoPadding}
                 />
                 <div className='flex min-w-0 flex-col'>
-                  <div className='flex items-center gap-1.5'>
-                    <span className='text-foreground group-hover:text-primary truncate text-base font-semibold transition-colors sm:text-lg'>
+                  <div className='flex items-start gap-1.5'>
+                    <span className='text-foreground group-hover:text-primary text-base font-semibold text-pretty break-words transition-colors sm:text-lg'>
                       {t(item.titleKey!)}
                     </span>
                     <HugeiconsIcon
                       icon={ChevronRightIcon}
                       className={cn(
-                        'size-4 text-muted-foreground transition-transform duration-300',
+                        'text-muted-foreground mt-1 size-4 shrink-0 transition-transform duration-300',
                         isRtl
                           ? isExpanded
                             ? 'rotate-270'
@@ -286,8 +324,8 @@ export default function WorkExperience() {
               </div>
 
               {/* Date Column */}
-              <span className='text-muted-foreground/80 shrink-0 pt-0.5 text-right text-xs font-normal sm:pt-1 sm:text-sm'>
-                {t(item.dateKey!)}
+              <span className='text-muted-foreground/80 ms-16 shrink-0 self-start pt-0 text-start text-xs font-normal whitespace-nowrap tabular-nums sm:ms-0 sm:self-auto sm:pt-1 sm:text-end sm:text-sm'>
+                {formatDateRange(item.startDate, item.endDate)}
               </span>
             </button>
 

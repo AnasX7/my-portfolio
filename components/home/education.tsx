@@ -84,7 +84,7 @@ export default function Education() {
   const motion = getAboutMotion(Boolean(reduceMotion), isRtl ? -1 : 1)
 
   return (
-    <m.div variants={motion.list} className='flex flex-col gap-6 py-2'>
+    <m.div variants={motion.list} className='flex flex-col gap-6 overflow-x-clip py-2'>
       {DATA.education.map((item) => {
         const fallbackChar = t(item.institutionKey).charAt(0)
 
@@ -127,20 +127,20 @@ export default function Education() {
 
                 {item.certifications.map((cert) => {
                   const certContent = (
-                    <div className='flex min-w-0 flex-col'>
-                      <div className='flex items-center gap-1.5'>
-                        <span className='text-foreground group-hover/cert:text-primary text-base font-semibold transition-colors'>
+                    <div className='flex min-w-0 flex-col sm:flex-1'>
+                      <div className='flex items-start gap-1.5'>
+                        <span className='text-foreground group-hover/cert:text-primary text-base font-semibold text-pretty break-words transition-colors'>
                           {t(cert.titleKey)}
                         </span>
                         {cert.url && (
                           <HugeiconsIcon
                             icon={ArrowUpRightIcon}
-                            className='text-muted-foreground group-hover/cert:text-primary size-3.5 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover/cert:translate-x-0 group-hover/cert:translate-y-0 group-hover/cert:opacity-100'
+                            className='text-muted-foreground group-hover/cert:text-primary mt-1 size-3.5 shrink-0 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover/cert:translate-x-0 group-hover/cert:translate-y-0 group-hover/cert:opacity-100'
                           />
                         )}
                       </div>
                       {cert.credentialKey && (
-                        <span className='text-muted-foreground mt-0.5 text-sm font-normal'>
+                        <span className='text-muted-foreground mt-0.5 text-sm font-normal [overflow-wrap:anywhere]'>
                           {t(cert.credentialKey)}
                         </span>
                       )}
@@ -148,7 +148,7 @@ export default function Education() {
                   )
 
                   const certDate = (
-                    <span className='text-muted-foreground/80 shrink-0 pt-0.5 text-right text-xs font-normal sm:text-sm'>
+                    <span className='text-muted-foreground/80 shrink-0 self-start pt-0 text-start text-xs font-normal whitespace-nowrap tabular-nums sm:self-auto sm:pt-0.5 sm:text-end sm:text-sm'>
                       {t(cert.dateKey)}
                     </span>
                   )
@@ -166,13 +166,13 @@ export default function Education() {
                           href={cert.url}
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='group/cert flex cursor-pointer items-start justify-between gap-4 text-start focus:outline-hidden'
+                          className='group/cert flex w-full cursor-pointer flex-col items-stretch gap-1 text-start focus:outline-hidden sm:flex-row sm:items-start sm:justify-between sm:gap-4'
                         >
                           {certContent}
                           {certDate}
                         </a>
                       ) : (
-                        <div className='flex items-start justify-between gap-4 text-start'>
+                        <div className='flex w-full flex-col items-stretch gap-1 text-start sm:flex-row sm:items-start sm:justify-between sm:gap-4'>
                           {certContent}
                           {certDate}
                         </div>
@@ -187,7 +187,7 @@ export default function Education() {
 
         // 2. Single educational layout (e.g. University)
         const dateBlock = (
-          <span className='text-muted-foreground/80 shrink-0 pt-0.5 text-right text-xs font-normal sm:text-sm'>
+          <span className='text-muted-foreground/80 ms-16 shrink-0 self-start pt-0 text-start text-xs font-normal whitespace-nowrap tabular-nums sm:ms-0 sm:self-auto sm:pt-0.5 sm:text-end sm:text-sm'>
             {t(item.dateKey!)}
           </span>
         )
@@ -200,9 +200,9 @@ export default function Education() {
               href={item.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='group/edu border-border/20 flex items-start justify-between gap-4 border-b pb-6 last:border-0 last:pb-0 focus:outline-hidden'
+              className='group/edu border-border/20 flex flex-col items-stretch gap-2 border-b pb-6 last:border-0 last:pb-0 focus:outline-hidden sm:flex-row sm:items-start sm:justify-between sm:gap-4'
             >
-              <div className='flex min-w-0 items-start gap-4'>
+              <div className='flex w-full min-w-0 items-start gap-4 sm:flex-1'>
                 <InstitutionLogo
                   name={t(item.institutionKey)}
                   url={item.logo!}
@@ -211,16 +211,16 @@ export default function Education() {
                   logoPadding={item.logoPadding}
                 />
                 <div className='flex min-w-0 flex-col'>
-                  <div className='flex items-center gap-1.5'>
-                    <span className='text-foreground group-hover/edu:text-primary text-base font-semibold transition-colors sm:text-lg'>
+                  <div className='flex items-start gap-1.5'>
+                    <span className='text-foreground group-hover/edu:text-primary text-base font-semibold text-pretty break-words transition-colors sm:text-lg'>
                       {t(item.institutionKey)}
                     </span>
                     <HugeiconsIcon
                       icon={ArrowUpRightIcon}
-                      className='text-muted-foreground group-hover/edu:text-primary size-3.5 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover/edu:translate-x-0 group-hover/edu:translate-y-0 group-hover/edu:opacity-100'
+                      className='text-muted-foreground group-hover/edu:text-primary mt-1 size-3.5 shrink-0 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover/edu:translate-x-0 group-hover/edu:translate-y-0 group-hover/edu:opacity-100'
                     />
                   </div>
-                  <span className='text-muted-foreground mt-0.5 text-sm whitespace-pre-line sm:text-base'>
+                  <span className='text-muted-foreground mt-0.5 text-sm break-words whitespace-pre-line sm:text-base'>
                     {t(item.degreeKey!)}
                   </span>
                 </div>
@@ -234,9 +234,9 @@ export default function Education() {
           <m.div
             key={item.id}
             variants={motion.item}
-            className='border-border/20 flex items-start justify-between gap-4 border-b pb-6 last:border-0 last:pb-0'
+            className='border-border/20 flex flex-col items-stretch gap-2 border-b pb-6 last:border-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4'
           >
-            <div className='flex min-w-0 items-start gap-4'>
+            <div className='flex w-full min-w-0 items-start gap-4 sm:flex-1'>
               <InstitutionLogo
                 name={t(item.institutionKey)}
                 url={item.logo!}
@@ -245,10 +245,10 @@ export default function Education() {
                 logoPadding={item.logoPadding}
               />
               <div className='flex min-w-0 flex-col'>
-                <span className='text-foreground text-base font-semibold sm:text-lg'>
+                <span className='text-foreground text-base font-semibold text-pretty break-words sm:text-lg'>
                   {t(item.institutionKey)}
                 </span>
-                <span className='text-muted-foreground mt-0.5 text-sm whitespace-pre-line sm:text-base'>
+                <span className='text-muted-foreground mt-0.5 text-sm break-words whitespace-pre-line sm:text-base'>
                   {t(item.degreeKey!)}
                 </span>
               </div>

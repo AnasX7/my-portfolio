@@ -192,11 +192,18 @@ export default function Header() {
               >
                 <div className='relative shrink-0'>
                   <Image
-                    src={DATA.profile.avatar}
+                    src={DATA.profile.avatarLight}
                     alt={t(DATA.profile.nameKey)}
                     width={36}
                     height={36}
-                    className='size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105'
+                    className='visible size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105 dark:invisible'
+                  />
+                  <Image
+                    src={DATA.profile.avatarDark}
+                    alt={t(DATA.profile.nameKey)}
+                    width={36}
+                    height={36}
+                    className='invisible absolute inset-0 size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105 dark:visible'
                   />
                   {/* Glowing Status Indicator Dot overlaying the avatar (adapts to LTR/RTL bottom corner) */}
                   <span className='absolute -bottom-0.5 flex size-2.5 ltr:-right-0.5 ltr:left-auto rtl:right-auto rtl:-left-0.5'>

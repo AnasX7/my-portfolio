@@ -62,35 +62,36 @@
     }
   },
   "work": {
+    "duration": {
+      "present": "Present",
+      "year": "{count, plural, one {# yr} other {# yrs}}",
+      "month": "{count, plural, one {# mo} other {# mos}}",
+      "join": "{left} {right}"
+    },
     "specializedCouncil": {
       "company": "Specialized Council for Youth NGOs",
       "title": "Full-Stack Software Engineer",
-      "date": "Oct 2025 – Present",
       "employmentType": "Contract",
       "location": "Saudi Arabia · Remote",
       "description": "Developed and delivered two production platforms that digitize the management of youth organizations and clubs across Saudi Arabia.\n\nKey projects:\n• Associations Map – Built an interactive map platform where organizations can register, manage their profiles, and appear on a dynamic map after administrative approval.\n• Nadi Platform – Developed a centralized platform for managing youth clubs, enabling organizations to create and manage clubs while providing administrators with a complete management dashboard. The platform currently manages 300+ active clubs.\n\nResponsibilities:\n• Designed and developed the frontend and backend from the ground up using Next.js and NestJS.\n• Integrated Google Maps to provide interactive geographic experiences across both platforms.\n• Managed production infrastructure using Dokploy, VPS hosting, GitHub Actions, and CI/CD pipelines.\n• Owned deployment, monitoring, maintenance, bug fixes, and ongoing feature enhancements after project delivery."
     },
     "gtkTech": {
       "company": "GTK TECH Pro",
-      "totalDuration": "1 yr 8 mos",
       "globalLocation": "Yemen · Remote"
     },
     "gtkTechPartTime": {
       "title": "Full-Stack Software Engineer",
-      "date": "Aug 2025 – Present · 1 yr",
       "employmentType": "Part-time",
       "description": "Working remotely as a Full-Stack Software Engineer while continuing my university studies, collaborating with distributed teams to build and maintain production applications.\n\nKey projects:\n• Developed a B2B booking platform using Laravel, providing businesses with an end-to-end reservation management system.\n• Built a digital wallet platform consisting of:\n  - Admin dashboard built with Next.js\n  - Cross-platform mobile application built with React Native (Expo)\n  - Backend APIs built with Hono\n  - Monorepo architecture for web, mobile, and backend services.\n\nResponsibilities:\n• Implemented new features across web, mobile, and backend applications.\n• Collaborated with cross-functional teams in a remote environment.\n• Contributed throughout the development lifecycle, from implementation to production support."
     },
     "gtkTechContract": {
       "title": "Full-Stack Developer",
-      "date": "Dec 2024 – Aug 2025 · 9 mos",
       "employmentType": "Contract",
       "description": "Delivered multiple client projects across web platforms and business management systems, contributing to frontend, backend, API development, and UI redesign initiatives.\n\nKey projects:\n• Automotive Spare Parts Platform – Developed the frontend using Laravel, and later contributed to backend maintenance and feature development alongside the engineering team.\n• Pool Management System – Designed and developed the complete web platform and REST APIs using Laravel; built administrative tools for managing pool owners, reservations, and daily operations; and developed APIs consumed by the companion mobile application.\n• Security Systems Company Website – Redesigned the company's website to align with its new brand identity and design system, and implemented additional backend features for the administration dashboard."
     },
     "freelance": {
       "company": "Freelance",
       "title": "Frontend Developer",
-      "date": "Jun 2024 – Oct 2024 · 5 mos",
       "employmentType": "Freelance",
       "location": "Remote",
       "description": "Delivered frontend development services for multiple projects, building responsive interfaces using React.js and modern styling tools.\n\nKey projects:\n• Built reusable UI components and page layouts aligned with client brand guides.\n• Implemented client-side routing, state management, and optimized API data fetching."

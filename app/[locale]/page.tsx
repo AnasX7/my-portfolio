@@ -35,7 +35,7 @@ function getPersonJsonLd(locale: string, description: string) {
     '@type': 'Person',
     name: 'Anas Salem',
     url: SITE_URL,
-    image: `${SITE_URL}/avatar-1.jpg`,
+    image: `${SITE_URL}/avatar-light.jpg`,
     jobTitle: locale === 'ar' ? 'مهندس برمجيات' : 'Software Engineer',
     description,
     address: {

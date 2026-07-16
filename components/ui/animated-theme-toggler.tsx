@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useSyncExternalStore } from 'react'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { Sun01Icon, Moon01Icon } from '@hugeicons/core-free-icons'
+import { Sun01Icon, Moon02Icon } from '@hugeicons/core-free-icons'
 import { flushSync } from 'react-dom'
 
 import { cn } from '@/lib/utils'
@@ -91,7 +91,7 @@ export const AnimatedThemeToggler = ({
           strokeWidth={2}
         />
         <HugeiconsIcon
-          icon={Moon01Icon}
+          icon={Moon02Icon}
           className={cn(
             'absolute inset-0 size-4.5 rotate-90 scale-0 transition-all duration-300',
             isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100',

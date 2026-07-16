@@ -53,7 +53,7 @@ export async function generateMetadata({
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon.ico',
-      apple: '/apple-touch-icon.png',
+      apple: '/apple-icon.png',
     },
     alternates: {
       canonical: localeUrl,
@@ -72,7 +72,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          url: `${SITE_URL}/avatar-1.jpg`,
+          url: `${SITE_URL}/avatar-light.jpg`,
           alt: ogImageAlt,
         },
       ],
@@ -81,7 +81,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title,
       description,
-      images: [`${SITE_URL}/avatar-1.jpg`],
+      images: [`${SITE_URL}/avatar-light.jpg`],
       creator: '@An_xr7',
     },
     robots: {
@@ -114,7 +114,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
-        <meta name='apple-mobile-web-app-title' content='Portfolio' />
+        <meta name='apple-mobile-web-app-title' content='Anas' />
       </head>
       <body
         className={`${inter.variable} ${fontSans.variable} ${

@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 import { m } from 'motion/react'
+import Image from 'next/image'
 import { Download01Icon } from '@hugeicons/core-free-icons'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { DATA } from '@/data/resume'
@@ -179,11 +180,24 @@ export default function HeroV2() {
                 glareSize={200}
                 className='overflow-hidden'
               >
-                <img
-                  alt={t(DATA.profile.nameKey)}
-                  src={DATA.profile.avatar}
-                  className='h-full w-full object-cover select-none'
-                />
+                <span className='relative block h-full w-full'>
+                  <Image
+                    alt={t(DATA.profile.nameKey)}
+                    src={DATA.profile.avatarLight}
+                    width={160}
+                    height={160}
+                    sizes='(min-width: 768px) 160px, (min-width: 640px) 144px, 128px'
+                    className='visible h-full w-full object-cover select-none dark:invisible'
+                  />
+                  <Image
+                    alt={t(DATA.profile.nameKey)}
+                    src={DATA.profile.avatarDark}
+                    width={160}
+                    height={160}
+                    sizes='(min-width: 768px) 160px, (min-width: 640px) 144px, 128px'
+                    className='invisible absolute inset-0 h-full w-full object-cover select-none dark:visible'
+                  />
+                </span>
               </GlareHover>
             </m.div>
 
