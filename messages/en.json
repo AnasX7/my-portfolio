@@ -136,6 +136,7 @@
     "slugs": {
       "salaty": "Salaty",
       "tanazah": "Tanazah",
+      "gtk-cash": "GTK Cash",
       "youth-orgs-map": "Youth Organizations Map",
       "youth-clubs-calendar": "Youth Clubs Calendar"
     },
@@ -185,6 +186,22 @@
         "About the Youth Clubs Calendar page",
         "Youth Clubs Calendar contact form",
         "Youth Clubs Calendar terms and conditions page"
+      ]
+    },
+    "card5": {
+      "title": "GTK Cash Digital Wallet",
+      "description": "A full-stack digital wallet platform combining an Arabic-first mobile app with an operational admin dashboard for wallets, deposits, withdrawals, transfers, users, banks, and analytics.",
+      "imageAlts": [
+        "GTK Cash admin dashboard with wallet and transaction metrics",
+        "GTK Cash deposit request management table",
+        "GTK Cash withdrawal request management table",
+        "GTK Cash wallet transfer management page",
+        "GTK Cash user and wallet management table",
+        "GTK Cash supported bank management page",
+        "GTK Cash reporting workspace",
+        "GTK Cash operational analytics dashboard",
+        "GTK Cash system and withdrawal-window settings",
+        "GTK Cash administrator login page"
       ]
     }
   },

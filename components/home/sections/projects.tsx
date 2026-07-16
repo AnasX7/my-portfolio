@@ -15,8 +15,13 @@ import { cn } from '@/lib/utils'
 
 const getTechIconUrl = (tech: string) => {
   const slugMap: Record<string, string> = {
+    'next.js': 'nextdotjs',
     expo: 'expo',
     'react native': 'react',
+    hono: 'hono',
+    prisma: 'prisma',
+    'better auth': 'betterauth',
+    turborepo: 'turborepo',
     nativewind: 'tailwindcss',
     zustand: '/icons/zustand.svg',
     'react query': 'reactquery',
@@ -28,6 +33,9 @@ const getTechIconUrl = (tech: string) => {
     docker: 'docker',
   }
   const clean = tech.toLowerCase().trim()
+  if (clean === 'better auth') {
+    return 'https://cdn.simpleicons.org/betterauth/000000'
+  }
   const slug = slugMap[clean] || clean.replace(/\s+/g, '')
   if (slug.startsWith('/')) {
     return slug
@@ -203,7 +211,9 @@ function ProjectCard({
                   src={iconUrl}
                   alt={item}
                   className={`size-6 object-contain ${
-                    ['expo', 'next.js', 'nextdotjs', 'github'].includes(item.toLowerCase())
+                    ['expo', 'next.js', 'nextdotjs', 'github', 'prisma', 'better auth'].includes(
+                      item.toLowerCase(),
+                    )
                       ? 'dark:brightness-0 dark:invert'
                       : ''
                   }`}
