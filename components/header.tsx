@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { m, AnimatePresence, Variants } from 'motion/react'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Menu01Icon, Cancel01Icon } from '@hugeicons/core-free-icons'
@@ -19,6 +19,10 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const mobileMenuId = useId()
+  const mobileMenuTitleId = useId()
+  const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
+  const mobileMenuPanelRef = useRef<HTMLDivElement>(null)
 
   const { scrollTo } = useSmoothScroll()
 
@@ -29,6 +33,67 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+
+    const panel = mobileMenuPanelRef.current
+    const trigger = mobileMenuTriggerRef.current
+    if (!panel) return
+
+    const previousBodyOverflow = document.body.style.overflow
+    const getFocusableElements = () =>
+      Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      )
+
+    const focusableElements = getFocusableElements()
+    if (focusableElements.length > 0) {
+      focusableElements[0]?.focus()
+    } else {
+      panel.focus()
+    }
+
+    document.body.style.overflow = 'hidden'
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setIsMobileMenuOpen(false)
+        return
+      }
+
+      if (event.key !== 'Tab') return
+
+      const currentFocusableElements = getFocusableElements()
+      if (currentFocusableElements.length === 0) {
+        event.preventDefault()
+        panel.focus()
+        return
+      }
+
+      const firstFocusable = currentFocusableElements[0]
+      const lastFocusable = currentFocusableElements[currentFocusableElements.length - 1]
+
+      if (event.shiftKey && document.activeElement === firstFocusable) {
+        event.preventDefault()
+        lastFocusable?.focus()
+      } else if (!event.shiftKey && document.activeElement === lastFocusable) {
+        event.preventDefault()
+        firstFocusable?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+      trigger?.focus()
+    }
+  }, [isMobileMenuOpen])
 
   const containerVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -50,19 +115,26 @@ export default function Header() {
   const mobileMenuVariants: Variants = {
     closed: {
       opacity: 0,
-      x: '100%',
-      transition: {
-        duration: 0.3,
-        ease: 'easeInOut',
-      },
+      x: 24,
+      filter: 'blur(4px)',
     },
     open: {
       opacity: 1,
       x: 0,
+      filter: 'blur(0px)',
       transition: {
         duration: 0.3,
         ease: 'easeInOut',
         staggerChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -12,
+      filter: 'blur(4px)',
+      transition: {
+        duration: 0.15,
+        ease: 'easeIn',
       },
     },
   }
@@ -174,11 +246,15 @@ export default function Header() {
             </m.div>
 
             <m.button
-              className='text-foreground hover:bg-muted rounded-lg p-2 transition-colors duration-200 lg:hidden'
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              ref={mobileMenuTriggerRef}
+              type='button'
+              className='text-foreground hover:bg-muted flex size-11 items-center justify-center rounded-lg p-2 transition-colors duration-200 lg:hidden'
+              onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
               variants={itemVariants}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.96 }}
               aria-label={t('header.toggleMenu')}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls={mobileMenuId}
             >
               {isMobileMenuOpen ? (
                 <HugeiconsIcon icon={Cancel01Icon} className='size-6' />
@@ -190,7 +266,7 @@ export default function Header() {
         </div>
       </m.header>
 
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isMobileMenuOpen && (
           <>
             <m.div
@@ -198,15 +274,25 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              aria-hidden='true'
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <m.div
-              className='border-border bg-background fixed top-14 right-4 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
+              ref={mobileMenuPanelRef}
+              id={mobileMenuId}
+              role='dialog'
+              aria-modal='true'
+              aria-labelledby={mobileMenuTitleId}
+              tabIndex={-1}
+              className='border-border bg-background fixed end-4 top-14 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
               animate='open'
-              exit='closed'
+              exit='exit'
             >
+              <h2 id={mobileMenuTitleId} className='sr-only'>
+                {t('header.mobileMenu')}
+              </h2>
               <div className='space-y-6 p-6'>
                 <div className='space-y-1'>
                   {DATA.navItems.map((item) => (

@@ -9,7 +9,8 @@
     "about": "About",
     "projects": "Projects",
     "contact": "Contact",
-    "toggleMenu": "Toggle menu"
+    "toggleMenu": "Toggle menu",
+    "mobileMenu": "Primary navigation"
   },
   "carousel": {
     "prev": "Previous slide",

@@ -9,7 +9,8 @@
     "about": "من أنا؟",
     "projects": "مشاريعي",
     "contact": "تواصل معي",
-    "toggleMenu": "تبديل القائمة"
+    "toggleMenu": "تبديل القائمة",
+    "mobileMenu": "التنقل الرئيسي"
   },
   "carousel": {
     "prev": "الشريحة السابقة",
