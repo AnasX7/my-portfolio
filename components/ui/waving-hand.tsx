@@ -1,9 +1,10 @@
 'use client'
 
-import { m, useReducedMotion } from 'motion/react'
+import { m } from 'motion/react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 export function WavingHand() {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
 
   return (
     <m.span

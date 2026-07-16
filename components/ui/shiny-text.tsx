@@ -33,7 +33,7 @@ const ShinyText: React.FC<ShinyTextProps> = ({
           backgroundSize: '200% 100%',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
-          animation: disabled ? 'none' : `shine ${animationDuration} linear infinite`,
+          animation: disabled ? 'none' : `shine ${animationDuration} linear 3`,
         }}
       >
         {text}

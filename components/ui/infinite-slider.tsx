@@ -1,10 +1,11 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { useMotionValue, animate, m, useReducedMotion } from 'motion/react'
+import { useMotionValue, animate, m } from 'motion/react'
 import { useState, useEffect } from 'react'
 import useMeasure from 'react-use-measure'
 import { useLocale } from 'next-intl'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 type InfiniteSliderProps = {
   children: React.ReactNode
@@ -25,7 +26,7 @@ export function InfiniteSlider({
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
   const [isHovering, setIsHovering] = useState(false)
   const currentSpeed = isHovering && speedOnHover ? speedOnHover : speed
   const [ref, { width, height }] = useMeasure()

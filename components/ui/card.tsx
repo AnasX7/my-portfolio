@@ -15,8 +15,8 @@ const Card = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typ
           className,
         )}
         variants={{
-          hidden: { opacity: 0, filter: 'blur(10px)', scale: 0.8, rotateX: 15 },
-          show: { opacity: 1, filter: 'blur(0px)', scale: 1, rotateX: 0 },
+          hidden: { opacity: 0, scale: 0.92, y: 12 },
+          show: { opacity: 1, scale: 1, y: 0 },
         }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         {...props}

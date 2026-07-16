@@ -5,9 +5,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { ArrowUpLeftIcon, ArrowUpRightIcon } from '@hugeicons/core-free-icons'
 import { DATA } from '@/data/resume'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardDecorator, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
+import { Card, CardDecorator, CardDescription, CardTitle } from '@/components/ui/card'
+import { buttonVariants } from '@/components/ui/button'
 import { Link, useRouter } from '@/i18n/navigation'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import ScrollStack, { ScrollStackItem } from '@/components/ui/scroll-stack'
@@ -45,14 +44,7 @@ export default function Projects() {
         <h2 className='text-foreground mb-8 text-2xl font-bold tracking-tight sm:text-3xl'>
           {t('projects.title')}
         </h2>
-        <ScrollStack
-          useWindowScroll={true}
-          itemDistance={30}
-          itemScale={0.03}
-          itemStackDistance={35}
-          stackPosition='12%'
-          scaleEndPosition='4%'
-        >
+        <ScrollStack>
           {DATA.projects.cards.map((project) => (
             <ScrollStackItem key={project.titleKey}>
               <ProjectCard
@@ -139,12 +131,12 @@ function ProjectCard({
     <Card
       onClick={handleCardClick}
       className={cn(
-        'bg-card border-border/60 hover:border-border/80 relative flex h-auto flex-col gap-6 overflow-hidden rounded-3xl p-6 transition-all hover:brightness-[1.03] lg:h-80 lg:flex-row lg:gap-8 lg:p-6',
+        'bg-card border-border/60 hover:border-border/80 relative flex h-auto flex-col gap-4 overflow-hidden rounded-3xl p-5 transition-all hover:brightness-[1.03] sm:gap-6 sm:p-6 lg:h-80 lg:flex-row lg:gap-8 lg:p-6',
         PROJECT_DETAILS_PUBLIC && 'cursor-pointer',
       )}
     >
       <CardDecorator />
-      <div className='z-10 flex h-full w-full flex-col gap-6 p-0 lg:w-[65%] lg:justify-center lg:gap-4'>
+      <div className='z-10 flex h-full w-full flex-col gap-4 p-0 sm:gap-6 lg:w-[65%] lg:justify-center lg:gap-4'>
         <CardTitle className='w-fit text-xl font-semibold md:text-2xl'>{title}</CardTitle>
         <CardDescription className='text-sm md:text-base'>{description}</CardDescription>
 
@@ -280,7 +272,7 @@ function ProjectCard({
       </div>
 
       {/* Show only the first image in static display (takes 1/3 on desktop) */}
-      <div className='relative flex h-64 w-full items-center justify-center overflow-hidden rounded-2xl bg-zinc-900/5 sm:h-80 lg:h-full lg:w-[35%] dark:bg-zinc-100/5'>
+      <div className='relative flex h-44 w-full items-center justify-center overflow-hidden rounded-2xl bg-zinc-900/5 sm:h-80 lg:h-full lg:w-[35%] dark:bg-zinc-100/5'>
         <Image
           src={images[0]}
           alt={imageAlts[0] ?? title}

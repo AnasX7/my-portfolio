@@ -1,18 +1,11 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import {
-  animate,
-  m,
-  type MotionValue,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-} from 'motion/react'
+import { animate, m, type MotionValue, useInView, useMotionValue, useTransform } from 'motion/react'
 import { useLocale } from 'next-intl'
 import { Children, useEffect, useMemo, useRef, useState } from 'react'
 import useMeasure from 'react-use-measure'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 type CurvedInfiniteSliderProps = {
   children: React.ReactNode
@@ -77,7 +70,7 @@ export function CurvedInfiniteSlider({
   const items = useMemo(() => Children.toArray(children), [children])
   const cycleWidth = items.length * (itemWidth + gap)
   const translation = useMotionValue(0)
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
   const locale = useLocale()
   const isRTL = locale === 'ar'
   const movesRight = reverse !== isRTL

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, m, useReducedMotion } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 interface ProjectGalleryProps {
   images: string[]
@@ -18,7 +19,7 @@ interface ActiveImage {
 }
 
 export default function ProjectGallery({ images, imageAlts, title, isRtl }: ProjectGalleryProps) {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
   const [activeImage, setActiveImage] = useState<ActiveImage | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const triggerRef = useRef<HTMLButtonElement | null>(null)

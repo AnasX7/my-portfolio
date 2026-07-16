@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { m, AnimatePresence, Transition, Variants, useReducedMotion } from 'motion/react'
+import { m, AnimatePresence, Transition, Variants } from 'motion/react'
 import Image from 'next/image'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@hugeicons/core-free-icons'
 import { useLocale, useTranslations } from 'next-intl'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 // Define the types for ImageCarousel's props
 interface ImageCarouselProps {
@@ -14,7 +15,7 @@ interface ImageCarouselProps {
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, imageAlts }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [direction, setDirection] = useState<number>(0) // 0 for initial, 1 for next, -1 for prev
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
 
   const local = useLocale()
   const t = useTranslations()

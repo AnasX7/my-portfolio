@@ -1,12 +1,21 @@
 'use client'
 
-import { LazyMotion, domAnimation } from 'motion/react'
+import { LazyMotion, MotionConfig, domAnimation } from 'motion/react'
 import type { ReactNode } from 'react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 type MotionProviderProps = {
   children: ReactNode
 }
 
 export function MotionProvider({ children }: MotionProviderProps) {
-  return <LazyMotion features={domAnimation}>{children}</LazyMotion>
+  const shouldReduceMotion = useHydratedReducedMotion()
+
+  return (
+    <LazyMotion features={domAnimation}>
+      <MotionConfig reducedMotion={shouldReduceMotion ? 'always' : 'never'}>
+        {children}
+      </MotionConfig>
+    </LazyMotion>
+  )
 }

@@ -25,12 +25,10 @@ export function getAboutMotion(reduceMotion: boolean, direction: 1 | -1 = 1) {
       hidden: {
         opacity: reduceMotion ? 1 : 0,
         y: reduceMotion ? 0 : 18,
-        filter: reduceMotion ? 'blur(0px)' : 'blur(6px)',
       },
       show: {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
         transition: { duration, ease: easeOut },
       },
     },

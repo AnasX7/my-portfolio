@@ -5,7 +5,3 @@
 .scroll-reveal-text {
   /* Let textClass from Tailwind drive font-size and spacing */
 }
-
-.word {
-  display: inline-block;
-}

@@ -1,19 +1,20 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { m, useReducedMotion } from 'motion/react'
+import { m } from 'motion/react'
 import { Download01Icon } from '@hugeicons/core-free-icons'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
 import ShinyText from '@/components/ui/shiny-text'
 import GlareHover from '@/components/ui/glare-hover'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 export default function HeroV2() {
   const t = useTranslations()
   const locale = useLocale()
   const isArabic = locale === 'ar'
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -30,12 +31,10 @@ export default function HeroV2() {
     hidden: {
       opacity: 0,
       y: 30,
-      filter: 'blur(8px)',
     },
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
       transition: {
         duration: 0.8,
         ease: [0.25, 0.46, 0.45, 0.94],
@@ -192,7 +191,7 @@ export default function HeroV2() {
             {techIcons.map((icon) => (
               <m.div
                 key={icon.name}
-                animate={
+                whileInView={
                   shouldReduceMotion
                     ? {}
                     : floatAnimation(
@@ -203,6 +202,7 @@ export default function HeroV2() {
                         icon.rotateOffset,
                       )
                 }
+                viewport={{ amount: 0.1 }}
                 className={icon.className}
               >
                 <img

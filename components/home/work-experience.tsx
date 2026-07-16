@@ -1,13 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { m, AnimatePresence, useReducedMotion } from 'motion/react'
+import { m, AnimatePresence } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 import { cn } from '@/lib/utils'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { ChevronRightIcon } from '@hugeicons/core-free-icons'
 import { getAboutMotion } from '@/components/home/about-motion'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 interface CompanyLogoProps {
   name: string
@@ -57,7 +58,7 @@ export default function WorkExperience() {
   const t = useTranslations()
   const locale = useLocale()
   const isRtl = locale === 'ar'
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useHydratedReducedMotion()
   const motion = getAboutMotion(Boolean(reduceMotion), isRtl ? -1 : 1)
 
   // Manage expanded items

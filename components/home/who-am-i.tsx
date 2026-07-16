@@ -63,15 +63,7 @@ export default function WhoAmI() {
   return (
     <section id='about' className='mt-18 sm:mt-20'>
       <div className='mx-auto max-w-3xl px-6 sm:px-8'>
-        <ScrollReveal
-          baseOpacity={0.05}
-          enableBlur={true}
-          baseRotation={2}
-          blurStrength={12}
-          textClassName={textClass}
-          start='top 90%'
-          end='bottom 60%'
-        >
+        <ScrollReveal baseOpacity={0.05} textClassName={textClass}>
           {/* Sentence 1 */}
           {t('line1.pre')} <InlineBadge>{t('line1.badge1')}</InlineBadge> {t('line1.mid')}{' '}
           <InlineBadge>{t('line1.badge2')}</InlineBadge> {t('line1.post')} {/* Sentence 2 */}

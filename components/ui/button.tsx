@@ -38,23 +38,9 @@ const buttonVariants = cva(
 
 function AnimatedButtonContent({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <div className='points_wrapper pointer-events-none absolute z-10 h-full w-full overflow-hidden rounded-full'>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-        <i className='point'></i>
-      </div>
-      <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
-        {children}
-      </span>
-    </>
+    <span className='inner text-foreground/80 hover:text-foreground relative z-20 inline-flex w-full items-center justify-center gap-2 text-sm leading-relaxed font-medium transition-colors duration-200 dark:text-gray-300 dark:hover:text-white'>
+      {children}
+    </span>
   )
 }
 

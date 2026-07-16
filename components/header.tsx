@@ -9,9 +9,9 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
 import { Button } from './ui/button'
-import { useLenis } from 'lenis/react'
 import LanguageSwitcher from './ui/language-switcher'
 import { DATA } from '@/data/resume'
+import { useSmoothScroll } from './smooth-scroll-provider'
 
 export default function Header() {
   const t = useTranslations()
@@ -20,7 +20,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
-  const lenis = useLenis()
+  const { scrollTo } = useSmoothScroll()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +77,7 @@ export default function Header() {
       <m.header
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'border-border/50 bg-background/50 border-b shadow-sm backdrop-blur-md'
+            ? 'border-border/50 bg-background/95 lg:bg-background/50 border-b shadow-sm lg:backdrop-blur-md'
             : 'bg-transparent'
         }`}
         variants={containerVariants}
@@ -89,7 +89,7 @@ export default function Header() {
             <div className='flex min-w-0 items-center'>
               <button
                 onClick={() =>
-                  lenis?.scrollTo(0, {
+                  scrollTo(0, {
                     duration: 3,
                   })
                 }
@@ -136,7 +136,7 @@ export default function Header() {
                     role='link'
                     aria-label={t(item.nameKey)}
                     onClick={() =>
-                      lenis?.scrollTo(item.href, {
+                      scrollTo(item.href, {
                         offset: -100,
                         duration: 3,
                       })

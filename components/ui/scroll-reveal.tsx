@@ -1,155 +1,34 @@
 'use client'
 
-import React, { useEffect, useRef, useMemo } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLenis } from 'lenis/react'
-
+import { m } from 'motion/react'
+import type { ReactNode } from 'react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 import './scroll-reveal.css'
 
-gsap.registerPlugin(ScrollTrigger)
-
 interface ScrollRevealProps {
-  children: React.ReactNode
-  scrollContainerRef?: React.RefObject<HTMLElement | null>
-  enableBlur?: boolean
+  children: ReactNode
   baseOpacity?: number
-  baseRotation?: number
-  blurStrength?: number
   containerClassName?: string
   textClassName?: string
-  start?: string
-  end?: string
 }
 
-const ScrollReveal: React.FC<ScrollRevealProps> = ({
+export default function ScrollReveal({
   children,
-  scrollContainerRef,
-  enableBlur = true,
   baseOpacity = 0.1,
-  baseRotation = 3,
-  blurStrength = 4,
   containerClassName = '',
   textClassName = '',
-  start = 'top 85%',
-  end = 'bottom 70%',
-}) => {
-  const containerRef = useRef<HTMLHeadingElement>(null)
-  const lenis = useLenis()
-
-  // Keep ScrollTrigger updated with Lenis scroll events
-  useEffect(() => {
-    if (!lenis) return
-    lenis.on('scroll', ScrollTrigger.update)
-    return () => {
-      lenis.off('scroll', ScrollTrigger.update)
-    }
-  }, [lenis])
-
-  const splitText = useMemo(() => {
-    const childrenArray = React.Children.toArray(children)
-    return childrenArray.map((child, idx) => {
-      if (typeof child === 'string') {
-        return child.split(/(\s+)/).map((word, index) => {
-          if (word.match(/^\s+$/)) return word
-          return (
-            <span className='word' key={`${idx}-${index}`}>
-              {word}
-            </span>
-          )
-        })
-      }
-      return (
-        <span className='word inline-block align-middle' key={idx}>
-          {child}
-        </span>
-      )
-    })
-  }, [children])
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const scroller =
-      scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window
-
-    // Using gsap.context() ensures safe cleanup and strict mode compatibility
-    const ctx = gsap.context(() => {
-      // Rotation Animation
-      gsap.fromTo(
-        el,
-        { transformOrigin: '0% 50%', rotate: baseRotation },
-        {
-          ease: 'none',
-          rotate: 0,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start,
-            end,
-            scrub: true,
-          },
-        },
-      )
-
-      const wordElements = el.querySelectorAll('.word')
-
-      // Opacity Animation
-      gsap.fromTo(
-        wordElements,
-        { opacity: baseOpacity, willChange: 'opacity, filter' },
-        {
-          ease: 'none',
-          opacity: 1,
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start,
-            end,
-            scrub: true,
-          },
-        },
-      )
-
-      // Blur Animation
-      if (enableBlur) {
-        gsap.fromTo(
-          wordElements,
-          { filter: `blur(${blurStrength}px)` },
-          {
-            ease: 'none',
-            filter: 'blur(0px)',
-            stagger: 0.05,
-            scrollTrigger: {
-              trigger: el,
-              scroller,
-              start,
-              end,
-              scrub: true,
-            },
-          },
-        )
-      }
-    }, el)
-
-    // Force layout calculation refresh after hydration completes
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh()
-    }, 100)
-
-    return () => {
-      ctx.revert()
-      clearTimeout(timer)
-    }
-  }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, start, end, blurStrength])
+}: ScrollRevealProps) {
+  const shouldReduceMotion = useHydratedReducedMotion()
 
   return (
-    <h2 ref={containerRef} className={`scroll-reveal ${containerClassName}`}>
-      <p className={`scroll-reveal-text ${textClassName}`}>{splitText}</p>
-    </h2>
+    <m.h2
+      initial={shouldReduceMotion ? false : { opacity: baseOpacity, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.35, margin: '0px 0px -48px' }}
+      className={`scroll-reveal ${containerClassName}`}
+    >
+      <p className={`scroll-reveal-text ${textClassName}`}>{children}</p>
+    </m.h2>
   )
 }
-
-export default ScrollReveal

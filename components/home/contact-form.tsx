@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/form'
 import { PaperPlane } from '@/components/icons/paper-plane'
 import { useTranslations, useLocale } from 'next-intl'
-import { m } from 'motion/react'
+import { m, useInView } from 'motion/react'
 
 import { z } from 'zod'
 import { send } from '@/lib/email'
@@ -47,7 +47,9 @@ export default function ContactForm() {
   })
 
   const containerRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
   const widgetIdRef = useRef<string | null>(null)
+  const shouldLoadTurnstile = useInView(formRef, { once: true, margin: '300px 0px' })
 
   // Explicitly render Turnstile widget
   const renderWidget = () => {
@@ -123,7 +125,7 @@ export default function ContactForm() {
       <CardDecorator />
       <CardContent className='grid grid-rows-1 gap-8 lg:grid-cols-2 lg:grid-rows-none'>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-2'>
               <FormField
                 control={form.control}
@@ -178,11 +180,13 @@ export default function ContactForm() {
               />
             </div>
             <div ref={containerRef} />
-            <Script
-              src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-              strategy='afterInteractive'
-              onLoad={renderWidget}
-            />
+            {shouldLoadTurnstile ? (
+              <Script
+                src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+                strategy='lazyOnload'
+                onLoad={renderWidget}
+              />
+            ) : null}
             <Button type='submit' variant='animated' className='w-full'>
               {t(DATA.contact.form.submitKey)}
             </Button>
@@ -195,16 +199,21 @@ export default function ContactForm() {
             opacity: 0,
             x: isRtl ? -20 : 20,
             scale: 0.95,
-            filter: 'blur(10px)',
           }}
-          whileInView={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
           className='bg-muted/45 border-border hidden flex-col items-center justify-center rounded-xl border-2 p-6 text-center shadow-md lg:flex'
         >
-          <div className='animation-duration-[3000ms] mb-4 size-48 animate-bounce'>
+          <m.div
+            initial={{ y: 0 }}
+            whileInView={{ y: [0, -10, 0] }}
+            transition={{ duration: 2.4, repeat: 2, ease: 'easeInOut' }}
+            viewport={{ once: true, amount: 0.5 }}
+            className='mb-4 size-48'
+          >
             <PaperPlane className={`${isRtl && 'rotate-270'}`} />
-          </div>
+          </m.div>
           <h3 className='text-foreground mb-2 text-xl font-semibold text-balance'>
             {t(DATA.contact.Illustration.titleKey)}
           </h3>

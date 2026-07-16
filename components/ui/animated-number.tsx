@@ -1,7 +1,8 @@
 'use client'
 
-import { m, useMotionValue, animate, useInView, useReducedMotion } from 'motion/react'
+import { m, useMotionValue, animate, useInView } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 interface AnimatedNumberProps {
   value: number
@@ -12,7 +13,7 @@ interface AnimatedNumberProps {
 export default function AnimatedNumber({ value, className, delay = 0 }: AnimatedNumberProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
 
   const [displayValue, setDisplayValue] = useState(0)
   const motionValue = useMotionValue(0)

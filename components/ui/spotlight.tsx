@@ -1,7 +1,8 @@
 'use client'
 
-import { m, useReducedMotion } from 'motion/react'
+import { m } from 'motion/react'
 import { useSyncExternalStore, type CSSProperties } from 'react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 type SpotlightProps = {
   gradientFirst?: string
@@ -28,7 +29,7 @@ export const Spotlight = ({
   xOffset = 100,
   className = '',
 }: SpotlightProps = {}) => {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
   const isMobile = useSyncExternalStore(
     (onStoreChange) => {
       if (typeof window === 'undefined') return () => {}

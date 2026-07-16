@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { m, useMotionValue, useTransform, useSpring, useReducedMotion } from 'motion/react'
+import { m, useMotionValue, useTransform, useSpring } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal'
 import WorkExperience from '@/components/home/work-experience'
@@ -9,6 +9,7 @@ import Education from '@/components/home/education'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 import { aboutViewport, getAboutMotion } from '@/components/home/about-motion'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 interface SkillLogoProps {
   name: string
@@ -42,7 +43,7 @@ const SkillLogo = ({ name, url, fallbackChar }: SkillLogoProps) => {
 
 export default function About() {
   const t = useTranslations()
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useHydratedReducedMotion()
   const motion = getAboutMotion(Boolean(reduceMotion))
 
   // 3D Parallax Tilt state

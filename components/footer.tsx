@@ -1,16 +1,16 @@
 'use client'
 
 import { m } from 'motion/react'
-import { useLenis } from 'lenis/react'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { DATA } from '@/data/resume'
 import { buttonVariants } from '@/components/ui/button'
 import { PROJECT_DETAILS_PUBLIC } from '@/lib/features'
+import { useSmoothScroll } from '@/components/smooth-scroll-provider'
 
 export default function Footer() {
-  const lenis = useLenis()
+  const { scrollTo } = useSmoothScroll()
   const t = useTranslations()
   const currentYear = new Date().getFullYear()
 
@@ -39,9 +39,10 @@ export default function Footer() {
     <footer className='relative mt-12 w-full overflow-hidden bg-transparent'>
       {/* Grid Background with Infinite Scrolling Loop - Light Mode */}
       <m.div
-        animate={{
+        whileInView={{
           backgroundPosition: ['0px 0px', '80px 80px'],
         }}
+        viewport={{ amount: 0.1 }}
         transition={{
           duration: 20,
           repeat: Infinity,
@@ -55,9 +56,10 @@ export default function Footer() {
       />
       {/* Grid Background with Infinite Scrolling Loop - Dark Mode */}
       <m.div
-        animate={{
+        whileInView={{
           backgroundPosition: ['0px 0px', '80px 80px'],
         }}
+        viewport={{ amount: 0.1 }}
         transition={{
           duration: 20,
           repeat: Infinity,
@@ -72,9 +74,10 @@ export default function Footer() {
 
       {/* Bottom Ambient Backlight Beam (Shining Upward, breathing in sync) */}
       <m.div
-        animate={{
+        whileInView={{
           opacity: [0.4, 0.8, 0.4],
         }}
+        viewport={{ amount: 0.1 }}
         transition={{
           duration: 5,
           repeat: Infinity,
@@ -86,10 +89,11 @@ export default function Footer() {
       {/* Bottom Glowing Accent Line (Core + Animating Bloom) */}
       <div className='via-primary/30 dark:via-primary/50 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[1px] bg-linear-to-r from-transparent to-transparent' />
       <m.div
-        animate={{
+        whileInView={{
           opacity: [0.15, 0.45, 0.15],
           scaleY: [1, 1.4, 1],
         }}
+        viewport={{ amount: 0.1 }}
         transition={{
           duration: 5,
           repeat: Infinity,
@@ -114,7 +118,7 @@ export default function Footer() {
             <div className='group relative flex flex-col items-center sm:items-start'>
               <button
                 onClick={() =>
-                  lenis?.scrollTo(0, {
+                  scrollTo(0, {
                     duration: 1.8,
                   })
                 }

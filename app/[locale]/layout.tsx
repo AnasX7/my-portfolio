@@ -7,13 +7,13 @@ import type { Metadata } from 'next'
 import { Inter, Noto_Sans_Arabic } from 'next/font/google'
 import '../globals.css'
 
-import { ReactLenis } from 'lenis/react'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { MotionProvider } from '@/components/motion-provider'
+import { SmoothScrollProvider } from '@/components/smooth-scroll-provider'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -116,20 +116,12 @@ export default async function RootLayout({
       <head>
         <meta name='apple-mobile-web-app-title' content='Portfolio' />
       </head>
-      <ReactLenis
-        root
-        options={{
-          lerp: 0.12,
-          smoothWheel: true,
-          wheelMultiplier: 1.2,
-          touchMultiplier: 1,
-        }}
+      <body
+        className={`${inter.variable} ${fontSans.variable} ${
+          isArabic ? 'font-sans' : 'font-inter'
+        } min-h-dvh antialiased`}
       >
-        <body
-          className={`${inter.variable} ${fontSans.variable} ${
-            isArabic ? 'font-sans' : 'font-inter'
-          } min-h-dvh antialiased`}
-        >
+        <SmoothScrollProvider>
           <NextIntlClientProvider>
             <MotionProvider>
               <ThemeProvider
@@ -147,8 +139,8 @@ export default async function RootLayout({
               </ThemeProvider>
             </MotionProvider>
           </NextIntlClientProvider>
-        </body>
-      </ReactLenis>
+        </SmoothScrollProvider>
+      </body>
     </html>
   )
 }

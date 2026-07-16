@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { m, useReducedMotion } from 'motion/react'
+import { m } from 'motion/react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 interface ProjectHeroProps {
   project: {
@@ -63,7 +64,7 @@ export default function ProjectHero({
   projectNumber,
   labels,
 }: ProjectHeroProps) {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useHydratedReducedMotion()
   const [copiedText, setCopiedText] = useState<'email' | 'password' | null>(null)
 
   const reveal = { initial: false as const, animate: { opacity: 1, y: 0 } }
