@@ -223,7 +223,7 @@ export default function HeroV2() {
           variants={staggerItem}
           className={`${isArabic ? 'mb-1.5' : 'mb-3'} mx-auto max-w-3xl`}
         >
-          <h2
+          <h1
             className={`text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl ${
               isArabic ? 'leading-[1.15] md:leading-[1.2]' : 'leading-tight'
             }`}
@@ -232,7 +232,7 @@ export default function HeroV2() {
             <span className='from-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
               {t(DATA.hero.highlightKey)}
             </span>
-          </h2>
+          </h1>
         </m.div>
 
         {/* Subtitle */}

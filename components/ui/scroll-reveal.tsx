@@ -21,14 +21,14 @@ export default function ScrollReveal({
   const shouldReduceMotion = useHydratedReducedMotion()
 
   return (
-    <m.h2
+    <m.p
       initial={shouldReduceMotion ? false : { opacity: baseOpacity, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
       viewport={{ once: true, amount: 0.35, margin: '0px 0px -48px' }}
-      className={`scroll-reveal ${containerClassName}`}
+      className={`scroll-reveal scroll-reveal-text ${containerClassName} ${textClassName}`}
     >
-      <p className={`scroll-reveal-text ${textClassName}`}>{children}</p>
-    </m.h2>
+      {children}
+    </m.p>
   )
 }

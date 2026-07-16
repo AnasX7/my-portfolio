@@ -61,12 +61,14 @@ export default async function Home({ params }: Props) {
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: personJsonLd }} />
       <Spotlight />
-      <HeroSection />
-      <LogoCloudSection />
-      <WhoAmISection />
-      <AboutSection />
-      <ProjectSection />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <LogoCloudSection />
+        <WhoAmISection />
+        <AboutSection />
+        <ProjectSection />
+        <ContactSection />
+      </main>
     </>
   )
 }

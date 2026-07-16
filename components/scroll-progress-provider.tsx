@@ -18,9 +18,9 @@ export default function ScrollProgressProvider({ children }: { children: React.R
           }}
         />
       </div>
-      <main className='z-0 flex min-h-dvh flex-col' ref={containerRef}>
+      <div className='z-0 flex min-h-dvh flex-col' ref={containerRef}>
         {children}
-      </main>
+      </div>
     </>
   )
 }
