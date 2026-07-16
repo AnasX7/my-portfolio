@@ -35,6 +35,16 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
+    const desktopMediaQuery = window.matchMedia('(min-width: 64rem)')
+    const handleDesktopChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsMobileMenuOpen(false)
+    }
+
+    desktopMediaQuery.addEventListener('change', handleDesktopChange)
+    return () => desktopMediaQuery.removeEventListener('change', handleDesktopChange)
+  }, [])
+
+  useEffect(() => {
     if (!isMobileMenuOpen) return
 
     const panel = mobileMenuPanelRef.current
@@ -76,6 +86,12 @@ export default function Header() {
 
       const firstFocusable = currentFocusableElements[0]
       const lastFocusable = currentFocusableElements[currentFocusableElements.length - 1]
+
+      if (!panel.contains(document.activeElement)) {
+        event.preventDefault()
+        ;(event.shiftKey ? lastFocusable : firstFocusable)?.focus()
+        return
+      }
 
       if (event.shiftKey && document.activeElement === firstFocusable) {
         event.preventDefault()
@@ -151,7 +167,8 @@ export default function Header() {
           isScrolled
             ? 'border-border/50 bg-background/95 lg:bg-background/50 border-b shadow-sm lg:backdrop-blur-md'
             : 'bg-transparent'
-        }`}
+        } ${isMobileMenuOpen ? 'pointer-events-none' : ''}`}
+        inert={isMobileMenuOpen}
         variants={containerVariants}
         initial='hidden'
         animate='visible'

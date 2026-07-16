@@ -88,6 +88,44 @@ test('open mobile menu owns focus, keyboard containment, scroll lock, and focus 
   assert.match(focusEffect, /trigger\?\.focus\(\)/)
 })
 
+test('open mobile menu isolates the header and recaptures escaped focus', async () => {
+  const source = await read('components/header.tsx')
+  const header = source.match(/<m\.header[\s\S]*?>/)?.[0]
+  const focusEffect = source.match(
+    /useEffect\(\(\) => \{\s*if \(!isMobileMenuOpen\) return[\s\S]*?\}, \[isMobileMenuOpen\]\)/,
+  )?.[0]
+
+  assert.ok(header)
+  assert.match(header, /inert=\{isMobileMenuOpen\}/)
+  assert.match(header, /isMobileMenuOpen \? 'pointer-events-none' : ''/)
+  assert.ok(focusEffect)
+  assert.match(
+    focusEffect,
+    /if \(!panel\.contains\(document\.activeElement\)\) \{\s*event\.preventDefault\(\)\s*;?\(event\.shiftKey \? lastFocusable : firstFocusable\)\?\.focus\(\)\s*return/,
+  )
+})
+
+test('mobile menu closes when the viewport crosses into the desktop breakpoint', async () => {
+  const source = await read('components/header.tsx')
+  const responsiveEffect = source.match(
+    /useEffect\(\(\) => \{\s*const desktopMediaQuery = window\.matchMedia\('\(min-width: 64rem\)'\)[\s\S]*?\}, \[\]\)/,
+  )?.[0]
+
+  assert.ok(responsiveEffect)
+  assert.match(
+    responsiveEffect,
+    /const handleDesktopChange = \(event: MediaQueryListEvent\) => \{\s*if \(event\.matches\) setIsMobileMenuOpen\(false\)\s*\}/,
+  )
+  assert.match(
+    responsiveEffect,
+    /desktopMediaQuery\.addEventListener\('change', handleDesktopChange\)/,
+  )
+  assert.match(
+    responsiveEffect,
+    /desktopMediaQuery\.removeEventListener\('change', handleDesktopChange\)/,
+  )
+})
+
 test('mobile menu enters nearby and exits with a softer upward transition', async () => {
   const source = await read('components/header.tsx')
   const variants = source.match(/const mobileMenuVariants: Variants = \{[\s\S]*?\n  \}/)?.[0]
