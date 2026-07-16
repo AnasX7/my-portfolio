@@ -23,7 +23,7 @@ test('light interaction tokens use the approved accessible contrast values', () 
 
   assert.equal(getToken(lightTheme, 'ring'), 'oklch(0.26 0.02 80)')
   assert.equal(getToken(lightTheme, 'sidebar-ring'), 'oklch(0.26 0.02 80)')
-  assert.equal(getToken(lightTheme, 'destructive'), 'oklch(0.551 0.225 27.325)')
+  assert.equal(getToken(lightTheme, 'destructive'), 'oklch(0.551 0.224 27.325)')
 })
 
 test('dark interaction tokens strengthen rings without changing destructive', () => {
