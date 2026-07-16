@@ -288,6 +288,7 @@ function ProjectCard({
           alt={imageAlts[0] ?? title}
           width={400}
           height={400}
+          style={{ width: 'auto', height: 'auto' }}
           className='pointer-events-none max-h-[85%] max-w-[85%] object-contain transition-transform duration-500 select-none group-hover:scale-105'
         />
       </div>
