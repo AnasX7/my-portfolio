@@ -203,6 +203,13 @@ html.lenis body {
 }
 
 @layer components {
+  /* Active Status Badge */
+  .status-badge {
+    background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
+    color: var(--secondary-foreground);
+    border-color: color-mix(in oklab, var(--border) 50%, transparent);
+  }
+
   /* Custom CSS for gradients and animations */
   /* Light theme (warm beige/cream) */
   .anim-btn {

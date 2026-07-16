@@ -14,6 +14,8 @@ interface InstitutionLogoProps {
   name: string
   url: string
   fallbackChar: string
+  logoBg?: string
+  logoPadding?: boolean
 }
 
 const DefaultCompanyLogo = () => (
@@ -35,11 +37,28 @@ const DefaultCompanyLogo = () => (
   </svg>
 )
 
-const InstitutionLogo = ({ name, url, fallbackChar }: InstitutionLogoProps) => {
+const InstitutionLogo = ({
+  name,
+  url,
+  fallbackChar,
+  logoBg,
+  logoPadding,
+}: InstitutionLogoProps) => {
   const [error, setError] = useState(false)
+  const hasImage = !error && url
 
   return (
-    <div className='border-border/40 text-foreground relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border bg-zinc-900/50 shadow-xs select-none dark:border-white/10 dark:bg-white/5'>
+    <div
+      className={cn(
+        'text-foreground relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border shadow-xs select-none',
+        logoPadding
+          ? 'border-border dark:border-white/20'
+          : 'border-border/40 dark:border-white/10',
+        (!logoBg || !logoPadding) && 'bg-zinc-900/50 dark:bg-white/5',
+        hasImage && logoPadding && 'p-2',
+      )}
+      style={logoBg && logoPadding ? { backgroundColor: logoBg } : undefined}
+    >
       {error || !url ? (
         <DefaultCompanyLogo />
       ) : (
@@ -47,7 +66,10 @@ const InstitutionLogo = ({ name, url, fallbackChar }: InstitutionLogoProps) => {
           src={url}
           alt={name}
           onError={() => setError(true)}
-          className='pointer-events-none size-full rounded-full object-cover select-none'
+          className={cn(
+            'pointer-events-none size-full select-none',
+            logoPadding ? 'object-contain' : 'rounded-full object-cover',
+          )}
         />
       )}
     </div>
@@ -80,6 +102,8 @@ export default function Education() {
                   name={t(item.institutionKey)}
                   url={item.logo}
                   fallbackChar={fallbackChar}
+                  logoBg={item.logoBg}
+                  logoPadding={item.logoPadding}
                 />
                 <div className='flex min-w-0 flex-col'>
                   <span className='text-foreground text-base font-semibold sm:text-lg'>
@@ -183,6 +207,8 @@ export default function Education() {
                   name={t(item.institutionKey)}
                   url={item.logo!}
                   fallbackChar={fallbackChar}
+                  logoBg={item.logoBg}
+                  logoPadding={item.logoPadding}
                 />
                 <div className='flex min-w-0 flex-col'>
                   <div className='flex items-center gap-1.5'>
@@ -215,6 +241,8 @@ export default function Education() {
                 name={t(item.institutionKey)}
                 url={item.logo!}
                 fallbackChar={fallbackChar}
+                logoBg={item.logoBg}
+                logoPadding={item.logoPadding}
               />
               <div className='flex min-w-0 flex-col'>
                 <span className='text-foreground text-base font-semibold sm:text-lg'>

@@ -154,7 +154,7 @@ export default function Footer() {
             </div>
 
             {/* Active Status Badge */}
-            <div className='border-border/30 flex w-fit items-center gap-2.5 rounded-full border bg-zinc-950/80 px-4 py-1.5 text-sm font-medium text-zinc-200 backdrop-blur-xs select-none dark:bg-zinc-900/60 dark:text-zinc-200'>
+            <div className='status-badge flex w-fit items-center gap-2.5 rounded-full border px-4 py-1.5 text-sm font-medium backdrop-blur-xs select-none'>
               <span className='relative flex size-2.5'>
                 <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75'></span>
                 <span className='relative inline-flex size-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#34d399]'></span>

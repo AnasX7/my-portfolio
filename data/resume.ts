@@ -73,6 +73,8 @@ export const DATA = {
       id: 'specialized-council',
       companyKey: 'work.specializedCouncil.company',
       logo: '/images/experience/specialized-council.png',
+      logoBg: undefined,
+      logoPadding: undefined,
       titleKey: 'work.specializedCouncil.title',
       dateKey: 'work.specializedCouncil.date',
       employmentTypeKey: 'work.specializedCouncil.employmentType',
@@ -133,6 +135,8 @@ export const DATA = {
       id: 'ust',
       institutionKey: 'education.ust.institution',
       logo: '/images/experience/ust.jpg',
+      logoBg: '#ffffff',
+      logoPadding: true,
       degreeKey: 'education.ust.degree',
       dateKey: 'education.ust.date',
       url: 'https://ust.edu/',
@@ -141,6 +145,8 @@ export const DATA = {
       id: 'meta-certs',
       institutionKey: 'education.meta.institution',
       logo: 'https://cdn.simpleicons.org/meta',
+      logoBg: '#ffffff',
+      logoPadding: true,
       totalDurationKey: 'education.meta.totalDuration',
       certifications: [
         {
