@@ -8,6 +8,31 @@ async function read(relativePath) {
   return readFile(new URL(relativePath, repoRoot), 'utf8')
 }
 
+function getComposedHomeModulePaths(pageSource) {
+  const imports = new Map()
+
+  for (const match of pageSource.matchAll(/import\s+(\w+)\s+from\s+'@\/([^']+)'/g)) {
+    imports.set(match[1], match[2])
+  }
+
+  for (const match of pageSource.matchAll(
+    /const\s+(\w+)\s*=\s*dynamic\(\(\)\s*=>\s*import\('@\/([^']+)'\)\)/g,
+  )) {
+    imports.set(match[1], match[2])
+  }
+
+  const mainStart = pageSource.indexOf('<main>')
+  const mainEnd = pageSource.indexOf('</main>')
+  const mainSource = pageSource.slice(mainStart, mainEnd)
+  const componentNames = Array.from(mainSource.matchAll(/<([A-Z]\w*)\s*\/>/g), (match) => match[1])
+
+  return componentNames.map((componentName) => {
+    const modulePath = imports.get(componentName)
+    assert.ok(modulePath, `${componentName} should resolve to an imported home module`)
+    return `${modulePath}.tsx`
+  })
+}
+
 test('the locale home page places every visible section in one main landmark', async () => {
   const source = await read('app/[locale]/page.tsx')
   const mainOpenings = source.match(/<main\b/g) ?? []
@@ -53,12 +78,20 @@ test('the global scroll provider leaves the main landmark to each route', async 
   )
 })
 
-test('the hero primary title is the single home h1 with unchanged typography classes', async () => {
-  const source = await read('components/home/sections/hero.tsx')
+test('the composed home modules expose one hero h1 with unchanged typography classes', async () => {
+  const pageSource = await read('app/[locale]/page.tsx')
+  const modulePaths = getComposedHomeModulePaths(pageSource)
+  const sources = await Promise.all(modulePaths.map(read))
+  const heroSource = sources[modulePaths.indexOf('components/home/sections/hero.tsx')]
+  const h1Count = sources.reduce(
+    (total, source) => total + (source.match(/<h1\b/g) ?? []).length,
+    0,
+  )
 
-  assert.equal((source.match(/<h1\b/g) ?? []).length, 1)
+  assert.ok(heroSource)
+  assert.equal(h1Count, 1)
   assert.match(
-    source,
+    heroSource,
     /<h1[\s\S]*?text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl/,
   )
 })
