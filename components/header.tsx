@@ -13,6 +13,8 @@ import LanguageSwitcher from './ui/language-switcher'
 import { DATA } from '@/data/resume'
 import { useSmoothScroll } from './smooth-scroll-provider'
 
+const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)'
+
 export default function Header() {
   const t = useTranslations()
 
@@ -21,6 +23,7 @@ export default function Header() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const mobileMenuId = useId()
   const mobileMenuTitleId = useId()
+  const headerHomeRef = useRef<HTMLButtonElement>(null)
   const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuPanelRef = useRef<HTMLDivElement>(null)
 
@@ -35,7 +38,7 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    const desktopMediaQuery = window.matchMedia('(min-width: 64rem)')
+    const desktopMediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY)
     const handleDesktopChange = (event: MediaQueryListEvent) => {
       if (event.matches) setIsMobileMenuOpen(false)
     }
@@ -48,6 +51,7 @@ export default function Header() {
     if (!isMobileMenuOpen) return
 
     const panel = mobileMenuPanelRef.current
+    const headerHome = headerHomeRef.current
     const trigger = mobileMenuTriggerRef.current
     if (!panel) return
 
@@ -107,7 +111,8 @@ export default function Header() {
     return () => {
       document.body.style.overflow = previousBodyOverflow
       document.removeEventListener('keydown', handleKeyDown)
-      trigger?.focus()
+      const focusTarget = window.matchMedia(DESKTOP_MEDIA_QUERY).matches ? headerHome : trigger
+      focusTarget?.focus()
     }
   }, [isMobileMenuOpen])
 
@@ -177,6 +182,7 @@ export default function Header() {
           <div className='flex h-14 items-center justify-between'>
             <div className='flex min-w-0 items-center'>
               <button
+                ref={headerHomeRef}
                 onClick={() =>
                   scrollTo(0, {
                     duration: 3,

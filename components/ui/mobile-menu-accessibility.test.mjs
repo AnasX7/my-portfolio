@@ -85,7 +85,7 @@ test('open mobile menu owns focus, keyboard containment, scroll lock, and focus 
   assert.match(focusEffect, /document\.addEventListener\('keydown', handleKeyDown\)/)
   assert.match(focusEffect, /document\.removeEventListener\('keydown', handleKeyDown\)/)
   assert.match(focusEffect, /document\.body\.style\.overflow = previousBodyOverflow/)
-  assert.match(focusEffect, /trigger\?\.focus\(\)/)
+  assert.match(focusEffect, /focusTarget\?\.focus\(\)/)
 })
 
 test('open mobile menu isolates the header and recaptures escaped focus', async () => {
@@ -108,9 +108,10 @@ test('open mobile menu isolates the header and recaptures escaped focus', async 
 test('mobile menu closes when the viewport crosses into the desktop breakpoint', async () => {
   const source = await read('components/header.tsx')
   const responsiveEffect = source.match(
-    /useEffect\(\(\) => \{\s*const desktopMediaQuery = window\.matchMedia\('\(min-width: 64rem\)'\)[\s\S]*?\}, \[\]\)/,
+    /useEffect\(\(\) => \{\s*const desktopMediaQuery = window\.matchMedia\(DESKTOP_MEDIA_QUERY\)[\s\S]*?\}, \[\]\)/,
   )?.[0]
 
+  assert.match(source, /const DESKTOP_MEDIA_QUERY = '\(min-width: 64rem\)'/)
   assert.ok(responsiveEffect)
   assert.match(
     responsiveEffect,
@@ -124,6 +125,27 @@ test('mobile menu closes when the viewport crosses into the desktop breakpoint',
     responsiveEffect,
     /desktopMediaQuery\.removeEventListener\('change', handleDesktopChange\)/,
   )
+})
+
+test('desktop breakpoint close returns focus to the visible header home control', async () => {
+  const source = await read('components/header.tsx')
+  const homeButton = source.match(
+    /<button\s+ref=\{headerHomeRef\}[\s\S]*?scrollTo\(0,[\s\S]*?<\/button>/,
+  )?.[0]
+  const focusEffect = source.match(
+    /useEffect\(\(\) => \{\s*if \(!isMobileMenuOpen\) return[\s\S]*?\}, \[isMobileMenuOpen\]\)/,
+  )?.[0]
+
+  assert.match(source, /const headerHomeRef = useRef<HTMLButtonElement>\(null\)/)
+  assert.ok(homeButton)
+  assert.doesNotMatch(homeButton, /\bhidden\b/)
+  assert.ok(focusEffect)
+  assert.match(focusEffect, /const headerHome = headerHomeRef\.current/)
+  assert.match(
+    focusEffect,
+    /const focusTarget = window\.matchMedia\(DESKTOP_MEDIA_QUERY\)\.matches\s*\? headerHome\s*: trigger/,
+  )
+  assert.match(focusEffect, /focusTarget\?\.focus\(\)/)
 })
 
 test('mobile menu enters nearby and exits with a softer upward transition', async () => {
