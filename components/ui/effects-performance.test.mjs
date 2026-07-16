@@ -8,12 +8,16 @@ async function read(relativePath) {
   return readFile(new URL(relativePath, repoRoot), 'utf8')
 }
 
-test('scroll reveal uses the existing Motion runtime without GSAP or filters', async () => {
+test('scroll reveal progressively reveals tokens from Motion scroll progress', async () => {
   const source = await read('components/ui/scroll-reveal.tsx')
 
   assert.doesNotMatch(source, /gsap|ScrollTrigger/)
-  assert.doesNotMatch(source, /filter|blur/)
+  assert.doesNotMatch(source, /\bfilter\s*:|blur\(/)
   assert.match(source, /motion\/react/)
+  assert.match(source, /\buseScroll\b/)
+  assert.match(source, /\buseTransform\b/)
+  assert.match(source, /scrollYProgress/)
+  assert.match(source, /scroll-reveal-token/)
 })
 
 test('animated buttons do not render per-button particle nodes', async () => {
