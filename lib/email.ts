@@ -2,7 +2,7 @@
 
 import { EmailTemplate } from '@/components/ui/email-template'
 import { Resend } from 'resend'
-import { formData } from '@/lib/schemas'
+import { contactInputSchema, type formData } from '@/lib/schemas'
 import { verifyTurnstileToken } from '@/lib/turnstile'
 import { ReactElement } from 'react'
 
@@ -10,6 +10,12 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function send(emailFormData: formData, turnstileResponse: string) {
   try {
+    const parsedEmailFormData = contactInputSchema.safeParse(emailFormData)
+
+    if (!parsedEmailFormData.success) {
+      throw new Error('Invalid contact form data')
+    }
+
     const verificationResult = await verifyTurnstileToken(
       turnstileResponse,
       process.env.TURNSTILE_SECRET_KEY!,
@@ -19,7 +25,7 @@ export async function send(emailFormData: formData, turnstileResponse: string) {
       throw new Error('Turnstile verification failed')
     }
 
-    const { fullName, email, message } = emailFormData
+    const { fullName, email, message } = parsedEmailFormData.data
 
     const { error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
