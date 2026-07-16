@@ -13,6 +13,7 @@ import Image from 'next/image'
 type LinkPreviewProps = {
   children: React.ReactNode
   url: string
+  'aria-label'?: string
   className?: string
   width?: number
   height?: number
@@ -23,6 +24,7 @@ type LinkPreviewProps = {
 export const LinkPreview = ({
   children,
   url,
+  'aria-label': ariaLabel,
   className,
   width = 200,
   height = 125,
@@ -79,7 +81,7 @@ export const LinkPreview = ({
 
       <Popover.Root open={isOpen} onOpenChange={setOpen} modal={false}>
         <Popover.Trigger
-          render={<Link href={url} target='_blank' />}
+          render={<Link href={url} target='_blank' aria-label={ariaLabel} />}
           nativeButton={false}
           openOnHover
           delay={50}

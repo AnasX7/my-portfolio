@@ -117,6 +117,8 @@ export default function Footer() {
           >
             <div className='group relative flex flex-col items-center sm:items-start'>
               <button
+                type='button'
+                aria-label={t('header.home')}
                 onClick={() =>
                   scrollTo(0, {
                     duration: 1.8,

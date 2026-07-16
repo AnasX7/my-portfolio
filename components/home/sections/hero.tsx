@@ -266,13 +266,17 @@ export default function HeroV2() {
                   <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <MagneticLinkPreview
                       url={social.url}
+                      aria-label={social.name}
                       className={cn(
                         'size-12 p-0 min-h-0 flex items-center justify-center rounded-full border border-border/50 bg-background/60 backdrop-blur-md shadow-xs transition-all duration-300',
                         'before:bg-none after:bg-none after:bg-background/60 after:backdrop-blur-md',
                         'dark:border-white/10 dark:bg-white/5 dark:after:bg-[#0a0a0a]/50',
                       )}
                     >
-                      <IconComponent className='text-muted-foreground size-5 transition-transform duration-300 group-hover:scale-110 dark:text-gray-300' />
+                      <IconComponent
+                        aria-hidden='true'
+                        className='text-muted-foreground size-5 transition-transform duration-300 group-hover:scale-110 dark:text-gray-300'
+                      />
                     </MagneticLinkPreview>
                   </m.div>
                 </div>
