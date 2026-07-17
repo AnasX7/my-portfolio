@@ -1,9 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useCallback, type BaseSyntheticEvent } from 'react'
+import {
+  useEffect,
+  useRef,
+  useCallback,
+  useSyncExternalStore,
+  type BaseSyntheticEvent,
+} from 'react'
 import { getFormSchema, formData } from '@/lib/schemas'
 import Script from 'next/script'
-import { useTheme } from 'next-themes'
 
 import { Card, CardContent, CardDecorator } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -31,6 +36,25 @@ import { DATA } from '@/data/resume'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!
 
+const subscribeThemeClass = (onStoreChange: () => void) => {
+  if (typeof document === 'undefined') {
+    return () => {}
+  }
+
+  const observer = new MutationObserver(onStoreChange)
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  })
+
+  return () => observer.disconnect()
+}
+
+const getThemeSnapshot = () =>
+  typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+
+const getServerThemeSnapshot = () => false
+
 export default function ContactForm() {
   const t = useTranslations()
   const formSchema = getFormSchema(t)
@@ -47,7 +71,7 @@ export default function ContactForm() {
     },
   })
 
-  const { resolvedTheme } = useTheme()
+  const isDark = useSyncExternalStore(subscribeThemeClass, getThemeSnapshot, getServerThemeSnapshot)
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const widgetIdRef = useRef<string | null>(null)
@@ -58,15 +82,16 @@ export default function ContactForm() {
     const turnstile = (window as any).turnstile
     if (turnstile && containerRef.current && !widgetIdRef.current) {
       try {
+        containerRef.current.innerHTML = ''
         widgetIdRef.current = turnstile.render(containerRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
-          theme: resolvedTheme === 'dark' ? 'dark' : 'light',
+          theme: isDark ? 'dark' : 'light',
         })
       } catch (err) {
         console.error('Error rendering Turnstile widget:', err)
       }
     }
-  }, [resolvedTheme])
+  }, [isDark])
 
   useEffect(() => {
     // If turnstile script is already loaded, render/re-render
@@ -86,7 +111,7 @@ export default function ContactForm() {
         widgetIdRef.current = null
       }
     }
-  }, [resolvedTheme, renderWidget])
+  }, [isDark, renderWidget])
 
   async function onSubmit(values: z.infer<typeof formSchema>, event?: BaseSyntheticEvent) {
     const formElement = event?.target
@@ -183,7 +208,7 @@ export default function ContactForm() {
                 )}
               />
             </div>
-            <div ref={containerRef} />
+            <div key={isDark ? 'dark' : 'light'} ref={containerRef} />
             {shouldLoadTurnstile ? (
               <Script
                 src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
