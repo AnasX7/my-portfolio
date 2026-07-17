@@ -136,7 +136,6 @@
     "viewDetails": "View Details",
     "slugs": {
       "salaty": "Salaty",
-      "tanazah": "Tanazah",
       "gtk-cash": "GTK Cash",
       "youth-orgs-map": "Youth Organizations Map",
       "youth-clubs-calendar": "Youth Clubs Calendar"
@@ -149,15 +148,6 @@
         "Salaty authentication and sign-up screens",
         "Salaty store browsing and product screens",
         "Salaty cart, checkout, and account screens"
-      ]
-    },
-    "card2": {
-      "title": "Tanazah Pool System",
-      "description": "Welcome to Tanazah The integrated pool management system for pool owners and administrators to efficiently manage reservations and operations.",
-      "imageAlts": [
-        "Tanazah pool management login page",
-        "Tanazah admin dashboard with reservations overview",
-        "Tanazah pool owner dashboard with operations panel"
       ]
     },
     "card3": {

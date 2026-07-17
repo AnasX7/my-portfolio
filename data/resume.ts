@@ -336,29 +336,6 @@ export const DATA = {
           'projects.card1.imageAlts.3',
         ],
       },
-      {
-        id: 'tanazah',
-        titleKey: 'projects.card2.title',
-        descriptionKey: 'projects.card2.description',
-        stack: ['Laravel', 'Tailwindcss', 'PostgreSQL', 'Docker'],
-        demoCredentials: {
-          email: 'admin@demo.com',
-          password: 'demotest',
-        },
-        githubUrl: 'https://github.com/AnasX7',
-        isLive: true,
-        liveUrl: 'https://tanazah-demo.onrender.com/',
-        images: [
-          '/images/projects/tanazah/tanazah-login.png',
-          '/images/projects/tanazah/tanazah-admin-dashboard.png',
-          '/images/projects/tanazah/tanazah-owner-dashboard.png',
-        ],
-        imageAltKeys: [
-          'projects.card2.imageAlts.0',
-          'projects.card2.imageAlts.1',
-          'projects.card2.imageAlts.2',
-        ],
-      },
     ],
   },
 
