@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef, type BaseSyntheticEvent } from 'react'
+import { useEffect, useRef, useCallback, type BaseSyntheticEvent } from 'react'
 import { getFormSchema, formData } from '@/lib/schemas'
 import Script from 'next/script'
+import { useTheme } from 'next-themes'
 
 import { Card, CardContent, CardDecorator } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -46,33 +47,36 @@ export default function ContactForm() {
     },
   })
 
+  const { resolvedTheme } = useTheme()
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const widgetIdRef = useRef<string | null>(null)
   const shouldLoadTurnstile = useInView(formRef, { once: true, margin: '300px 0px' })
 
   // Explicitly render Turnstile widget
-  const renderWidget = () => {
+  const renderWidget = useCallback(() => {
     const turnstile = (window as any).turnstile
     if (turnstile && containerRef.current && !widgetIdRef.current) {
       try {
         widgetIdRef.current = turnstile.render(containerRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
+          theme: resolvedTheme === 'dark' ? 'dark' : 'light',
         })
       } catch (err) {
         console.error('Error rendering Turnstile widget:', err)
       }
     }
-  }
+  }, [resolvedTheme])
 
   useEffect(() => {
-    // If turnstile script is already loaded, render immediately
-    if ((window as any).turnstile) {
+    // If turnstile script is already loaded, render/re-render
+    const turnstile = (window as any).turnstile
+    if (turnstile) {
       renderWidget()
     }
 
     return () => {
-      // Clean up widget instance when component unmounts
+      // Clean up widget instance when component unmounts or theme changes
       if (widgetIdRef.current && (window as any).turnstile) {
         try {
           ;(window as any).turnstile.remove(widgetIdRef.current)
@@ -82,7 +86,7 @@ export default function ContactForm() {
         widgetIdRef.current = null
       }
     }
-  }, [])
+  }, [resolvedTheme, renderWidget])
 
   async function onSubmit(values: z.infer<typeof formSchema>, event?: BaseSyntheticEvent) {
     const formElement = event?.target
