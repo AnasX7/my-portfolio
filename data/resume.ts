@@ -103,6 +103,7 @@ export const DATA = {
           id: 'gtk-tech-part-time',
           titleKey: 'work.gtkTechPartTime.title',
           startDate: { year: 2025, month: 8 },
+          endDate: { year: 2026, month: 6 },
           employmentTypeKey: 'work.gtkTechPartTime.employmentType',
           descriptionKey: 'work.gtkTechPartTime.description',
           skills: ['Next.js', 'React Native', 'Expo', 'Hono', 'Laravel', 'TypeScript', 'Monorepo'],
