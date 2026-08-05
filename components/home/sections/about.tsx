@@ -19,7 +19,7 @@ interface SkillLogoProps {
 const SkillLogo = ({ name, url, fallbackChar }: SkillLogoProps) => {
   const [error, setError] = useState(false)
 
-  const shouldInvert = ['Next.js', 'Expo', 'Prisma', 'GitHub'].includes(name)
+  const shouldInvert = ['Next.js', 'Expo', 'Prisma', 'GitHub', 'Turborepo', 'Playwright', 'Better Auth'].includes(name)
 
   return (
     <div className='relative flex size-5 shrink-0 items-center justify-center select-none'>
