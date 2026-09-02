@@ -71,7 +71,7 @@
     "specializedCouncil": {
       "company": "Specialized Council for Youth NGOs",
       "title": "Full-Stack Software Engineer",
-      "employmentType": "Contract",
+      "employmentType": "Freelance",
       "location": "Saudi Arabia · Remote",
       "description": "Developed and delivered two production platforms that digitize the management of youth organizations and clubs across Saudi Arabia.\n\nKey projects:\n• Associations Map – Built an interactive map platform where organizations can register, manage their profiles, and appear on a dynamic map after administrative approval.\n• Nadi Platform – Developed a centralized platform for managing youth clubs, enabling organizations to create and manage clubs while providing administrators with a complete management dashboard. The platform currently manages 300+ active clubs.\n\nResponsibilities:\n• Designed and developed the frontend and backend from the ground up using Next.js and NestJS.\n• Integrated Google Maps to provide interactive geographic experiences across both platforms.\n• Managed production infrastructure using Dokploy, VPS hosting, GitHub Actions, and CI/CD pipelines.\n• Owned deployment, monitoring, maintenance, bug fixes, and ongoing feature enhancements after project delivery."
     },
