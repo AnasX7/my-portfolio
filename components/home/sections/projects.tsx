@@ -151,7 +151,12 @@ function ProjectCard({
         {/* Demo Credentials */}
         {demoCredentials && (
           <div className='text-muted-foreground flex w-fit flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg border border-zinc-500/10 bg-zinc-500/5 px-3 py-1.5 font-mono text-xs select-none dark:border-zinc-400/10 dark:bg-zinc-400/5'>
-            <span className='text-foreground flex items-center gap-1.5 font-sans font-medium'>
+            <span
+              className={cn(
+                'text-foreground flex items-center gap-1.5 font-medium',
+                isRtl ? 'font-sans' : 'font-inter',
+              )}
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='14'

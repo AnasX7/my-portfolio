@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_Arabic } from 'next/font/google'
+import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import '../globals.css'
 
 import { Toaster } from '@/components/ui/sonner'
@@ -20,9 +21,36 @@ const inter = Inter({
   subsets: ['latin'],
 })
 
-const fontSans = Noto_Sans_Arabic({
-  subsets: ['arabic', 'latin'],
-  variable: '--font-sans',
+const thmanyahSans = localFont({
+  src: [
+    {
+      path: '../fonts/thmanyahsans-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/thmanyahsans-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/thmanyahsans-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/thmanyahsans-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/thmanyahsans-Black.woff2',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-thmanyah-sans',
+  display: 'swap',
 })
 
 export function generateStaticParams() {
@@ -117,7 +145,7 @@ export default async function RootLayout({
         <meta name='apple-mobile-web-app-title' content='Anas' />
       </head>
       <body
-        className={`${inter.variable} ${fontSans.variable} ${
+        className={`${inter.variable} ${thmanyahSans.variable} ${
           isArabic ? 'font-sans' : 'font-inter'
         } min-h-dvh antialiased`}
       >
