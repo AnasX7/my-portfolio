@@ -213,10 +213,10 @@ export default function Header() {
                 </div>
 
                 <div className='flex min-w-0 flex-col justify-center'>
-                  <span className='text-foreground truncate text-lg leading-tight font-bold'>
+                  <span className='text-foreground truncate text-lg leading-tight font-bold rtl:leading-[1.2]'>
                     {t(DATA.profile.nameKey)}
                   </span>
-                  <span className='text-muted-foreground mt-0.5 truncate text-xs leading-none'>
+                  <span className='text-muted-foreground mt-0.5 truncate text-xs leading-none rtl:leading-[1.2]'>
                     {t(DATA.profile.roleKey)}
                   </span>
                 </div>
