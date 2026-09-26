@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { TranslateIcon } from '@hugeicons/core-free-icons'
@@ -11,15 +11,6 @@ export default function LanguageSwitcher() {
   const router = useRouter()
   const pathname = usePathname()
   const currentLocale = useLocale()
-
-  const handleLanguageClick = (lang: string) => {
-    if (lang === currentLocale) return
-    const segments = pathname.split('/')
-    segments[1] = lang
-    const newPath = segments.join('/')
-    router.push(newPath as any)
-  }
-
   const nextLocale = currentLocale === 'en' ? 'ar' : 'en'
   const nextLabel = nextLocale === 'en' ? 'English' : 'العربية'
 
@@ -31,7 +22,7 @@ export default function LanguageSwitcher() {
         'font-sans': nextLocale === 'ar',
         'font-inter': nextLocale === 'en',
       })}
-      onClick={() => handleLanguageClick(nextLocale)}
+      onClick={() => router.replace(pathname, { locale: nextLocale })}
       aria-label={`Switch language to ${nextLocale === 'en' ? 'English' : 'العربية'}`}
     >
       <span>{nextLabel}</span>

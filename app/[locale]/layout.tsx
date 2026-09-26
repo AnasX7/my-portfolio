@@ -1,6 +1,5 @@
-import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
-import { notFound } from 'next/navigation'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
@@ -10,7 +9,6 @@ import '../globals.css'
 
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
-import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { MotionProvider } from '@/components/motion-provider'
@@ -57,18 +55,13 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'seo' })
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale()
+  const t = await getTranslations('seo')
 
   const title = t('title')
   const description = t('description')
   const ogImageAlt = t('ogImageAlt')
-  const localeUrl = `${SITE_URL}/${locale}`
   const ogLocale = locale === 'ar' ? 'ar_AE' : 'en_US'
 
   return {
@@ -84,17 +77,12 @@ export async function generateMetadata({
       apple: '/apple-icon.png',
     },
     alternates: {
-      canonical: localeUrl,
-      languages: {
-        en: `${SITE_URL}/en`,
-        ar: `${SITE_URL}/ar`,
-        'x-default': `${SITE_URL}/en`,
-      },
+      canonical: SITE_URL,
     },
     openGraph: {
       type: 'website',
       locale: ogLocale,
-      url: localeUrl,
+      url: SITE_URL,
       siteName: 'Anas Salem',
       title,
       description,
@@ -122,20 +110,10 @@ export async function generateMetadata({
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode
-  params: Promise<{ locale: string }>
 }>) {
-  // Ensure that the incoming `locale` is valid
-  const { locale } = await params
-  if (!hasLocale(routing.locales, locale)) {
-    notFound()
-  }
-
-  // Enable static rendering
-  setRequestLocale(locale)
-
+  const locale = await getLocale()
   const isArabic = locale === 'ar'
   const dir = isArabic ? 'rtl' : 'ltr'
 
@@ -159,10 +137,10 @@ export default async function RootLayout({
                 disableTransitionOnChange
               >
                 <Header />
-                <ScrollProgressProvider>
+                <div className='z-0 flex min-h-dvh flex-col'>
                   {children}
                   <Toaster />
-                </ScrollProgressProvider>
+                </div>
                 <Footer />
               </ThemeProvider>
             </MotionProvider>

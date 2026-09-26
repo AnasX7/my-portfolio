@@ -1,7 +1,8 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { DATA } from '@/data/resume'
 import { routing } from '@/i18n/routing'
+import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
 import BackLink from '@/components/ui/project-back-link'
 import ProjectHero from '@/components/ui/project-hero'
@@ -9,7 +10,7 @@ import ProjectGallery from '@/components/ui/project-gallery'
 import { PROJECT_DETAILS_PUBLIC } from '@/lib/features'
 
 interface PageProps {
-  params: Promise<{ locale: string; slug: string }>
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -29,18 +30,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { robots: { index: false, follow: false } }
   }
 
-  const { locale, slug } = await params
+  const { slug } = await params
   const project = DATA.projects.cards.find((p) => p.id === slug)
   if (!project) return {}
 
-  const t = await getTranslations({ locale })
+  const locale = await getLocale()
+  const t = await getTranslations()
   const title = t(project.titleKey)
   const description = t(project.descriptionKey)
+  const projectUrl = `${SITE_URL}/projects/${slug}`
 
   return {
     title: `${title} | Projects`,
     description,
+    alternates: { canonical: projectUrl },
     openGraph: {
+      url: projectUrl,
+      locale: locale === 'ar' ? 'ar_AE' : 'en_US',
       title,
       description,
       images: [{ url: project.images[0] }],
@@ -53,15 +59,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  const { locale, slug } = await params
-  setRequestLocale(locale)
+  const { slug } = await params
+  const locale = await getLocale()
 
   const project = DATA.projects.cards.find((p) => p.id === slug)
   if (!project) {
     notFound()
   }
 
-  const t = await getTranslations({ locale })
+  const t = await getTranslations()
   const title = t(project.titleKey)
   const description = t(project.descriptionKey)
   const isRtl = locale === 'ar'
@@ -72,8 +78,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const heroAlt = t(project.imageAltKeys[0])
 
   return (
-    <main className='min-h-screen pt-20'>
-      <div className='mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8'>
+    <main className='main-frame project-page min-h-screen pt-20'>
+      <div className='project-content mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-10'>
         <div className='mb-5'>
           <BackLink isRtl={isRtl} label={isRtl ? 'العودة إلى الرئيسية' : 'Back to Home'} />
         </div>
