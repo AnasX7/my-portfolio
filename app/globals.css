@@ -121,6 +121,18 @@
   --grid-glow-color: oklch(0.7 0.02 250 / 25%);
 }
 
+:root {
+  --site-layout-line: color-mix(in srgb, var(--foreground) 18%, transparent);
+}
+
+.dark {
+  --site-layout-line: #303034;
+}
+
+body {
+  container-type: inline-size;
+}
+
 /* Theme-aware grid background */
 .grid-background {
   background-image:
@@ -316,6 +328,221 @@ html.lenis body {
         rgba(255, 255, 255, 0) 100%
       ),
       linear-gradient(0deg, #0a0a0a, #0a0a0a);
+  }
+}
+
+.site-header {
+  inset-inline: 0;
+  border-bottom: 1px dashed var(--site-layout-line);
+  background: color-mix(in srgb, var(--background) 84%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: none;
+}
+
+.site-header.site-header-scrolled {
+  background: var(--background);
+}
+
+.site-header-inner {
+  position: relative;
+  border-inline: 1px dashed var(--site-layout-line);
+  padding-inline: 24px;
+}
+
+.main-frame {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  border-inline: 1px dashed var(--site-layout-line);
+}
+
+.main-frame > :not(:first-child) {
+  position: relative;
+  border-top: 1px dashed var(--site-layout-line);
+}
+
+.main-frame > :not(:first-child)::before,
+.main-frame > :not(:first-child)::after,
+.site-footer-inner::before,
+.site-footer-inner::after,
+.site-header-inner::before,
+.site-header-inner::after,
+.line-joint {
+  position: absolute;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  background:
+    radial-gradient(circle 8px at 0 0, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    radial-gradient(circle 8px at 100% 0, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    radial-gradient(circle 8px at 100% 100%, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    radial-gradient(circle 8px at 0 100%, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    var(--background);
+  pointer-events: none;
+}
+
+.main-frame > :not(:first-child)::before,
+.main-frame > :not(:first-child)::after,
+.site-footer-inner::before,
+.site-footer-inner::after,
+.site-header-inner::before,
+.site-header-inner::after {
+  content: '';
+}
+
+.main-frame > :not(:first-child)::before,
+.main-frame > :not(:first-child)::after,
+.site-footer-inner::before,
+.site-footer-inner::after {
+  top: -8px;
+  width: max(8px, calc(50cqw - 50% + 8px));
+  height: 16px;
+  background-image:
+    radial-gradient(circle 8px at 0 0, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    radial-gradient(circle 8px at 100% 0, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    radial-gradient(circle 8px at 100% 100%, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    radial-gradient(circle 8px at 0 100%, transparent 7px, var(--site-layout-line) 7px 8px, transparent 8px),
+    linear-gradient(var(--background), var(--background)),
+    repeating-linear-gradient(to right, var(--site-layout-line) 0 3px, transparent 3px 6px);
+  background-size: 16px 16px, 16px 16px, 16px 16px, 16px 16px, 16px 16px, 100% 1px;
+  background-repeat: no-repeat;
+}
+
+.main-frame > :not(:first-child)::before {
+  left: calc(50% - 50cqw);
+  background-position: right center, right center, right center, right center, right center, center;
+}
+
+.site-footer-inner::before {
+  left: calc(50% - 50cqw);
+  background-position: right center, right center, right center, right center, right center, center;
+}
+
+.main-frame > :not(:first-child)::after {
+  right: calc(50% - 50cqw);
+  background-position: left center, left center, left center, left center, left center, center;
+}
+
+.site-footer-inner::after {
+  right: calc(50% - 50cqw);
+  background-position: left center, left center, left center, left center, left center, center;
+}
+
+.site-header-inner::before,
+.site-header-inner::after {
+  bottom: -8px;
+}
+
+.site-header-inner::before {
+  left: -8px;
+}
+
+.site-header-inner::after {
+  right: -8px;
+}
+
+.main-frame > section:not(:first-child):not(#contact) {
+  padding-top: 1.5rem;
+}
+
+.hero-pattern {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
+}
+
+.project-page > .project-content > section + section {
+  border-top: 1px dashed var(--site-layout-line);
+}
+
+.site-footer {
+  width: 100%;
+  overflow-x: clip;
+}
+
+.site-footer-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1180px;
+  min-height: clamp(26rem, 37vw, 34rem);
+  border-top: 1px dashed var(--site-layout-line);
+  border-inline: 1px dashed var(--site-layout-line);
+  padding-inline: 16px;
+  padding-bottom: 16px;
+}
+
+.footer-wordmark {
+  position: absolute;
+  z-index: -20;
+  right: 2.5%;
+  bottom: 24px;
+  left: 2.5%;
+  aspect-ratio: 566 / 134;
+}
+
+.footer-wordmark-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--foreground) 48%, transparent) 0%,
+    color-mix(in srgb, var(--foreground) 28%, transparent) 45%,
+    transparent 100%
+  );
+  mask: url('/logo.svg') center / contain no-repeat;
+  -webkit-mask: url('/logo.svg') center / contain no-repeat;
+}
+
+.footer-pattern {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+}
+
+@media (max-width: 767px) {
+  .site-footer-inner > .grid > * {
+    grid-column: 1 / -1;
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-footer-inner > .grid > :first-child .group,
+  .site-footer-inner > .grid > :first-child > div:last-child {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .site-footer-inner > .grid > :nth-child(2) > div,
+  .site-footer-inner > .grid > :nth-child(3) > div {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .site-footer-inner {
+    padding-inline: 40px;
+  }
+
+  .site-footer-inner > .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .site-footer-inner > .grid > * {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-header-inner {
+    padding-inline: 16px;
+  }
+}
+
+@media (min-width: 640px) {
+  .main-frame > section:not(:first-child):not(#contact) {
+    padding-top: 2rem;
   }
 }
 

@@ -1,8 +1,11 @@
 'use client'
 
 import { m } from 'motion/react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Call02Icon, LaptopIcon, Location02Icon } from '@hugeicons/core-free-icons'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { DATA } from '@/data/resume'
 import { buttonVariants } from '@/components/ui/button'
@@ -36,86 +39,42 @@ export default function Footer() {
   }
 
   return (
-    <footer className='relative mt-12 w-full overflow-hidden bg-transparent'>
-      {/* Grid Background with Infinite Scrolling Loop - Light Mode */}
-      <m.div
-        whileInView={{
-          backgroundPosition: ['0px 0px', '80px 80px'],
-        }}
-        viewport={{ amount: 0.1 }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className='absolute inset-0 -z-15 mask-[linear-gradient(to_bottom,transparent,black_30%)] dark:hidden'
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.04)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
-          backgroundSize: '80px 80px',
-        }}
-      />
-      {/* Grid Background with Infinite Scrolling Loop - Dark Mode */}
-      <m.div
-        whileInView={{
-          backgroundPosition: ['0px 0px', '80px 80px'],
-        }}
-        viewport={{ amount: 0.1 }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className='absolute inset-0 -z-15 hidden mask-[linear-gradient(to_bottom,transparent,black_30%)] dark:block'
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      {/* Bottom Ambient Backlight Beam (Shining Upward, breathing in sync) */}
-      <m.div
-        whileInView={{
-          opacity: [0.4, 0.8, 0.4],
-        }}
-        viewport={{ amount: 0.1 }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className='from-primary/10 dark:from-primary/15 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-20 origin-bottom bg-linear-to-t to-transparent'
-      />
-
-      {/* Bottom Glowing Accent Line (Core + Animating Bloom) */}
-      <div className='via-primary/30 dark:via-primary/50 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[1px] bg-linear-to-r from-transparent to-transparent' />
-      <m.div
-        whileInView={{
-          opacity: [0.15, 0.45, 0.15],
-          scaleY: [1, 1.4, 1],
-        }}
-        viewport={{ amount: 0.1 }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className='via-primary/20 dark:via-primary/40 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[3px] origin-bottom bg-linear-to-r from-transparent to-transparent blur-[2px]'
-      />
-
+    <footer className='site-footer relative isolate w-full bg-transparent'>
       <m.div
         variants={staggerContainer}
         initial='hidden'
         whileInView='visible'
         viewport={{ once: true, amount: 0.2 }}
-        className='mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8'
+        className='site-footer-inner relative z-10 isolate mx-auto py-6 sm:py-8 lg:py-12'
       >
-        <div className='grid grid-cols-12 gap-6 sm:gap-8'>
+        <div
+          aria-hidden='true'
+          className='from-primary/15 dark:from-primary/18 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-80 bg-linear-to-t to-transparent'
+        />
+        <div
+          aria-hidden='true'
+          className='footer-pattern pointer-events-none absolute inset-x-0 top-0 -z-15 h-[46%] dark:hidden'
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+            backgroundSize: '80px 80px',
+          }}
+        />
+        <div
+          aria-hidden='true'
+          className='footer-pattern pointer-events-none absolute inset-x-0 top-0 -z-15 hidden h-[46%] dark:block'
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+            backgroundSize: '80px 80px',
+          }}
+        />
+
+        <div className='relative z-10 grid grid-cols-12 gap-6 sm:gap-8'>
           {/* Left Column: Brand, Socials */}
           <m.div
             variants={staggerItem}
-            className='col-span-12 flex flex-col items-center gap-3 text-center sm:col-span-6 sm:items-start sm:text-start'
+            className='col-span-12 flex flex-col items-center gap-3 text-center sm:col-span-4 sm:items-start sm:text-start'
           >
-            <div className='group relative flex flex-col items-center sm:items-start'>
+            <div className='flex min-w-0 items-center'>
               <button
                 type='button'
                 aria-label={t('header.home')}
@@ -124,42 +83,37 @@ export default function Footer() {
                     duration: 1.8,
                   })
                 }
-                className='relative cursor-pointer overflow-visible text-center focus:outline-hidden sm:text-start'
+                className='group flex min-w-0 cursor-pointer items-center gap-3 text-start focus:outline-hidden'
               >
-                {/* Main Name Signature */}
-                <span
-                  aria-hidden='true'
-                  className={cn(
-                    'font-black text-transparent select-none transition-transform duration-500 group-hover:scale-105 inline-block px-2',
-                    'text-3xl sm:text-4xl leading-[0.8]',
-                    'bg-linear-to-b from-foreground via-foreground/90 to-foreground/50 bg-clip-text',
-                    'dark:from-white dark:via-white/90 dark:to-white/50',
-                  )}
-                >
-                  𝓐𝓷𝖆𝔖
-                </span>
-
-                {/* Glow stroke behind */}
-                <span
-                  aria-hidden='true'
-                  className={cn(
-                    'absolute inset-0 -z-10 font-black text-transparent opacity-0 transition-all duration-500 group-hover:opacity-20 blur-lg inline-block px-2',
-                    'text-3xl sm:text-4xl leading-[0.8]',
-                    'bg-linear-to-b from-primary to-primary/50 bg-clip-text',
-                  )}
-                >
-                  𝓐𝓷𝖆𝔖
-                </span>
+                <div className='relative shrink-0'>
+                  <Image
+                    src={DATA.profile.avatarLight}
+                    alt={t(DATA.profile.nameKey)}
+                    width={36}
+                    height={36}
+                    className='visible size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105 dark:invisible'
+                  />
+                  <Image
+                    src={DATA.profile.avatarDark}
+                    alt={t(DATA.profile.nameKey)}
+                    width={36}
+                    height={36}
+                    className='invisible absolute inset-0 size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105 dark:visible'
+                  />
+                  <span className='absolute -bottom-0.5 flex size-2.5 ltr:-right-0.5 ltr:left-auto rtl:right-auto rtl:-left-0.5'>
+                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
+                    <span className='relative inline-flex size-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#34d399]' />
+                  </span>
+                </div>
+                <div className='flex min-w-0 flex-col justify-center'>
+                  <span className='text-foreground truncate text-lg leading-tight font-bold rtl:leading-[1.2]'>
+                    {t(DATA.profile.nameKey)}
+                  </span>
+                  <span className='text-muted-foreground mt-0.5 truncate text-xs leading-none rtl:leading-[1.2]'>
+                    {t(DATA.profile.roleKey)}
+                  </span>
+                </div>
               </button>
-            </div>
-
-            {/* Active Status Badge */}
-            <div className='status-badge flex w-fit items-center gap-2.5 rounded-full border px-4 py-1.5 text-sm font-medium backdrop-blur-xs select-none'>
-              <span className='relative flex size-2.5'>
-                <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75'></span>
-                <span className='relative inline-flex size-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#34d399]'></span>
-              </span>
-              <span>{t('contact.availableForWork')}</span>
             </div>
 
             {/* Social Buttons */}
@@ -185,7 +139,7 @@ export default function Footer() {
           {/* Middle Column: Sections */}
           <m.div
             variants={staggerItem}
-            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-2 sm:col-start-8 sm:items-start sm:text-start'
+            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-2 sm:col-start-6 sm:items-start sm:text-start'
           >
             <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
               {t(DATA.sections.titleKey)}
@@ -206,7 +160,7 @@ export default function Footer() {
           {/* Right Column: Projects */}
           <m.div
             variants={staggerItem}
-            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-2 sm:col-start-11 sm:items-start sm:text-start'
+            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-3 sm:col-start-9 sm:items-start sm:text-start'
           >
             <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
               {t(DATA.projects.titleKey)}
@@ -229,27 +183,48 @@ export default function Footer() {
               )}
             </div>
           </m.div>
+
+          {/* Contact Column */}
+          <m.div
+            variants={staggerItem}
+            className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-3 sm:items-start sm:text-start'
+          >
+            <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
+              {t('footer.contactTitle')}
+            </span>
+            <div className='flex flex-col items-center gap-2.5 sm:items-start'>
+              <span className='text-muted-foreground inline-flex items-center gap-2 text-xs'>
+                <HugeiconsIcon icon={Location02Icon} aria-hidden='true' className='size-4 shrink-0' />
+                UAE, Abu Dhabi
+              </span>
+              <a
+                href='tel:+971564949464'
+                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-xs transition-colors'
+              >
+                <HugeiconsIcon icon={Call02Icon} aria-hidden='true' className='size-4 shrink-0' />
+                <span dir='ltr'>+971 564949464</span>
+              </a>
+              <span className='text-muted-foreground inline-flex items-center gap-2 text-xs'>
+                <HugeiconsIcon icon={LaptopIcon} aria-hidden='true' className='size-4 shrink-0' />
+                {t('footer.remoteWork')}
+              </span>
+            </div>
+          </m.div>
+        </div>
+
+        <div aria-hidden='true' className='footer-wordmark'>
+          <div className='footer-wordmark-image' />
         </div>
 
         {/* Bottom copyright section - Stacked and centered on mobile, row-aligned on sm+ */}
         <m.div
           variants={staggerItem}
-          className='mt-8 flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:gap-4'
+          className='relative z-10 mt-auto flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:gap-4'
         >
           <p className='text-muted-foreground/60 text-xs font-light sm:text-start'>
             &copy; {currentYear} 𝓐𝓷𝖆𝔖. {t(DATA.footer.copyrightKey)}
           </p>
 
-          {/* Stroked Backdrop Watermark */}
-          <div
-            className='text-muted-foreground/15 dark:text-muted-foreground/20 pointer-events-none text-3xl font-black tracking-widest select-none sm:text-4xl'
-            style={{
-              WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: '1px currentColor',
-            }}
-          >
-            PORTFOLIO
-          </div>
         </m.div>
       </m.div>
     </footer>

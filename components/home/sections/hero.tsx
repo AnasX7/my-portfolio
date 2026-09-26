@@ -115,14 +115,14 @@ export default function HeroV2() {
   return (
     <m.section
       id='home'
-      className='relative flex w-full flex-col items-center justify-start overflow-hidden pt-24 pb-8 sm:pt-32 sm:pb-10 lg:pt-36 lg:pb-12'
+      className='relative isolate flex w-full flex-col items-center justify-start overflow-hidden pt-24 pb-8 sm:pt-32 sm:pb-10 lg:pt-36 lg:pb-12'
     >
       {/* Background */}
       <div className='bg-background absolute inset-0 -z-20 transition-colors duration-700' />
 
       {/* Grid Background with Rounded Corners - Light Mode */}
       <div
-        className='absolute inset-0 -z-15 mask-[linear-gradient(to_bottom,black_60%,transparent)] dark:hidden'
+        className='hero-pattern absolute inset-0 -z-15 dark:hidden'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
           backgroundSize: '80px 80px',
@@ -130,20 +130,25 @@ export default function HeroV2() {
       />
       {/* Grid Background with Rounded Corners - Dark Mode */}
       <div
-        className='absolute inset-0 -z-15 hidden mask-[linear-gradient(to_bottom,black_60%,transparent)] dark:block'
+        className='hero-pattern absolute inset-0 -z-15 hidden dark:block'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
           backgroundSize: '80px 80px',
         }}
       />
 
-      <div
-        className={cn(
-          'absolute inset-0 -z-10 opacity-90 transition-colors duration-700',
-          'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(148,163,184,0.28),transparent_75%)]',
-          'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(226,232,240,0.15),transparent_100%)]',
-        )}
+      {/* Centered glow, clipped to the hero frame */}
+      <m.div
+        whileInView={{ opacity: [0.4, 0.8, 0.4] }}
+        viewport={{ amount: 0.1 }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        className='pointer-events-none absolute inset-0 -z-10'
+        style={{
+          backgroundImage:
+            'radial-gradient(circle 24rem at center, color-mix(in srgb, var(--primary) 16%, transparent), transparent)',
+        }}
       />
+
       {/* Main Content Container */}
       <m.div
         variants={staggerContainer}

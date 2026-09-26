@@ -1,4 +1,4 @@
-import { CurvedInfiniteSlider } from '@/components/ui/curved-infinite-slider'
+import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
@@ -23,7 +23,7 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
         className,
       )}
     >
-      <CurvedInfiniteSlider arcDepth={28} gap={42} reverse speed={80} speedOnHover={25}>
+      <InfiniteSlider gap={42} reverse speed={80} speedOnHover={25}>
         {logos.map((logo) => (
           <Image
             alt={logo.alt}
@@ -36,7 +36,7 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
             width={logo.width ?? 48}
           />
         ))}
-      </CurvedInfiniteSlider>
+      </InfiniteSlider>
     </div>
   )
 }

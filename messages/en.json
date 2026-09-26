@@ -25,37 +25,24 @@
     "cta": "Download Resume"
   },
   "techStack": {
-    "line1": "Built with the best technologies",
+    "line1": "Technologies I work with",
     "line2": "Powered by modern technology."
   },
   "about": {
     "title": "About Me",
-    "whoAmI": {
-      "line1": {
-        "pre": "Software engineer and expert in",
-        "badge1": "Full-Stack Development",
-        "mid": "with over",
-        "badge2": "2+ years",
-        "post": "of hands-on experience."
-      },
-      "line2": {
-        "pre": "Expertise extends to modern systems like",
-        "badge1": "Next.js",
-        "mid": "and",
-        "badge2": "NestJS",
-        "post": "for fast, production-ready apps."
-      },
-      "line3": {
-        "pre": "Currently works as a",
-        "role": "Full-Stack Software Engineer",
-        "post": "with remote teams."
-      }
-    },
     "card3": {
       "title": "Work Experience"
     },
     "card4": {
-      "title": "Skills"
+      "title": "Skills",
+      "groups": {
+        "languages": "Language",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "infrastructure": "Infrastructure",
+        "workflow": "Workflow",
+        "design": "Design"
+      }
     },
     "card5": {
       "title": "Education"
@@ -233,11 +220,13 @@
     "error": "Something went wrong. Please try again."
   },
   "seo": {
-    "title": "Anas Salem — Software Engineer in Abu Dhabi",
+    "title": "Anas Salem | Software Engineer",
     "description": "Software engineer based in Abu Dhabi building scalable web applications with exceptional UI/UX. Explore projects, experience, and get in touch.",
     "ogImageAlt": "Anas Salem — Software Engineer portfolio"
   },
   "footer": {
-    "copyright": "All rights reserved"
+    "copyright": "All rights reserved",
+    "contactTitle": "Contact",
+    "remoteWork": "Open to work remotely"
   }
 }

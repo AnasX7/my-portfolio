@@ -118,11 +118,11 @@ export default function Education() {
               </div>
 
               {/* Nested Certifications list connected by a vertical timeline line */}
-              <m.div variants={motion.list} className='relative mt-4 flex flex-col gap-6 pl-14'>
+              <m.div variants={motion.list} className='relative mt-4 flex flex-col gap-6 ps-14'>
                 {/* Vertical Connector Line */}
                 <m.div
                   variants={motion.timeline}
-                  className='absolute top-0 bottom-4 left-[23px] w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
+                  className='absolute top-0 bottom-4 start-[23px] w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
                 />
 
                 {item.certifications.map((cert) => {
@@ -156,7 +156,7 @@ export default function Education() {
                   return (
                     <m.div key={cert.id} variants={motion.item} className='relative flex flex-col'>
                       {/* Timeline Dot */}
-                      <div className='absolute top-1.5 left-[-37px] flex w-2.5 justify-center'>
+                      <div className='absolute top-1.5 start-[-37px] flex w-2.5 justify-center'>
                         <div className='border-background size-2.5 rounded-full border-2 bg-neutral-300 dark:bg-neutral-700' />
                       </div>
 

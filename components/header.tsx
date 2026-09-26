@@ -116,23 +116,6 @@ export default function Header() {
     }
   }, [isMobileMenuOpen])
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0 },
-  }
-
   const mobileMenuVariants: Variants = {
     closed: {
       opacity: 0,
@@ -167,18 +150,15 @@ export default function Header() {
 
   return (
     <>
-      <m.header
-        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
+      <header
+        className={`site-header fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'border-border/50 bg-background/95 lg:bg-background/50 border-b shadow-sm lg:backdrop-blur-md'
+            ? 'site-header-scrolled border-border/50 bg-background/95 lg:bg-background/50 border-b shadow-sm lg:backdrop-blur-md'
             : 'bg-transparent'
         } ${isMobileMenuOpen ? 'pointer-events-none' : ''}`}
         inert={isMobileMenuOpen}
-        variants={containerVariants}
-        initial='hidden'
-        animate='visible'
       >
-        <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
+        <div className='site-header-inner mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8'>
           <div className='flex h-14 items-center justify-between'>
             <div className='flex min-w-0 items-center'>
               <button
@@ -225,9 +205,8 @@ export default function Header() {
 
             <nav className='absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-1.5 py-1 lg:flex'>
               {DATA.navItems.map((item) => (
-                <m.div
+                <div
                   key={item.nameKey}
-                  variants={itemVariants}
                   className='relative'
                   onMouseEnter={() => setHoveredItem(item.nameKey)}
                   onMouseLeave={() => setHoveredItem(null)}
@@ -261,11 +240,11 @@ export default function Header() {
                     )}
                     <span className='relative z-10'>{t(item.nameKey)}</span>
                   </Button>
-                </m.div>
+                </div>
               ))}
             </nav>
 
-            <m.div className='hidden items-center space-x-3 lg:flex' variants={itemVariants}>
+            <div className='hidden items-center space-x-3 lg:flex'>
               <m.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <LanguageSwitcher />
               </m.div>
@@ -273,14 +252,13 @@ export default function Header() {
               <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <AnimatedThemeToggler />
               </m.div>
-            </m.div>
+            </div>
 
             <m.button
               ref={mobileMenuTriggerRef}
               type='button'
               className='text-foreground hover:bg-muted flex size-11 items-center justify-center rounded-lg p-2 transition-colors duration-200 lg:hidden'
               onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
-              variants={itemVariants}
               whileTap={{ scale: 0.96 }}
               aria-label={t('header.toggleMenu')}
               aria-expanded={isMobileMenuOpen}
@@ -294,7 +272,7 @@ export default function Header() {
             </m.button>
           </div>
         </div>
-      </m.header>
+      </header>
 
       <AnimatePresence initial={false}>
         {isMobileMenuOpen && (
