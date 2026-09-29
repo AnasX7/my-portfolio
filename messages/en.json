@@ -10,6 +10,7 @@
     "projects": "Projects",
     "contact": "Contact",
     "toggleMenu": "Toggle menu",
+    "closeMenu": "Close menu",
     "mobileMenu": "Primary navigation"
   },
   "carousel": {

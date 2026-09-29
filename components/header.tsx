@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { m, AnimatePresence, Variants } from 'motion/react'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { Menu01Icon, Cancel01Icon } from '@hugeicons/core-free-icons'
+import { Menu01Icon, Cancel01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -119,33 +119,30 @@ export default function Header() {
   const mobileMenuVariants: Variants = {
     closed: {
       opacity: 0,
-      x: 24,
-      filter: 'blur(4px)',
+      y: -8,
     },
     open: {
       opacity: 1,
-      x: 0,
-      filter: 'blur(0px)',
+      y: 0,
       transition: {
         duration: 0.3,
-        ease: 'easeInOut',
+        ease: 'easeOut',
         staggerChildren: 0.1,
       },
     },
     exit: {
       opacity: 0,
-      y: -12,
-      filter: 'blur(4px)',
+      y: -8,
       transition: {
         duration: 0.15,
-        ease: 'easeIn',
+        ease: 'easeOut',
       },
     },
   }
 
   const mobileItemVariants = {
-    closed: { opacity: 0, x: 20 },
-    open: { opacity: 1, x: 0 },
+    closed: { opacity: 0, y: 8 },
+    open: { opacity: 1, y: 0 },
   }
 
   return (
@@ -155,7 +152,7 @@ export default function Header() {
           isScrolled
             ? 'site-header-scrolled border-border/50 bg-background/95 lg:bg-background/50 border-b shadow-sm lg:backdrop-blur-md'
             : 'bg-transparent'
-        } ${isMobileMenuOpen ? 'pointer-events-none' : ''}`}
+        } ${isMobileMenuOpen ? 'pointer-events-none opacity-40' : ''}`}
         inert={isMobileMenuOpen}
       >
         <div className='site-header-inner mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8'>
@@ -264,11 +261,7 @@ export default function Header() {
               aria-expanded={isMobileMenuOpen}
               aria-controls={mobileMenuId}
             >
-              {isMobileMenuOpen ? (
-                <HugeiconsIcon icon={Cancel01Icon} className='size-6' />
-              ) : (
-                <HugeiconsIcon icon={Menu01Icon} className='size-6' />
-              )}
+              <HugeiconsIcon icon={Menu01Icon} className='size-6' />
             </m.button>
           </div>
         </div>
@@ -278,7 +271,7 @@ export default function Header() {
         {isMobileMenuOpen && (
           <>
             <m.div
-              className='fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden'
+              className='fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -292,37 +285,62 @@ export default function Header() {
               aria-modal='true'
               aria-labelledby={mobileMenuTitleId}
               tabIndex={-1}
-              className='border-border bg-background fixed end-4 top-14 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
+              className='border-border bg-background fixed inset-x-3 top-16 z-50 mx-auto max-h-[calc(100dvh-5rem)] max-w-xl overflow-y-auto overscroll-contain rounded-3xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
               animate='open'
               exit='exit'
             >
-              <h2 id={mobileMenuTitleId} className='sr-only'>
-                {t('header.mobileMenu')}
-              </h2>
-              <div className='space-y-6 p-6'>
-                <div className='space-y-1'>
-                  {DATA.navItems.map((item) => (
+              <div className='border-border flex items-center justify-between border-b border-dashed py-3 ps-6 pe-3'>
+                <h2
+                  id={mobileMenuTitleId}
+                  className='text-muted-foreground text-xs font-medium tracking-widest uppercase'
+                >
+                  {t('header.mobileMenu')}
+                </h2>
+                <Button
+                  variant='ghost'
+                  className='size-11 rounded-xl'
+                  aria-label={t('header.closeMenu')}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <HugeiconsIcon icon={Cancel01Icon} aria-hidden='true' className='size-5' />
+                </Button>
+              </div>
+              <div className='px-5 sm:px-6'>
+                <nav aria-labelledby={mobileMenuTitleId}>
+                  {DATA.navItems.map((item, index) => (
                     <m.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
                         href={item.href}
-                        className='text-foreground hover:bg-muted block rounded-lg px-4 py-3 font-medium transition-colors duration-200'
+                        className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-24 items-center gap-4 border-b border-dashed py-5 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        {t(item.nameKey)}
+                        <span
+                          aria-hidden='true'
+                          className='text-muted-foreground self-start pt-2 font-mono text-[11px] tabular-nums'
+                        >
+                          0{index + 1}
+                        </span>
+                        <span className='flex-1 text-3xl font-medium tracking-tight sm:text-4xl'>
+                          {t(item.nameKey)}
+                        </span>
+                        <HugeiconsIcon
+                          icon={ArrowUpRight01Icon}
+                          aria-hidden='true'
+                          className='text-muted-foreground size-6 transition-transform duration-150 group-hover:-translate-y-0.5 rtl:-scale-x-100'
+                        />
                       </Link>
                     </m.div>
                   ))}
-                </div>
+                </nav>
 
                 <m.div
-                  className='border-border flex flex-row space-x-3 border-t pt-6'
+                  className='flex items-center justify-between gap-3 py-5'
                   variants={mobileItemVariants}
                 >
-                  <AnimatedThemeToggler />
-
                   <LanguageSwitcher />
+                  <AnimatedThemeToggler className='size-11 rounded-xl' />
                 </m.div>
               </div>
             </m.div>
