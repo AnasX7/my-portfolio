@@ -509,25 +509,43 @@ html.lenis body {
 }
 
 @media (max-width: 767px) {
+  .site-footer-inner {
+    min-height: auto;
+    padding: 32px 24px 24px;
+  }
+
+  .site-footer-inner > .grid {
+    gap: 32px 16px;
+  }
+
   .site-footer-inner > .grid > * {
     grid-column: 1 / -1;
-    align-items: center;
-    text-align: center;
+    min-width: 0;
+    align-items: flex-start;
+    text-align: start;
   }
 
-  .site-footer-inner > .grid > :first-child .group,
-  .site-footer-inner > .grid > :first-child > div:last-child {
-    align-items: center;
-    justify-content: center;
+  .site-footer-inner > .grid > :nth-child(2) {
+    grid-column: span 4;
   }
 
-  .site-footer-inner > .grid > :nth-child(2) > div,
-  .site-footer-inner > .grid > :nth-child(3) > div {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  .site-footer-inner > .grid > :nth-child(3) {
+    grid-column: span 8;
   }
 
+  .site-footer-inner > .grid > :not(:first-child) > div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .site-footer-inner .footer-wordmark {
+    position: relative;
+    inset: auto;
+    flex-shrink: 0;
+    width: 100%;
+    margin-block: 32px 16px;
+  }
 }
 
 @media (min-width: 768px) {
