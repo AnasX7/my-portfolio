@@ -157,7 +157,7 @@ export default function Header() {
         } ${isMobileMenuOpen ? 'pointer-events-none opacity-40' : ''}`}
         inert={isMobileMenuOpen}
       >
-        <div className='site-header-inner mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8'>
+        <div className='site-header-inner mx-auto max-w-[1080px] px-4 sm:px-6 lg:px-8'>
           <div className='flex h-14 items-center justify-between'>
             <div className='flex min-w-0 items-center'>
               <button

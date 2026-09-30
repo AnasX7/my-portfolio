@@ -232,6 +232,12 @@ export default function Footer() {
           <p className='text-muted-foreground/60 text-xs font-light sm:text-start'>
             &copy; {currentYear} 𝓐𝓷𝖆𝔖. {t(DATA.footer.copyrightKey)}
           </p>
+          <Link
+            href='/privacy'
+            className='text-muted-foreground hover:text-foreground text-xs underline underline-offset-4'
+          >
+            {t('contact.privacy.title')}
+          </Link>
         </m.div>
       </m.div>
     </footer>

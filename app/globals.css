@@ -56,7 +56,7 @@
 :root {
   --radius: 0.625rem;
   /* Warm beige/cream color scheme */
-  --background: oklch(0.955 0.012 85);
+  --background: #f8f5ee;
   --foreground: oklch(0.22 0.01 60);
   --card: oklch(0.96 0.01 85);
   --card-foreground: oklch(0.22 0.01 60);
@@ -360,7 +360,7 @@ html.lenis body {
 }
 
 .main-frame {
-  width: min(100%, 1180px);
+  width: min(100%, 1080px);
   margin-inline: auto;
   border-inline: 1px dashed var(--site-layout-line);
 }
@@ -542,6 +542,37 @@ html.lenis body {
   line-height: 1.2;
 }
 
+html[lang='ar'] :is(.page-title, .section-title) {
+  line-height: 1.4;
+}
+
+.contact-pill {
+  color: #191919;
+  background: #f7f7f7;
+  border: 1px solid #dedede;
+  box-shadow: inset 0 1px 2px #fff;
+}
+
+.contact-panel,
+.dark .contact-pill {
+  color: #fff;
+  background: #191919;
+  box-shadow:
+    inset 0 1px 2px #ffffff40,
+    0 12px 28px #0000000d;
+  border: 1px solid #ffffff26;
+}
+
+.contact-input {
+  color: #fff;
+  background: #303030;
+  border-color: #ffffff26;
+}
+
+.contact-input::placeholder {
+  color: #b5b5b5;
+}
+
 .hero-pattern {
   -webkit-mask-image: linear-gradient(
     to bottom,
@@ -599,7 +630,7 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1180px;
+  max-width: 1080px;
   min-height: clamp(26rem, 37vw, 34rem);
   border-top: 1px dashed var(--site-layout-line);
   border-inline: 1px dashed var(--site-layout-line);

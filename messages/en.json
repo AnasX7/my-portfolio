@@ -287,7 +287,17 @@
         "min": "Message must be at least {min} characters"
       },
       "submit": "Send Message"
-    }
+    },
+    "privacy": {
+      "title": "Contact privacy",
+      "message": "Your name, email address, and message are sent to me through Resend so I can respond to your enquiry. For questions about your message or its deletion, contact anassalem.aa@gmail.com.",
+      "verification": "This form uses Cloudflare Turnstile to prevent automated spam. Cloudflare processes technical signals such as your IP address, browser information, and the site you visit for verification and to improve bot detection.",
+      "cloudflare": "Cloudflare Turnstile Privacy Addendum"
+    },
+    "headline": "Let’s build your\nnext idea together",
+    "startProject": "Start your project",
+    "call": "Let’s talk",
+    "emailMe": "Email me"
   },
   "sections": {
     "title": "Sections"
