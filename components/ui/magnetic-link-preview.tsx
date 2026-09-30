@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 
 interface MagneticLinkPreviewProps {
   url: string
+  previewImage?: string
   children: React.ReactNode
   'aria-label'?: string
   icon?: IconSvgElement
@@ -20,6 +21,7 @@ interface MagneticLinkPreviewProps {
 
 export function MagneticLinkPreview({
   url,
+  previewImage,
   children,
   'aria-label': ariaLabel,
   icon: Icon,
@@ -33,6 +35,9 @@ export function MagneticLinkPreview({
     <Magnetic intensity={intensity} springOptions={{ bounce }} actionArea='global' range={range}>
       <LinkPreview
         url={url}
+        {...(previewImage
+          ? { isStatic: true as const, imageSrc: previewImage }
+          : { isStatic: false as const })}
         aria-label={ariaLabel}
         className={cn(buttonVariants({ variant }), className)}
       >

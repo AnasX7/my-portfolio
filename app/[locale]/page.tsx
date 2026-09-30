@@ -55,7 +55,7 @@ export default async function Home() {
         <HeroSection />
         <LogoCloudSection />
         <AboutSection />
-        <ProjectSection />
+        <ProjectSection limit={6} showMoreLink />
         <ContactSection />
       </main>
     </>

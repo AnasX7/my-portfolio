@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { m, AnimatePresence, Variants } from 'motion/react'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Menu01Icon, Cancel01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
-import { Link } from '@/i18n/navigation'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
@@ -17,6 +17,8 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)'
 
 export default function Header() {
   const t = useTranslations()
+  const pathname = usePathname()
+  const router = useRouter()
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -161,9 +163,11 @@ export default function Header() {
               <button
                 ref={headerHomeRef}
                 onClick={() =>
-                  scrollTo(0, {
-                    duration: 3,
-                  })
+                  pathname !== '/'
+                    ? router.push('/')
+                    : scrollTo(0, {
+                        duration: 3,
+                      })
                 }
                 className='group flex min-w-0 cursor-pointer items-center gap-3 text-start'
               >
@@ -214,10 +218,12 @@ export default function Header() {
                     role='link'
                     aria-label={t(item.nameKey)}
                     onClick={() =>
-                      scrollTo(item.href, {
-                        offset: -100,
-                        duration: 3,
-                      })
+                      pathname !== '/'
+                        ? router.push(`/${item.href}`)
+                        : scrollTo(item.href, {
+                            offset: -100,
+                            duration: 3,
+                          })
                     }
                     className='text-muted-foreground hover:text-foreground relative rounded-full px-4 transition-colors duration-200 hover:bg-transparent'
                   >
@@ -312,7 +318,7 @@ export default function Header() {
                   {DATA.navItems.map((item, index) => (
                     <m.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
-                        href={item.href}
+                        href={pathname === '/' ? item.href : `/${item.href}`}
                         className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-24 items-center gap-4 border-b border-dashed py-5 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
                         onClick={() => setIsMobileMenuOpen(false)}
                       >

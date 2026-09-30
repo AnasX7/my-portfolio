@@ -1,1 +1,1 @@
-export const PROJECT_DETAILS_PUBLIC = false
+export const PROJECT_DETAILS_PUBLIC = true

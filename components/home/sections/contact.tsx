@@ -26,9 +26,7 @@ export default function Contact() {
           viewport={{ once: true, amount: 0.3 }}
           className='flex flex-col items-center py-10'
         >
-          <h2 className='text-foreground dark:text-foreground mb-4 text-center text-2xl font-bold text-balance md:text-4xl'>
-            {t(DATA.contact.titleKey)}
-          </h2>
+          <h2 className='section-title mb-6 text-center'>{t(DATA.contact.titleKey)}</h2>
           <p className='text-muted-foreground dark:text-muted-foreground max-w-2xl text-center text-sm text-pretty md:text-lg'>
             {t(DATA.contact.subtitleKey)}
           </p>

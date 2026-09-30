@@ -3,7 +3,7 @@
 import { m } from 'motion/react'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Call02Icon, LaptopIcon, Location02Icon } from '@hugeicons/core-free-icons'
-import { Link } from '@/i18n/navigation'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
@@ -15,6 +15,8 @@ import { useSmoothScroll } from '@/components/smooth-scroll-provider'
 export default function Footer() {
   const { scrollTo } = useSmoothScroll()
   const t = useTranslations()
+  const pathname = usePathname()
+  const router = useRouter()
   const currentYear = new Date().getFullYear()
 
   // Stagger animation container
@@ -45,7 +47,7 @@ export default function Footer() {
         initial='hidden'
         whileInView='visible'
         viewport={{ once: true, amount: 0.2 }}
-        className='site-footer-inner relative z-10 isolate mx-auto py-6 sm:py-8 lg:py-12'
+        className='site-footer-inner relative isolate z-10 mx-auto py-6 sm:py-8 lg:py-12'
       >
         <div
           aria-hidden='true'
@@ -79,9 +81,11 @@ export default function Footer() {
                 type='button'
                 aria-label={t('header.home')}
                 onClick={() =>
-                  scrollTo(0, {
-                    duration: 1.8,
-                  })
+                  pathname !== '/'
+                    ? router.push('/')
+                    : scrollTo(0, {
+                        duration: 1.8,
+                      })
                 }
                 className='group flex min-w-0 cursor-pointer items-center gap-3 text-start focus:outline-hidden'
               >
@@ -148,7 +152,7 @@ export default function Footer() {
               {DATA.navItems.map(({ href, nameKey }) => (
                 <Link
                   className='text-muted-foreground hover:text-foreground after:bg-foreground relative w-max pb-0.5 text-xs transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100'
-                  href={href}
+                  href={pathname === '/' ? href : `/${href}`}
                   key={nameKey}
                 >
                   {t(nameKey)}
@@ -194,7 +198,11 @@ export default function Footer() {
             </span>
             <div className='flex flex-col items-center gap-2.5 sm:items-start'>
               <span className='text-muted-foreground inline-flex items-center gap-2 text-xs'>
-                <HugeiconsIcon icon={Location02Icon} aria-hidden='true' className='size-4 shrink-0' />
+                <HugeiconsIcon
+                  icon={Location02Icon}
+                  aria-hidden='true'
+                  className='size-4 shrink-0'
+                />
                 UAE, Abu Dhabi
               </span>
               <a
@@ -224,7 +232,6 @@ export default function Footer() {
           <p className='text-muted-foreground/60 text-xs font-light sm:text-start'>
             &copy; {currentYear} 𝓐𝓷𝖆𝔖. {t(DATA.footer.copyrightKey)}
           </p>
-
         </m.div>
       </m.div>
     </footer>

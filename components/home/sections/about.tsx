@@ -15,11 +15,16 @@ interface SkillLogoProps {
   fallbackChar: string
 }
 
-const SkillLogo = ({ name, url, fallbackChar }: SkillLogoProps) => {
+export const SkillLogo = ({ name, url, fallbackChar }: SkillLogoProps) => {
   const [error, setError] = useState(false)
   const shouldInvert = [
     'Next.js',
     'Expo',
+    'HeroUI Native',
+    'Turborepo',
+    'Three.js',
+    'Cal.com',
+    'Resend',
     'Prisma',
     'Vercel',
     'Railway',
@@ -41,7 +46,7 @@ const SkillLogo = ({ name, url, fallbackChar }: SkillLogoProps) => {
           viewBox='0 0 1260 454'
           fill='currentColor'
           aria-hidden='true'
-          className='size-full text-foreground/75'
+          className='text-foreground/75 size-full'
         >
           <path d='M475.753 0L226.8 453.6L0 453.6L194.392 99.4116C224.526 44.5081 299.724 0 362.353 0L475.753 0Z' />
           <path d='M1031.93 113.4C1031.93 50.7709 1082.7 0 1145.33 0C1207.96 0 1258.73 50.7709 1258.73 113.4C1258.73 176.029 1207.96 226.8 1145.33 226.8C1082.7 226.8 1031.93 176.029 1031.93 113.4Z' />
@@ -84,10 +89,7 @@ export default function About() {
             variants={motion.section}
             className='flex flex-col gap-6'
           >
-            <m.h2
-              variants={motion.heading}
-              className='text-foreground text-2xl font-bold tracking-tight sm:text-3xl'
-            >
+            <m.h2 variants={motion.heading} className='section-title'>
               {t('about.card3.title')}
             </m.h2>
             <WorkExperience />
@@ -105,10 +107,7 @@ export default function About() {
             variants={motion.section}
             className='flex flex-col gap-6'
           >
-            <m.h2
-              variants={motion.heading}
-              className='text-foreground text-2xl font-bold tracking-tight sm:text-3xl'
-            >
+            <m.h2 variants={motion.heading} className='section-title'>
               {t('about.card5.title')}
             </m.h2>
             <Education />
@@ -127,10 +126,7 @@ export default function About() {
             className='flex flex-col gap-7'
           >
             <m.div variants={motion.section} className='flex flex-col gap-6'>
-              <m.h2
-                variants={motion.heading}
-                className='text-foreground text-2xl font-bold tracking-tight sm:text-3xl'
-              >
+              <m.h2 variants={motion.heading} className='section-title'>
                 {t(DATA.about.card4.titleKey)}
               </m.h2>
               <m.div variants={motion.list} className='grid gap-y-6 sm:gap-y-8'>

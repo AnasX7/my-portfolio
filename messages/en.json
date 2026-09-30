@@ -118,6 +118,18 @@
   },
   "projects": {
     "title": "My Projects",
+    "showcaseTitle": "A selection of my work",
+    "fewMore": "Few More Projects",
+    "introTitle": "Ideas I’ve built\ninto working solutions",
+    "introSubtitle": "A look at what I’ve built for web and mobile, and the thinking behind each project.",
+    "summaries": {
+      "youth-orgs-map": "An interactive directory for the youth sector",
+      "youth-clubs-calendar": "Connecting youth clubs, activities, and opportunities",
+      "gtk-cash": "A digital wallet and its operational dashboard",
+      "salaty": "A mobile shopping experience",
+      "vital": "Digital engineering, services, and consultation booking",
+      "aryaf": "A marketplace connecting local families with shoppers"
+    },
     "subtitle": "Check out my range of amazing projects, from imaginative concepts to live applications. You're welcome to jump in and experience them!",
     "github": "Source",
     "live": "Live Preview",
@@ -126,7 +138,9 @@
       "salaty": "Salaty",
       "gtk-cash": "GTK Cash",
       "youth-orgs-map": "Youth Organizations Map",
-      "youth-clubs-calendar": "Youth Clubs Calendar"
+      "youth-clubs-calendar": "Youth Clubs Calendar",
+      "vital": "Vital Tech",
+      "aryaf": "Aryaf Dhariyah Market"
     },
     "card1": {
       "title": "Salaty E-commerce App",
@@ -181,6 +195,69 @@
         "GTK Cash operational analytics dashboard",
         "GTK Cash system and withdrawal-window settings",
         "GTK Cash administrator login page"
+      ]
+    },
+    "detail": {
+      "back": "Back to projects",
+      "duration": "Implementation duration",
+      "problem": "The problem",
+      "solution": "The solution",
+      "more": "More projects",
+      "all": "View all projects",
+      "tools": "Tools used"
+    },
+    "caseStudies": {
+      "youth-orgs-map": {
+        "problem": "Discovering a youth organization involves more than finding its name. Young people, beneficiaries, and potential partners need to understand where an organization operates, which groups it serves, what programs it offers, and how to contact it. The challenge is to bring this information together in a form that supports both geographic discovery and a closer look at each organization.\n\nThe platform also needs to serve the organizations themselves. They need a way to register and maintain their profiles, while administrators review submissions before publication. The project therefore has to connect a clear public directory and interactive map with a manageable process for collecting, reviewing, and presenting organization data.",
+        "duration": "10 months",
+        "subtitle": "A unified platform for discovering youth organizations across Saudi Arabia. An interactive map and searchable directory bring together locations, profiles, programs, and contact information to help young people, beneficiaries, and partners find the right organization.",
+        "solution": "The platform combines an interactive map with a searchable directory, giving visitors two ways to discover youth organizations across Saudi Arabia. They can explore organizations geographically, then open a profile to find information about its work, programs, location, and contact details. Bringing these details together connects the initial search with the information needed to choose an organization and get in touch.\n\nOrganization registration and profile management support the public experience, while an administrative review process helps prepare submitted information for publication. The directory and map present this information within the same platform, connecting the needs of visitors, participating organizations, and administrators. The result is a shared place for discovering the youth sector and managing the profiles that make that discovery possible."
+      },
+      "youth-clubs-calendar": {
+        "problem": "Finding a suitable youth club requires several details to line up: location, audience, schedule, club type, and registration availability. A name or a short announcement alone cannot answer these questions. The challenge is to help young people and their families compare opportunities across different regions and reach the information they need without losing context.\n\nAt the same time, organizations need to submit and manage club information, and administrators need a way to review it. The platform has to connect these workflows with a public browsing experience, bringing program details, execution locations, dates, and registration links into a consistent structure that works on both desktop and mobile.",
+        "duration": "1 month",
+        "subtitle": "A national platform connecting young people with youth clubs across Saudi Arabia. Visitors can explore clubs by region, city, audience, dates, and type, then find the location, program details, and registration link in one place.",
+        "solution": "The calendar brings youth clubs into a single browsing experience, with search and filters for region, city, audience, dates, and club type. Visitors can narrow their options through the directory or explore locations on the interactive map. Each club has a details page that gathers its program information, execution location, schedule, and registration link, connecting discovery with the next step of joining a suitable opportunity.\n\nOrganizations have an account flow for submitting and managing their club information, supported by administrative review. This connects the information collected from organizers with the public directory, instead of treating submission and browsing as separate experiences. The layout adapts to desktop and mobile so that visitors can compare clubs and reach the relevant details from either device."
+      },
+      "gtk-cash": {
+        "problem": "A digital wallet has two connected sides: the customer using it and the team managing its operations. Deposits, withdrawals, and transfers each have their own information and status, but they all relate to the same wallets and users. The challenge is to make these relationships understandable so that customers can follow their activity and administrators can review requests in the right context.\n\nThe operational interface also needs to bring together user and wallet management, supported banks, reports, and analytics. These features must sit within a coherent system rather than a collection of disconnected screens. The project therefore needs a shared foundation for an Arabic-first mobile app and an admin dashboard, with clear navigation and consistent presentation of financial operations.",
+        "duration": "3 months",
+        "subtitle": "A digital wallet platform combining an Arabic-first mobile experience with an operational dashboard. It brings wallets, deposits, withdrawals, transfers, user management, and reporting into a connected system for customers and administrators.",
+        "solution": "GTK Cash connects an Arabic-first mobile wallet experience with an operational admin dashboard. The system brings wallets, deposits, withdrawals, and transfers into a common structure, so that customer activity and the corresponding administrative workflows belong to the same platform. Dedicated management screens organize the information for each type of operation and show its status alongside the relevant user and wallet details.\n\nThe dashboard also includes user and wallet management, supported banks, reports, analytics, and system settings. These sections give the operational team a place to review individual requests and a broader view of activity across the platform. The mobile app and dashboard address different tasks while sharing the same wallet and transaction context, keeping the customer experience connected to the work needed to manage it."
+      },
+      "salaty": {
+        "problem": "Mobile shopping involves a sequence of connected tasks: finding a product, browsing its store, accessing an account, adding items to a basket, and completing an order. Each step needs to make sense within the limited space of a phone screen. The challenge is to keep this journey clear while giving shoppers enough information to decide what they want and understand what happens next.\n\nThe app also needs to connect authentication, product browsing, cart management, and checkout without making users relearn the interface at each stage. Salaty explores how these parts can work together in a consistent mobile experience, with a clear structure for navigating stores, reviewing selected items, and moving toward an order.",
+        "duration": "1 month",
+        "subtitle": "A mobile e-commerce app built with Expo and React Native. Salaty brings product discovery, store browsing, account access, cart management, and checkout together in a clear shopping experience designed for mobile.",
+        "solution": "Salaty organizes mobile shopping around a connected journey from discovery to checkout. Built with Expo and React Native, the app brings together home-screen browsing, store and product screens, account access, and basket management. Shoppers can move from exploring products to reviewing their selections within the same mobile interface, with each screen focused on the information needed for that stage of the journey.\n\nAuthentication, checkout, and account screens complete the experience, using a consistent layout across the main shopping steps. Product and store browsing provide the starting point, while the basket brings selected items together before checkout. The project demonstrates how these parts of an e-commerce app can fit into a coherent mobile flow, rather than a set of unrelated screens."
+      },
+      "vital": {
+        "subtitle": "A bilingual website for Vital Tech, bringing its digital engineering services and software solutions into a clear public experience. Visitors can explore the company’s work, submit a project enquiry, and book a consultation, while the team manages leads and bookings through an administrative workspace.",
+        "problem": "A technology company needs to explain a broad range of services without leaving visitors unsure where to begin. Website development, mobile applications, interface design, and software solutions each address different needs. The challenge was to present these offerings within a coherent identity, support both Arabic and English, and connect exploration with a clear way to discuss a project.\n\nThe experience also needed to support the team receiving those enquiries. Contact submissions and consultation bookings require structured information and follow-up, rather than ending at a public form. The project therefore had to connect a bilingual company website with lead intake, booking integration, and an administrative workspace for reviewing incoming requests.",
+        "solution": "The website organizes Vital’s services and solutions into dedicated sections, supported by a bilingual layout, responsive navigation, and animated visual showcases. Visitors can move from the company introduction to the service that matches their needs, then reach a contact form or consultation booking flow. The interface carries the same visual language across the landing page and the supporting pages.\n\nBehind the public experience, Hono handles the API, Drizzle connects the data layer to Cloudflare D1, and Better Auth supports administrative access. Cal.com provides consultation booking, while Resend supports email communication. Lead and booking management bring the incoming information into a shared workspace, connecting the website’s enquiry flow with the team’s follow-up process.",
+        "duration": "1 month"
+      },
+      "aryaf": {
+        "subtitle": "An Arabic marketplace for productive families in Dhariyah, supervised by Madaa Women’s Association. The platform brings family profiles and products together, with separate baskets for each family, guest order requests, and direct communication to confirm availability, delivery, and payment details.",
+        "problem": "Local productive families need a place to present their products and tell shoppers who makes them. A shared marketplace must make these products easy to discover while preserving each family’s identity. The challenge was to connect product browsing, family profiles, and ordering without treating every seller as a single store or hiding the relationship between shoppers and the family receiving a request.\n\nOrders also need to reflect how the market works: the family confirms availability, delivery, and payment directly with the customer. The platform therefore needed separate family baskets and a guest request flow, alongside family onboarding, product and inventory management, and administrative review before profiles and products appear publicly.",
+        "solution": "The storefront brings products and family profiles into an Arabic interface with search, category browsing, and a clear explanation of the ordering process. Shoppers collect their selections in a basket for each family and submit a request with their WhatsApp number and delivery location. The family then confirms the details directly, keeping the digital request connected to the market’s actual fulfilment process.\n\nFamily accounts provide a workspace for profiles, products, inventory, and incoming requests, while administrators review family and product submissions. NestJS connects these workflows to PostgreSQL through Drizzle, with Better Auth for account access, Cloudflare R2 for media storage, and Resend for notifications. The frontend and API are deployed on Railway, supporting a connected public, family, and administrative experience.",
+        "duration": "1 month"
+      }
+    },
+    "vital": {
+      "title": "Vital Tech Website",
+      "description": "A bilingual website for Vital Tech, bringing its digital engineering services and software solutions into a clear public experience. Visitors can explore the company’s work, submit a project enquiry, and book a consultation, while the team manages leads and bookings through an administrative workspace.",
+      "imageAlts": [
+        "Vital Tech Arabic homepage and animated hero",
+        "Vital Tech service showcase cards"
+      ]
+    },
+    "aryaf": {
+      "title": "Aryaf Dhariyah Market",
+      "description": "An Arabic marketplace for productive families in Dhariyah, supervised by Madaa Women’s Association. The platform brings family profiles and products together, with separate baskets for each family, guest order requests, and direct communication to confirm availability, delivery, and payment details.",
+      "imageAlts": [
+        "Aryaf Dhariyah Market homepage and local market hero",
+        "Aryaf Market three-step ordering guide"
       ]
     }
   },

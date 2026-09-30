@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { PageTransition } from '@/components/ui/page-transition'
 import { MotionProvider } from '@/components/motion-provider'
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider'
 
@@ -138,7 +139,7 @@ export default async function RootLayout({
               >
                 <Header />
                 <div className='z-0 flex min-h-dvh flex-col'>
-                  {children}
+                  <PageTransition>{children}</PageTransition>
                   <Toaster />
                 </div>
                 <Footer />

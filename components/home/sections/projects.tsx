@@ -1,302 +1,123 @@
 'use client'
 
-import { useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
+import { ProjectImageTransition } from '@/components/ui/page-transition'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { ArrowUpLeftIcon, ArrowUpRightIcon } from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Add01Icon } from '@hugeicons/core-free-icons'
 import { DATA } from '@/data/resume'
-import { Card, CardDecorator, CardDescription, CardTitle } from '@/components/ui/card'
-import { buttonVariants } from '@/components/ui/button'
-import { Link, useRouter } from '@/i18n/navigation'
-import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
-import ScrollStack, { ScrollStackItem } from '@/components/ui/scroll-stack'
-import { PROJECT_DETAILS_PUBLIC } from '@/lib/features'
-import { cn } from '@/lib/utils'
+import { Link } from '@/i18n/navigation'
+import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
 
-const getTechIconUrl = (tech: string) => {
-  const slugMap: Record<string, string> = {
-    'next.js': 'nextdotjs',
-    expo: 'expo',
-    'react native': 'react',
-    hono: 'hono',
-    prisma: 'prisma',
-    'better auth': 'betterauth',
-    turborepo: 'turborepo',
-    nativewind: 'tailwindcss',
-    zustand: '/icons/zustand.svg',
-    'react query': 'reactquery',
-    axios: 'axios',
-    typescript: 'typescript',
-    laravel: 'laravel',
-    tailwindcss: 'tailwindcss',
-    postgresql: 'postgresql',
-    docker: 'docker',
-  }
-  const clean = tech.toLowerCase().trim()
-  if (clean === 'better auth') {
-    return 'https://cdn.simpleicons.org/betterauth/000000'
-  }
-  const slug = slugMap[clean] || clean.replace(/\s+/g, '')
-  if (slug.startsWith('/')) {
-    return slug
-  }
-  return `https://cdn.simpleicons.org/${slug}`
-}
-
-export default function Projects() {
+export default function Projects({
+  excludeId,
+  limit,
+  titleKey = 'projects.showcaseTitle',
+  headerAction,
+  headingLevel = 2,
+  showMoreLink = false,
+}: {
+  excludeId?: string
+  limit?: number
+  titleKey?: string | null
+  headerAction?: React.ReactNode
+  headingLevel?: 1 | 2
+  showMoreLink?: boolean
+}) {
   const t = useTranslations()
+  const Heading = headingLevel === 1 ? 'h1' : 'h2'
+  const CardHeading = titleKey ? 'h3' : 'h2'
 
   return (
-    <section id='projects' className='relative mt-12 sm:mt-16'>
-      <div className='mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
-        <h2 className='text-foreground mb-8 text-2xl font-bold tracking-tight sm:text-3xl'>
-          {t('projects.title')}
-        </h2>
-        <ScrollStack>
-          {DATA.projects.cards.map((project) => (
-            <ScrollStackItem key={project.titleKey}>
-              <ProjectCard
-                slug={project.id}
-                title={t(project.titleKey)}
-                description={t(project.descriptionKey)}
-                stack={project.stack}
-                githubUrl={project.githubUrl}
-                isLive={project.isLive}
-                liveUrl={project.liveUrl}
-                images={project.images}
-                imageAlts={project.imageAltKeys.map((key) => t(key))}
-                demoCredentials={(project as any).demoCredentials}
-              />
-            </ScrollStackItem>
-          ))}
-        </ScrollStack>
-      </div>
-    </section>
-  )
-}
-
-interface ProjectCardProps {
-  slug: string
-  title: string
-  description: string
-  stack: string[]
-  githubUrl?: string | null
-  isLive: boolean
-  liveUrl?: string | null
-  images: string[]
-  imageAlts: string[]
-  demoCredentials?: {
-    email: string
-    password: string
-  } | null
-}
-
-function ProjectCard({
-  slug,
-  title,
-  description,
-  stack,
-  githubUrl,
-  isLive,
-  liveUrl,
-  images,
-  imageAlts,
-  demoCredentials,
-}: ProjectCardProps) {
-  const t = useTranslations()
-  const local = useLocale()
-  const isRtl = local === 'ar'
-  const router = useRouter()
-
-  // Copy state
-  const [copiedText, setCopiedText] = useState<'email' | 'password' | null>(null)
-
-  const handleCopy = (e: React.MouseEvent, text: string, type: 'email' | 'password') => {
-    e.stopPropagation() // Prevent triggering card navigation
-    navigator.clipboard.writeText(text)
-    setCopiedText(type)
-    setTimeout(() => setCopiedText(null), 2000)
-  }
-
-  // Click card to navigate
-  const handleCardClick = (e: React.MouseEvent) => {
-    if (!PROJECT_DETAILS_PUBLIC) return
-
-    const target = e.target as HTMLElement
-    // Ignore interactive elements
-    if (
-      target.closest('a') ||
-      target.closest('button') ||
-      target.closest('code') ||
-      target.closest('svg')
-    ) {
-      return
-    }
-    router.push(`/projects/${slug}`)
-  }
-
-  return (
-    <Card
-      onClick={handleCardClick}
-      className={cn(
-        'bg-card border-border/60 hover:border-border/80 relative flex h-auto flex-col gap-4 overflow-hidden rounded-3xl p-5 transition-all hover:brightness-[1.03] sm:gap-6 sm:p-6 lg:h-80 lg:flex-row lg:gap-8 lg:p-6',
-        PROJECT_DETAILS_PUBLIC && 'cursor-pointer',
-      )}
-    >
-      <CardDecorator />
-      <div className='z-10 flex h-full w-full flex-col gap-4 p-0 sm:gap-6 lg:w-[65%] lg:justify-center lg:gap-4'>
-        <CardTitle className='w-fit text-xl font-semibold md:text-2xl'>{title}</CardTitle>
-        <CardDescription className='text-sm md:text-base'>{description}</CardDescription>
-
-        {/* Demo Credentials */}
-        {demoCredentials && (
-          <div className='text-muted-foreground flex w-fit flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg border border-zinc-500/10 bg-zinc-500/5 px-3 py-1.5 font-mono text-xs select-none dark:border-zinc-400/10 dark:bg-zinc-400/5'>
-            <span
-              className={cn(
-                'text-foreground flex items-center gap-1.5 font-medium',
-                isRtl ? 'font-sans' : 'font-inter',
-              )}
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='14'
-                height='14'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='size-3.5'
-              >
-                <rect width='18' height='11' x='3' y='11' rx='2' ry='2' />
-                <path d='M7 11V7a5 5 0 0 1 10 0v4' />
-              </svg>
-              {isRtl ? 'حساب تجريبي:' : 'Demo Account:'}
-            </span>
-            <span>
-              {isRtl ? 'البريد:' : 'Email:'}{' '}
-              <code
-                onClick={(e) => handleCopy(e, demoCredentials.email, 'email')}
-                className='text-foreground cursor-pointer rounded bg-zinc-500/10 px-1.5 py-0.5 transition-all select-all hover:bg-zinc-500/20 active:scale-95 dark:bg-zinc-400/10 dark:hover:bg-zinc-400/20'
-                title={isRtl ? 'اضغط للنسخ' : 'Click to copy'}
-              >
-                {copiedText === 'email' ? (isRtl ? 'تم النسخ!' : 'Copied!') : demoCredentials.email}
-              </code>
-            </span>
-            <span className='text-zinc-400'>•</span>
-            <span>
-              {isRtl ? 'الرمز:' : 'Password:'}{' '}
-              <code
-                onClick={(e) => handleCopy(e, demoCredentials.password, 'password')}
-                className='text-foreground cursor-pointer rounded bg-zinc-500/10 px-1.5 py-0.5 transition-all select-all hover:bg-zinc-500/20 active:scale-95 dark:bg-zinc-400/10 dark:hover:bg-zinc-400/20'
-                title={isRtl ? 'اضغط للنسخ' : 'Click to copy'}
-              >
-                {copiedText === 'password'
-                  ? isRtl
-                    ? 'تم النسخ!'
-                    : 'Copied!'
-                  : demoCredentials.password}
-              </code>
-            </span>
+    <section id='projects' className='relative mt-12 scroll-mt-20 sm:mt-16'>
+      <div className='mx-auto max-w-6xl px-4 sm:px-6'>
+        {(titleKey || headerAction) && (
+          <div
+            className={
+              headerAction
+                ? 'mb-8 flex flex-wrap items-center justify-between gap-4'
+                : 'mb-8 text-center'
+            }
+          >
+            {titleKey && (
+              <Heading className={headingLevel === 1 ? 'page-title' : 'section-title'}>
+                {t(titleKey)}
+              </Heading>
+            )}
+            {headerAction}
           </div>
         )}
+        <div className='grid gap-5 sm:gap-6 md:grid-cols-2'>
+          {DATA.projects.cards
+            .filter((project) => project.id !== excludeId)
+            .slice(0, limit)
+            .map((project) => {
+              const href = `/projects/${project.id}`
+              const action = t('projects.viewDetails')
 
-        {/* Tech stack logos representation */}
-        <div className='flex flex-wrap items-center gap-3'>
-          {stack.map((item) => {
-            const iconUrl = getTechIconUrl(item)
-            return (
-              <div
-                key={`${title}-${item}`}
-                className='bg-secondary/40 border-border/40 hover:bg-secondary/80 flex size-9 items-center justify-center rounded-lg border p-1.5 transition-all duration-200'
-                title={item}
-              >
-                <img
-                  src={iconUrl}
-                  alt={item}
-                  className={`size-6 object-contain ${
-                    ['expo', 'next.js', 'nextdotjs', 'github', 'prisma', 'better auth'].includes(
-                      item.toLowerCase(),
-                    )
-                      ? 'dark:brightness-0 dark:invert'
-                      : ''
-                  }`}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                    const parent = e.currentTarget.parentElement
-                    if (parent) {
-                      const textNode = document.createElement('span')
-                      textNode.className = 'text-xs font-medium px-1'
-                      textNode.innerText = item
-                      parent.appendChild(textNode)
-                    }
-                  }}
-                />
-              </div>
-            )
-          })}
+              return (
+                <article
+                  key={project.id}
+                  className='project-tile group relative isolate aspect-[4/3] overflow-hidden rounded-3xl bg-zinc-950 text-white sm:aspect-[2/1]'
+                >
+                  <ProjectImageTransition name={`project-${project.id}-image-0`}>
+                    <div className='absolute inset-0 overflow-hidden rounded-[inherit]'>
+                      <Image
+                        src={project.images[0]}
+                        alt={t(project.imageAltKeys[0])}
+                        fill
+                        quality={90}
+                        sizes='(min-width: 1152px) 540px, (min-width: 768px) 50vw, 100vw'
+                        className='object-cover object-top'
+                      />
+                    </div>
+                  </ProjectImageTransition>
+                  <div
+                    aria-hidden='true'
+                    className='pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent'
+                  />
+                  <div className='project-tile-caption pointer-events-none absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8'>
+                    <CardHeading className='text-2xl leading-tight font-semibold tracking-tight sm:text-3xl'>
+                      {t(`projects.slugs.${project.id}`)}
+                    </CardHeading>
+                    <p className='mt-2 text-sm leading-relaxed text-white/80 sm:text-base'>
+                      {t(`projects.summaries.${project.id}`)}
+                    </p>
+                  </div>
+                  {href && (
+                    <Link
+                      href={href}
+                      prefetch={true}
+                      aria-label={`${action}: ${t(project.titleKey)}`}
+                      className='project-tile-link absolute inset-0 z-20 flex items-start justify-end rounded-[inherit] p-4 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white sm:p-6'
+                    >
+                      <span className='project-tile-action hidden min-h-11 items-center gap-3 rounded-full border border-white/20 bg-black/60 py-1.5 ps-1.5 pe-4 text-sm font-medium text-white backdrop-blur-md md:inline-flex'>
+                        <span className='flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-black'>
+                          <HugeiconsIcon icon={Add01Icon} aria-hidden='true' className='size-5' />
+                        </span>
+                        {action}
+                      </span>
+                    </Link>
+                  )}
+                </article>
+              )
+            })}
         </div>
-
-        <div className='mt-2 flex flex-wrap items-center gap-4'>
-          {githubUrl ? (
+        {showMoreLink && (
+          <div className='mt-8 flex justify-center sm:mt-10'>
             <Link
-              href={githubUrl}
-              target='_blank'
-              className={cn(
-                buttonVariants({ variant: 'outline' }),
-                'rounded-full px-5 py-2.5 text-sm font-medium flex items-center gap-2',
-              )}
+              href='/projects'
+              className={buttonVariants({
+                variant: 'animated',
+                className:
+                  'min-h-14 px-8 py-3 [&_.inner]:text-base [&_.inner]:font-semibold [&_.inner]:text-foreground',
+              })}
             >
-              <svg
-                role='img'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-                className='fill-foreground dark:fill-foreground size-4'
-              >
-                <title>GitHub</title>
-                <path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' />
-              </svg>
-              <span className='text-sm font-medium'>{t('projects.github')}</span>
+              <AnimatedButtonContent>{t('projects.fewMore')}</AnimatedButtonContent>
             </Link>
-          ) : null}
-
-          {isLive && liveUrl ? (
-            <MagneticLinkPreview
-              url={liveUrl}
-              icon={isRtl ? ArrowUpLeftIcon : ArrowUpRightIcon}
-              variant='outline'
-              className='flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium'
-            >
-              {t('projects.live')}
-            </MagneticLinkPreview>
-          ) : null}
-
-          {PROJECT_DETAILS_PUBLIC ? (
-            <Link
-              href={`/projects/${slug}`}
-              className={cn(
-                buttonVariants({ variant: 'outline' }),
-                'rounded-full px-5 py-2.5 text-sm font-medium',
-              )}
-            >
-              {t('projects.viewDetails')}
-            </Link>
-          ) : null}
-        </div>
+          </div>
+        )}
       </div>
-
-      {/* Show only the first image in static display (takes 1/3 on desktop) */}
-      <div className='relative flex h-44 w-full items-center justify-center overflow-hidden rounded-2xl bg-zinc-900/5 sm:h-80 lg:h-full lg:w-[35%] dark:bg-zinc-100/5'>
-        <Image
-          src={images[0]}
-          alt={imageAlts[0] ?? title}
-          width={400}
-          height={400}
-          style={{ width: 'auto', height: 'auto' }}
-          className='pointer-events-none max-h-[85%] max-w-[85%] object-contain transition-transform duration-500 select-none group-hover:scale-105'
-        />
-      </div>
-    </Card>
+    </section>
   )
 }
