@@ -203,7 +203,7 @@ export default function Footer() {
                   aria-hidden='true'
                   className='size-4 shrink-0'
                 />
-                UAE, Abu Dhabi
+                {t('footer.location')}
               </span>
               <a
                 href='tel:+971564949464'
