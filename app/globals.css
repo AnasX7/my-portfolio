@@ -143,6 +143,31 @@ body {
   container-type: inline-size;
 }
 
+.viewport-bottom-blur {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  height: clamp(80px, 18vh, 140px);
+  pointer-events: none;
+}
+
+.viewport-bottom-blur > span {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.viewport-bottom-blur > span:first-child {
+  backdrop-filter: blur(2px);
+  mask-image: linear-gradient(transparent, black);
+}
+
+.viewport-bottom-blur > span:last-child {
+  backdrop-filter: blur(6px);
+  mask-image: linear-gradient(transparent 75%, black);
+}
+
 /* Theme-aware grid background */
 .grid-background {
   background-image:
