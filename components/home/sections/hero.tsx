@@ -130,15 +130,15 @@ export default function HeroV2() {
         </div>
         <m.div
           variants={staggerItem}
-          className='order-first mx-auto w-full max-w-64 lg:order-last lg:max-w-none'
+          className='order-first mx-auto w-full max-w-64 lg:order-last lg:max-w-sm'
         >
-          <div className='relative aspect-[500/520] w-full'>
+          <div className='relative aspect-square w-full'>
             <div className='absolute inset-0' style={{ clipPath: `url(#${portraitId}-clip)` }}>
               <Image
                 alt={t(DATA.profile.nameKey)}
                 src={DATA.profile.avatarLight}
                 fill
-                sizes='(min-width: 1024px) 420px, 256px'
+                sizes='(min-width: 1024px) 384px, 256px'
                 priority
                 className='object-cover dark:hidden'
               />
@@ -146,7 +146,7 @@ export default function HeroV2() {
                 alt={t(DATA.profile.nameKey)}
                 src={DATA.profile.avatarDark}
                 fill
-                sizes='(min-width: 1024px) 420px, 256px'
+                sizes='(min-width: 1024px) 384px, 256px'
                 priority
                 className='hidden object-cover dark:block'
               />
@@ -159,21 +159,23 @@ export default function HeroV2() {
             >
               <defs>
                 <clipPath id={`${portraitId}-clip`} clipPathUnits='objectBoundingBox'>
-                  <path d={portraitShape} />
+                  <path
+                    d={portraitShape}
+                    transform='translate(1 0) scale(-1 1)'
+                    className='rtl:transform-none'
+                  />
                 </clipPath>
               </defs>
               <path
                 d={portraitShape}
+                transform='translate(1 0) scale(-1 1)'
                 fill='none'
-                className='stroke-border'
+                className='stroke-border rtl:transform-none'
                 strokeWidth='8'
                 vectorEffect='non-scaling-stroke'
               />
             </svg>
-            <div
-              dir='ltr'
-              className='text-muted-foreground absolute right-0 bottom-1 flex h-[10%] w-[34%] items-center justify-center gap-2 text-xs lg:text-sm'
-            >
+            <div className='text-muted-foreground absolute start-0 bottom-1 flex h-[10%] w-[34%] items-center justify-center gap-2 text-xs lg:text-sm rtl:flex-row-reverse'>
               <span
                 aria-hidden='true'
                 className='size-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b98166] [corner-shape:round]'
