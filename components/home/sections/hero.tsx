@@ -69,12 +69,12 @@ export default function HeroV2() {
         }}
       />
 
-      {/* Centered glow, clipped to the hero frame */}
+      {/* Responsive glow, clipped to the hero frame */}
       <m.div
         whileInView={{ opacity: [0.4, 0.8, 0.4] }}
         viewport={{ amount: 0.1 }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className='pointer-events-none absolute inset-0 -z-10'
+        className='pointer-events-none absolute inset-0 -z-10 lg:translate-x-1/4 lg:rtl:-translate-x-1/4'
         style={{
           backgroundImage:
             'radial-gradient(circle 24rem at center, color-mix(in srgb, var(--primary) 16%, transparent), transparent)',
