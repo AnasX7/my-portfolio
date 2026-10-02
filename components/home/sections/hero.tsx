@@ -89,7 +89,7 @@ export default function HeroV2() {
       >
         <div className='min-w-0 space-y-6 text-center lg:text-start'>
           {/* Main Title */}
-          <m.div variants={staggerItem} className='max-w-3xl'>
+          <m.div variants={staggerItem} className='mx-auto max-w-3xl lg:mx-0'>
             <h1 className='page-title'>
               <span className='text-foreground'>{t(DATA.hero.titleKey)}</span>{' '}
               <span className='from-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
@@ -99,7 +99,7 @@ export default function HeroV2() {
           </m.div>
 
           {/* Subtitle */}
-          <m.div variants={staggerItem} className='max-w-xl'>
+          <m.div variants={staggerItem} className='mx-auto max-w-xl lg:mx-0'>
             <p className='text-muted-foreground/80 max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
               {t(DATA.hero.subtitle)}
             </p>
