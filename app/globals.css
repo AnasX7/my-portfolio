@@ -714,31 +714,115 @@ html[lang='ar'] :is(.page-title, .section-title) {
   padding-bottom: 16px;
 }
 
-.footer-wordmark {
+.footer-pattern {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+}
+
+.footer-light {
   position: absolute;
-  z-index: -20;
-  right: 2.5%;
-  bottom: 24px;
-  left: 2.5%;
-  aspect-ratio: 566 / 134;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dark .footer-light {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--primary) 18%, transparent),
+    transparent 65%
+  );
+}
+
+.footer-wordmark {
+  --wordmark-image: url('/brand/wordmark-light.webp');
+  position: relative;
+  flex-shrink: 0;
+  width: calc(100% + 32px);
+  margin: auto -16px 0;
+  padding-top: 52px;
+  aspect-ratio: 15 / 4;
+  box-sizing: content-box;
+  translate: 0 12px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dark .footer-wordmark {
+  --wordmark-image: url('/brand/wordmark-dark.webp');
+}
+
+.footer-wordmark-trigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
 }
 
 .footer-wordmark-image {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--foreground) 48%, transparent) 0%,
-    color-mix(in srgb, var(--foreground) 28%, transparent) 45%,
-    transparent 100%
-  );
-  mask: url('/logo.svg') center / contain no-repeat;
-  -webkit-mask: url('/logo.svg') center / contain no-repeat;
+  background: var(--wordmark-image) center / contain no-repeat;
+  filter: drop-shadow(0 2px 1px #322b2012);
 }
 
-.footer-pattern {
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+.dark .footer-wordmark-image {
+  filter: none;
+}
+
+.footer-wordmark-letters {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.footer-letter {
+  position: absolute;
+  inset: 52px 0 0;
+  background: var(--letter-light) center / contain no-repeat;
+  filter: drop-shadow(0 2px 1px #322b2012);
+  transform: translate(var(--letter-x), 112%) rotate(var(--letter-turn)) scale(0.88);
+}
+
+.dark .footer-letter {
+  background-image: var(--letter-dark);
+  filter: none;
+}
+
+@keyframes footer-letter-arrive {
+  0% {
+    transform: translate(var(--letter-x), 112%) rotate(var(--letter-turn)) scale(0.88);
+  }
+  38% {
+    transform: translate(calc(var(--letter-x) * 0.5), -10%) rotate(calc(var(--letter-turn) * -0.35))
+      scale(1.025);
+  }
+  58% {
+    transform: translate(calc(var(--letter-x) * 0.15), 4%) rotate(calc(var(--letter-turn) * 0.16))
+      scale(0.985);
+  }
+  76% {
+    transform: translate(0, -2.5%) rotate(calc(var(--letter-turn) * -0.08)) scale(1.01);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .footer-wordmark[data-assemble='true'] .footer-wordmark-image {
+    visibility: hidden;
+  }
+
+  .footer-wordmark[data-assemble='true'] .footer-wordmark-letters {
+    display: block;
+  }
+
+  .footer-wordmark[data-arrived='true'] .footer-letter {
+    animation: footer-letter-arrive 1.55s cubic-bezier(0.22, 0.68, 0.3, 1) var(--letter-delay) both;
+  }
 }
 
 @media (max-width: 767px) {
@@ -773,11 +857,8 @@ html[lang='ar'] :is(.page-title, .section-title) {
   }
 
   .site-footer-inner .footer-wordmark {
-    position: relative;
-    inset: auto;
-    flex-shrink: 0;
-    width: 100%;
-    margin-block: 32px 16px;
+    margin-block: 0;
+    translate: 0 -12px;
   }
 }
 

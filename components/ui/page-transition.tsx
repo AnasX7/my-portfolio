@@ -5,6 +5,7 @@ import { m, useAnimate } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { useEffect, type ReactNode } from 'react'
 import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
+import SignatureJourney from '@/components/signature-journey'
 
 const transition = { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }
 
@@ -19,7 +20,12 @@ export function PageTransition({ children }: { children: ReactNode }) {
     return () => animation.stop()
   }, [pathname, reducedMotion, animate, scope])
 
-  return <div ref={scope}>{children}</div>
+  return (
+    <div ref={scope} className='min-h-dvh'>
+      {children}
+      <SignatureJourney key={pathname} target={scope} />
+    </div>
+  )
 }
 
 export function ProjectImageTransition({ name, children }: { name: string; children: ReactNode }) {

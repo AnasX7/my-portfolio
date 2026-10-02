@@ -12,6 +12,7 @@ import { DATA } from '@/data/resume'
 import { buttonVariants } from '@/components/ui/button'
 import { PROJECT_DETAILS_PUBLIC } from '@/lib/features'
 import { useSmoothScroll } from '@/components/smooth-scroll-provider'
+import FooterSignature from '@/components/footer-signature'
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null)
@@ -59,10 +60,6 @@ export default function Footer() {
         >
           <div
             aria-hidden='true'
-            className='from-primary/15 dark:from-primary/18 pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-80 bg-linear-to-t to-transparent'
-          />
-          <div
-            aria-hidden='true'
             className='footer-pattern pointer-events-none absolute inset-x-0 top-0 -z-15 h-[46%] dark:hidden'
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
@@ -77,7 +74,7 @@ export default function Footer() {
               backgroundSize: '80px 80px',
             }}
           />
-
+          <div className='footer-light' aria-hidden='true' />
           <div className='relative z-10 grid grid-cols-12 gap-6 sm:gap-8'>
             {/* Left Column: Brand, Socials */}
             <m.div
@@ -228,9 +225,7 @@ export default function Footer() {
             </m.div>
           </div>
 
-          <div aria-hidden='true' className='footer-wordmark'>
-            <div className='footer-wordmark-image' />
-          </div>
+          <FooterSignature key={pathname} />
 
           {/* Bottom copyright section - Stacked and centered on mobile, row-aligned on sm+ */}
           <m.div

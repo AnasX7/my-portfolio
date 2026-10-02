@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import { getLocale, getTranslations } from 'next-intl/server'
 import HeroSection from '@/components/home/sections/hero'
+import SignatureEntrance from '@/components/signature-entrance'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
@@ -50,6 +51,7 @@ export default async function Home() {
   return (
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: personJsonLd }} />
+      <SignatureEntrance />
       <main className='main-frame'>
         <HeroSection />
         <AboutSection />

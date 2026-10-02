@@ -1,0 +1,55 @@
+.entrance {
+  --entrance-duration: 850ms;
+  --entrance-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--background) 92%, transparent);
+  animation: signature-dissolve var(--entrance-duration) ease-in-out both;
+}
+
+.entrance[data-ready='true'] {
+  visibility: visible;
+}
+
+.mark {
+  width: min(65vw, 24rem);
+  height: auto;
+  animation: signature-settle var(--entrance-duration) var(--entrance-ease) both;
+}
+
+@keyframes signature-dissolve {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  18%,
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes signature-settle {
+  from {
+    transform: perspective(900px) rotateY(-8deg) translateY(4px);
+  }
+  to {
+    transform: perspective(900px) rotateY(0deg) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrance {
+    display: none;
+    animation: none;
+  }
+
+  .mark {
+    animation: none;
+  }
+}
