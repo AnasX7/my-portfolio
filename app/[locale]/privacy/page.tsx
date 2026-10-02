@@ -8,7 +8,7 @@ export async function generateMetadata() {
 export default async function PrivacyPage() {
   const t = await getTranslations('contact.privacy')
   return (
-    <main className='main-frame px-6 pt-32 pb-16'>
+    <main className='main-frame px-6 pt-32 pb-24 sm:px-8 sm:pb-28 lg:px-10'>
       <div className='mx-auto max-w-2xl'>
         <h1 className='page-title mb-8'>{t('title')}</h1>
         <div className='text-muted-foreground space-y-6 text-base leading-relaxed'>

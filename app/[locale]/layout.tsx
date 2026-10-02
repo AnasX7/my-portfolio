@@ -139,7 +139,7 @@ export default async function RootLayout({
                 disableTransitionOnChange
               >
                 <Header />
-                <div className='z-0 flex min-h-dvh flex-col'>
+                <div className='z-0 flex flex-col'>
                   <PageTransition>{children}</PageTransition>
                   <Toaster />
                 </div>

@@ -21,9 +21,9 @@ export function PageTransition({ children }: { children: ReactNode }) {
   }, [pathname, reducedMotion, animate, scope])
 
   return (
-    <div ref={scope} className='min-h-dvh'>
+    <div ref={scope}>
       {children}
-      <SignatureJourney key={pathname} target={scope} />
+      {!pathname.endsWith('/privacy') && <SignatureJourney key={pathname} target={scope} />}
     </div>
   )
 }
