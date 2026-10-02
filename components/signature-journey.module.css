@@ -9,11 +9,11 @@
 
 .lane {
   --letter-size: clamp(200px, 20vw, 320px);
+  --letter-top: 30%;
 
   position: absolute;
-  top: 35%;
+  inset-block: 0;
   width: clamp(32px, calc((100vw - 1080px) / 2 - 12px), 320px);
-  height: calc(var(--letter-size) * 1.5);
   overflow: hidden;
 }
 
@@ -23,14 +23,15 @@
 }
 
 .right {
-  top: 46%;
+  --letter-top: 34%;
+
   right: 0;
   mask-image: linear-gradient(to left, #000 65%, transparent);
 }
 
 .letter {
   position: absolute;
-  top: calc(var(--letter-size) * 0.25);
+  top: calc(var(--letter-top) - var(--letter-size) / 2);
   left: calc((100% - var(--letter-size)) / 2);
   width: var(--letter-size);
   height: var(--letter-size);

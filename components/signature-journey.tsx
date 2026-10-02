@@ -2,7 +2,14 @@
 
 import { useEffect, useState, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
-import { m, useScroll, useTransform, type MotionStyle, type MotionValue } from 'motion/react'
+import {
+  easeInOut,
+  m,
+  useScroll,
+  useTransform,
+  type MotionStyle,
+  type MotionValue,
+} from 'motion/react'
 import styles from './signature-journey.module.css'
 
 const letters = ['a1', 'n', 'a2', 's'] as const
@@ -18,11 +25,19 @@ function Letter({
 }) {
   const side = index % 2 ? 'right' : 'left'
   const localProgress = useTransform(progress, [index / 4, (index + 1) / 4], [0, 1])
-  const outside = side === 'left' ? '-110%' : '110%'
-  const x = useTransform(localProgress, [0, 0.25, 0.56, 0.9], [outside, '0%', '0%', outside])
-  const y = useTransform(localProgress, [0, 1], ['14%', '-14%'])
-  const rotate = useTransform(localProgress, [0, 1], side === 'left' ? [-12, 8] : [12, -8])
-  const opacity = useTransform(localProgress, [0, 0.2, 0.58, 0.88], [0, 0.9, 0.9, 0])
+  const direction = side === 'left' ? -1 : 1
+  const entrance = useTransform(localProgress, [0, 0.25], [110, 0])
+  const exitAngle = useTransform(localProgress, [0.48, 0.94], [0, Math.PI / 2], { ease: easeInOut })
+  const x = useTransform(
+    () => `${direction * (entrance.get() + 110 * (1 - Math.cos(exitAngle.get())))}%`,
+  )
+  const y = useTransform(exitAngle, (angle) => `${40 * Math.sin(angle)}vh`)
+  const rotate = useTransform(
+    localProgress,
+    [0, 0.48, 0.94],
+    side === 'left' ? [-12, 0, 22] : [12, 0, -22],
+  )
+  const opacity = useTransform(localProgress, [0, 0.2, 0.76, 0.96], [0, 0.9, 0.9, 0])
 
   return (
     <div className={`${styles.lane} ${styles[side]}`} data-letter={letter}>
