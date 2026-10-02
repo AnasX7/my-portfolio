@@ -13,11 +13,17 @@
     "closeMenu": "Close menu",
     "mobileMenu": "Primary navigation"
   },
+  "socialMenu": {
+    "open": "Social links",
+    "close": "Close social links"
+  },
   "carousel": {
     "prev": "Previous slide",
     "next": "Next slide"
   },
   "hero": {
+    "available": "Available",
+    "viewWork": "View my work",
     "badge": "Available for opportunities",
     "welcome": "Hi, I'm",
     "title": "Simplifying complex challenges to build",

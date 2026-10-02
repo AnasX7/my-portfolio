@@ -14,6 +14,7 @@ import Footer from '@/components/footer'
 import { PageTransition } from '@/components/ui/page-transition'
 import { MotionProvider } from '@/components/motion-provider'
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider'
+import { FloatingSocials } from '@/components/floating-socials'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -143,6 +144,7 @@ export default async function RootLayout({
                   <Toaster />
                 </div>
                 <Footer />
+                <FloatingSocials />
               </ThemeProvider>
             </MotionProvider>
           </NextIntlClientProvider>

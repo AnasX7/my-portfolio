@@ -8,9 +8,9 @@ export default function Logos() {
   const t = useTranslations()
 
   return (
-    <div className='relative w-full place-content-center pt-6 pb-1'>
-      <section className='relative mx-auto max-w-5xl'>
-        <h2 className='text-muted-foreground/85 mb-6 text-center text-sm font-normal sm:text-base'>
+    <div className='relative w-full place-content-center pb-1'>
+      <section className='relative mx-auto'>
+        <h2 className='text-muted-foreground/85 mb-4 px-6 text-start text-sm font-normal sm:px-8 sm:text-base lg:px-10'>
           {t(DATA.techStack.line1Key)}
         </h2>
 

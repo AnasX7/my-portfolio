@@ -8,7 +8,6 @@ import type { Metadata } from 'next'
 const AboutSection = dynamic(() => import('@/components/home/sections/about'))
 const ProjectSection = dynamic(() => import('@/components/home/sections/projects'))
 const ContactSection = dynamic(() => import('@/components/home/sections/contact'))
-const LogoCloudSection = dynamic(() => import('@/components/home/sections/logos'))
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('seo')
@@ -53,7 +52,6 @@ export default async function Home() {
       <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: personJsonLd }} />
       <main className='main-frame'>
         <HeroSection />
-        <LogoCloudSection />
         <AboutSection />
         <ProjectSection limit={6} showMoreLink />
         <ContactSection />
