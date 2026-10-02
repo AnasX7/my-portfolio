@@ -4,9 +4,9 @@ import { Magnetic } from './magnetic'
 import { LinkPreview } from './link-preview'
 import { AnimatedButtonContent, buttonVariants } from './button'
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
-import { cn } from '@/lib/utils'
+import type { VariantProps } from 'class-variance-authority'
 
-interface MagneticLinkPreviewProps {
+interface MagneticLinkPreviewProps extends VariantProps<typeof buttonVariants> {
   url: string
   previewImage?: string
   children: React.ReactNode
@@ -16,7 +16,6 @@ interface MagneticLinkPreviewProps {
   intensity?: number
   bounce?: number
   range?: number
-  variant?: 'animated' | 'outline' | 'default' | 'ghost' | 'link'
 }
 
 export function MagneticLinkPreview({
@@ -29,7 +28,8 @@ export function MagneticLinkPreview({
   intensity = 0.2,
   bounce = 0.1,
   range = 250,
-  variant = 'animated',
+  variant = 'secondary',
+  size,
 }: MagneticLinkPreviewProps) {
   return (
     <Magnetic intensity={intensity} springOptions={{ bounce }} actionArea='global' range={range}>
@@ -39,15 +39,15 @@ export function MagneticLinkPreview({
           ? { isStatic: true as const, imageSrc: previewImage }
           : { isStatic: false as const })}
         aria-label={ariaLabel}
-        className={cn(buttonVariants({ variant }), className)}
+        className={buttonVariants({ variant, size, className })}
       >
-        {variant === 'animated' ? (
+        {variant === 'primary' || variant === 'secondary' || variant === 'inverse' ? (
           <AnimatedButtonContent>
             {children}
             {Icon && (
               <HugeiconsIcon
                 icon={Icon}
-                className='icon text-muted-foreground size-4 transition-transform duration-300 dark:text-[#b5b5b5a4]'
+                className='icon size-4 transition-transform duration-300'
               />
             )}
           </AnimatedButtonContent>
@@ -57,7 +57,7 @@ export function MagneticLinkPreview({
             {Icon && (
               <HugeiconsIcon
                 icon={Icon}
-                className='icon text-muted-foreground size-4 transition-transform duration-300 dark:text-[#b5b5b5a4]'
+                className='icon size-4 transition-transform duration-300'
               />
             )}
           </span>

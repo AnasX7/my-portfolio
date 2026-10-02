@@ -151,11 +151,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </p>
         {href && (
           <div className='mt-8 flex justify-center'>
-            <MagneticLinkPreview
-              url={href}
-              previewImage={project.images[0]}
-              className='[&_.inner]:text-foreground min-h-14 px-8 py-3 [&_.inner]:text-base [&_.inner]:font-semibold'
-            >
+            <MagneticLinkPreview url={href} previewImage={project.images[0]} size='lg'>
               {t(project.isLive ? 'projects.live' : 'projects.github')}
             </MagneticLinkPreview>
           </div>
@@ -225,9 +221,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <Link
             href='/projects'
             className={buttonVariants({
-              variant: 'animated',
-              className:
-                'min-h-14 px-8 py-3 [&_.inner]:text-base [&_.inner]:font-semibold [&_.inner]:text-foreground',
+              variant: 'secondary',
+              size: 'lg',
             })}
           >
             <AnimatedButtonContent>{t('projects.detail.all')}</AnimatedButtonContent>

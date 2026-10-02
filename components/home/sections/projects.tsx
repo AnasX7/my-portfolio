@@ -108,9 +108,8 @@ export default function Projects({
             <Link
               href='/projects'
               className={buttonVariants({
-                variant: 'animated',
-                className:
-                  'min-h-14 px-8 py-3 [&_.inner]:text-base [&_.inner]:font-semibold [&_.inner]:text-foreground',
+                variant: 'secondary',
+                size: 'lg',
               })}
             >
               <AnimatedButtonContent>{t('projects.fewMore')}</AnimatedButtonContent>

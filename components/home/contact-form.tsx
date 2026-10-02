@@ -226,9 +226,10 @@ export default function ContactForm() {
           ) : null}
           <Button
             type='submit'
-            variant='outline'
+            variant='inverse'
+            size='lg'
             disabled={form.formState.isSubmitting}
-            className='contact-pill min-h-14 w-full rounded-full text-base font-semibold transition-opacity hover:opacity-85'
+            className='w-full'
           >
             {t(DATA.contact.form.submitKey)}
           </Button>

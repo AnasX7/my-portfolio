@@ -18,6 +18,7 @@ export default function LanguageSwitcher() {
     <Button
       type='button'
       variant='outline'
+      size='sm'
       className={cn('rounded-full h-9 px-4 text-xs font-bold flex items-center gap-1.5', {
         'font-sans': nextLocale === 'ar',
         'font-inter': nextLocale === 'en',

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import { buttonVariants } from '@/components/ui/button'
+import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
 import ContactForm from '@/components/home/contact-form'
 
 export default function Contact() {
@@ -14,20 +14,17 @@ export default function Contact() {
         <div className='bg-card border-border/60 flex flex-col gap-8 rounded-[2.5rem] border p-6 sm:p-10 lg:flex-row lg:items-center lg:justify-between'>
           <h2 className='section-title max-w-lg whitespace-pre-line'>{t('contact.headline')}</h2>
           <div className='flex flex-wrap gap-3'>
-            <a
-              href='#contact-form'
-              className='contact-panel focus-visible:outline-ring inline-flex min-h-14 items-center justify-center rounded-full px-7 text-base font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4'
-            >
-              {t('contact.startProject')}
+            <a href='#contact-form' className={buttonVariants({ variant: 'primary', size: 'lg' })}>
+              <AnimatedButtonContent>{t('contact.startProject')}</AnimatedButtonContent>
             </a>
             <a
               href='tel:+971564949464'
               className={buttonVariants({
-                variant: 'outline',
-                className: 'min-h-14 rounded-full px-7 text-base',
+                variant: 'secondary',
+                size: 'lg',
               })}
             >
-              {t('contact.call')}
+              <AnimatedButtonContent>{t('contact.call')}</AnimatedButtonContent>
             </a>
           </div>
         </div>
@@ -65,21 +62,21 @@ export default function Contact() {
                 <a
                   href='mailto:anassalem.aa@gmail.com'
                   dir='ltr'
-                  className='contact-pill focus-visible:outline-ring inline-flex min-h-12 max-w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4'
+                  className={buttonVariants({ variant: 'inverse' })}
                 >
-                  anassalem.aa@gmail.com
+                  <AnimatedButtonContent>anassalem.aa@gmail.com</AnimatedButtonContent>
                 </a>
                 <a
                   href='https://github.com/AnasX7'
-                  className='contact-pill focus-visible:outline-ring inline-flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4'
+                  className={buttonVariants({ variant: 'inverse' })}
                 >
-                  GitHub
+                  <AnimatedButtonContent>GitHub</AnimatedButtonContent>
                 </a>
                 <a
                   href='https://linkedin.com/in/anassalem7'
-                  className='contact-pill focus-visible:outline-ring inline-flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4'
+                  className={buttonVariants({ variant: 'inverse' })}
                 >
-                  LinkedIn
+                  <AnimatedButtonContent>LinkedIn</AnimatedButtonContent>
                 </a>
               </div>
               <p className='text-sm text-white/55'>

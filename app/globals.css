@@ -571,15 +571,66 @@ html[lang='ar'] :is(.page-title, .section-title) {
   line-height: 1.4;
 }
 
-.contact-pill {
-  color: #191919;
-  background: #f7f7f7;
-  border: 1px solid #dedede;
-  box-shadow: inset 0 1px 2px #fff;
+.anim-btn-primary {
+  background: #424242;
+  box-shadow: inset 0 1px 2px #ffffff40;
 }
 
-.contact-panel,
-.dark .contact-pill {
+.anim-btn-primary::before {
+  background: linear-gradient(180deg, #ffffff26, #ffffff0d);
+}
+
+.anim-btn-primary::after {
+  background: #191919;
+}
+
+.anim-btn-primary:hover::after {
+  background: #242424;
+}
+
+.dark .anim-btn-primary {
+  background: #ffffff26;
+}
+
+.anim-btn-primary :is(.inner, .icon, .bg-clip-text) {
+  color: #fff;
+}
+
+/* Inverse actions retain their light surface inside the dark contact panels. */
+.anim-btn-inverse {
+  background: #dedede;
+}
+
+.anim-btn-inverse::before {
+  background: #fff;
+}
+
+.anim-btn-inverse::after {
+  background: #f7f7f7;
+}
+
+.anim-btn-inverse:hover::after {
+  background: #eee;
+}
+
+.dark .anim-btn-inverse {
+  background: #ffffff26;
+  box-shadow: inset 0 1px 2px #ffffff40;
+}
+
+.dark .anim-btn-inverse::before {
+  background: linear-gradient(180deg, #ffffff26, #ffffff0d);
+}
+
+.dark .anim-btn-inverse::after {
+  background: #191919;
+}
+
+.dark .anim-btn-inverse:hover::after {
+  background: #242424;
+}
+
+.contact-panel {
   color: #fff;
   background: #191919;
   box-shadow:

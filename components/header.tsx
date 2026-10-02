@@ -306,6 +306,7 @@ export default function Header() {
                 </h2>
                 <Button
                   variant='ghost'
+                  size='icon-lg'
                   className='size-11 rounded-xl'
                   aria-label={t('header.closeMenu')}
                   onClick={() => setIsMobileMenuOpen(false)}

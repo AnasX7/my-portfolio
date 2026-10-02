@@ -114,16 +114,13 @@ export default function HeroV2() {
               <MagneticLinkPreview
                 url={DATA.profile.resumeURL}
                 icon={Download01Icon}
-                className='rounded-full px-8 py-4'
+                variant='primary'
               >
                 <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
               </MagneticLinkPreview>
             </m.div>
 
-            <Link
-              href='/#projects'
-              className={buttonVariants({ variant: 'animated', className: 'min-h-12 px-6' })}
-            >
+            <Link href='/#projects' className={buttonVariants({ variant: 'secondary' })}>
               <AnimatedButtonContent>{t('hero.viewWork')}</AnimatedButtonContent>
             </Link>
           </m.div>
