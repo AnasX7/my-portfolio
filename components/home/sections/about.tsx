@@ -80,7 +80,7 @@ export default function About() {
   return (
     <>
       {/* Work Experience Section */}
-      <section className='mt-12 sm:mt-16'>
+      <section className='mt-4 sm:mt-6'>
         <div className='mx-auto w-full max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
           <m.div
             initial='hidden'
