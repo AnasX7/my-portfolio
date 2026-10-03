@@ -13,7 +13,8 @@ export const DATA = {
 
   navItems: [
     { nameKey: 'header.about', href: '#about' },
-    { nameKey: 'header.projects', href: '#projects' },
+    { nameKey: 'header.experience', href: '#experience' },
+    { nameKey: 'header.projects', href: '/projects' },
     { nameKey: 'header.contact', href: '#contact' },
   ],
 
@@ -555,6 +556,13 @@ export const DATA = {
   ],
 
   footer: {
+    navItems: [
+      { nameKey: 'header.about', href: '#about' },
+      { nameKey: 'header.experience', href: '#experience' },
+      { nameKey: 'about.card5.title', href: '#education' },
+      { nameKey: 'about.card4.title', href: '#skills' },
+      { nameKey: 'projects.detail.all', href: '/projects' },
+    ],
     copyrightKey: 'footer.copyright',
   },
 }

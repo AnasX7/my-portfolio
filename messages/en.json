@@ -7,6 +7,7 @@
   "header": {
     "home": "Home",
     "about": "About",
+    "experience": "Experience",
     "projects": "Projects",
     "contact": "Contact",
     "toggleMenu": "Toggle menu",
@@ -327,6 +328,9 @@
     "ogImageAlt": "Anas Salem — Software Engineer portfolio"
   },
   "footer": {
+    "explore": "Explore",
+    "selectedProjects": "Selected projects",
+    "viewAllProjects": "View all projects",
     "copyright": "All rights reserved",
     "contactTitle": "Contact",
     "location": "UAE, Abu Dhabi",

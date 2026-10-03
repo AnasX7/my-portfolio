@@ -3,7 +3,13 @@
 import { useRef } from 'react'
 import { m, useScroll, useTransform } from 'motion/react'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { Call02Icon, LaptopIcon, Location02Icon } from '@hugeicons/core-free-icons'
+import {
+  ArrowUpRight01Icon,
+  Call02Icon,
+  LaptopIcon,
+  Location02Icon,
+  Mail01Icon,
+} from '@hugeicons/core-free-icons'
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -62,7 +68,7 @@ export default function Footer() {
             aria-hidden='true'
             className='footer-pattern pointer-events-none absolute inset-x-0 top-0 -z-15 h-[46%] dark:hidden'
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(0,0,0,0.045)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
               backgroundSize: '80px 80px',
             }}
           />
@@ -70,12 +76,12 @@ export default function Footer() {
             aria-hidden='true'
             className='footer-pattern pointer-events-none absolute inset-x-0 top-0 -z-15 hidden h-[46%] dark:block'
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='0' y='0' width='80' height='80' fill='none' stroke='rgba(255,255,255,0.045)' stroke-width='1' rx='8' ry='8'/%3E%3C/svg%3E")`,
               backgroundSize: '80px 80px',
             }}
           />
           <div className='footer-light' aria-hidden='true' />
-          <div className='relative z-10 grid grid-cols-12 gap-6 sm:gap-8'>
+          <div className='footer-navigation-grid relative z-10 grid grid-cols-12 gap-6 sm:gap-8'>
             {/* Left Column: Brand, Socials */}
             <m.div
               variants={staggerItem}
@@ -127,21 +133,23 @@ export default function Footer() {
 
               {/* Social Buttons */}
               <div className='mt-0.5 flex justify-center gap-2 sm:justify-start'>
-                {DATA.socials.map((social, index) => (
-                  <Link
-                    key={`social-${social.url}-${index}`}
-                    className={cn(
-                      buttonVariants({ size: 'icon-sm', variant: 'outline' }),
-                      'rounded-lg border-border/50 hover:bg-accent/50 transition-all duration-300 hover:scale-105 active:scale-95',
-                    )}
-                    href={social.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label={social.name}
-                  >
-                    <social.icon className='size-4' />
-                  </Link>
-                ))}
+                {DATA.socials
+                  .filter((social) => !social.url.startsWith('mailto:'))
+                  .map((social, index) => (
+                    <Link
+                      key={`social-${social.url}-${index}`}
+                      className={cn(
+                        buttonVariants({ size: 'icon-sm', variant: 'outline' }),
+                        'rounded-lg border-border/50 hover:bg-accent/50 transition-all duration-300 hover:scale-105 active:scale-95',
+                      )}
+                      href={social.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      aria-label={social.name}
+                    >
+                      <social.icon className='size-4' />
+                    </Link>
+                  ))}
               </div>
             </m.div>
 
@@ -151,13 +159,19 @@ export default function Footer() {
               className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-2 sm:col-start-6 sm:items-start sm:text-start'
             >
               <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
-                {t(DATA.sections.titleKey)}
+                {t('footer.explore')}
               </span>
               <div className='flex flex-row flex-wrap justify-center gap-x-4 gap-y-1.5 sm:flex-col sm:items-start sm:gap-2.5'>
-                {DATA.navItems.map(({ href, nameKey }) => (
+                {DATA.footer.navItems.map(({ href, nameKey }) => (
                   <Link
-                    className='text-muted-foreground hover:text-foreground after:bg-foreground relative w-max pb-0.5 text-xs transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100'
-                    href={pathname === '/' ? href : `/${href}`}
+                    className='text-muted-foreground hover:text-foreground after:bg-foreground relative inline-flex min-h-6 max-w-full items-center pb-0.5 text-xs transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100'
+                    href={href.startsWith('#') && pathname !== '/' ? `/${href}` : href}
+                    onNavigate={(event) => {
+                      if (pathname === '/' && href.startsWith('#')) {
+                        event.preventDefault()
+                        scrollTo(href, { offset: -100, duration: 1.8 })
+                      }
+                    }}
                     key={nameKey}
                   >
                     {t(nameKey)}
@@ -172,13 +186,13 @@ export default function Footer() {
               className='col-span-12 flex w-full flex-col items-center text-center sm:col-span-3 sm:col-start-9 sm:items-start sm:text-start'
             >
               <span className='text-foreground mb-1.5 block text-xs font-semibold tracking-wider uppercase'>
-                {t(DATA.projects.titleKey)}
+                {t('footer.selectedProjects')}
               </span>
               <div className='flex flex-row flex-wrap justify-center gap-x-4 gap-y-1.5 sm:flex-col sm:items-start sm:gap-2.5'>
-                {DATA.projects.cards.map(({ id: slug }) =>
+                {DATA.projects.cards.slice(0, 3).map(({ id: slug }) =>
                   PROJECT_DETAILS_PUBLIC ? (
                     <Link
-                      className='text-muted-foreground hover:text-foreground after:bg-foreground relative w-max pb-0.5 text-xs transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100'
+                      className='text-muted-foreground hover:text-foreground after:bg-foreground relative inline-flex min-h-6 max-w-full items-center pb-0.5 text-xs transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100'
                       href={`/projects/${slug}`}
                       key={slug}
                     >
@@ -190,6 +204,17 @@ export default function Footer() {
                     </span>
                   ),
                 )}
+                <Link
+                  href='/projects'
+                  className='text-foreground focus-visible:outline-ring mt-1 inline-flex min-h-8 items-center gap-1.5 text-xs font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4'
+                >
+                  {t('footer.viewAllProjects')}
+                  <HugeiconsIcon
+                    icon={ArrowUpRight01Icon}
+                    aria-hidden='true'
+                    className='size-3.5 shrink-0 rtl:-scale-x-100'
+                  />
+                </Link>
               </div>
             </m.div>
 
@@ -202,6 +227,22 @@ export default function Footer() {
                 {t('footer.contactTitle')}
               </span>
               <div className='flex flex-col items-center gap-2.5 sm:items-start'>
+                <a
+                  href='mailto:anassalem.aa@gmail.com'
+                  className='text-muted-foreground hover:text-foreground inline-flex min-h-6 items-center gap-2 text-xs transition-colors'
+                >
+                  <HugeiconsIcon icon={Mail01Icon} aria-hidden='true' className='size-4 shrink-0' />
+                  <span dir='ltr' className='break-all'>
+                    anassalem.aa@gmail.com
+                  </span>
+                </a>
+                <a
+                  href='tel:+971564949464'
+                  className='text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-xs transition-colors'
+                >
+                  <HugeiconsIcon icon={Call02Icon} aria-hidden='true' className='size-4 shrink-0' />
+                  <span dir='ltr'>+971 564949464</span>
+                </a>
                 <span className='text-muted-foreground inline-flex items-center gap-2 text-xs'>
                   <HugeiconsIcon
                     icon={Location02Icon}
@@ -210,13 +251,6 @@ export default function Footer() {
                   />
                   {t('footer.location')}
                 </span>
-                <a
-                  href='tel:+971564949464'
-                  className='text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-xs transition-colors'
-                >
-                  <HugeiconsIcon icon={Call02Icon} aria-hidden='true' className='size-4 shrink-0' />
-                  <span dir='ltr'>+971 564949464</span>
-                </a>
                 <span className='text-muted-foreground inline-flex items-center gap-2 text-xs'>
                   <HugeiconsIcon icon={LaptopIcon} aria-hidden='true' className='size-4 shrink-0' />
                   {t('footer.remoteWork')}

@@ -7,6 +7,7 @@
   "header": {
     "home": "الرئيسية",
     "about": "من أنا؟",
+    "experience": "خبراتي",
     "projects": "مشاريعي",
     "contact": "تواصل معي",
     "toggleMenu": "تبديل القائمة",
@@ -327,6 +328,9 @@
     "ogImageAlt": "أنس سالم — ملف مهندس برمجيات"
   },
   "footer": {
+    "explore": "استكشف",
+    "selectedProjects": "مشاريع مختارة",
+    "viewAllProjects": "جميع المشاريع",
     "copyright": "جميع الحقوق محفوظة",
     "contactTitle": "التواصل",
     "location": "الإمارات، أبوظبي",

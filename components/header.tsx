@@ -233,20 +233,18 @@ export default function Header() {
                   onMouseEnter={() => setHoveredItem(item.nameKey)}
                   onMouseLeave={() => setHoveredItem(null)}
                 >
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    role='link'
-                    aria-label={t(item.nameKey)}
-                    onClick={() =>
-                      pathname !== '/'
-                        ? router.push(`/${item.href}`)
-                        : scrollTo(item.href, {
-                            offset: -100,
-                            duration: 3,
-                          })
+                  <Link
+                    href={
+                      item.href.startsWith('#') && pathname !== '/' ? `/${item.href}` : item.href
                     }
-                    className='text-muted-foreground hover:text-foreground relative rounded-full px-4 transition-colors duration-200 hover:bg-transparent'
+                    aria-label={t(item.nameKey)}
+                    onNavigate={(event) => {
+                      if (pathname === '/' && item.href.startsWith('#')) {
+                        event.preventDefault()
+                        scrollTo(item.href, { offset: -100, duration: 1.8 })
+                      }
+                    }}
+                    className='text-muted-foreground hover:text-foreground focus-visible:outline-ring relative inline-flex h-8 items-center rounded-full px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4'
                   >
                     {hoveredItem === item.nameKey && (
                       <m.div
@@ -263,7 +261,7 @@ export default function Header() {
                       />
                     )}
                     <span className='relative z-10'>{t(item.nameKey)}</span>
-                  </Button>
+                  </Link>
                 </div>
               ))}
             </nav>
@@ -340,8 +338,12 @@ export default function Header() {
                   {DATA.navItems.map((item, index) => (
                     <m.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
-                        href={pathname === '/' ? item.href : `/${item.href}`}
-                        className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-[clamp(3rem,18svh,8.5rem)] items-center gap-4 border-b border-dashed py-[clamp(0.25rem,2svh,1rem)] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
+                        href={
+                          item.href.startsWith('#') && pathname !== '/'
+                            ? `/${item.href}`
+                            : item.href
+                        }
+                        className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-[clamp(3rem,14svh,7rem)] items-center gap-4 border-b border-dashed py-[clamp(0.25rem,2svh,1rem)] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <span
