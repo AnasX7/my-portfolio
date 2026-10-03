@@ -29,8 +29,8 @@ export default function Projects({
   const CardHeading = titleKey ? 'h3' : 'h2'
 
   return (
-    <section id='projects' className='relative mt-12 scroll-mt-20 sm:mt-16'>
-      <div className='mx-auto max-w-6xl px-4 sm:px-6'>
+    <section id='projects' className='content-section relative scroll-mt-20'>
+      <div className='section-inner'>
         {(titleKey || headerAction) && (
           <div
             className={

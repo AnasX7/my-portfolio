@@ -17,8 +17,8 @@ export default function About() {
   return (
     <>
       {/* Work Experience Section */}
-      <section id='experience' className='mt-12 scroll-mt-24 sm:mt-16'>
-        <div className='mx-auto w-full max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
+      <section id='experience' className='content-section scroll-mt-24'>
+        <div className='section-inner'>
           <m.div
             initial='hidden'
             whileInView='show'
@@ -35,8 +35,8 @@ export default function About() {
       </section>
 
       {/* Education Section */}
-      <section id='education' className='mt-12 scroll-mt-24 sm:mt-16'>
-        <div className='mx-auto w-full max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
+      <section id='education' className='content-section scroll-mt-24'>
+        <div className='section-inner'>
           <m.div
             initial='hidden'
             whileInView='show'
@@ -53,8 +53,8 @@ export default function About() {
       </section>
 
       {/* Skills Section */}
-      <section id='skills' className='mt-12 scroll-mt-24 sm:mt-16'>
-        <div className='mx-auto w-full max-w-2xl px-4 sm:px-6 lg:max-w-6xl'>
+      <section id='skills' className='content-section scroll-mt-24'>
+        <div className='section-inner'>
           <m.div
             initial='hidden'
             whileInView='show'

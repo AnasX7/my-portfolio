@@ -42,7 +42,7 @@ export default function HeroV2() {
   return (
     <m.section
       id='home'
-      className='relative isolate flex w-full flex-col items-center justify-start overflow-hidden pt-24 pb-6 sm:pt-28 lg:pt-32'
+      className='relative isolate flex w-full flex-col items-center justify-start overflow-hidden px-6 pt-24 pb-6 sm:px-8 sm:pt-28 lg:px-10 lg:pt-32'
     >
       {/* Background */}
       <div className='bg-background absolute inset-0 -z-20 transition-colors duration-700' />
@@ -80,7 +80,7 @@ export default function HeroV2() {
         variants={staggerContainer}
         initial='hidden'
         animate='visible'
-        className='relative z-10 mx-auto grid w-full items-center gap-8 px-6 sm:px-8 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:px-10'
+        className='relative z-10 mx-auto grid w-full items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-12'
       >
         <div className='min-w-0 space-y-6 text-center lg:text-start'>
           {/* Main Title */}

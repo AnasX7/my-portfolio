@@ -572,8 +572,17 @@ html.lenis body {
   right: -8px;
 }
 
-.main-frame > section:not(:first-child):not(#contact) {
-  padding-top: 1.5rem;
+/* Each content section owns its spacing; adjacent sections share a border. */
+.content-section {
+  margin-block: 0;
+  padding-block: 1.5rem;
+}
+
+.section-inner {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
 }
 
 .page-title,
@@ -737,7 +746,7 @@ html[lang='ar'] :is(.page-title, .section-title) {
   min-height: clamp(26rem, 37vw, 34rem);
   border-top: 1px dashed var(--site-layout-line);
   border-inline: 1px dashed var(--site-layout-line);
-  padding-inline: 16px;
+  padding-inline: 24px;
   padding-bottom: 16px;
 }
 
@@ -897,6 +906,7 @@ html[lang='ar'] :is(.page-title, .section-title) {
 }
 
 @media (min-width: 1024px) {
+  .site-header-inner,
   .site-footer-inner {
     padding-inline: 40px;
   }
@@ -910,15 +920,26 @@ html[lang='ar'] :is(.page-title, .section-title) {
   }
 }
 
-@media (max-width: 639px) {
-  .site-header-inner {
-    padding-inline: 16px;
+@media (min-width: 640px) and (max-width: 1023px) {
+  .site-header-inner,
+  .site-footer-inner {
+    padding-inline: 32px;
   }
 }
 
 @media (min-width: 640px) {
-  .main-frame > section:not(:first-child):not(#contact) {
-    padding-top: 2rem;
+  .content-section {
+    padding-block: 2rem;
+  }
+
+  .section-inner {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-inner {
+    padding-inline: 2.5rem;
   }
 }
 

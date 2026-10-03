@@ -9,8 +9,8 @@ export default function Contact() {
   const t = useTranslations()
 
   return (
-    <section id='contact' className='mt-12 scroll-mt-20 px-4 py-10 sm:mt-16 sm:px-6 sm:py-16'>
-      <div className='mx-auto max-w-6xl space-y-4 sm:space-y-5'>
+    <section id='contact' className='content-section scroll-mt-20'>
+      <div className='section-inner space-y-4 sm:space-y-5'>
         <div className='contact-panel flex flex-col gap-8 rounded-[2.5rem] p-6 sm:p-10 lg:flex-row lg:items-center lg:justify-between'>
           <h2 className='section-title max-w-lg whitespace-pre-line text-white!'>
             {t('contact.headline')}

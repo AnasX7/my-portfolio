@@ -13,8 +13,12 @@ export default function Introduction() {
   const motion = getAboutMotion(useHydratedReducedMotion())
 
   return (
-    <section id='about' aria-labelledby='about-heading' className='about-introduction scroll-mt-24'>
-      <div className='mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-10'>
+    <section
+      id='about'
+      aria-labelledby='about-heading'
+      className='content-section about-introduction scroll-mt-24'
+    >
+      <div className='section-inner'>
         <m.div
           initial='hidden'
           whileInView='show'

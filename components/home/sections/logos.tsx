@@ -10,7 +10,7 @@ export default function Logos() {
   return (
     <div className='relative w-full place-content-center pb-1'>
       <section className='relative mx-auto'>
-        <h2 className='text-muted-foreground/85 mb-4 px-6 text-center text-xs font-normal sm:px-8 sm:text-sm lg:px-10 lg:text-start'>
+        <h2 className='text-muted-foreground/85 mb-4 text-center text-xs font-normal sm:text-sm lg:text-start'>
           {t(DATA.techStack.line1Key)}
         </h2>
 
