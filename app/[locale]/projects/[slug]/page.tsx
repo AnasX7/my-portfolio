@@ -1,6 +1,6 @@
 import { TextReveal } from '@/components/ui/text-reveal'
 import { ProjectImageTransition } from '@/components/ui/page-transition'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { DATA } from '@/data/resume'
@@ -13,6 +13,7 @@ import { SkillLogo } from '@/components/home/skill-item'
 import Projects from '@/components/home/sections/projects'
 import Contact from '@/components/home/sections/contact'
 import type { Metadata } from 'next'
+import { localizedUrl, pageMetadata, projectBreadcrumbs, serializeJsonLd } from '@/lib/seo'
 
 type PageProps = { params: Promise<{ slug: string }> }
 
@@ -25,20 +26,15 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const project = DATA.projects.cards.find((item) => item.id === slug)
-  if (!project) return {}
+  if (!project) notFound()
   const t = await getTranslations()
-  const url = `${SITE_URL}/projects/${slug}`
-  return {
-    title: t(project.titleKey),
-    description: t(project.descriptionKey),
-    alternates: { canonical: url },
-    openGraph: {
-      url,
-      title: t(project.titleKey),
-      description: t(project.descriptionKey),
-      images: [{ url: project.images[0] }],
-    },
-  }
+  return pageMetadata({
+    locale: await getLocale(),
+    path: `/projects/${slug}`,
+    title: `${t(project.titleKey)} | ${t('common.name')}`,
+    description: t(`seo.projectDescriptions.${slug}`),
+    image: { url: project.images[0], alt: t(project.imageAltKeys[0]) },
+  })
 }
 
 const techIcons: Record<string, string> = {
@@ -74,6 +70,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const project = DATA.projects.cards.find((item) => item.id === slug)
   if (!project) notFound()
   const t = await getTranslations()
+  const locale = await getLocale()
   const href = project.isLive ? project.liveUrl : project.githubUrl
   const imageIndex = project.id === 'youth-orgs-map' ? 2 : project.id === 'gtk-cash' ? 7 : 1
   const image = (index: number, priority = false) => (
@@ -144,115 +141,142 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     .filter((group) => group.skills.length > 0)
 
   return (
-    <main className='main-frame pt-20'>
-      <section className='px-4 py-12 text-center sm:px-6 sm:py-16'>
-        <TextReveal as='h1' className='page-title mx-auto max-w-4xl'>
-          {t(project.titleKey)}
-        </TextReveal>
-        <TextReveal
-          as='p'
-          className='text-muted-foreground mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl'
-        >
-          {t(`projects.caseStudies.${slug}.subtitle`)}
-        </TextReveal>
-        {href && (
-          <div className='mt-8 flex justify-center'>
-            <MagneticLinkPreview url={href} previewImage={project.images[0]} size='lg'>
-              {t(project.isLive ? 'projects.live' : 'projects.github')}
-            </MagneticLinkPreview>
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd({
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'CreativeWork',
+                name: t(project.titleKey),
+                description: t(`seo.projectDescriptions.${slug}`),
+                url: localizedUrl(`/projects/${slug}`, locale),
+                inLanguage: locale,
+                image: project.images.map((src) => new URL(src, SITE_URL).href),
+                creator: {
+                  '@type': 'Person',
+                  '@id': `${SITE_URL}/#person`,
+                  name: 'Anas Salem',
+                  url: SITE_URL,
+                },
+              },
+              projectBreadcrumbs(locale, t(project.titleKey), slug),
+            ],
+          }),
+        }}
+      />
+      <main className='main-frame pt-20'>
+        <section className='px-4 py-12 text-center sm:px-6 sm:py-16'>
+          <TextReveal as='h1' className='page-title mx-auto max-w-4xl'>
+            {t(project.titleKey)}
+          </TextReveal>
+          <TextReveal
+            as='p'
+            className='text-muted-foreground mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl'
+          >
+            {t(`projects.caseStudies.${slug}.subtitle`)}
+          </TextReveal>
+          {href && (
+            <div className='mt-8 flex justify-center'>
+              <MagneticLinkPreview url={href} previewImage={project.images[0]} size='lg'>
+                {t(project.isLive ? 'projects.live' : 'projects.github')}
+              </MagneticLinkPreview>
+            </div>
+          )}
+          {image(0, true)}
+        </section>
+        <section className='px-4 py-12 sm:px-6 sm:py-16'>
+          <div className='mx-auto grid max-w-4xl gap-10'>
+            <div>
+              <TextReveal as='h2' className='section-title'>
+                {t('projects.detail.duration')}
+              </TextReveal>
+              <TextReveal as='p' className='text-muted-foreground mt-4'>
+                {t(`projects.caseStudies.${slug}.duration`)}
+              </TextReveal>
+            </div>
+            <div>
+              <TextReveal as='h2' className='section-title'>
+                {t('projects.detail.problem')}
+              </TextReveal>
+              <TextReveal
+                as='p'
+                className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'
+              >
+                {t(`projects.caseStudies.${slug}.problem`)}
+              </TextReveal>
+            </div>
           </div>
-        )}
-        {image(0, true)}
-      </section>
-      <section className='px-4 py-12 sm:px-6 sm:py-16'>
-        <div className='mx-auto grid max-w-4xl gap-10'>
-          <div>
+          {image(imageIndex)}
+          <div className='mx-auto mt-12 max-w-4xl'>
             <TextReveal as='h2' className='section-title'>
-              {t('projects.detail.duration')}
-            </TextReveal>
-            <TextReveal as='p' className='text-muted-foreground mt-4'>
-              {t(`projects.caseStudies.${slug}.duration`)}
-            </TextReveal>
-          </div>
-          <div>
-            <TextReveal as='h2' className='section-title'>
-              {t('projects.detail.problem')}
+              {t('projects.detail.solution')}
             </TextReveal>
             <TextReveal
               as='p'
               className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'
             >
-              {t(`projects.caseStudies.${slug}.problem`)}
+              {t(`projects.caseStudies.${slug}.solution`)}
             </TextReveal>
           </div>
-        </div>
-        {image(imageIndex)}
-        <div className='mx-auto mt-12 max-w-4xl'>
-          <TextReveal as='h2' className='section-title'>
-            {t('projects.detail.solution')}
-          </TextReveal>
-          <TextReveal
-            as='p'
-            className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'
-          >
-            {t(`projects.caseStudies.${slug}.solution`)}
-          </TextReveal>
-        </div>
-      </section>
-      <section className='px-4 py-12 sm:px-6 sm:py-16'>
-        <div className='mx-auto max-w-4xl'>
-          <TextReveal as='h2' className='section-title mb-6'>
-            {t('projects.detail.tools')}
-          </TextReveal>
-          <div className='grid gap-y-6 sm:gap-y-8'>
-            {toolGroups.map((group) => (
-              <div
-                key={group.id}
-                className='grid grid-cols-1 gap-y-3 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-x-8 sm:gap-y-0 lg:grid-cols-[13rem_minmax(0,1fr)]'
-              >
-                <TextReveal
-                  as='h3'
-                  className='text-muted-foreground text-base font-normal sm:text-lg'
+        </section>
+        <section className='px-4 py-12 sm:px-6 sm:py-16'>
+          <div className='mx-auto max-w-4xl'>
+            <TextReveal as='h2' className='section-title mb-6'>
+              {t('projects.detail.tools')}
+            </TextReveal>
+            <div className='grid gap-y-6 sm:gap-y-8'>
+              {toolGroups.map((group) => (
+                <div
+                  key={group.id}
+                  className='grid grid-cols-1 gap-y-3 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-x-8 sm:gap-y-0 lg:grid-cols-[13rem_minmax(0,1fr)]'
                 >
-                  {t(group.titleKey)}
-                </TextReveal>
-                <ul className='flex min-w-0 flex-wrap items-center gap-x-4 gap-y-3'>
-                  {group.skills.map((skill) => (
-                    <li
-                      key={skill.name}
-                      className='text-foreground/75 flex shrink-0 items-center gap-2 text-sm leading-tight whitespace-nowrap sm:text-base'
-                    >
-                      <SkillLogo
-                        name={skill.name}
-                        url={skill.logo}
-                        fallbackChar={skill.name.charAt(0)}
-                      />
-                      <span>{skill.name}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                  <TextReveal
+                    as='h3'
+                    className='text-muted-foreground text-base font-normal sm:text-lg'
+                  >
+                    {t(group.titleKey)}
+                  </TextReveal>
+                  <ul className='flex min-w-0 flex-wrap items-center gap-x-4 gap-y-3'>
+                    {group.skills.map((skill) => (
+                      <li
+                        key={skill.name}
+                        className='text-foreground/75 flex shrink-0 items-center gap-2 text-sm leading-tight whitespace-nowrap sm:text-base'
+                      >
+                        <SkillLogo
+                          name={skill.name}
+                          url={skill.logo}
+                          fallbackChar={skill.name.charAt(0)}
+                        />
+                        <span>{skill.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-      <Projects
-        excludeId={slug}
-        limit={2}
-        titleKey='projects.detail.more'
-        headerAction={
-          <Link
-            href='/projects'
-            className={buttonVariants({
-              variant: 'secondary',
-              size: 'lg',
-            })}
-          >
-            <AnimatedButtonContent>{t('projects.detail.all')}</AnimatedButtonContent>
-          </Link>
-        }
-      />
-      <Contact />
-    </main>
+        </section>
+        <Projects
+          excludeId={slug}
+          limit={2}
+          titleKey='projects.detail.more'
+          headerAction={
+            <Link
+              href='/projects'
+              className={buttonVariants({
+                variant: 'secondary',
+                size: 'lg',
+              })}
+            >
+              <AnimatedButtonContent>{t('projects.detail.all')}</AnimatedButtonContent>
+            </Link>
+          }
+        />
+        <Contact />
+      </main>
+    </>
   )
 }

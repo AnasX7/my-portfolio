@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import '../globals.css'
@@ -69,11 +70,20 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = t('title')
   const description = t('description')
   const ogImageAlt = t('ogImageAlt')
-  const ogLocale = locale === 'ar' ? 'ar_AE' : 'en_US'
 
   return {
-    title,
-    description,
+    ...pageMetadata({
+      locale,
+      path: '/',
+      title,
+      description,
+      image: {
+        url: `/images/og/${locale}.jpg`,
+        width: 1200,
+        height: 630,
+        alt: ogImageAlt,
+      },
+    }),
     applicationName: 'Portfolio',
     generator: 'Next.js 16',
     authors: [{ name: 'Anas Salem', url: SITE_URL }],
@@ -82,29 +92,6 @@ export async function generateMetadata(): Promise<Metadata> {
       icon: '/favicon.ico',
       shortcut: '/favicon.ico',
       apple: '/apple-icon.png',
-    },
-    alternates: {
-      canonical: SITE_URL,
-    },
-    openGraph: {
-      type: 'website',
-      locale: ogLocale,
-      url: SITE_URL,
-      siteName: 'Anas Salem',
-      title,
-      description,
-      images: [
-        {
-          url: `${SITE_URL}/avatar-light.jpg`,
-          alt: ogImageAlt,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [`${SITE_URL}/avatar-light.jpg`],
     },
     robots: {
       index: true,

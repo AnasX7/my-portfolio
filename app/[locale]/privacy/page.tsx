@@ -1,9 +1,15 @@
 import { TextReveal, TextRevealGroup } from '@/components/ui/text-reveal'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { pageMetadata } from '@/lib/seo'
 
 export async function generateMetadata() {
-  const t = await getTranslations('contact.privacy')
-  return { title: t('title') }
+  const t = await getTranslations()
+  return pageMetadata({
+    locale: await getLocale(),
+    path: '/privacy',
+    title: `${t('contact.privacy.title')} | ${t('common.name')}`,
+    description: t('seo.privacyDescription'),
+  })
 }
 
 export default async function PrivacyPage() {

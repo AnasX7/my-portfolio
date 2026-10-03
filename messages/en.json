@@ -325,7 +325,17 @@
   "seo": {
     "title": "Anas Salem | Software Engineer",
     "description": "Software engineer based in Abu Dhabi building scalable web applications with exceptional UI/UX. Explore projects, experience, and get in touch.",
-    "ogImageAlt": "Anas Salem — Software Engineer portfolio"
+    "ogImageAlt": "Anas Salem — Software Engineer portfolio",
+    "projectsDescription": "Explore web and mobile projects by Anas Salem, a software engineer in Abu Dhabi. See the problems, solutions, and technologies behind each build.",
+    "privacyDescription": "Learn how Anas Salem handles contact form messages, email delivery, and spam verification, and how to request deletion of your message.",
+    "projectDescriptions": {
+      "vital": "A bilingual website for Vital Tech with project enquiries, consultation bookings, and an admin workspace. A software engineering project by Anas Salem.",
+      "aryaf": "An Arabic marketplace for productive families in Dhariyah, featuring family stores, guest orders, and direct communication. Built by Anas Salem.",
+      "youth-orgs-map": "An interactive map and searchable directory of youth organizations across Saudi Arabia, connecting people with programs and contacts. By Anas Salem.",
+      "youth-clubs-calendar": "A searchable calendar of youth clubs across Saudi Arabia, with regional filters, program details, locations, and registration links. By Anas Salem.",
+      "gtk-cash": "An Arabic-first digital wallet app and admin dashboard for transfers, deposits, withdrawals, and reporting. A full-stack project by Anas Salem.",
+      "salaty": "A mobile shopping app built with Expo and React Native, featuring product discovery, stores, accounts, a cart, and checkout. Built by Anas Salem."
+    }
   },
   "footer": {
     "explore": "Explore",

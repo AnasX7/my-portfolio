@@ -6,6 +6,7 @@ import ProjectSection from '@/components/home/sections/projects'
 import ContactSection from '@/components/home/sections/contact'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
+import { localizedUrl, serializeJsonLd } from '@/lib/seo'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -24,6 +25,7 @@ function getPersonJsonLd(locale: string, description: string) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': `${SITE_URL}/#person`,
     name: 'Anas Salem',
     url: SITE_URL,
     image: `${SITE_URL}/avatar-light.jpg`,
@@ -37,8 +39,27 @@ function getPersonJsonLd(locale: string, description: string) {
     sameAs: [githubUrl, linkedInUrl].filter(Boolean),
   }
 
-  // Escape < as \u003c to prevent closing the script tag from translated content
-  return JSON.stringify(jsonLd).replace(/</g, '\\u003c')
+  return serializeJsonLd({
+    '@context': 'https://schema.org',
+    '@graph': [
+      jsonLd,
+      {
+        '@type': 'ProfilePage',
+        url: localizedUrl('/', locale),
+        inLanguage: locale,
+        name: locale === 'ar' ? 'ملف أنس سالم' : 'Anas Salem Portfolio',
+        mainEntity: { '@id': `${SITE_URL}/#person` },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: 'Anas Salem',
+        inLanguage: ['en', 'ar'],
+        author: { '@id': `${SITE_URL}/#person` },
+      },
+    ],
+  })
 }
 
 export default async function Home() {
