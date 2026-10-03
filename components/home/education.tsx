@@ -94,7 +94,7 @@ export default function Education() {
             <m.div
               key={item.id}
               variants={motion.item}
-              className='border-border/20 flex flex-col border-b pb-6 last:border-0 last:pb-0'
+              className='flex flex-col pb-6 last:pb-0'
             >
               {/* Institution Header Row (Static) */}
               <div className='flex items-center gap-4'>
@@ -200,7 +200,7 @@ export default function Education() {
               href={item.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='group/edu border-border/20 flex flex-col items-stretch gap-2 border-b pb-6 last:border-0 last:pb-0 focus:outline-hidden sm:flex-row sm:items-start sm:justify-between sm:gap-4'
+              className='group/edu flex flex-col items-stretch gap-2 pb-6 last:pb-0 focus:outline-hidden sm:flex-row sm:items-start sm:justify-between sm:gap-4'
             >
               <div className='flex w-full min-w-0 items-start gap-4 sm:flex-1'>
                 <InstitutionLogo
@@ -234,7 +234,7 @@ export default function Education() {
           <m.div
             key={item.id}
             variants={motion.item}
-            className='border-border/20 flex flex-col items-stretch gap-2 border-b pb-6 last:border-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4'
+            className='flex flex-col items-stretch gap-2 pb-6 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4'
           >
             <div className='flex w-full min-w-0 items-start gap-4 sm:flex-1'>
               <InstitutionLogo
