@@ -32,14 +32,32 @@ export function PortraitJourney() {
     const art = traveler.querySelector<HTMLElement>('[data-portrait-art]')
     const clamp = (value: number) => Math.min(1, Math.max(0, value))
     const finePointer = window.matchMedia('(pointer: fine) and (min-width: 768px)')
-    let bounds: { start: number; end: number } | null = null
+    let viewportWidth = window.innerWidth
+    let viewportHeight = window.innerHeight
+    let progress: number | null = null
+    let previousTime: number | null = null
+    let bounds: {
+      start: number
+      end: number
+      from: { left: number; top: number; width: number; height: number }
+      to: { left: number; top: number; width: number; height: number }
+    } | null = null
     let phase = ''
 
     function measure() {
-      if (!source || !section || !traveler) return
+      if (!source || !destination || !section || !traveler) return
       const from = source.getBoundingClientRect()
-      const start = Math.max(0, from.top + window.scrollY - window.innerHeight * 0.16)
+      const to = destination.getBoundingClientRect()
+      const documentRect = (rect: DOMRect) => ({
+        left: rect.left,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height,
+      })
+      const start = Math.max(0, from.top + window.scrollY - viewportHeight * 0.16)
       bounds = {
+        from: documentRect(from),
+        to: documentRect(to),
         start,
         end: Math.max(
           start + 1,
@@ -51,13 +69,30 @@ export function PortraitJourney() {
       traveler.style.height = `${from.height}px`
     }
 
-    function update() {
+    function update(time: number) {
       frame = 0
       if (!source || !destination || !resting || !section || !traveler) return
       if (!bounds) measure()
       if (!bounds) return
       const scroll = window.scrollY
-      const progress = clamp((scroll - bounds.start) / (bounds.end - bounds.start))
+      const target = clamp((scroll - bounds.start) / (bounds.end - bounds.start))
+      // Desktop already receives Lenis-smoothed input. Touch gets a brief, time-based
+      // catch-up so sparse swipe events don't jump the morph straight to the target.
+      const elapsed = previousTime === null ? 1000 / 60 : Math.min(64, time - previousTime)
+      previousTime = time
+      if (
+        progress === null ||
+        finePointer.matches ||
+        scroll > bounds.end + viewportHeight ||
+        scroll < bounds.start - viewportHeight
+      ) {
+        progress = target
+      } else {
+        progress += (target - progress) * (1 - Math.exp(-elapsed / 80))
+        if (Math.abs(target - progress) < 0.0005) progress = target
+      }
+      if (progress !== target) schedule()
+      else previousTime = null
       const eased = progress * progress * (3 - 2 * progress)
       const wave = Math.sin(progress * Math.PI)
       const traveling = progress > 0 && progress < 1
@@ -72,12 +107,12 @@ export function PortraitJourney() {
         phase = nextPhase
       }
       if (!traveling) return
-      const from = source.getBoundingClientRect()
-      const to = destination.getBoundingClientRect()
+      const { from, to } = bounds
 
-      // Viewport coordinates keep the portrait continuous through both section boundaries.
+      // Cache document coordinates; only compensate for native scrolling each frame.
+      // This keeps the handoffs aligned without repeated layout reads.
       traveler.style.transformOrigin = 'top left'
-      traveler.style.transform = `translate3d(${mix(from.left, to.left)}px, ${mix(from.top, to.top)}px, 0) scale(${mix(from.width, to.width) / from.width}, ${mix(from.height, to.height) / from.height})`
+      traveler.style.transform = `translate3d(${mix(from.left, to.left)}px, ${mix(from.top, to.top) - scroll}px, 0) scale(${mix(from.width, to.width) / from.width}, ${mix(from.height, to.height) / from.height})`
       const direction = document.documentElement.dir === 'rtl' ? -1 : 1
       if (art) {
         art.style.transform = `perspective(1000px) rotateY(${direction * wave * 18}deg) rotateX(${Math.sin(progress * Math.PI * 2) * 9}deg) rotateZ(${direction * wave * -5}deg)`
@@ -99,12 +134,20 @@ export function PortraitJourney() {
       bounds = null
       schedule()
     }
+    function onResize() {
+      // Touch browser chrome changes height while scrolling; preserve the range.
+      // Width changes (including orientation) and desktop resizing remeasure it.
+      if (!finePointer.matches && viewportWidth === window.innerWidth) return
+      viewportWidth = window.innerWidth
+      viewportHeight = window.innerHeight
+      invalidate()
+    }
     const observer = new ResizeObserver(invalidate)
     observer.observe(source)
     observer.observe(destination)
     observer.observe(document.body)
     window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', invalidate)
+    window.addEventListener('resize', onResize)
     // Font loading can shift both anchors without resizing the portrait itself.
     document.fonts.ready.then(invalidate)
     schedule()
@@ -113,7 +156,7 @@ export function PortraitJourney() {
       cancelAnimationFrame(frame)
       observer.disconnect()
       window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', invalidate)
+      window.removeEventListener('resize', onResize)
       source.style.visibility = ''
       resting.style.visibility = ''
       delete section.dataset.portraitLanded
