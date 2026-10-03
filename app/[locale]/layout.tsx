@@ -1,24 +1,28 @@
-import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
-import { notFound } from 'next/navigation'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import '../globals.css'
 
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
-import ScrollProgressProvider from '@/components/scroll-progress-provider'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { PageTransition } from '@/components/ui/page-transition'
 import { MotionProvider } from '@/components/motion-provider'
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider'
+import { FloatingSocials } from '@/components/floating-socials'
+import SignatureEntrance from '@/components/signature-entrance'
+import { signatureWelcomeScript } from '@/lib/signature-welcome'
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
+  preload: false,
 })
 
 const thmanyahSans = localFont({
@@ -51,29 +55,35 @@ const thmanyahSans = localFont({
   ],
   variable: '--font-thmanyah-sans',
   display: 'swap',
+  // Let font usage select the language and weights instead of preloading both families.
+  preload: false,
 })
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'seo' })
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale()
+  const t = await getTranslations('seo')
 
   const title = t('title')
   const description = t('description')
   const ogImageAlt = t('ogImageAlt')
-  const localeUrl = `${SITE_URL}/${locale}`
-  const ogLocale = locale === 'ar' ? 'ar_AE' : 'en_US'
 
   return {
-    title,
-    description,
+    ...pageMetadata({
+      locale,
+      path: '/',
+      title,
+      description,
+      image: {
+        url: `/images/og/${locale}.jpg`,
+        width: 1200,
+        height: 630,
+        alt: ogImageAlt,
+      },
+    }),
     applicationName: 'Portfolio',
     generator: 'Next.js 16',
     authors: [{ name: 'Anas Salem', url: SITE_URL }],
@@ -82,35 +92,6 @@ export async function generateMetadata({
       icon: '/favicon.ico',
       shortcut: '/favicon.ico',
       apple: '/apple-icon.png',
-    },
-    alternates: {
-      canonical: localeUrl,
-      languages: {
-        en: `${SITE_URL}/en`,
-        ar: `${SITE_URL}/ar`,
-        'x-default': `${SITE_URL}/en`,
-      },
-    },
-    openGraph: {
-      type: 'website',
-      locale: ogLocale,
-      url: localeUrl,
-      siteName: 'Anas Salem',
-      title,
-      description,
-      images: [
-        {
-          url: `${SITE_URL}/avatar-light.jpg`,
-          alt: ogImageAlt,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [`${SITE_URL}/avatar-light.jpg`],
-      creator: '@An_xr7',
     },
     robots: {
       index: true,
@@ -122,20 +103,10 @@ export async function generateMetadata({
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode
-  params: Promise<{ locale: string }>
 }>) {
-  // Ensure that the incoming `locale` is valid
-  const { locale } = await params
-  if (!hasLocale(routing.locales, locale)) {
-    notFound()
-  }
-
-  // Enable static rendering
-  setRequestLocale(locale)
-
+  const locale = await getLocale()
   const isArabic = locale === 'ar'
   const dir = isArabic ? 'rtl' : 'ltr'
 
@@ -143,6 +114,7 @@ export default async function RootLayout({
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
         <meta name='apple-mobile-web-app-title' content='Anas' />
+        <script dangerouslySetInnerHTML={{ __html: signatureWelcomeScript }} />
       </head>
       <body
         className={`${inter.variable} ${thmanyahSans.variable} ${
@@ -158,12 +130,15 @@ export default async function RootLayout({
                 enableSystem
                 disableTransitionOnChange
               >
-                <Header />
-                <ScrollProgressProvider>
-                  {children}
-                  <Toaster />
-                </ScrollProgressProvider>
-                <Footer />
+                <SignatureEntrance>
+                  <Header />
+                  <div className='z-0 flex flex-col'>
+                    <PageTransition>{children}</PageTransition>
+                    <Toaster />
+                  </div>
+                  <Footer />
+                  <FloatingSocials />
+                </SignatureEntrance>
               </ThemeProvider>
             </MotionProvider>
           </NextIntlClientProvider>

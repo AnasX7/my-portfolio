@@ -1,5 +1,7 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import {
   useEffect,
   useRef,
@@ -10,7 +12,6 @@ import {
 import { getFormSchema, formData } from '@/lib/schemas'
 import Script from 'next/script'
 
-import { Card, CardContent, CardDecorator } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -24,9 +25,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { PaperPlane } from '@/components/icons/paper-plane'
-import { useTranslations, useLocale } from 'next-intl'
-import { m, useInView } from 'motion/react'
+import { useTranslations } from 'next-intl'
+import { useInView } from 'motion/react'
 
 import { z } from 'zod'
 import { send } from '@/lib/email'
@@ -59,9 +59,6 @@ export default function ContactForm() {
   const t = useTranslations()
   const formSchema = getFormSchema(t)
 
-  const local = useLocale()
-  const isRtl = local === 'ar'
-
   const form = useForm<formData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -86,6 +83,7 @@ export default function ContactForm() {
         widgetIdRef.current = turnstile.render(containerRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
           theme: isDark ? 'dark' : 'light',
+          appearance: 'interaction-only',
         })
       } catch (err) {
         console.error('Error rendering Turnstile widget:', err)
@@ -150,107 +148,95 @@ export default function ContactForm() {
   }
 
   return (
-    <Card className='bg-card relative overflow-hidden shadow-md transition-all duration-300 hover:scale-[1.005] hover:brightness-[1.03] dark:shadow-2xl'>
-      <CardDecorator />
-      <CardContent className='grid grid-rows-1 gap-8 lg:grid-cols-2 lg:grid-rows-none'>
-        <Form {...form}>
-          <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-            <div className='space-y-2'>
-              <FormField
-                control={form.control}
-                name='fullName'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t(DATA.contact.form.fullName.labelKey)}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={t(DATA.contact.form.fullName.placeholderKey)}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className='space-y-2'>
-              <FormField
-                control={form.control}
-                name='email'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t(DATA.contact.form.email.labelKey)}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t(DATA.contact.form.email.placeholderKey)} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className='space-y-2'>
-              <FormField
-                control={form.control}
-                name='message'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t(DATA.contact.form.message.labelKey)}</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        id='message'
-                        placeholder={t(DATA.contact.form.message.placeholderKey)}
-                        className='min-h-30'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div key={isDark ? 'dark' : 'light'} ref={containerRef} />
-            {shouldLoadTurnstile ? (
-              <Script
-                src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-                strategy='lazyOnload'
-                onLoad={renderWidget}
-              />
-            ) : null}
-            <Button type='submit' variant='animated' className='w-full'>
-              {t(DATA.contact.form.submitKey)}
-            </Button>
-          </form>
-        </Form>
-
-        {/*  Illustration */}
-        <m.div
-          initial={{
-            opacity: 0,
-            x: isRtl ? -20 : 20,
-            scale: 0.95,
-          }}
-          whileInView={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className='bg-muted/45 border-border hidden flex-col items-center justify-center rounded-xl border-2 p-6 text-center shadow-md lg:flex'
-        >
-          <m.div
-            initial={{ y: 0 }}
-            whileInView={{ y: [0, -10, 0] }}
-            transition={{ duration: 2.4, repeat: 2, ease: 'easeInOut' }}
-            viewport={{ once: true, amount: 0.5 }}
-            className='mb-4 size-48'
+    <div className='contact-panel rounded-[2.5rem] p-6 sm:p-10'>
+      <TextReveal as='h3' className='mb-8 text-3xl leading-tight font-semibold sm:text-4xl'>
+        {t('contact.title')}
+      </TextReveal>
+      <Form {...form}>
+        <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+          <div className='space-y-2'>
+            <FormField
+              control={form.control}
+              name='fullName'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='sr-only'>
+                    {t(DATA.contact.form.fullName.labelKey)}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      autoComplete='name'
+                      className='contact-input h-16 rounded-2xl px-5 md:text-base'
+                      placeholder={t(DATA.contact.form.fullName.placeholderKey)}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className='space-y-2'>
+            <FormField
+              control={form.control}
+              name='email'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='sr-only'>{t(DATA.contact.form.email.labelKey)}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type='email'
+                      autoComplete='email'
+                      dir='ltr'
+                      className='contact-input h-16 rounded-2xl px-5 md:text-base rtl:placeholder:text-right'
+                      placeholder={t(DATA.contact.form.email.placeholderKey)}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className='space-y-2'>
+            <FormField
+              control={form.control}
+              name='message'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='sr-only'>{t(DATA.contact.form.message.labelKey)}</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      id='message'
+                      placeholder={t(DATA.contact.form.message.placeholderKey)}
+                      className='contact-input min-h-40 rounded-2xl px-5 py-5 md:text-base'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div key={isDark ? 'dark' : 'light'} ref={containerRef} />
+          {shouldLoadTurnstile ? (
+            <Script
+              src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+              strategy='lazyOnload'
+              onLoad={renderWidget}
+            />
+          ) : null}
+          <Button
+            type='submit'
+            variant='inverse'
+            size='lg'
+            disabled={form.formState.isSubmitting}
+            className='w-full'
           >
-            <PaperPlane className={`${isRtl && 'rotate-270'}`} />
-          </m.div>
-          <h3 className='text-foreground mb-2 text-xl font-semibold text-balance'>
-            {t(DATA.contact.Illustration.titleKey)}
-          </h3>
-          <p className='text-muted-foreground max-w-xs text-sm text-pretty'>
-            {t(DATA.contact.Illustration.subtitleKey)}
-          </p>
-        </m.div>
-      </CardContent>
-    </Card>
+            {t(DATA.contact.form.submitKey)}
+          </Button>
+        </form>
+      </Form>
+    </div>
   )
 }

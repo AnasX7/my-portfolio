@@ -1,11 +1,18 @@
 import type { MetadataRoute } from 'next'
+import { DATA } from '@/data/resume'
 import { routing } from '@/i18n/routing'
-import { SITE_URL } from '@/lib/constants'
+import { localizedUrl } from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routing.locales.map((locale) => ({
-    url: `${SITE_URL}/${locale}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
+  const paths = [
+    '/',
+    '/projects',
+    '/privacy',
+    ...DATA.projects.cards.map((project) => `/projects/${project.id}`),
+  ]
+  return paths.flatMap((path) =>
+    routing.locales.map((locale) => ({
+      url: localizedUrl(path, locale),
+    })),
+  )
 }

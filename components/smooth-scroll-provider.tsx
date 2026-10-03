@@ -1,11 +1,14 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import Lenis, { type ScrollToOptions } from 'lenis'
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
+  useRef,
   useMemo,
   useState,
   type ReactNode,
@@ -17,11 +20,17 @@ type ScrollTarget = number | string | HTMLElement
 type SmoothScrollContextValue = {
   enabled: boolean
   scrollTo: (target: ScrollTarget, options?: ScrollToOptions) => void
+  pauseScroll: () => () => void
 }
 
 const SmoothScrollContext = createContext<SmoothScrollContextValue | null>(null)
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
+  const previousPath = useRef(pathname)
+  const scrollPositions = useRef(new Map<string, number>())
+  const traversingHistory = useRef(false)
+  const navigating = useRef(false)
   const [enabled, setEnabled] = useState(false)
   const [lenis, setLenis] = useState<Lenis | null>(null)
 
@@ -60,9 +69,9 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
     const instance = new Lenis({
       autoRaf: true,
-      lerp: 0.12,
+      lerp: 0.06,
       smoothWheel: true,
-      wheelMultiplier: 1.2,
+      wheelMultiplier: 0.9,
     })
 
     setLenis(instance)
@@ -92,7 +101,74 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     [lenis],
   )
 
-  const value = useMemo(() => ({ enabled, scrollTo }), [enabled, scrollTo])
+  const pauseScroll = useCallback(() => {
+    if (!lenis || lenis.isStopped) return () => {}
+
+    lenis.stop()
+    return () => lenis.start()
+  }, [lenis])
+
+  useEffect(() => {
+    const rememberScroll = () => {
+      if (!navigating.current) scrollPositions.current.set(previousPath.current, window.scrollY)
+    }
+    const onNavigationClick = (event: MouseEvent) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return
+      const link = (event.target as Element).closest<HTMLAnchorElement>('a[href]')
+      if (
+        !link ||
+        link.download ||
+        link.target === '_blank' ||
+        link.origin !== window.location.origin
+      )
+        return
+      if (link.pathname === window.location.pathname) return
+      rememberScroll()
+      navigating.current = true
+    }
+    const onHistoryNavigation = () => {
+      if (window.location.pathname === previousPath.current) return
+      rememberScroll()
+      navigating.current = true
+      traversingHistory.current = true
+    }
+    document.addEventListener('click', onNavigationClick, true)
+    window.addEventListener('scroll', rememberScroll, { passive: true })
+    window.addEventListener('popstate', onHistoryNavigation)
+    return () => {
+      document.removeEventListener('click', onNavigationClick, true)
+      window.removeEventListener('scroll', rememberScroll)
+      window.removeEventListener('popstate', onHistoryNavigation)
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (previousPath.current === pathname) return
+    const restoringHistory = traversingHistory.current
+    const target = restoringHistory ? (scrollPositions.current.get(pathname) ?? 0) : 0
+    previousPath.current = pathname
+    navigating.current = false
+    traversingHistory.current = false
+    lenis?.resize()
+    const arrivingAtAnchor =
+      !restoringHistory && window.location.pathname === pathname && window.location.hash
+    const destination = arrivingAtAnchor ? window.scrollY : target
+    const resetScroll = () => {
+      lenis?.stop()
+      scrollTo(destination, { immediate: true, force: true })
+      lenis?.start()
+    }
+    // Stop outgoing momentum, then synchronize after Next's own scroll restoration.
+    resetScroll()
+    const frame = requestAnimationFrame(resetScroll)
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, lenis, scrollTo])
+
+  const value = useMemo(
+    () => ({ enabled, scrollTo, pauseScroll }),
+    [enabled, scrollTo, pauseScroll],
+  )
 
   return <SmoothScrollContext.Provider value={value}>{children}</SmoothScrollContext.Provider>
 }

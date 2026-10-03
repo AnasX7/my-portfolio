@@ -1,5 +1,7 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, m } from 'motion/react'
@@ -54,21 +56,28 @@ export default function ProjectGallery({ images, imageAlts, title, isRtl }: Proj
     <section aria-labelledby='gallery-title' className='py-24 sm:py-32'>
       <div className='border-foreground/20 mb-14 grid gap-7 border-t pt-7 md:grid-cols-12 md:items-end'>
         <div className='md:col-span-7'>
-          <p className='text-muted-foreground text-xs font-semibold tracking-[0.22em] uppercase'>
+          <TextReveal
+            as='p'
+            className='text-muted-foreground text-xs font-semibold tracking-[0.22em] uppercase'
+          >
             {isRtl ? 'مختارات من المشروع' : 'Selected screens'}
-          </p>
-          <h2
+          </TextReveal>
+          <TextReveal
+            as='h2'
             id='gallery-title'
             className='mt-4 text-4xl font-semibold tracking-[-0.04em] text-balance sm:text-6xl'
           >
             {isRtl ? 'معرض صور المشروع' : 'Project gallery'}
-          </h2>
+          </TextReveal>
         </div>
-        <p className='text-muted-foreground text-sm leading-7 text-pretty md:col-span-4 md:col-start-9'>
+        <TextReveal
+          as='p'
+          className='text-muted-foreground text-sm leading-7 text-pretty md:col-span-4 md:col-start-9'
+        >
           {isRtl
             ? 'جولة بصرية في الواجهات والتفاصيل التي شكّلت تجربة المشروع.'
             : 'A visual walkthrough of the interfaces and details that shaped the project experience.'}
-        </p>
+        </TextReveal>
       </div>
 
       <div className='grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-12 md:gap-y-20'>

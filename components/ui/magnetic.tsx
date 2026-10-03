@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import { m, useMotionValue, useSpring, type SpringOptions } from 'motion/react'
+import { m, useInView, useMotionValue, useSpring, type SpringOptions } from 'motion/react'
+import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
+import { usePageVisible } from '@/hooks/use-page-visible'
 
 const SPRING_CONFIG = { stiffness: 26.7, damping: 4.1, mass: 0.2 }
 
@@ -21,6 +23,9 @@ export function Magnetic({
   springOptions = SPRING_CONFIG,
 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { margin: `${range}px` })
+  const reducedMotion = useHydratedReducedMotion()
+  const pageVisible = usePageVisible()
   const isHoveredRef = useRef(actionArea === 'global')
 
   const x = useMotionValue(0)
@@ -34,7 +39,12 @@ export function Magnetic({
   }, [actionArea])
 
   useEffect(() => {
+    if (!inView || reducedMotion || !pageVisible) return
+    const finePointer = window.matchMedia('(pointer: fine)')
+    let frame = 0
+    let latestEvent: MouseEvent
     const calculateDistance = (e: MouseEvent) => {
+      if (!finePointer.matches || (actionArea !== 'global' && !isHoveredRef.current)) return
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect()
         const centerX = rect.left + rect.width / 2
@@ -57,12 +67,24 @@ export function Magnetic({
       }
     }
 
-    document.addEventListener('mousemove', calculateDistance)
+    const schedule = (event: MouseEvent) => {
+      latestEvent = event
+      if (!frame)
+        frame = requestAnimationFrame(() => {
+          frame = 0
+          calculateDistance(latestEvent)
+        })
+    }
+
+    document.addEventListener('mousemove', schedule)
 
     return () => {
-      document.removeEventListener('mousemove', calculateDistance)
+      document.removeEventListener('mousemove', schedule)
+      cancelAnimationFrame(frame)
+      x.set(0)
+      y.set(0)
     }
-  }, [actionArea, intensity, range, x, y])
+  }, [actionArea, intensity, range, x, y, inView, reducedMotion, pageVisible])
 
   useEffect(() => {
     if (actionArea !== 'parent' || !ref.current?.parentElement) {

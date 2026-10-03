@@ -4,7 +4,8 @@ import { Popover } from '@base-ui/react/popover'
 
 import { encode } from 'qss'
 import React from 'react'
-import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react'
+import { AnimatePresence, useMotionValue, useSpring } from 'motion/react'
+import * as m from 'motion/react-m'
 
 import { cn } from '@/lib/utils'
 import { Link } from '@/i18n/navigation'
@@ -102,7 +103,7 @@ export const LinkPreview = ({
             <Popover.Popup>
               <AnimatePresence>
                 {isOpen && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 20, scale: 0.6 }}
                     animate={{
                       opacity: 1,
@@ -134,7 +135,7 @@ export const LinkPreview = ({
                         alt='preview image'
                       />
                     </Link>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </Popover.Popup>
