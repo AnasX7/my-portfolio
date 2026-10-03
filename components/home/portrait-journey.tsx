@@ -3,16 +3,25 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Portrait, portraitPath } from '@/components/home/portrait'
+import { startNativePortraitJourney } from '@/components/home/portrait-native-journey'
 import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 export function PortraitJourney() {
   const [mounted, setMounted] = useState(false)
+  const [touch, setTouch] = useState(false)
   const floating = useRef<HTMLDivElement>(null)
   const displacement = useRef<SVGFEDisplacementMapElement>(null)
   const filterId = `paper-${useId().replaceAll(':', '')}`
   const reducedMotion = useHydratedReducedMotion()
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    const desktop = window.matchMedia('(pointer: fine) and (min-width: 768px)')
+    const update = () => setTouch(!desktop.matches)
+    update()
+    setMounted(true)
+    desktop.addEventListener('change', update)
+    return () => desktop.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
     if (!mounted || reducedMotion) return
@@ -22,6 +31,17 @@ export function PortraitJourney() {
     const section = destination?.closest<HTMLElement>('#about')
     const traveler = floating.current
     if (!source || !destination || !resting || !section || !traveler) return
+
+    if (touch) {
+      const cleanup = startNativePortraitJourney({
+        source,
+        destination,
+        resting,
+        section,
+        traveler,
+      })
+      if (cleanup) return cleanup
+    }
 
     const landingOffset = 112 + (Number.parseFloat(getComputedStyle(section).scrollMarginTop) || 0)
     let frame = 0
@@ -119,7 +139,7 @@ export function PortraitJourney() {
       delete section.dataset.portraitLanded
       traveler.style.visibility = 'hidden'
     }
-  }, [mounted, reducedMotion, filterId])
+  }, [mounted, reducedMotion, filterId, touch])
 
   if (!mounted) return null
   return createPortal(

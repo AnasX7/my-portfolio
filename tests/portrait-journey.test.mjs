@@ -64,6 +64,7 @@ test('portrait stops geometry work after landing, retraces on reverse scroll, an
         },
       },
       'react-dom': { createPortal: (node) => node },
+      '@/components/home/portrait-native-journey': { startNativePortraitJourney: () => null },
       '@/components/home/portrait': { Portrait() {}, portraitPath: () => '' },
       '@/hooks/use-hydrated-reduced-motion': { useHydratedReducedMotion: () => false },
     }
