@@ -2,7 +2,13 @@ import { TextReveal } from '@/components/ui/text-reveal'
 import { ProjectImageTransition } from '@/components/ui/page-transition'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
+import vitalPreview from '@/public/images/projects/vital/hero.jpg'
+import aryafPreview from '@/public/images/projects/aryaf/hero.jpg'
+import mapPreview from '@/public/images/projects/map/hero-wide.jpg'
+import nadiPreview from '@/public/images/projects/nadi/hero-wide.jpg'
+import gtkCashPreview from '@/public/images/projects/gtk-cash/web/dashboard-wide.jpg'
+import salatyPreview from '@/public/images/projects/salaty/salaty-app.png'
 import { DATA } from '@/data/resume'
 import { routing } from '@/i18n/routing'
 import { SITE_URL } from '@/lib/constants'
@@ -16,6 +22,15 @@ import type { Metadata } from 'next'
 import { localizedUrl, pageMetadata, projectBreadcrumbs, serializeJsonLd } from '@/lib/seo'
 
 type PageProps = { params: Promise<{ slug: string }> }
+
+const projectPreviews: Record<string, StaticImageData> = {
+  vital: vitalPreview,
+  aryaf: aryafPreview,
+  'youth-orgs-map': mapPreview,
+  'youth-clubs-calendar': nadiPreview,
+  'gtk-cash': gtkCashPreview,
+  salaty: salatyPreview,
+}
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -180,7 +195,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </TextReveal>
           {href && (
             <div className='mt-8 flex justify-center'>
-              <MagneticLinkPreview url={href} previewImage={project.images[0]} size='lg'>
+              <MagneticLinkPreview url={href} previewImage={projectPreviews[project.id]} size='lg'>
                 {t(project.isLive ? 'projects.live' : 'projects.github')}
               </MagneticLinkPreview>
             </div>

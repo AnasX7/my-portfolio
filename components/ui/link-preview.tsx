@@ -9,7 +9,7 @@ import * as m from 'motion/react-m'
 
 import { cn } from '@/lib/utils'
 import { Link } from '@/i18n/navigation'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 
 type LinkPreviewProps = {
   children: React.ReactNode
@@ -20,7 +20,7 @@ type LinkPreviewProps = {
   height?: number
   quality?: number
   layout?: string
-} & ({ isStatic: true; imageSrc: string } | { isStatic?: false; imageSrc?: never })
+} & ({ isStatic: true; imageSrc: StaticImageData } | { isStatic?: false; imageSrc?: never })
 
 export const LinkPreview = ({
   children,
@@ -31,11 +31,10 @@ export const LinkPreview = ({
   height = 125,
   // quality = 50,
   // layout = "fixed",
-  isStatic = false,
-  imageSrc = '',
+  imageSrc,
 }: LinkPreviewProps) => {
   let src
-  if (!isStatic) {
+  if (!imageSrc) {
     const params = encode({
       url,
       screenshot: true,
@@ -51,6 +50,8 @@ export const LinkPreview = ({
   } else {
     src = imageSrc
   }
+  const intrinsicWidth = typeof src === 'string' ? width * 3 : src.width
+  const intrinsicHeight = typeof src === 'string' ? height * 3 : src.height
 
   const [isOpen, setOpen] = React.useState(false)
 
@@ -76,7 +77,14 @@ export const LinkPreview = ({
     <>
       {isMounted ? (
         <div className='hidden'>
-          <Image src={src} width={width} height={height} alt='hidden image' />
+          <Image
+            src={src}
+            width={intrinsicWidth}
+            height={intrinsicHeight}
+            sizes={`${width}px`}
+            style={{ width, height: 'auto' }}
+            alt='hidden image'
+          />
         </div>
       ) : null}
 
@@ -128,9 +136,11 @@ export const LinkPreview = ({
                       style={{ fontSize: 0 }}
                     >
                       <Image
-                        src={isStatic ? imageSrc : src}
-                        width={width}
-                        height={height}
+                        src={src}
+                        width={intrinsicWidth}
+                        height={intrinsicHeight}
+                        sizes={`${width}px`}
+                        style={{ width, height: 'auto' }}
                         className='rounded-lg'
                         alt='preview image'
                       />

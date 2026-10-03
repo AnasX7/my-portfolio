@@ -30,6 +30,7 @@ export function Portrait({
           src={DATA.profile.avatarLight}
           fill
           sizes='(min-width: 1024px) 420px, 320px'
+          loading='eager'
           fetchPriority={!about && !traveling ? 'high' : undefined}
           className='object-cover dark:hidden'
         />
@@ -38,6 +39,7 @@ export function Portrait({
           src={DATA.profile.avatarDark}
           fill
           sizes='(min-width: 1024px) 420px, 320px'
+          loading='eager'
           fetchPriority={!about && !traveling ? 'high' : undefined}
           className='hidden object-cover dark:block'
         />

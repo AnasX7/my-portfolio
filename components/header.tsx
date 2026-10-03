@@ -195,6 +195,7 @@ export default function Header() {
                 <div className='relative shrink-0'>
                   <Image
                     src={DATA.profile.avatarLight}
+                    loading='eager'
                     alt={t(DATA.profile.nameKey)}
                     width={36}
                     height={36}
@@ -202,6 +203,7 @@ export default function Header() {
                   />
                   <Image
                     src={DATA.profile.avatarDark}
+                    loading='eager'
                     alt={t(DATA.profile.nameKey)}
                     width={36}
                     height={36}

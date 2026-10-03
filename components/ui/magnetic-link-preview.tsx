@@ -5,10 +5,11 @@ import { LinkPreview } from './link-preview'
 import { AnimatedButtonContent, buttonVariants } from './button'
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
 import type { VariantProps } from 'class-variance-authority'
+import type { StaticImageData } from 'next/image'
 
 interface MagneticLinkPreviewProps extends VariantProps<typeof buttonVariants> {
   url: string
-  previewImage?: string
+  previewImage?: StaticImageData
   children: React.ReactNode
   'aria-label'?: string
   icon?: IconSvgElement
