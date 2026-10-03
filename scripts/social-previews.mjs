@@ -1,4 +1,4 @@
-// Run after `bun run build`. Render the generated HTML at 1200×630 in a browser
+// Run after `pnpm build`. Render the generated HTML at 1200×630 in a browser
 // and save each JPEG to public/images/og/{en,ar}.jpg. Browser rendering preserves
 // Thmanyah's Arabic shaping and uses the same Inter font as the website.
 import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises'
