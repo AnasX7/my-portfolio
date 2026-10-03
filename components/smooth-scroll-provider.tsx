@@ -20,6 +20,7 @@ type ScrollTarget = number | string | HTMLElement
 type SmoothScrollContextValue = {
   enabled: boolean
   scrollTo: (target: ScrollTarget, options?: ScrollToOptions) => void
+  pauseScroll: () => () => void
 }
 
 const SmoothScrollContext = createContext<SmoothScrollContextValue | null>(null)
@@ -100,6 +101,13 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     [lenis],
   )
 
+  const pauseScroll = useCallback(() => {
+    if (!lenis || lenis.isStopped) return () => {}
+
+    lenis.stop()
+    return () => lenis.start()
+  }, [lenis])
+
   useEffect(() => {
     const rememberScroll = () => {
       if (!navigating.current) scrollPositions.current.set(previousPath.current, window.scrollY)
@@ -157,7 +165,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     return () => cancelAnimationFrame(frame)
   }, [pathname, lenis, scrollTo])
 
-  const value = useMemo(() => ({ enabled, scrollTo }), [enabled, scrollTo])
+  const value = useMemo(
+    () => ({ enabled, scrollTo, pauseScroll }),
+    [enabled, scrollTo, pauseScroll],
+  )
 
   return <SmoothScrollContext.Provider value={value}>{children}</SmoothScrollContext.Provider>
 }

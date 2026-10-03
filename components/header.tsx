@@ -29,7 +29,7 @@ export default function Header() {
   const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuPanelRef = useRef<HTMLDivElement>(null)
 
-  const { scrollTo } = useSmoothScroll()
+  const { scrollTo, pauseScroll } = useSmoothScroll()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +58,10 @@ export default function Header() {
     if (!panel) return
 
     const previousBodyOverflow = document.body.style.overflow
+    const previousDocumentOverflow = document.documentElement.style.overflow
+    const preventViewportScroll = (event: Event) => {
+      if (event.cancelable) event.preventDefault()
+    }
     const getFocusableElements = () =>
       Array.from(
         panel.querySelectorAll<HTMLElement>(
@@ -72,7 +76,16 @@ export default function Header() {
       panel.focus()
     }
 
+    document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
+    document.addEventListener('wheel', preventViewportScroll, {
+      capture: true,
+      passive: false,
+    })
+    document.addEventListener('touchmove', preventViewportScroll, {
+      capture: true,
+      passive: false,
+    })
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -112,11 +125,19 @@ export default function Header() {
 
     return () => {
       document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousDocumentOverflow
       document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('wheel', preventViewportScroll, true)
+      document.removeEventListener('touchmove', preventViewportScroll, true)
       const focusTarget = window.matchMedia(DESKTOP_MEDIA_QUERY).matches ? headerHome : trigger
       focusTarget?.focus()
     }
   }, [isMobileMenuOpen])
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    return pauseScroll()
+  }, [isMobileMenuOpen, pauseScroll])
 
   const mobileMenuVariants: Variants = {
     closed: {
@@ -291,13 +312,13 @@ export default function Header() {
               aria-modal='true'
               aria-labelledby={mobileMenuTitleId}
               tabIndex={-1}
-              className='border-border bg-background fixed inset-x-3 top-16 z-50 mx-auto max-h-[calc(100dvh-5rem)] max-w-xl overflow-y-auto overscroll-contain rounded-3xl border shadow-2xl lg:hidden'
+              className='border-border bg-background fixed inset-x-3 top-2 z-50 mx-auto max-h-[calc(100svh-1rem)] max-w-xl overflow-hidden rounded-3xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
               animate='open'
               exit='exit'
             >
-              <div className='border-border flex items-center justify-between border-b border-dashed py-3 ps-6 pe-3'>
+              <div className='border-border flex items-center justify-between border-b border-dashed py-[clamp(0.5rem,2.5svh,1rem)] ps-6 pe-3'>
                 <h2
                   id={mobileMenuTitleId}
                   className='text-muted-foreground text-xs font-medium tracking-widest uppercase'
@@ -320,7 +341,7 @@ export default function Header() {
                     <m.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
                         href={pathname === '/' ? item.href : `/${item.href}`}
-                        className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-24 items-center gap-4 border-b border-dashed py-5 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
+                        className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-[clamp(3rem,18svh,8.5rem)] items-center gap-4 border-b border-dashed py-[clamp(0.25rem,2svh,1rem)] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <span
@@ -329,7 +350,7 @@ export default function Header() {
                         >
                           0{index + 1}
                         </span>
-                        <span className='flex-1 text-3xl font-medium tracking-tight sm:text-4xl'>
+                        <span className='flex-1 text-[clamp(1.5rem,4svh,2.25rem)] font-medium tracking-tight'>
                           {t(item.nameKey)}
                         </span>
                         <HugeiconsIcon
@@ -343,7 +364,7 @@ export default function Header() {
                 </nav>
 
                 <m.div
-                  className='flex items-center justify-between gap-3 py-5'
+                  className='flex items-center justify-between gap-3 py-[clamp(0.5rem,2.5svh,1rem)]'
                   variants={mobileItemVariants}
                 >
                   <LanguageSwitcher />
