@@ -3,8 +3,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { m, AnimatePresence, Variants } from 'motion/react'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { Menu01Icon, Cancel01Icon } from '@hugeicons/core-free-icons'
-import { Link } from '@/i18n/navigation'
+import { Menu01Icon, Cancel01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
@@ -17,6 +17,8 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)'
 
 export default function Header() {
   const t = useTranslations()
+  const pathname = usePathname()
+  const router = useRouter()
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -27,7 +29,7 @@ export default function Header() {
   const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuPanelRef = useRef<HTMLDivElement>(null)
 
-  const { scrollTo } = useSmoothScroll()
+  const { scrollTo, pauseScroll } = useSmoothScroll()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,6 +58,10 @@ export default function Header() {
     if (!panel) return
 
     const previousBodyOverflow = document.body.style.overflow
+    const previousDocumentOverflow = document.documentElement.style.overflow
+    const preventViewportScroll = (event: Event) => {
+      if (event.cancelable) event.preventDefault()
+    }
     const getFocusableElements = () =>
       Array.from(
         panel.querySelectorAll<HTMLElement>(
@@ -70,7 +76,16 @@ export default function Header() {
       panel.focus()
     }
 
+    document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
+    document.addEventListener('wheel', preventViewportScroll, {
+      capture: true,
+      passive: false,
+    })
+    document.addEventListener('touchmove', preventViewportScroll, {
+      capture: true,
+      passive: false,
+    })
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -110,42 +125,47 @@ export default function Header() {
 
     return () => {
       document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousDocumentOverflow
       document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('wheel', preventViewportScroll, true)
+      document.removeEventListener('touchmove', preventViewportScroll, true)
       const focusTarget = window.matchMedia(DESKTOP_MEDIA_QUERY).matches ? headerHome : trigger
       focusTarget?.focus()
     }
   }, [isMobileMenuOpen])
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    return pauseScroll()
+  }, [isMobileMenuOpen, pauseScroll])
+
   const mobileMenuVariants: Variants = {
     closed: {
       opacity: 0,
-      x: 24,
-      filter: 'blur(4px)',
+      y: -8,
     },
     open: {
       opacity: 1,
-      x: 0,
-      filter: 'blur(0px)',
+      y: 0,
       transition: {
         duration: 0.3,
-        ease: 'easeInOut',
+        ease: 'easeOut',
         staggerChildren: 0.1,
       },
     },
     exit: {
       opacity: 0,
-      y: -12,
-      filter: 'blur(4px)',
+      y: -8,
       transition: {
         duration: 0.15,
-        ease: 'easeIn',
+        ease: 'easeOut',
       },
     },
   }
 
   const mobileItemVariants = {
-    closed: { opacity: 0, x: 20 },
-    open: { opacity: 1, x: 0 },
+    closed: { opacity: 0, y: 8 },
+    open: { opacity: 1, y: 0 },
   }
 
   return (
@@ -155,18 +175,20 @@ export default function Header() {
           isScrolled
             ? 'site-header-scrolled border-border/50 bg-background/95 lg:bg-background/50 border-b shadow-sm lg:backdrop-blur-md'
             : 'bg-transparent'
-        } ${isMobileMenuOpen ? 'pointer-events-none' : ''}`}
+        } ${isMobileMenuOpen ? 'pointer-events-none opacity-40' : ''}`}
         inert={isMobileMenuOpen}
       >
-        <div className='site-header-inner mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8'>
+        <div className='site-header-inner mx-auto max-w-[1080px]'>
           <div className='flex h-14 items-center justify-between'>
             <div className='flex min-w-0 items-center'>
               <button
                 ref={headerHomeRef}
                 onClick={() =>
-                  scrollTo(0, {
-                    duration: 3,
-                  })
+                  pathname !== '/'
+                    ? router.push('/')
+                    : scrollTo(0, {
+                        duration: 3,
+                      })
                 }
                 className='group flex min-w-0 cursor-pointer items-center gap-3 text-start'
               >
@@ -211,18 +233,18 @@ export default function Header() {
                   onMouseEnter={() => setHoveredItem(item.nameKey)}
                   onMouseLeave={() => setHoveredItem(null)}
                 >
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    role='link'
-                    aria-label={t(item.nameKey)}
-                    onClick={() =>
-                      scrollTo(item.href, {
-                        offset: -100,
-                        duration: 3,
-                      })
+                  <Link
+                    href={
+                      item.href.startsWith('#') && pathname !== '/' ? `/${item.href}` : item.href
                     }
-                    className='text-muted-foreground hover:text-foreground relative rounded-full px-4 transition-colors duration-200 hover:bg-transparent'
+                    aria-label={t(item.nameKey)}
+                    onNavigate={(event) => {
+                      if (pathname === '/' && item.href.startsWith('#')) {
+                        event.preventDefault()
+                        scrollTo(item.href, { offset: -100, duration: 1.8 })
+                      }
+                    }}
+                    className='text-muted-foreground hover:text-foreground focus-visible:outline-ring relative inline-flex h-8 items-center rounded-full px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4'
                   >
                     {hoveredItem === item.nameKey && (
                       <m.div
@@ -239,7 +261,7 @@ export default function Header() {
                       />
                     )}
                     <span className='relative z-10'>{t(item.nameKey)}</span>
-                  </Button>
+                  </Link>
                 </div>
               ))}
             </nav>
@@ -264,11 +286,7 @@ export default function Header() {
               aria-expanded={isMobileMenuOpen}
               aria-controls={mobileMenuId}
             >
-              {isMobileMenuOpen ? (
-                <HugeiconsIcon icon={Cancel01Icon} className='size-6' />
-              ) : (
-                <HugeiconsIcon icon={Menu01Icon} className='size-6' />
-              )}
+              <HugeiconsIcon icon={Menu01Icon} className='size-6' />
             </m.button>
           </div>
         </div>
@@ -278,7 +296,7 @@ export default function Header() {
         {isMobileMenuOpen && (
           <>
             <m.div
-              className='fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden'
+              className='fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -292,37 +310,67 @@ export default function Header() {
               aria-modal='true'
               aria-labelledby={mobileMenuTitleId}
               tabIndex={-1}
-              className='border-border bg-background fixed end-4 top-14 z-50 w-80 overflow-hidden rounded-2xl border shadow-2xl lg:hidden'
+              className='border-border bg-background fixed inset-x-3 top-2 z-50 mx-auto max-h-[calc(100svh-1rem)] max-w-xl overflow-hidden rounded-3xl border shadow-2xl lg:hidden'
               variants={mobileMenuVariants}
               initial='closed'
               animate='open'
               exit='exit'
             >
-              <h2 id={mobileMenuTitleId} className='sr-only'>
-                {t('header.mobileMenu')}
-              </h2>
-              <div className='space-y-6 p-6'>
-                <div className='space-y-1'>
-                  {DATA.navItems.map((item) => (
+              <div className='border-border flex items-center justify-between border-b border-dashed py-[clamp(0.5rem,2.5svh,1rem)] ps-6 pe-3'>
+                <h2
+                  id={mobileMenuTitleId}
+                  className='text-muted-foreground text-xs font-medium tracking-widest uppercase'
+                >
+                  {t('header.mobileMenu')}
+                </h2>
+                <Button
+                  variant='ghost'
+                  size='icon-lg'
+                  className='size-11 rounded-xl'
+                  aria-label={t('header.closeMenu')}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <HugeiconsIcon icon={Cancel01Icon} aria-hidden='true' className='size-5' />
+                </Button>
+              </div>
+              <div className='px-5 sm:px-6'>
+                <nav aria-labelledby={mobileMenuTitleId}>
+                  {DATA.navItems.map((item, index) => (
                     <m.div key={item.nameKey} variants={mobileItemVariants}>
                       <Link
-                        href={item.href}
-                        className='text-foreground hover:bg-muted block rounded-lg px-4 py-3 font-medium transition-colors duration-200'
+                        href={
+                          item.href.startsWith('#') && pathname !== '/'
+                            ? `/${item.href}`
+                            : item.href
+                        }
+                        className='group border-border text-foreground hover:text-muted-foreground focus-visible:outline-ring flex min-h-[clamp(3rem,14svh,7rem)] items-center gap-4 border-b border-dashed py-[clamp(0.25rem,2svh,1rem)] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4'
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        {t(item.nameKey)}
+                        <span
+                          aria-hidden='true'
+                          className='text-muted-foreground self-start pt-2 font-mono text-[11px] tabular-nums'
+                        >
+                          0{index + 1}
+                        </span>
+                        <span className='flex-1 text-[clamp(1.5rem,4svh,2.25rem)] font-medium tracking-tight'>
+                          {t(item.nameKey)}
+                        </span>
+                        <HugeiconsIcon
+                          icon={ArrowUpRight01Icon}
+                          aria-hidden='true'
+                          className='text-muted-foreground size-6 transition-transform duration-150 group-hover:-translate-y-0.5 rtl:-scale-x-100'
+                        />
                       </Link>
                     </m.div>
                   ))}
-                </div>
+                </nav>
 
                 <m.div
-                  className='border-border flex flex-row space-x-3 border-t pt-6'
+                  className='flex items-center justify-between gap-3 py-[clamp(0.5rem,2.5svh,1rem)]'
                   variants={mobileItemVariants}
                 >
-                  <AnimatedThemeToggler />
-
                   <LanguageSwitcher />
+                  <AnimatedThemeToggler className='size-11 rounded-xl' />
                 </m.div>
               </div>
             </m.div>

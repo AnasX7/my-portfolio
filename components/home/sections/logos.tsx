@@ -1,5 +1,6 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
 import { LogoCloud } from '@/components/logo-cloud'
 import { DATA } from '@/data/resume'
 import { useTranslations } from 'next-intl'
@@ -8,11 +9,14 @@ export default function Logos() {
   const t = useTranslations()
 
   return (
-    <div className='relative w-full place-content-center pt-6 pb-1'>
-      <section className='relative mx-auto max-w-5xl'>
-        <h2 className='text-muted-foreground/85 mb-6 text-center text-sm font-normal sm:text-base'>
+    <div className='relative w-full place-content-center pb-1'>
+      <section className='relative mx-auto'>
+        <TextReveal
+          as='h2'
+          className='text-muted-foreground/85 mb-4 text-center text-xs font-normal sm:text-sm lg:text-start'
+        >
           {t(DATA.techStack.line1Key)}
-        </h2>
+        </TextReveal>
 
         <LogoCloud logos={logos} />
       </section>

@@ -1,9 +1,12 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import { useState } from 'react'
 import { m, AnimatePresence } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
+import { SkillItem } from '@/components/home/skill-item'
 import { cn } from '@/lib/utils'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { ChevronRightIcon } from '@hugeicons/core-free-icons'
@@ -45,6 +48,8 @@ const CompanyLogo = ({ name, url, fallbackChar, logoBg, logoPadding }: CompanyLo
         <DefaultCompanyLogo />
       ) : (
         <img
+          loading='lazy'
+          decoding='async'
           src={url}
           alt={name}
           onError={() => setError(true)}
@@ -133,11 +138,7 @@ export default function WorkExperience() {
             : null
 
           return (
-            <m.div
-              key={item.id}
-              variants={motion.item}
-              className='border-border/20 flex flex-col border-b pb-6 last:border-0 last:pb-0'
-            >
+            <m.div key={item.id} variants={motion.item} className='flex flex-col pb-6 last:pb-0'>
               {/* Company Header Row (Static) */}
               <div className='flex items-center gap-4'>
                 <CompanyLogo
@@ -169,7 +170,7 @@ export default function WorkExperience() {
                 {/* Vertical Connector Line */}
                 <m.div
                   variants={motion.timeline}
-                  className='absolute top-0 bottom-4 start-[23px] w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
+                  className='absolute start-[23px] top-0 bottom-4 w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
                 />
 
                 {item.roles.map((role) => {
@@ -177,7 +178,7 @@ export default function WorkExperience() {
                   return (
                     <m.div key={role.id} variants={motion.item} className='relative flex flex-col'>
                       {/* Timeline Dot */}
-                      <div className='absolute top-1.5 start-[-37px] flex w-2.5 justify-center'>
+                      <div className='absolute start-[-37px] top-1.5 flex w-2.5 justify-center'>
                         <div className='border-background size-2.5 rounded-full border-2 bg-neutral-300 dark:bg-neutral-700' />
                       </div>
 
@@ -220,14 +221,12 @@ export default function WorkExperience() {
                       <AnimatePresence initial={false}>
                         {isExpanded && (
                           <m.div
-                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                            initial={{ height: 0, marginTop: 0 }}
                             animate={{
                               height: 'auto',
-                              opacity: 1,
                               marginTop: 8,
                               transition: {
                                 height: { duration: 0.35, ease: 'easeOut' },
-                                opacity: { duration: 0.25, delay: 0.1 },
                               },
                             }}
                             exit={{
@@ -241,20 +240,18 @@ export default function WorkExperience() {
                             }}
                             className='overflow-hidden'
                           >
-                            <p className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'>
+                            <TextReveal
+                              as='p'
+                              className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'
+                            >
                               {t(role.descriptionKey)}
-                            </p>
+                            </TextReveal>
 
-                            {/* Skills Pills */}
+                            {/* Tools and skills */}
                             {role.skills && (
-                              <div className='mt-3 flex flex-wrap gap-1.5'>
+                              <div className='mt-3 flex flex-wrap items-center gap-x-4 gap-y-3'>
                                 {role.skills.map((skill) => (
-                                  <span
-                                    key={skill}
-                                    className='text-muted-foreground rounded-full border border-black/10 bg-black/[0.01] px-2.5 py-0.5 text-xs font-normal select-none dark:border-white/10 dark:bg-white/[0.03]'
-                                  >
-                                    {skill}
-                                  </span>
+                                  <SkillItem key={skill} name={skill} />
                                 ))}
                               </div>
                             )}
@@ -277,7 +274,7 @@ export default function WorkExperience() {
             layout='position'
             variants={motion.item}
             transition={{ layout: { duration: 0.2 } }}
-            className='border-border/20 flex flex-col border-b pb-6 last:border-0 last:pb-0'
+            className='flex flex-col pb-6 last:pb-0'
           >
             {/* Header Row */}
             <button
@@ -333,14 +330,12 @@ export default function WorkExperience() {
             <AnimatePresence initial={false}>
               {isExpanded && (
                 <m.div
-                  initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                  initial={{ height: 0, marginTop: 0 }}
                   animate={{
                     height: 'auto',
-                    opacity: 1,
                     marginTop: 12,
                     transition: {
                       height: { duration: 0.35, ease: 'easeOut' },
-                      opacity: { duration: 0.25, delay: 0.1 },
                     },
                   }}
                   exit={{
@@ -354,20 +349,18 @@ export default function WorkExperience() {
                   }}
                   className={cn('overflow-hidden', isRtl ? 'pr-16' : 'pl-16')}
                 >
-                  <p className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'>
+                  <TextReveal
+                    as='p'
+                    className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'
+                  >
                     {t(item.descriptionKey!)}
-                  </p>
+                  </TextReveal>
 
-                  {/* Skills Pills */}
+                  {/* Tools and skills */}
                   {item.skills && (
-                    <div className='mt-3 flex flex-wrap gap-1.5'>
+                    <div className='mt-3 flex flex-wrap items-center gap-x-4 gap-y-3'>
                       {item.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className='text-muted-foreground rounded-full border border-black/10 bg-black/[0.01] px-2.5 py-0.5 text-xs font-normal select-none dark:border-white/10 dark:bg-white/[0.03]'
-                        >
-                          {skill}
-                        </span>
+                        <SkillItem key={skill} name={skill} />
                       ))}
                     </div>
                   )}

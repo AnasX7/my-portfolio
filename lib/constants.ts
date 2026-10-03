@@ -1,1 +1,1 @@
-export const SITE_URL = process.env.SITE_URL!
+export const SITE_URL = new URL(process.env.SITE_URL!).origin

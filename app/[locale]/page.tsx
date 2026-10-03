@@ -1,14 +1,13 @@
-import dynamic from 'next/dynamic'
 import { getLocale, getTranslations } from 'next-intl/server'
 import HeroSection from '@/components/home/sections/hero'
+import Introduction from '@/components/home/sections/introduction'
+import AboutSection from '@/components/home/sections/about'
+import ProjectSection from '@/components/home/sections/projects'
+import ContactSection from '@/components/home/sections/contact'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
+import { localizedUrl, serializeJsonLd } from '@/lib/seo'
 import type { Metadata } from 'next'
-
-const AboutSection = dynamic(() => import('@/components/home/sections/about'))
-const ProjectSection = dynamic(() => import('@/components/home/sections/projects'))
-const ContactSection = dynamic(() => import('@/components/home/sections/contact'))
-const LogoCloudSection = dynamic(() => import('@/components/home/sections/logos'))
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('seo')
@@ -26,6 +25,7 @@ function getPersonJsonLd(locale: string, description: string) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': `${SITE_URL}/#person`,
     name: 'Anas Salem',
     url: SITE_URL,
     image: `${SITE_URL}/avatar-light.jpg`,
@@ -39,8 +39,27 @@ function getPersonJsonLd(locale: string, description: string) {
     sameAs: [githubUrl, linkedInUrl].filter(Boolean),
   }
 
-  // Escape < as \u003c to prevent closing the script tag from translated content
-  return JSON.stringify(jsonLd).replace(/</g, '\\u003c')
+  return serializeJsonLd({
+    '@context': 'https://schema.org',
+    '@graph': [
+      jsonLd,
+      {
+        '@type': 'ProfilePage',
+        url: localizedUrl('/', locale),
+        inLanguage: locale,
+        name: locale === 'ar' ? 'ملف أنس سالم' : 'Anas Salem Portfolio',
+        mainEntity: { '@id': `${SITE_URL}/#person` },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: 'Anas Salem',
+        inLanguage: ['en', 'ar'],
+        author: { '@id': `${SITE_URL}/#person` },
+      },
+    ],
+  })
 }
 
 export default async function Home() {
@@ -53,9 +72,9 @@ export default async function Home() {
       <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: personJsonLd }} />
       <main className='main-frame'>
         <HeroSection />
-        <LogoCloudSection />
+        <Introduction />
         <AboutSection />
-        <ProjectSection />
+        <ProjectSection limit={6} showMoreLink />
         <ContactSection />
       </main>
     </>

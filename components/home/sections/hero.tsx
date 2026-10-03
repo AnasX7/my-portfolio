@@ -1,26 +1,24 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { useTranslations } from 'next-intl'
 import { m } from 'motion/react'
-import Image from 'next/image'
+import { Portrait } from '@/components/home/portrait'
 import { Download01Icon } from '@hugeicons/core-free-icons'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { DATA } from '@/data/resume'
-import { cn } from '@/lib/utils'
 import ShinyText from '@/components/ui/shiny-text'
-import GlareHover from '@/components/ui/glare-hover'
-import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
+import Logos from '@/components/home/sections/logos'
+import { Link } from '@/i18n/navigation'
+import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
+import { useSignatureWelcome } from '@/components/signature-entrance'
 
 export default function HeroV2() {
   const t = useTranslations()
-  const locale = useLocale()
-  const isArabic = locale === 'ar'
-  const shouldReduceMotion = useHydratedReducedMotion()
-
+  const welcoming = useSignatureWelcome()
   const staggerContainer = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: 0.15,
         delayChildren: 0.3,
@@ -43,79 +41,10 @@ export default function HeroV2() {
     },
   } as const
 
-  const floatAnimation = (
-    delay: number,
-    duration: number,
-    xOffset = 5,
-    yOffset = 8,
-    rotateOffset = 3,
-  ) => ({
-    y: [0, -yOffset, 0],
-    x: [0, xOffset, 0],
-    rotate: [0, rotateOffset, 0],
-    transition: {
-      duration,
-      repeat: Infinity,
-      ease: 'easeInOut' as const,
-      delay,
-    },
-  })
-
-  const techIcons = [
-    {
-      name: 'React',
-      src: 'https://cdn.simpleicons.org/react',
-      className:
-        'absolute z-0 top-[5%] -left-12 sm:-left-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
-      delay: 0,
-      duration: 3.8,
-      xOffset: 4,
-      yOffset: 10,
-      rotateOffset: -3,
-      invertDark: false,
-    },
-    {
-      name: 'TypeScript',
-      src: 'https://cdn.simpleicons.org/typescript',
-      className:
-        'absolute z-0 top-[15%] -right-12 sm:-right-16 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
-      delay: 0.6,
-      duration: 4.2,
-      xOffset: -5,
-      yOffset: 12,
-      rotateOffset: 4,
-      invertDark: false,
-    },
-    {
-      name: 'Next.js',
-      src: 'https://cdn.simpleicons.org/nextdotjs',
-      className:
-        'absolute z-0 bottom-[18%] -left-14 sm:-left-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
-      delay: 1.2,
-      duration: 4.6,
-      xOffset: 6,
-      yOffset: 8,
-      rotateOffset: -2,
-      invertDark: true,
-    },
-    {
-      name: 'NestJS',
-      src: 'https://cdn.simpleicons.org/nestjs',
-      className:
-        'absolute z-0 bottom-[10%] -right-14 sm:-right-20 size-12 rounded-2xl border border-border/40 bg-background/60 p-2.5 shadow-lg backdrop-blur-xs dark:border-white/10 dark:bg-white/5 flex items-center justify-center',
-      delay: 1.8,
-      duration: 4,
-      xOffset: -4,
-      yOffset: 11,
-      rotateOffset: 3,
-      invertDark: false,
-    },
-  ]
-
   return (
     <m.section
       id='home'
-      className='relative isolate flex w-full flex-col items-center justify-start overflow-hidden pt-24 pb-8 sm:pt-32 sm:pb-10 lg:pt-36 lg:pb-12'
+      className='relative isolate flex w-full flex-col items-center justify-start overflow-hidden px-6 pt-24 pb-6 sm:px-8 sm:pt-28 lg:px-10 lg:pt-32'
     >
       {/* Background */}
       <div className='bg-background absolute inset-0 -z-20 transition-colors duration-700' />
@@ -137,173 +66,75 @@ export default function HeroV2() {
         }}
       />
 
-      {/* Centered glow, clipped to the hero frame */}
-      <m.div
-        whileInView={{ opacity: [0.4, 0.8, 0.4] }}
-        viewport={{ amount: 0.1 }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className='pointer-events-none absolute inset-0 -z-10'
+      {/* Responsive glow, clipped to the hero frame */}
+      <div
+        className='pointer-events-none absolute inset-0 -z-10 opacity-60 lg:translate-x-1/4 lg:rtl:-translate-x-1/4'
         style={{
           backgroundImage:
             'radial-gradient(circle 24rem at center, color-mix(in srgb, var(--primary) 16%, transparent), transparent)',
         }}
       />
 
-      {/* Main Content Container */}
       <m.div
         variants={staggerContainer}
         initial='hidden'
-        animate='visible'
-        className='relative z-10 mx-auto max-w-352 px-6 text-center sm:px-8 md:px-12 lg:px-16'
+        animate={welcoming ? 'hidden' : 'visible'}
+        className='relative z-10 mx-auto grid w-full items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-12'
       >
-        {/* Centered Tilted Avatar Card */}
-        <m.div variants={staggerItem} className='mb-8 flex justify-center'>
-          <div className='relative w-fit select-none'>
-            {/* Tilted Avatar Card */}
-            <m.div
-              whileHover={
-                shouldReduceMotion
-                  ? {}
-                  : {
-                      scale: 1.05,
-                      rotate: 0,
-                      transition: { type: 'spring', stiffness: 200, damping: 15 },
-                    }
-              }
-              style={shouldReduceMotion ? {} : { rotate: -4 }}
-              className='border-border/60 bg-muted/30 relative z-10 size-32 cursor-pointer rounded-[2rem] border-2 p-2 shadow-xl backdrop-blur-md select-none sm:size-36 md:size-40 dark:border-white/10 dark:bg-white/5'
+        <div className='min-w-0 space-y-6 text-center lg:text-start'>
+          {/* Main Title */}
+          <div className='mx-auto max-w-3xl lg:mx-0'>
+            <TextReveal as='h1' className='page-title'>
+              <span className='text-foreground'>{t(DATA.hero.titleKey)}</span>{' '}
+              <span className='from-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
+                {t(DATA.hero.highlightKey)}
+              </span>
+            </TextReveal>
+          </div>
+
+          {/* Subtitle */}
+          <div className='mx-auto max-w-xl lg:mx-0'>
+            <TextReveal
+              as='p'
+              delay={0.08}
+              className='text-muted-foreground/80 max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'
             >
-              <GlareHover
-                width='100%'
-                height='100%'
-                borderRadius='1.75rem'
-                background='transparent'
-                borderColor='transparent'
-                glareColor='#ffffff'
-                glareOpacity={0.35}
-                glareAngle={-30}
-                glareSize={200}
-                className='overflow-hidden'
+              {t(DATA.hero.subtitle)}
+            </TextReveal>
+          </div>
+
+          {/* Primary actions */}
+          <m.div
+            variants={staggerItem}
+            className='flex flex-wrap items-center justify-center gap-3 lg:justify-start'
+          >
+            <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <MagneticLinkPreview
+                url={DATA.profile.resumeURL}
+                icon={Download01Icon}
+                variant='primary'
               >
-                <span className='relative block h-full w-full'>
-                  <Image
-                    alt={t(DATA.profile.nameKey)}
-                    src={DATA.profile.avatarLight}
-                    width={160}
-                    height={160}
-                    sizes='(min-width: 768px) 160px, (min-width: 640px) 144px, 128px'
-                    className='visible h-full w-full object-cover select-none dark:invisible'
-                  />
-                  <Image
-                    alt={t(DATA.profile.nameKey)}
-                    src={DATA.profile.avatarDark}
-                    width={160}
-                    height={160}
-                    sizes='(min-width: 768px) 160px, (min-width: 640px) 144px, 128px'
-                    className='invisible absolute inset-0 h-full w-full object-cover select-none dark:visible'
-                  />
-                </span>
-              </GlareHover>
+                <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
+              </MagneticLinkPreview>
             </m.div>
 
-            {/* Floating Tech Icons */}
-            {techIcons.map((icon) => (
-              <m.div
-                key={icon.name}
-                whileInView={
-                  shouldReduceMotion
-                    ? {}
-                    : floatAnimation(
-                        icon.delay,
-                        icon.duration,
-                        icon.xOffset,
-                        icon.yOffset,
-                        icon.rotateOffset,
-                      )
-                }
-                viewport={{ amount: 0.1 }}
-                className={icon.className}
-              >
-                <img
-                  src={icon.src}
-                  alt={icon.name}
-                  className={cn(
-                    'size-6 object-contain pointer-events-none select-none transition-all duration-300',
-                    icon.invertDark && 'dark:brightness-0 dark:invert',
-                  )}
-                />
-              </m.div>
-            ))}
-          </div>
-        </m.div>
-
-        {/* Main Title */}
-        <m.div
-          variants={staggerItem}
-          className={`${isArabic ? 'mb-1.5' : 'mb-3'} mx-auto max-w-3xl`}
-        >
-          <h1
-            className={`text-2xl font-semibold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-5xl ${
-              isArabic ? 'leading-[1.15] md:leading-[1.2]' : 'leading-tight'
-            }`}
-          >
-            <span className='text-foreground'>{t(DATA.hero.titleKey)}</span>{' '}
-            <span className='from-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
-              {t(DATA.hero.highlightKey)}
-            </span>
-          </h1>
-        </m.div>
-
-        {/* Subtitle */}
-        <m.div variants={staggerItem} className='mx-auto mb-8 max-w-xl'>
-          <p className='text-muted-foreground/80 mx-auto max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
-            {t(DATA.hero.subtitle)}
-          </p>
-        </m.div>
-
-        {/* CTA and Social Media Buttons Row */}
-        <m.div
-          variants={staggerItem}
-          className='flex flex-row flex-wrap items-center justify-center gap-4'
-        >
-          <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <MagneticLinkPreview
-              url={DATA.profile.resumeURL}
-              icon={Download01Icon}
-              className='rounded-full px-8 py-4'
-            >
-              <ShinyText text={t(DATA.hero.cta)} disabled={false} speed={3} />
-            </MagneticLinkPreview>
+            <Link href='/#projects' className={buttonVariants({ variant: 'secondary' })}>
+              <AnimatedButtonContent>{t('hero.viewWork')}</AnimatedButtonContent>
+            </Link>
           </m.div>
-
-          {/* Social Buttons with Link Preview & Point Animations */}
-          <div className='flex flex-row items-center gap-3'>
-            {DATA.socials.slice(0, 3).map((social) => {
-              const IconComponent = social.icon
-              return (
-                <div key={social.name} className='group relative'>
-                  <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <MagneticLinkPreview
-                      url={social.url}
-                      aria-label={social.name}
-                      className={cn(
-                        'size-12 p-0 min-h-0 flex items-center justify-center rounded-full border border-border/50 bg-background/60 backdrop-blur-md shadow-xs transition-all duration-300',
-                        'before:bg-none after:bg-none after:bg-background/60 after:backdrop-blur-md',
-                        'dark:border-white/10 dark:bg-white/5 dark:after:bg-[#0a0a0a]/50',
-                      )}
-                    >
-                      <IconComponent
-                        aria-hidden='true'
-                        className='text-muted-foreground size-5 transition-transform duration-300 group-hover:scale-110 dark:text-gray-300'
-                      />
-                    </MagneticLinkPreview>
-                  </m.div>
-                </div>
-              )
-            })}
+        </div>
+        <m.div
+          variants={staggerItem}
+          className='order-first mx-auto w-full max-w-64 lg:order-last lg:max-w-sm'
+        >
+          <div data-portrait-source className='relative aspect-square w-full'>
+            <Portrait />
           </div>
         </m.div>
       </m.div>
+      <div className='relative z-10 mt-6 w-full sm:mt-8'>
+        <Logos />
+      </div>
     </m.section>
   )
 }
