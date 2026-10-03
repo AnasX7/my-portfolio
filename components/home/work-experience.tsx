@@ -48,6 +48,8 @@ const CompanyLogo = ({ name, url, fallbackChar, logoBg, logoPadding }: CompanyLo
         <DefaultCompanyLogo />
       ) : (
         <img
+          loading='lazy'
+          decoding='async'
           src={url}
           alt={name}
           onError={() => setError(true)}
@@ -136,11 +138,7 @@ export default function WorkExperience() {
             : null
 
           return (
-            <m.div
-              key={item.id}
-              variants={motion.item}
-              className='flex flex-col pb-6 last:pb-0'
-            >
+            <m.div key={item.id} variants={motion.item} className='flex flex-col pb-6 last:pb-0'>
               {/* Company Header Row (Static) */}
               <div className='flex items-center gap-4'>
                 <CompanyLogo

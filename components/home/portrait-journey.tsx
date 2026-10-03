@@ -31,36 +31,58 @@ export function PortraitJourney() {
     const light = traveler.querySelector<HTMLElement>('[data-paper-light]')
     const art = traveler.querySelector<HTMLElement>('[data-portrait-art]')
     const clamp = (value: number) => Math.min(1, Math.max(0, value))
+    const finePointer = window.matchMedia('(pointer: fine) and (min-width: 768px)')
+    let bounds: { start: number; end: number } | null = null
+    let phase = ''
+
+    function measure() {
+      if (!source || !section || !traveler) return
+      const from = source.getBoundingClientRect()
+      const start = Math.max(0, from.top + window.scrollY - window.innerHeight * 0.16)
+      bounds = {
+        start,
+        end: Math.max(
+          start + 1,
+          section.getBoundingClientRect().top + window.scrollY - landingOffset,
+        ),
+      }
+      // Scaling the fixed frame avoids animating layout dimensions on every scroll frame.
+      traveler.style.width = `${from.width}px`
+      traveler.style.height = `${from.height}px`
+    }
 
     function update() {
       frame = 0
       if (!source || !destination || !resting || !section || !traveler) return
-      const from = source.getBoundingClientRect()
-      const to = destination.getBoundingClientRect()
+      if (!bounds) measure()
+      if (!bounds) return
       const scroll = window.scrollY
-      const start = Math.max(0, from.top + scroll - window.innerHeight * 0.16)
-      const end = Math.max(start + 1, section.getBoundingClientRect().top + scroll - landingOffset)
-      const progress = clamp((scroll - start) / (end - start))
+      const progress = clamp((scroll - bounds.start) / (bounds.end - bounds.start))
       const eased = progress * progress * (3 - 2 * progress)
       const wave = Math.sin(progress * Math.PI)
       const traveling = progress > 0 && progress < 1
       const mix = (a: number, b: number) => a + (b - a) * eased
 
-      source.style.visibility = traveling || progress === 1 ? 'hidden' : ''
-      resting.style.visibility = progress < 1 ? 'hidden' : ''
-      section.dataset.portraitLanded = String(progress === 1)
-      traveler.style.visibility = traveling ? 'visible' : 'hidden'
+      const nextPhase = traveling ? 'traveling' : progress === 1 ? 'landed' : 'source'
+      if (nextPhase !== phase) {
+        source.style.visibility = traveling || progress === 1 ? 'hidden' : ''
+        resting.style.visibility = progress < 1 ? 'hidden' : ''
+        section.dataset.portraitLanded = String(progress === 1)
+        traveler.style.visibility = traveling ? 'visible' : 'hidden'
+        phase = nextPhase
+      }
       if (!traveling) return
+      const from = source.getBoundingClientRect()
+      const to = destination.getBoundingClientRect()
 
       // Viewport coordinates keep the portrait continuous through both section boundaries.
-      traveler.style.width = `${mix(from.width, to.width)}px`
-      traveler.style.height = `${mix(from.height, to.height)}px`
-      traveler.style.transform = `translate3d(${mix(from.left, to.left)}px, ${mix(from.top, to.top)}px, 0)`
+      traveler.style.transformOrigin = 'top left'
+      traveler.style.transform = `translate3d(${mix(from.left, to.left)}px, ${mix(from.top, to.top)}px, 0) scale(${mix(from.width, to.width) / from.width}, ${mix(from.height, to.height) / from.height})`
       const direction = document.documentElement.dir === 'rtl' ? -1 : 1
       if (art) {
         art.style.transform = `perspective(1000px) rotateY(${direction * wave * 18}deg) rotateX(${Math.sin(progress * Math.PI * 2) * 9}deg) rotateZ(${direction * wave * -5}deg)`
         art.style.filter =
-          wave > 0.01
+          finePointer.matches && wave > 0.01
             ? `url(#${filterId}) drop-shadow(0 ${wave * 20}px ${wave * 24}px rgb(0 0 0 / ${wave * 0.16}))`
             : ''
       }
@@ -73,21 +95,25 @@ export function PortraitJourney() {
     function schedule() {
       if (!disposed && !frame) frame = requestAnimationFrame(update)
     }
-    const observer = new ResizeObserver(schedule)
+    function invalidate() {
+      bounds = null
+      schedule()
+    }
+    const observer = new ResizeObserver(invalidate)
     observer.observe(source)
     observer.observe(destination)
     observer.observe(document.body)
     window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
+    window.addEventListener('resize', invalidate)
     // Font loading can shift both anchors without resizing the portrait itself.
-    document.fonts.ready.then(schedule)
+    document.fonts.ready.then(invalidate)
     schedule()
     return () => {
       disposed = true
       cancelAnimationFrame(frame)
       observer.disconnect()
       window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
+      window.removeEventListener('resize', invalidate)
       source.style.visibility = ''
       resting.style.visibility = ''
       delete section.dataset.portraitLanded

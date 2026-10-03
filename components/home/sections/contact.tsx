@@ -4,7 +4,7 @@ import { TextReveal } from '@/components/ui/text-reveal'
 
 import { useTranslations } from 'next-intl'
 import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
-import ContactForm from '@/components/home/contact-form'
+import DeferredContactForm from '@/components/home/deferred-contact-form'
 import { PaperPlane } from '@/components/icons/paper-plane'
 
 export default function Contact() {
@@ -35,7 +35,7 @@ export default function Contact() {
           </div>
         </div>
         <div className='grid gap-4 sm:gap-5 md:grid-cols-2'>
-          <ContactForm />
+          <DeferredContactForm />
           <div className='contact-panel group/plane flex flex-col items-center justify-center gap-8 rounded-[2.5rem] p-6 py-12 text-center sm:p-10'>
             <div
               aria-hidden='true'

@@ -27,6 +27,13 @@
   }
 }
 
+.reveal[data-revealed='true'] .word[data-text-settled='true'] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .word {
     opacity: 1;

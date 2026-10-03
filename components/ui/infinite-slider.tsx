@@ -1,11 +1,12 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { useMotionValue, animate, m } from 'motion/react'
-import { useState, useEffect } from 'react'
+import { useMotionValue, animate, m, useInView, type AnimationPlaybackControls } from 'motion/react'
+import { useState, useEffect, useRef } from 'react'
 import useMeasure from 'react-use-measure'
 import { useLocale } from 'next-intl'
 import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
+import { usePageVisible } from '@/hooks/use-page-visible'
 
 type InfiniteSliderProps = {
   children: React.ReactNode
@@ -27,6 +28,10 @@ export function InfiniteSlider({
   className,
 }: InfiniteSliderProps) {
   const shouldReduceMotion = useHydratedReducedMotion()
+  const container = useRef<HTMLDivElement>(null)
+  const inView = useInView(container)
+  const pageVisible = usePageVisible()
+  const controlsRef = useRef<AnimationPlaybackControls | null>(null)
   const [isHovering, setIsHovering] = useState(false)
   const currentSpeed = isHovering && speedOnHover ? speedOnHover : speed
   const [ref, { width, height }] = useMeasure()
@@ -86,7 +91,11 @@ export function InfiniteSlider({
       })
     }
 
-    return controls?.stop
+    controlsRef.current = controls
+    return () => {
+      controls.stop()
+      controlsRef.current = null
+    }
   }, [
     key,
     translation,
@@ -100,6 +109,12 @@ export function InfiniteSlider({
     reverse,
     isRTL,
   ])
+
+  // Pause the same playback instance so returning to the hero doesn't reset its position.
+  useEffect(() => {
+    if (inView && pageVisible) controlsRef.current?.play()
+    else controlsRef.current?.pause()
+  })
 
   const hoverProps = speedOnHover
     ? {
@@ -115,7 +130,7 @@ export function InfiniteSlider({
     : {}
 
   return (
-    <div className={cn('overflow-hidden', className)}>
+    <div ref={container} className={cn('overflow-hidden', className)}>
       <m.div
         className='flex w-max'
         style={{

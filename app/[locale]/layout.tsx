@@ -21,6 +21,7 @@ import { signatureWelcomeScript } from '@/lib/signature-welcome'
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
+  preload: false,
 })
 
 const thmanyahSans = localFont({
@@ -53,6 +54,8 @@ const thmanyahSans = localFont({
   ],
   variable: '--font-thmanyah-sans',
   display: 'swap',
+  // Let font usage select the language and weights instead of preloading both families.
+  preload: false,
 })
 
 export function generateStaticParams() {

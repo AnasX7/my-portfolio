@@ -179,8 +179,10 @@ body {
 }
 
 .viewport-bottom-blur > span:last-child {
+  /* This stronger layer is visible only in the bottom quarter of the fade. */
+  inset-block-start: 75%;
   backdrop-filter: blur(6px);
-  mask-image: linear-gradient(transparent 75%, black);
+  mask-image: linear-gradient(transparent, black);
 }
 
 /* Theme-aware grid background */

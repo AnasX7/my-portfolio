@@ -148,7 +148,7 @@ export default function ContactForm() {
   }
 
   return (
-    <div id='contact-form' className='contact-panel scroll-mt-24 rounded-[2.5rem] p-6 sm:p-10'>
+    <div className='contact-panel rounded-[2.5rem] p-6 sm:p-10'>
       <TextReveal as='h3' className='mb-8 text-3xl leading-tight font-semibold sm:text-4xl'>
         {t('contact.title')}
       </TextReveal>

@@ -1,14 +1,12 @@
-import dynamic from 'next/dynamic'
 import { getLocale, getTranslations } from 'next-intl/server'
 import HeroSection from '@/components/home/sections/hero'
 import Introduction from '@/components/home/sections/introduction'
+import AboutSection from '@/components/home/sections/about'
+import ProjectSection from '@/components/home/sections/projects'
+import ContactSection from '@/components/home/sections/contact'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
-
-const AboutSection = dynamic(() => import('@/components/home/sections/about'))
-const ProjectSection = dynamic(() => import('@/components/home/sections/projects'))
-const ContactSection = dynamic(() => import('@/components/home/sections/contact'))
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('seo')

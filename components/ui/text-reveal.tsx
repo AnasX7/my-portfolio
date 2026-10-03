@@ -112,6 +112,12 @@ export function TextReveal({ children, as = 'h2', className, id, delay = 0 }: Te
     }
   }
 
+  function onAnimationEnd(event: AnimationEvent<HTMLElement>) {
+    if (event.target instanceof HTMLElement && event.target.hasAttribute('data-text-word')) {
+      event.target.setAttribute('data-text-settled', 'true')
+    }
+  }
+
   return createElement(
     as,
     {
@@ -121,6 +127,7 @@ export function TextReveal({ children, as = 'h2', className, id, delay = 0 }: Te
       'data-text-reveal': '',
       'data-revealed': revealed,
       onAnimationStart,
+      onAnimationEnd,
       style: {
         '--text-reveal-delay': `${delay}s`,
         ...(bodyText && {

@@ -63,6 +63,8 @@ const InstitutionLogo = ({
         <DefaultCompanyLogo />
       ) : (
         <img
+          loading='lazy'
+          decoding='async'
           src={url}
           alt={name}
           onError={() => setError(true)}
@@ -91,11 +93,7 @@ export default function Education() {
         // 1. Grouped certifications layout (e.g. Meta Certifications)
         if (item.certifications) {
           return (
-            <m.div
-              key={item.id}
-              variants={motion.item}
-              className='flex flex-col pb-6 last:pb-0'
-            >
+            <m.div key={item.id} variants={motion.item} className='flex flex-col pb-6 last:pb-0'>
               {/* Institution Header Row (Static) */}
               <div className='flex items-center gap-4'>
                 <InstitutionLogo
@@ -122,7 +120,7 @@ export default function Education() {
                 {/* Vertical Connector Line */}
                 <m.div
                   variants={motion.timeline}
-                  className='absolute top-0 bottom-4 start-[23px] w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
+                  className='absolute start-[23px] top-0 bottom-4 w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
                 />
 
                 {item.certifications.map((cert) => {
@@ -156,7 +154,7 @@ export default function Education() {
                   return (
                     <m.div key={cert.id} variants={motion.item} className='relative flex flex-col'>
                       {/* Timeline Dot */}
-                      <div className='absolute top-1.5 start-[-37px] flex w-2.5 justify-center'>
+                      <div className='absolute start-[-37px] top-1.5 flex w-2.5 justify-center'>
                         <div className='border-background size-2.5 rounded-full border-2 bg-neutral-300 dark:bg-neutral-700' />
                       </div>
 

@@ -20,7 +20,25 @@ class WordElement {
   getAttribute(name) {
     return name === 'data-text-word' ? String(this.index) : null
   }
+  hasAttribute(name) {
+    return name === 'data-text-word'
+  }
+  setAttribute(name, value) {
+    this[name] = value
+  }
 }
+
+test('finished words release their blur and transform without advancing the paragraph sequence', () => {
+  let completions = 0
+  const { element } = render(
+    { as: 'p', children: 'First second' },
+    { inView: true, sequence: { ready: true, complete: () => completions++ } },
+  )
+  const word = new WordElement(0)
+  element.props.onAnimationEnd({ target: word })
+  assert.equal(word['data-text-settled'], 'true')
+  assert.equal(completions, 0)
+})
 
 function render(
   props,

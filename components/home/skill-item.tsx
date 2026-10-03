@@ -80,6 +80,8 @@ export const SkillLogo = ({ name, url, fallbackChar }: SkillLogoProps) => {
         </span>
       ) : (
         <img
+          loading='lazy'
+          decoding='async'
           src={url}
           alt=''
           aria-hidden='true'
