@@ -962,24 +962,19 @@ html[lang='ar'] :is(.page-title, .section-title) {
   transition: none;
 }
 
-/* Keep the portrait on the right in both languages, as in the reference. */
+/* Follow the page direction: portrait left in English, right in Arabic. */
 @media (min-width: 1024px) {
   .about-intro-grid {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    direction: ltr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   }
 
   .about-intro-copy {
-    grid-column: 1;
+    grid-column: 2;
     grid-row: 1;
   }
 
   .about-intro-photo {
-    grid-column: 2;
-  }
-
-  html[dir='rtl'] :is(.about-intro-copy, .about-intro-photo) {
-    direction: rtl;
+    grid-column: 1;
   }
 }
 
