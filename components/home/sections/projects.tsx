@@ -136,7 +136,7 @@ export default function Projects({
                         aria-label={`${action}: ${t(project.titleKey)}`}
                         className='project-tile-link absolute inset-0 z-20 flex items-start justify-end rounded-[inherit] p-4 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white sm:p-6'
                       >
-                        <span className='project-tile-action hidden min-h-11 items-center gap-3 rounded-full border border-white/20 bg-black/60 py-1.5 ps-1.5 pe-4 text-sm font-medium text-white backdrop-blur-md md:inline-flex'>
+                        <span className='project-tile-action hidden min-h-11 items-center gap-3 rounded-full border border-white/20 bg-black/60 py-1.5 ps-1.5 pe-4 text-sm font-medium text-white backdrop-blur-md xl:inline-flex'>
                           <span className='flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-black'>
                             <HugeiconsIcon icon={Add01Icon} aria-hidden='true' className='size-5' />
                           </span>

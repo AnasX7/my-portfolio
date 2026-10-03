@@ -76,7 +76,7 @@ export default function SignatureJourney({ target }: { target: RefObject<HTMLEle
 
   useEffect(() => {
     const media = window.matchMedia(
-      '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
+      '(min-width: 1280px) and (prefers-reduced-motion: no-preference)',
     )
     const update = () => setEnabled(media.matches)
     update()

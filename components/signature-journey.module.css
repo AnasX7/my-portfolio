@@ -43,13 +43,7 @@
   background-image: var(--letter-dark);
 }
 
-@media (max-width: 1199px) {
-  .lane {
-    opacity: 0.55;
-  }
-}
-
-@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+@media (width < 1280px), (prefers-reduced-motion: reduce) {
   .journey {
     display: none;
   }

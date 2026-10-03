@@ -12,8 +12,12 @@ const { outputText } = ts.transpileModule(
 test('journey mounts only on desktop with motion allowed and cleans up media changes', () => {
   for (const [width, reduced] of [
     [767, false],
-    [1200, true],
-    [1200, false],
+    [768, false],
+    [1024, false],
+    [1180, false],
+    [1279, false],
+    [1280, true],
+    [1280, false],
   ]) {
     let enabled = false,
       effect,
@@ -23,7 +27,7 @@ test('journey mounts only on desktop with motion allowed and cleans up media cha
       exports = {},
       target = { current: {} }
     const media = {
-      matches: width >= 768 && !reduced,
+      matches: width >= 1280 && !reduced,
       addEventListener: (event, callback) => {
         assert.equal(event, 'change')
         listeners.add(callback)
@@ -65,7 +69,7 @@ test('journey mounts only on desktop with motion allowed and cleans up media cha
       {
         matchMedia: (query) => {
           queries++
-          assert.equal(query, '(min-width: 768px) and (prefers-reduced-motion: no-preference)')
+          assert.equal(query, '(min-width: 1280px) and (prefers-reduced-motion: no-preference)')
           return media
         },
       },
