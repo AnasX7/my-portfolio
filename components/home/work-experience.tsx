@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { m, AnimatePresence } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
+import { SkillItem } from '@/components/home/skill-item'
 import { cn } from '@/lib/utils'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { ChevronRightIcon } from '@hugeicons/core-free-icons'
@@ -169,7 +170,7 @@ export default function WorkExperience() {
                 {/* Vertical Connector Line */}
                 <m.div
                   variants={motion.timeline}
-                  className='absolute top-0 bottom-4 start-[23px] w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
+                  className='absolute start-[23px] top-0 bottom-4 w-0.5 origin-top bg-neutral-200 dark:bg-neutral-800'
                 />
 
                 {item.roles.map((role) => {
@@ -177,7 +178,7 @@ export default function WorkExperience() {
                   return (
                     <m.div key={role.id} variants={motion.item} className='relative flex flex-col'>
                       {/* Timeline Dot */}
-                      <div className='absolute top-1.5 start-[-37px] flex w-2.5 justify-center'>
+                      <div className='absolute start-[-37px] top-1.5 flex w-2.5 justify-center'>
                         <div className='border-background size-2.5 rounded-full border-2 bg-neutral-300 dark:bg-neutral-700' />
                       </div>
 
@@ -245,16 +246,11 @@ export default function WorkExperience() {
                               {t(role.descriptionKey)}
                             </p>
 
-                            {/* Skills Pills */}
+                            {/* Tools and skills */}
                             {role.skills && (
-                              <div className='mt-3 flex flex-wrap gap-1.5'>
+                              <div className='mt-3 flex flex-wrap items-center gap-x-4 gap-y-3'>
                                 {role.skills.map((skill) => (
-                                  <span
-                                    key={skill}
-                                    className='text-muted-foreground rounded-full border border-black/10 bg-black/[0.01] px-2.5 py-0.5 text-xs font-normal select-none dark:border-white/10 dark:bg-white/[0.03]'
-                                  >
-                                    {skill}
-                                  </span>
+                                  <SkillItem key={skill} name={skill} />
                                 ))}
                               </div>
                             )}
@@ -358,16 +354,11 @@ export default function WorkExperience() {
                     {t(item.descriptionKey!)}
                   </p>
 
-                  {/* Skills Pills */}
+                  {/* Tools and skills */}
                   {item.skills && (
-                    <div className='mt-3 flex flex-wrap gap-1.5'>
+                    <div className='mt-3 flex flex-wrap items-center gap-x-4 gap-y-3'>
                       {item.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className='text-muted-foreground rounded-full border border-black/10 bg-black/[0.01] px-2.5 py-0.5 text-xs font-normal select-none dark:border-white/10 dark:bg-white/[0.03]'
-                        >
-                          {skill}
-                        </span>
+                        <SkillItem key={skill} name={skill} />
                       ))}
                     </div>
                   )}
