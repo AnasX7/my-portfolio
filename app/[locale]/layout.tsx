@@ -100,7 +100,6 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       images: [`${SITE_URL}/avatar-light.jpg`],
-      creator: '@An_xr7',
     },
     robots: {
       index: true,

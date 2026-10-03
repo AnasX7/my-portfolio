@@ -1,4 +1,10 @@
+import { HugeiconsIcon } from '@hugeicons/react'
+import { WhatsappIcon } from '@hugeicons/core-free-icons'
+
 export const Icons = {
+  WhatsApp: (props: Omit<React.ComponentProps<typeof HugeiconsIcon>, 'icon'>) => (
+    <HugeiconsIcon icon={WhatsappIcon} {...props} />
+  ),
   GitHub: (props: React.SVGProps<SVGSVGElement>) => (
     <svg
       xmlns='http://www.w3.org/2000/svg'

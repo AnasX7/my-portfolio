@@ -538,11 +538,6 @@ export const DATA = {
       icon: Icons.LinkedIn,
     },
     {
-      name: 'X',
-      url: 'https://x.com/An_xr7',
-      icon: Icons.X,
-    },
-    {
       name: 'Instagram',
       url: 'https://instagram.com/an_xr7',
       icon: Icons.Instagram,
@@ -551,6 +546,11 @@ export const DATA = {
       name: 'Email',
       url: 'mailto:anassalem.aa@gmail.com',
       icon: Icons.Mail,
+    },
+    {
+      name: 'WhatsApp',
+      url: 'https://wa.me/971564949464',
+      icon: Icons.WhatsApp,
     },
   ],
 
