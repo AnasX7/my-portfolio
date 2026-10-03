@@ -71,7 +71,7 @@
 :root {
   --radius: 0.625rem;
   /* Warm beige/cream color scheme */
-  --background: #f8f5ee;
+  --background: #faf9f6;
   --foreground: oklch(0.22 0.01 60);
   --card: oklch(0.96 0.01 85);
   --card-foreground: oklch(0.22 0.01 60);
