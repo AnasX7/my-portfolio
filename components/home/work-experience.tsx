@@ -139,7 +139,7 @@ export default function WorkExperience() {
             <m.div
               key={item.id}
               variants={motion.item}
-              className='border-border/20 flex flex-col border-b pb-6 last:border-0 last:pb-0'
+              className='flex flex-col pb-6 last:pb-0'
             >
               {/* Company Header Row (Static) */}
               <div className='flex items-center gap-4'>
@@ -276,7 +276,7 @@ export default function WorkExperience() {
             layout='position'
             variants={motion.item}
             transition={{ layout: { duration: 0.2 } }}
-            className='border-border/20 flex flex-col border-b pb-6 last:border-0 last:pb-0'
+            className='flex flex-col pb-6 last:pb-0'
           >
             {/* Header Row */}
             <button
