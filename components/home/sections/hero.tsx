@@ -1,5 +1,6 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
 import { useTranslations } from 'next-intl'
 import { m } from 'motion/react'
 import { Portrait } from '@/components/home/portrait'
@@ -10,13 +11,14 @@ import ShinyText from '@/components/ui/shiny-text'
 import Logos from '@/components/home/sections/logos'
 import { Link } from '@/i18n/navigation'
 import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
+import { useSignatureWelcome } from '@/components/signature-entrance'
 
 export default function HeroV2() {
   const t = useTranslations()
+  const welcoming = useSignatureWelcome()
   const staggerContainer = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: 0.15,
         delayChildren: 0.3,
@@ -65,11 +67,8 @@ export default function HeroV2() {
       />
 
       {/* Responsive glow, clipped to the hero frame */}
-      <m.div
-        whileInView={{ opacity: [0.4, 0.8, 0.4] }}
-        viewport={{ amount: 0.1 }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className='pointer-events-none absolute inset-0 -z-10 lg:translate-x-1/4 lg:rtl:-translate-x-1/4'
+      <div
+        className='pointer-events-none absolute inset-0 -z-10 opacity-60 lg:translate-x-1/4 lg:rtl:-translate-x-1/4'
         style={{
           backgroundImage:
             'radial-gradient(circle 24rem at center, color-mix(in srgb, var(--primary) 16%, transparent), transparent)',
@@ -79,26 +78,30 @@ export default function HeroV2() {
       <m.div
         variants={staggerContainer}
         initial='hidden'
-        animate='visible'
+        animate={welcoming ? 'hidden' : 'visible'}
         className='relative z-10 mx-auto grid w-full items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-12'
       >
         <div className='min-w-0 space-y-6 text-center lg:text-start'>
           {/* Main Title */}
-          <m.div variants={staggerItem} className='mx-auto max-w-3xl lg:mx-0'>
-            <h1 className='page-title'>
+          <div className='mx-auto max-w-3xl lg:mx-0'>
+            <TextReveal as='h1' className='page-title'>
               <span className='text-foreground'>{t(DATA.hero.titleKey)}</span>{' '}
               <span className='from-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent dark:from-white dark:to-white/65'>
                 {t(DATA.hero.highlightKey)}
               </span>
-            </h1>
-          </m.div>
+            </TextReveal>
+          </div>
 
           {/* Subtitle */}
-          <m.div variants={staggerItem} className='mx-auto max-w-xl lg:mx-0'>
-            <p className='text-muted-foreground/80 max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'>
+          <div className='mx-auto max-w-xl lg:mx-0'>
+            <TextReveal
+              as='p'
+              delay={0.08}
+              className='text-muted-foreground/80 max-w-xl text-base leading-relaxed font-normal text-pretty sm:text-lg md:text-xl'
+            >
               {t(DATA.hero.subtitle)}
-            </p>
-          </m.div>
+            </TextReveal>
+          </div>
 
           {/* Primary actions */}
           <m.div

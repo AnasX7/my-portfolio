@@ -1,16 +1,13 @@
 'use client'
 
-import { m } from 'motion/react'
+import { TextReveal, TextRevealGroup } from '@/components/ui/text-reveal'
 import { useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 import { Portrait } from '@/components/home/portrait'
 import { PortraitJourney } from '@/components/home/portrait-journey'
-import { aboutViewport, getAboutMotion } from '@/components/home/about-motion'
-import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 
 export default function Introduction() {
   const t = useTranslations()
-  const motion = getAboutMotion(useHydratedReducedMotion())
 
   return (
     <section
@@ -19,30 +16,21 @@ export default function Introduction() {
       className='content-section about-introduction scroll-mt-24'
     >
       <div className='section-inner'>
-        <m.div
-          initial='hidden'
-          whileInView='show'
-          viewport={aboutViewport}
-          variants={motion.section}
-        >
-          <m.h2 id='about-heading' variants={motion.heading} className='section-title mb-6'>
+        <div>
+          <TextReveal as='h2' id='about-heading' className='section-title mb-6'>
             {t('header.about')}
-          </m.h2>
+          </TextReveal>
           <div className='about-intro-grid grid items-start gap-10 lg:gap-14'>
-            <div className='about-intro-copy space-y-7 text-base leading-loose sm:text-lg'>
+            <TextRevealGroup className='about-intro-copy space-y-7 text-base leading-loose sm:text-lg'>
               {(['first', 'second', 'third'] as const).map((key) => (
-                <m.p
-                  key={key}
-                  variants={motion.heading}
-                  className='text-muted-foreground text-pretty'
-                >
+                <TextReveal as='p' key={key} className='text-muted-foreground text-pretty'>
                   <strong className='text-foreground font-semibold'>
                     {t(`about.intro.${key}Lead`)}
                   </strong>{' '}
                   {t(`about.intro.${key}`)}
-                </m.p>
+                </TextReveal>
               ))}
-            </div>
+            </TextRevealGroup>
             <div className='about-intro-photo mx-auto w-full max-w-[420px]'>
               <div data-portrait-destination className='relative aspect-square w-full'>
                 <div data-portrait-resting className='absolute inset-0'>
@@ -69,7 +57,7 @@ export default function Introduction() {
               </div>
             </div>
           </div>
-        </m.div>
+        </div>
       </div>
       <PortraitJourney />
     </section>

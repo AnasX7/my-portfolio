@@ -15,6 +15,8 @@ import { PageTransition } from '@/components/ui/page-transition'
 import { MotionProvider } from '@/components/motion-provider'
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider'
 import { FloatingSocials } from '@/components/floating-socials'
+import SignatureEntrance from '@/components/signature-entrance'
+import { signatureWelcomeScript } from '@/lib/signature-welcome'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -122,6 +124,7 @@ export default async function RootLayout({
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
         <meta name='apple-mobile-web-app-title' content='Anas' />
+        <script dangerouslySetInnerHTML={{ __html: signatureWelcomeScript }} />
       </head>
       <body
         className={`${inter.variable} ${thmanyahSans.variable} ${
@@ -137,13 +140,15 @@ export default async function RootLayout({
                 enableSystem
                 disableTransitionOnChange
               >
-                <Header />
-                <div className='z-0 flex flex-col'>
-                  <PageTransition>{children}</PageTransition>
-                  <Toaster />
-                </div>
-                <Footer />
-                <FloatingSocials />
+                <SignatureEntrance>
+                  <Header />
+                  <div className='z-0 flex flex-col'>
+                    <PageTransition>{children}</PageTransition>
+                    <Toaster />
+                  </div>
+                  <Footer />
+                  <FloatingSocials />
+                </SignatureEntrance>
               </ThemeProvider>
             </MotionProvider>
           </NextIntlClientProvider>

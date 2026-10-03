@@ -1,5 +1,7 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import {
   useEffect,
   useRef,
@@ -147,9 +149,9 @@ export default function ContactForm() {
 
   return (
     <div id='contact-form' className='contact-panel scroll-mt-24 rounded-[2.5rem] p-6 sm:p-10'>
-      <h3 className='mb-8 text-3xl leading-tight font-semibold sm:text-4xl'>
+      <TextReveal as='h3' className='mb-8 text-3xl leading-tight font-semibold sm:text-4xl'>
         {t('contact.title')}
-      </h3>
+      </TextReveal>
       <Form {...form}>
         <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
           <div className='space-y-2'>

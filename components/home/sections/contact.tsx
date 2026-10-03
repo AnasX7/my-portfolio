@@ -1,5 +1,7 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import { useTranslations } from 'next-intl'
 import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
 import ContactForm from '@/components/home/contact-form'
@@ -12,9 +14,9 @@ export default function Contact() {
     <section id='contact' className='content-section scroll-mt-20'>
       <div className='section-inner space-y-4 sm:space-y-5'>
         <div className='contact-panel flex flex-col gap-8 rounded-[2.5rem] p-6 sm:p-10 lg:flex-row lg:items-center lg:justify-between'>
-          <h2 className='section-title max-w-lg whitespace-pre-line text-white!'>
+          <TextReveal as='h2' className='section-title max-w-lg whitespace-pre-line text-white!'>
             {t('contact.headline')}
-          </h2>
+          </TextReveal>
           <div className='flex flex-wrap gap-3'>
             <a href='#contact-form' className={buttonVariants({ variant: 'primary', size: 'lg' })}>
               <AnimatedButtonContent>{t('contact.startProject')}</AnimatedButtonContent>
@@ -43,9 +45,12 @@ export default function Contact() {
                 <PaperPlane className='rtl:-rotate-90' />
               </div>
             </div>
-            <p className='max-w-sm text-base leading-relaxed text-white/65 sm:text-lg'>
+            <TextReveal
+              as='p'
+              className='max-w-sm text-base leading-relaxed text-white/65 sm:text-lg'
+            >
               {t('contact.Illustration.subtitle')}
-            </p>
+            </TextReveal>
           </div>
         </div>
       </div>

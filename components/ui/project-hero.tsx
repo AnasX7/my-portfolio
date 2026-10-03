@@ -1,5 +1,6 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
 import { useState } from 'react'
 import Image from 'next/image'
 import { m } from 'motion/react'
@@ -114,14 +115,9 @@ export default function ProjectHero({
         </m.div>
 
         <div className='max-w-4xl'>
-          <m.h1
+          <TextReveal
+            as='h1'
             id='project-title'
-            {...reveal}
-            transition={{
-              delay: shouldReduceMotion ? 0 : 0.08,
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
-            }}
             className={`max-w-4xl font-semibold text-balance ${
               isRtl
                 ? 'text-5xl leading-[1.08] tracking-[-0.035em] sm:text-6xl lg:text-7xl'
@@ -129,19 +125,14 @@ export default function ProjectHero({
             }`}
           >
             {title}
-          </m.h1>
+          </TextReveal>
 
-          <m.p
-            {...reveal}
-            transition={{
-              delay: shouldReduceMotion ? 0 : 0.16,
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          <TextReveal
+            as='p'
             className='mt-6 max-w-2xl text-base leading-7 text-pretty text-white/78 sm:text-lg sm:leading-8'
           >
             {description}
-          </m.p>
+          </TextReveal>
 
           <m.div
             {...reveal}
@@ -186,9 +177,12 @@ export default function ProjectHero({
             className='mt-10 grid gap-7 border-t border-white/25 pt-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end'
           >
             <div>
-              <h2 className='text-xs font-semibold tracking-[0.2em] text-white/60 uppercase'>
+              <TextReveal
+                as='h2'
+                className='text-xs font-semibold tracking-[0.2em] text-white/60 uppercase'
+              >
                 {labels.technologies}
-              </h2>
+              </TextReveal>
               <ul className='mt-4 flex flex-wrap gap-x-5 gap-y-3'>
                 {project.stack.map((item) => (
                   <li

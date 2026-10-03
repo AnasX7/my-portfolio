@@ -1,5 +1,7 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import { ProjectImageTransition } from '@/components/ui/page-transition'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -25,7 +27,6 @@ export default function Projects({
   showMoreLink?: boolean
 }) {
   const t = useTranslations()
-  const Heading = headingLevel === 1 ? 'h1' : 'h2'
   const CardHeading = titleKey ? 'h3' : 'h2'
 
   return (
@@ -40,9 +41,12 @@ export default function Projects({
             }
           >
             {titleKey && (
-              <Heading className={headingLevel === 1 ? 'page-title' : 'section-title'}>
+              <TextReveal
+                as={headingLevel === 1 ? 'h1' : 'h2'}
+                className={headingLevel === 1 ? 'page-title' : 'section-title'}
+              >
                 {t(titleKey)}
-              </Heading>
+              </TextReveal>
             )}
             {headerAction}
           </div>
@@ -77,12 +81,19 @@ export default function Projects({
                     className='pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent'
                   />
                   <div className='project-tile-caption pointer-events-none absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8'>
-                    <CardHeading className='text-2xl leading-tight font-semibold tracking-tight sm:text-3xl'>
+                    <TextReveal
+                      as={CardHeading}
+                      className='text-2xl leading-tight font-semibold tracking-tight sm:text-3xl'
+                    >
                       {t(`projects.slugs.${project.id}`)}
-                    </CardHeading>
-                    <p className='mt-2 text-sm leading-relaxed text-white/80 sm:text-base'>
+                    </TextReveal>
+                    <TextReveal
+                      as='p'
+                      delay={0.08}
+                      className='mt-2 text-sm leading-relaxed text-white/80 sm:text-base'
+                    >
                       {t(`projects.summaries.${project.id}`)}
-                    </p>
+                    </TextReveal>
                   </div>
                   {href && (
                     <Link

@@ -1,4 +1,5 @@
-import { ProjectImageTransition, ScrollReveal } from '@/components/ui/page-transition'
+import { TextReveal } from '@/components/ui/text-reveal'
+import { ProjectImageTransition } from '@/components/ui/page-transition'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
@@ -145,10 +146,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   return (
     <main className='main-frame pt-20'>
       <section className='px-4 py-12 text-center sm:px-6 sm:py-16'>
-        <h1 className='page-title mx-auto max-w-4xl'>{t(project.titleKey)}</h1>
-        <p className='text-muted-foreground mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl'>
+        <TextReveal as='h1' className='page-title mx-auto max-w-4xl'>
+          {t(project.titleKey)}
+        </TextReveal>
+        <TextReveal
+          as='p'
+          className='text-muted-foreground mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl'
+        >
           {t(`projects.caseStudies.${slug}.subtitle`)}
-        </p>
+        </TextReveal>
         {href && (
           <div className='mt-8 flex justify-center'>
             <MagneticLinkPreview url={href} previewImage={project.images[0]} size='lg'>
@@ -159,40 +165,57 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {image(0, true)}
       </section>
       <section className='px-4 py-12 sm:px-6 sm:py-16'>
-        <ScrollReveal className='mx-auto grid max-w-4xl gap-10'>
+        <div className='mx-auto grid max-w-4xl gap-10'>
           <div>
-            <h2 className='section-title'>{t('projects.detail.duration')}</h2>
-            <p className='text-muted-foreground mt-4'>
+            <TextReveal as='h2' className='section-title'>
+              {t('projects.detail.duration')}
+            </TextReveal>
+            <TextReveal as='p' className='text-muted-foreground mt-4'>
               {t(`projects.caseStudies.${slug}.duration`)}
-            </p>
+            </TextReveal>
           </div>
           <div>
-            <h2 className='section-title'>{t('projects.detail.problem')}</h2>
-            <p className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'>
+            <TextReveal as='h2' className='section-title'>
+              {t('projects.detail.problem')}
+            </TextReveal>
+            <TextReveal
+              as='p'
+              className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'
+            >
               {t(`projects.caseStudies.${slug}.problem`)}
-            </p>
+            </TextReveal>
           </div>
-        </ScrollReveal>
+        </div>
         {image(imageIndex)}
-        <ScrollReveal className='mx-auto mt-12 max-w-4xl'>
-          <h2 className='section-title'>{t('projects.detail.solution')}</h2>
-          <p className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'>
+        <div className='mx-auto mt-12 max-w-4xl'>
+          <TextReveal as='h2' className='section-title'>
+            {t('projects.detail.solution')}
+          </TextReveal>
+          <TextReveal
+            as='p'
+            className='text-muted-foreground mt-4 text-base leading-8 whitespace-pre-line'
+          >
             {t(`projects.caseStudies.${slug}.solution`)}
-          </p>
-        </ScrollReveal>
+          </TextReveal>
+        </div>
       </section>
       <section className='px-4 py-12 sm:px-6 sm:py-16'>
-        <ScrollReveal className='mx-auto max-w-4xl'>
-          <h2 className='section-title mb-6'>{t('projects.detail.tools')}</h2>
+        <div className='mx-auto max-w-4xl'>
+          <TextReveal as='h2' className='section-title mb-6'>
+            {t('projects.detail.tools')}
+          </TextReveal>
           <div className='grid gap-y-6 sm:gap-y-8'>
             {toolGroups.map((group) => (
               <div
                 key={group.id}
                 className='grid grid-cols-1 gap-y-3 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-x-8 sm:gap-y-0 lg:grid-cols-[13rem_minmax(0,1fr)]'
               >
-                <h3 className='text-muted-foreground text-base font-normal sm:text-lg'>
+                <TextReveal
+                  as='h3'
+                  className='text-muted-foreground text-base font-normal sm:text-lg'
+                >
                   {t(group.titleKey)}
-                </h3>
+                </TextReveal>
                 <ul className='flex min-w-0 flex-wrap items-center gap-x-4 gap-y-3'>
                   {group.skills.map((skill) => (
                     <li
@@ -211,7 +234,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
       </section>
       <Projects
         excludeId={slug}

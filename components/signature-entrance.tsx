@@ -1,60 +1,60 @@
 'use client'
 
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { useLayoutEffect, useSyncExternalStore, type CSSProperties, type ReactNode } from 'react'
+import { SIGNATURE_WELCOME_EVENT } from '@/lib/signature-welcome'
 import styles from './signature-entrance.module.css'
 
-export default function SignatureEntrance() {
-  const [entrance, setEntrance] = useState<{ theme: string; startedAt: number } | null>(null)
-  const layerRef = useRef<HTMLDivElement>(null)
+function subscribe(onChange: () => void) {
+  window.addEventListener(SIGNATURE_WELCOME_EVENT, onChange)
+  return () => window.removeEventListener(SIGNATURE_WELCOME_EVENT, onChange)
+}
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+export function useSignatureWelcome() {
+  return useSyncExternalStore(
+    subscribe,
+    () => window.__signatureWelcome === 'preparing' || window.__signatureWelcome === 'assembling',
+    () => true,
+  )
+}
 
-    try {
-      if (sessionStorage.getItem('signature-seen')) return
-      sessionStorage.setItem('signature-seen', '1')
-    } catch {
-      return
+export default function SignatureEntrance({ children }: { children: ReactNode }) {
+  useLayoutEffect(() => {
+    // React's development remount can clear the pre-paint attribute.
+    if (window.__signatureWelcome) {
+      document.documentElement.setAttribute('data-signature-welcome', window.__signatureWelcome)
     }
-
-    setEntrance({
-      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
-      startedAt: performance.now(),
-    })
   }, [])
 
-  if (!entrance) return null
-
-  return createPortal(
-    <div
-      ref={layerRef}
-      className={styles.entrance}
-      aria-hidden='true'
-      onAnimationEnd={(event) => {
-        if (event.target === event.currentTarget) setEntrance(null)
-      }}
-    >
-      <Image
-        src={`/brand/wordmark-${entrance.theme}.webp`}
-        alt=''
-        width={1800}
-        height={480}
-        unoptimized
-        loading='eager'
-        className={styles.mark}
-        onLoad={() => {
-          // Skip a slow asset; loading never restarts the entrance timeline.
-          if (performance.now() - entrance.startedAt > 250) {
-            setEntrance(null)
-          } else {
-            layerRef.current?.setAttribute('data-ready', 'true')
-          }
-        }}
-        onError={() => setEntrance(null)}
-      />
-    </div>,
-    document.body,
+  return (
+    <>
+      <div
+        className={styles.entrance}
+        data-signature-welcome=''
+        data-lenis-prevent=''
+        aria-hidden='true'
+      >
+        <div className={styles.mark}>
+          {['a1', 'n', 'a2', 's'].map((letter, index) => (
+            <div
+              key={letter}
+              className={styles.letter}
+              data-signature-letter={letter}
+              style={
+                {
+                  '--letter-light': `url('/brand/letter-${letter}-front-light.webp')`,
+                  '--letter-dark': `url('/brand/letter-${letter}-front-dark.webp')`,
+                  '--letter-x': ['-8%', '-2%', '2%', '8%'][index],
+                  '--letter-y': ['18%', '-24%', '22%', '-18%'][index],
+                  '--letter-turn': ['-9deg', '7deg', '-7deg', '9deg'][index],
+                  '--letter-delay': `${80 + index * 80}ms`,
+                  transformOrigin: `${[18, 45, 66, 86][index]}% 65%`,
+                } as CSSProperties
+              }
+            />
+          ))}
+        </div>
+      </div>
+      <div className={styles.site}>{children}</div>
+    </>
   )
 }

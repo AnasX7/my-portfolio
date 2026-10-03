@@ -1,0 +1,57 @@
+{
+  "reference": "https://rzgfolio.framer.ai/",
+  "observedOn": "2026-10-03",
+  "source": "Public Framer home module and runtime, inspected as text",
+  "activeVersion": "approved word reveal with paragraph sequencing",
+  "acceptedSnapshots": [
+    "accepted/text-reveal.tsx.snapshot",
+    "accepted/text-reveal.module.css.snapshot"
+  ],
+  "experiment": "/Users/anas/.codex/visualizations/2026/10/03/01a1026e-0036-7af1-87c9-da0b2c3606c7/text-motion-comparison/index.html",
+  "initial": {
+    "opacity": 0.001,
+    "blurPx": 5,
+    "translateYPx": 10
+  },
+  "viewport": {
+    "visibleFraction": 0.5,
+    "repeat": false,
+    "rootMargin": "0px"
+  },
+  "headings": {
+    "tokenization": "word",
+    "durationMs": 800,
+    "staggerMs": 50,
+    "ease": [
+      0.4,
+      0,
+      0.2,
+      1
+    ]
+  },
+  "referenceDescriptions": {
+    "tokenization": "element",
+    "durationMs": 600,
+    "staggerMs": 400,
+    "ease": [
+      0.4,
+      0,
+      0.2,
+      1
+    ],
+    "trigger": "paragraph group"
+  },
+  "approvedDescriptions": {
+    "tokenization": "word",
+    "durationMs": 600,
+    "staggerMs": 20,
+    "ease": [
+      0.4,
+      0,
+      0.2,
+      1
+    ],
+    "trigger": "each paragraph in view and previous paragraph last word starting",
+    "maximumStaggerWindowMs": 800
+  }
+}

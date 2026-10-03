@@ -1,9 +1,9 @@
 'use client'
 
 import { AnimateView } from 'motion/react-animate-view'
-import { m, useAnimate } from 'motion/react'
+import { m } from 'motion/react'
 import { usePathname } from 'next/navigation'
-import { useEffect, type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { useHydratedReducedMotion } from '@/hooks/use-hydrated-reduced-motion'
 import SignatureJourney from '@/components/signature-journey'
 
@@ -11,14 +11,7 @@ const transition = { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }
 
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname()
-  const reducedMotion = useHydratedReducedMotion()
-  const [scope, animate] = useAnimate()
-
-  useEffect(() => {
-    if (reducedMotion) return
-    const animation = animate(scope.current, { opacity: [0.55, 1], y: [12, 0] }, transition)
-    return () => animation.stop()
-  }, [pathname, reducedMotion, animate, scope])
+  const scope = useRef<HTMLDivElement>(null)
 
   return (
     <div ref={scope}>

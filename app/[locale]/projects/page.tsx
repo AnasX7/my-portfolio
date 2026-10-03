@@ -1,3 +1,4 @@
+import { TextReveal } from '@/components/ui/text-reveal'
 import { getTranslations } from 'next-intl/server'
 import Projects from '@/components/home/sections/projects'
 import Contact from '@/components/home/sections/contact'
@@ -22,10 +23,15 @@ export default async function ProjectsPage() {
             }}
           />
         </div>
-        <h1 className='page-title mx-auto max-w-4xl whitespace-pre-line'>{t('introTitle')}</h1>
-        <p className='text-muted-foreground mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl'>
+        <TextReveal as='h1' className='page-title mx-auto max-w-4xl whitespace-pre-line'>
+          {t('introTitle')}
+        </TextReveal>
+        <TextReveal
+          as='p'
+          className='text-muted-foreground mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl'
+        >
           {t('introSubtitle')}
-        </p>
+        </TextReveal>
       </section>
       <Projects titleKey={null} />
       <Contact />

@@ -1,0 +1,24 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(6px);
+  transition-property: opacity, transform, filter;
+  transition-duration: 600ms, 600ms, 700ms;
+  transition-timing-function: ease-out, ease-in-out, ease-in-out;
+  transition-delay: var(--text-reveal-delay, 0s);
+}
+
+.reveal[data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}

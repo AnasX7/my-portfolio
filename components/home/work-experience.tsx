@@ -1,5 +1,7 @@
 'use client'
 
+import { TextReveal } from '@/components/ui/text-reveal'
+
 import { useState } from 'react'
 import { m, AnimatePresence } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
@@ -221,14 +223,12 @@ export default function WorkExperience() {
                       <AnimatePresence initial={false}>
                         {isExpanded && (
                           <m.div
-                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                            initial={{ height: 0, marginTop: 0 }}
                             animate={{
                               height: 'auto',
-                              opacity: 1,
                               marginTop: 8,
                               transition: {
                                 height: { duration: 0.35, ease: 'easeOut' },
-                                opacity: { duration: 0.25, delay: 0.1 },
                               },
                             }}
                             exit={{
@@ -242,9 +242,12 @@ export default function WorkExperience() {
                             }}
                             className='overflow-hidden'
                           >
-                            <p className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'>
+                            <TextReveal
+                              as='p'
+                              className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'
+                            >
                               {t(role.descriptionKey)}
-                            </p>
+                            </TextReveal>
 
                             {/* Tools and skills */}
                             {role.skills && (
@@ -329,14 +332,12 @@ export default function WorkExperience() {
             <AnimatePresence initial={false}>
               {isExpanded && (
                 <m.div
-                  initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                  initial={{ height: 0, marginTop: 0 }}
                   animate={{
                     height: 'auto',
-                    opacity: 1,
                     marginTop: 12,
                     transition: {
                       height: { duration: 0.35, ease: 'easeOut' },
-                      opacity: { duration: 0.25, delay: 0.1 },
                     },
                   }}
                   exit={{
@@ -350,9 +351,12 @@ export default function WorkExperience() {
                   }}
                   className={cn('overflow-hidden', isRtl ? 'pr-16' : 'pl-16')}
                 >
-                  <p className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'>
+                  <TextReveal
+                    as='p'
+                    className='text-muted-foreground/90 text-sm leading-relaxed text-pretty whitespace-pre-line sm:text-base'
+                  >
                     {t(item.descriptionKey!)}
-                  </p>
+                  </TextReveal>
 
                   {/* Tools and skills */}
                   {item.skills && (
