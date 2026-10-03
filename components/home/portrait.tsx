@@ -2,7 +2,7 @@
 
 import { useId } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { DATA } from '@/data/resume'
 
 // Matching commands let the cut corner unfold into the about section's rounded frame.
@@ -19,6 +19,8 @@ export function Portrait({
   traveling?: boolean
 }) {
   const t = useTranslations()
+  // Set the SVG attribute directly: Safari retains it when CSS says transform: none.
+  const transform = useLocale() === 'ar' ? undefined : 'translate(1 0) scale(-1 1)'
   const id = useId().replaceAll(':', '')
   return (
     <div className='relative size-full' data-portrait-art>
@@ -54,20 +56,15 @@ export function Portrait({
       >
         <defs>
           <clipPath id={`${id}-clip`} clipPathUnits='objectBoundingBox'>
-            <path
-              data-portrait-path
-              d={portraitPath(about ? 1 : 0)}
-              transform='translate(1 0) scale(-1 1)'
-              className='rtl:transform-none'
-            />
+            <path data-portrait-path d={portraitPath(about ? 1 : 0)} transform={transform} />
           </clipPath>
         </defs>
         <path
           data-portrait-path
           d={portraitPath(about ? 1 : 0)}
-          transform='translate(1 0) scale(-1 1)'
+          transform={transform}
           fill='none'
-          className='stroke-border rtl:transform-none'
+          className='stroke-border'
           strokeWidth={about ? '1' : '8'}
           vectorEffect='non-scaling-stroke'
         />

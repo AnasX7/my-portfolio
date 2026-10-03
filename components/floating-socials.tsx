@@ -17,9 +17,21 @@ export function FloatingSocials() {
   const t = useTranslations('socialMenu')
   const direction = useLocale() === 'ar' ? 1 : -1
   const [open, setOpen] = useState(false)
+  const [liquidFallback, setLiquidFallback] = useState(true)
   const ref = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement>(null)
   const id = useId()
+
+  useEffect(() => {
+    // WebKit can omit the filtered SVG surface while still rendering the icons.
+    // Start with solid surfaces so the menu also stays visible before hydration.
+    const agent = navigator.userAgent
+    const ios =
+      /iPad|iPhone|iPod/.test(agent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    const safari = /AppleWebKit/.test(agent) && !/Chrome|Chromium|Edg|OPR|Android/.test(agent)
+    setLiquidFallback(ios || safari)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -43,14 +55,15 @@ export function FloatingSocials() {
   return (
     <div
       ref={ref}
-      className='pointer-events-none fixed start-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-60 size-14 sm:start-6'
+      data-liquid-fallback={liquidFallback}
+      className='floating-socials pointer-events-none fixed start-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-60 size-14 sm:start-6'
     >
       <Liquid
         className='size-14'
-        fill='var(--secondary)'
+        fill='#191919'
         blur={6}
         filterPadding={200}
-        shadow='inset 0 0 0 1px var(--border), 0 4px 16px rgba(0,0,0,.15)'
+        shadow='inset 0 0 0 1px #424242, 0 4px 16px rgba(0,0,0,.15)'
       >
         <Liquid.Item radius={28} className='relative z-10 size-14'>
           <button
@@ -61,7 +74,7 @@ export function FloatingSocials() {
             aria-controls={id}
             title={t('open')}
             onClick={() => setOpen(!open)}
-            className='text-foreground focus-visible:outline-ring pointer-events-auto flex size-14 items-center justify-center rounded-full outline-offset-4 [corner-shape:round] focus-visible:outline-2'
+            className='floating-social-surface focus-visible:outline-ring pointer-events-auto flex size-14 cursor-pointer items-center justify-center rounded-full text-white outline-offset-4 [corner-shape:round] focus-visible:outline-2'
           >
             <svg
               aria-hidden='true'
@@ -105,7 +118,7 @@ export function FloatingSocials() {
                   aria-label={social.name}
                   title={social.name}
                   onClick={() => setOpen(false)}
-                  className={`text-foreground hover:text-muted-foreground focus-visible:outline-ring flex size-14 items-center justify-center rounded-full outline-offset-4 transition-opacity duration-150 [corner-shape:round] focus-visible:outline-2 motion-reduce:transition-none ${open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+                  className={`floating-social-surface focus-visible:outline-ring flex size-14 cursor-pointer items-center justify-center rounded-full text-white outline-offset-4 transition-opacity duration-150 [corner-shape:round] hover:text-white/80 focus-visible:outline-2 motion-reduce:transition-none ${open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
                 >
                   <Icon aria-hidden='true' className='size-5' />
                 </a>
