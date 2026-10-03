@@ -36,6 +36,14 @@
     "line2": "Powered by modern technology."
   },
   "about": {
+    "intro": {
+      "firstLead": "I’m Anas Salem, a software engineer based in Abu Dhabi.",
+      "first": "I build web and mobile applications, bringing clear interfaces together with the systems that make them work smoothly.",
+      "secondLead": "From the first idea to launch, I care about the whole experience.",
+      "second": "I work across frontend and backend to turn a project’s needs into a connected product that’s easy to use and develop.",
+      "thirdLead": "Small details make a difference.",
+      "third": "From a subtle interaction to the code behind it, I want each decision to serve the user and leave room for the product to grow."
+    },
     "title": "About Me",
     "card3": {
       "title": "Work Experience"

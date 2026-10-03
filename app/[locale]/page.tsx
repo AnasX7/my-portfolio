@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import { getLocale, getTranslations } from 'next-intl/server'
 import HeroSection from '@/components/home/sections/hero'
 import SignatureEntrance from '@/components/signature-entrance'
+import Introduction from '@/components/home/sections/introduction'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
@@ -54,6 +55,7 @@ export default async function Home() {
       <SignatureEntrance />
       <main className='main-frame'>
         <HeroSection />
+        <Introduction />
         <AboutSection />
         <ProjectSection limit={6} showMoreLink />
         <ContactSection />

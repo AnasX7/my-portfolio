@@ -1,9 +1,8 @@
 'use client'
 
-import { useId } from 'react'
 import { useTranslations } from 'next-intl'
 import { m } from 'motion/react'
-import Image from 'next/image'
+import { Portrait } from '@/components/home/portrait'
 import { Download01Icon } from '@hugeicons/core-free-icons'
 import { MagneticLinkPreview } from '@/components/ui/magnetic-link-preview'
 import { DATA } from '@/data/resume'
@@ -14,10 +13,6 @@ import { AnimatedButtonContent, buttonVariants } from '@/components/ui/button'
 
 export default function HeroV2() {
   const t = useTranslations()
-  const portraitId = useId()
-  const portraitShape =
-    'M.06 .018H.94Q.982 .018 .982 .058V.842Q.982 .88 .946 .88H.73Q.686 .88 .66 .922L.624 .966Q.61 .982 .58 .982H.06Q.018 .982 .018 .942V.058Q.018 .018 .06 .018Z'
-
   const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
@@ -129,56 +124,8 @@ export default function HeroV2() {
           variants={staggerItem}
           className='order-first mx-auto w-full max-w-64 lg:order-last lg:max-w-sm'
         >
-          <div className='relative aspect-square w-full'>
-            <div className='absolute inset-0' style={{ clipPath: `url(#${portraitId}-clip)` }}>
-              <Image
-                alt={t(DATA.profile.nameKey)}
-                src={DATA.profile.avatarLight}
-                fill
-                sizes='(min-width: 1024px) 384px, 256px'
-                priority
-                className='object-cover dark:hidden'
-              />
-              <Image
-                alt={t(DATA.profile.nameKey)}
-                src={DATA.profile.avatarDark}
-                fill
-                sizes='(min-width: 1024px) 384px, 256px'
-                priority
-                className='hidden object-cover dark:block'
-              />
-            </div>
-            <svg
-              aria-hidden='true'
-              className='pointer-events-none absolute inset-0 size-full'
-              viewBox='0 0 1 1'
-              preserveAspectRatio='none'
-            >
-              <defs>
-                <clipPath id={`${portraitId}-clip`} clipPathUnits='objectBoundingBox'>
-                  <path
-                    d={portraitShape}
-                    transform='translate(1 0) scale(-1 1)'
-                    className='rtl:transform-none'
-                  />
-                </clipPath>
-              </defs>
-              <path
-                d={portraitShape}
-                transform='translate(1 0) scale(-1 1)'
-                fill='none'
-                className='stroke-border rtl:transform-none'
-                strokeWidth='8'
-                vectorEffect='non-scaling-stroke'
-              />
-            </svg>
-            <div className='text-muted-foreground absolute start-0 bottom-1 flex h-[10%] w-[34%] items-center justify-center gap-2 text-xs lg:text-sm rtl:flex-row-reverse'>
-              <span
-                aria-hidden='true'
-                className='size-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b98166] [corner-shape:round]'
-              />
-              <span dir='auto'>{t('hero.available')}</span>
-            </div>
+          <div data-portrait-source className='relative aspect-square w-full'>
+            <Portrait />
           </div>
         </m.div>
       </m.div>

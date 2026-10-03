@@ -933,3 +933,51 @@ html[lang='ar'] :is(.page-title, .section-title) {
     animation: none !important;
   }
 }
+
+.about-intro-photo {
+  grid-row: 1;
+}
+
+/* Reveal the links only after the traveling portrait becomes the resting image. */
+.portrait-socials {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 250ms ease-out 80ms,
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1) 80ms;
+}
+
+[data-portrait-landed='false'] .portrait-socials {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: none;
+}
+
+/* Keep the portrait on the right in both languages, as in the reference. */
+@media (min-width: 1024px) {
+  .about-intro-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    direction: ltr;
+  }
+
+  .about-intro-copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .about-intro-photo {
+    grid-column: 2;
+  }
+
+  html[dir='rtl'] :is(.about-intro-copy, .about-intro-photo) {
+    direction: rtl;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-socials {
+    transition: none;
+  }
+}
