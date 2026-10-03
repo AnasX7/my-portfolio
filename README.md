@@ -2,12 +2,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Use Node.js 22.13 or newer and pnpm 12.8.1 (pinned in `package.json`).
+Use Node.js 24.21.0 LTS (pinned in `.nvmrc`) and pnpm 12.8.1 (pinned in `package.json`).
 If pnpm is not installed, run `npx get-pnpm@latest`.
 
 Install dependencies and start the development server:
 
 ```bash
+nvm install
+nvm use
 pnpm install --frozen-lockfile
 pnpm dev
 ```
