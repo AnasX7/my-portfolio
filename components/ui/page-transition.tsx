@@ -21,10 +21,18 @@ export function PageTransition({ children }: { children: ReactNode }) {
   )
 }
 
-export function ProjectImageTransition({ name, children }: { name: string; children: ReactNode }) {
+export function ProjectImageTransition({
+  name,
+  children,
+  enabled = true,
+}: {
+  name: string
+  children: ReactNode
+  enabled?: boolean
+}) {
   const reducedMotion = useHydratedReducedMotion()
 
-  if (reducedMotion) return children
+  if (reducedMotion || !enabled) return children
 
   return (
     <AnimateView name={name} transition={transition}>

@@ -33,7 +33,7 @@ export default async function ProjectsPage() {
           {t('introSubtitle')}
         </TextReveal>
       </section>
-      <Projects titleKey={null} />
+      <Projects titleKey={null} imageTransition={false} />
       <Contact />
     </main>
   )
