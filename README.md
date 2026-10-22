@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Use Node.js 24.21.0 LTS (pinned in `.nvmrc`) and pnpm 12.8.1 (pinned in `package.json`).
+Use Node.js 24.22.1 LTS (pinned in `.nvmrc`) and pnpm 12.15.0 (pinned in `package.json`).
 If pnpm is not installed, run `npx get-pnpm@latest`.
 
 Install dependencies and start the development server:

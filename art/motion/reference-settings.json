@@ -22,35 +22,20 @@
     "tokenization": "word",
     "durationMs": 800,
     "staggerMs": 50,
-    "ease": [
-      0.4,
-      0,
-      0.2,
-      1
-    ]
+    "ease": [0.4, 0, 0.2, 1]
   },
   "referenceDescriptions": {
     "tokenization": "element",
     "durationMs": 600,
     "staggerMs": 400,
-    "ease": [
-      0.4,
-      0,
-      0.2,
-      1
-    ],
+    "ease": [0.4, 0, 0.2, 1],
     "trigger": "paragraph group"
   },
   "approvedDescriptions": {
     "tokenization": "word",
     "durationMs": 600,
     "staggerMs": 20,
-    "ease": [
-      0.4,
-      0,
-      0.2,
-      1
-    ],
+    "ease": [0.4, 0, 0.2, 1],
     "trigger": "each paragraph in view and previous paragraph last word starting",
     "maximumStaggerWindowMs": 800
   }
