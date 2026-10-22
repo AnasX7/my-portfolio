@@ -71,6 +71,12 @@
       "month": "{count, plural, one {# mo} other {# mos}}",
       "join": "{left} {right}"
     },
+    "vitalTech": {
+      "company": "Vital Tech",
+      "title": "Full-Stack Software Engineer",
+      "employmentType": "Full-time",
+      "description": "Develop and maintain web and mobile applications for business operations, e-commerce, and healthcare services.\n\nKey projects:\n• Vital Tech Website – Built the company's bilingual corporate website using Next.js and TypeScript, integrating Laravel/Filament CMS APIs for content management.\n• Aryaf Dhariyah Market – Developed a marketplace using Next.js, NestJS, and PostgreSQL, supporting seller product management, inventory tracking, and customer order requests.\n• Clinic Management Platform – Contribute to the development and improvement of the platform across web and mobile applications."
+    },
     "specializedCouncil": {
       "company": "Specialized Council for Youth NGOs",
       "title": "Full-Stack Software Engineer",

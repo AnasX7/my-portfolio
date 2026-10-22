@@ -114,6 +114,16 @@ export const DATA = {
 
   workExperience: [
     {
+      id: 'vital-tech',
+      companyKey: 'work.vitalTech.company',
+      logo: '/images/experience/vital-tech.png',
+      titleKey: 'work.vitalTech.title',
+      startDate: { year: 2026, month: 7 },
+      employmentTypeKey: 'work.vitalTech.employmentType',
+      descriptionKey: 'work.vitalTech.description',
+      skills: ['Next.js', 'TypeScript', 'NestJS', 'PostgreSQL', 'Laravel'],
+    },
+    {
       id: 'specialized-council',
       companyKey: 'work.specializedCouncil.company',
       logo: '/images/experience/specialized-council.png',

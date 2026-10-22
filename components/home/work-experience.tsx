@@ -314,9 +314,11 @@ export default function WorkExperience() {
                       {t(item.employmentTypeKey!)}
                     </span>
                   </span>
-                  <span className='text-muted-foreground/75 mt-0.5 text-xs font-normal sm:text-sm'>
-                    {t(item.locationKey!)}
-                  </span>
+                  {item.locationKey && (
+                    <span className='text-muted-foreground/75 mt-0.5 text-xs font-normal sm:text-sm'>
+                      {t(item.locationKey)}
+                    </span>
+                  )}
                 </div>
               </div>
 
