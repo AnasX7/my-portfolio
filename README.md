@@ -1,20 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anas Salem — Portfolio
 
-## Getting Started
+My personal portfolio, presenting selected projects, professional experience, and the technologies I work with. Built with Next.js, React, and TypeScript, with English and Arabic support.
 
-Use Node.js 24.22.1 LTS (pinned in `.nvmrc`) and pnpm 12.15.0 (pinned in `package.json`).
-If pnpm is not installed, run `npx get-pnpm@latest`.
+[Visit the portfolio](https://anassalem.com) · [English](https://anassalem.com/en) · [العربية](https://anassalem.com/ar)
 
-Install dependencies and start the development server:
+## Highlights
+
+- English and Arabic routes with right-to-left layouts and localized typography.
+- Project case studies with image galleries, alongside work experience and education.
+- Light and dark themes, a scroll-driven portrait, and a custom animated signature rendered from Blender artwork.
+- Reduced-motion support and animation fallbacks for unsupported browser APIs.
+- A contact form with Zod validation, server-side Cloudflare Turnstile verification, and email delivery through Resend.
+- Localized canonical URLs, social previews, structured data, and a generated sitemap.
+
+## Stack
+
+Next.js App Router · React · TypeScript · Tailwind CSS · next-intl · Motion · React Hook Form · Zod · Resend
+
+## Explore the code
+
+| Area                                    | Location                                                                                                                                   |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Localized pages and project routes      | [`app/[locale]/`](app/%5Blocale%5D/)                                                                                                       |
+| Homepage sections                       | [`components/home/sections/`](components/home/sections/)                                                                                   |
+| Portrait animation and browser fallback | [`portrait-journey.tsx`](components/home/portrait-journey.tsx), [`portrait-native-journey.ts`](components/home/portrait-native-journey.ts) |
+| Signature artwork and rendering         | [`art/wordmark/`](art/wordmark/)                                                                                                           |
+| Profile and project content             | [`data/resume.ts`](data/resume.ts), [`messages/`](messages/)                                                                               |
+| Contact delivery and verification       | [`lib/email.ts`](lib/email.ts), [`lib/turnstile.ts`](lib/turnstile.ts)                                                                     |
+| Motion behavior and SEO tests           | [`tests/`](tests/)                                                                                                                         |
+
+## Run locally
+
+Use Node.js **24.22.1** and pnpm **12.15.0**, pinned in `.nvmrc` and `package.json`.
 
 ```bash
+git clone https://github.com/AnasX7/my-portfolio.git
+cd my-portfolio
 nvm install
 nvm use
+```
+
+With pnpm installed:
+
+```bash
 pnpm install --frozen-lockfile
+cp .example.env .env.local
+```
+
+Fill in `.env.local` before starting the app:
+
+| Variable                         | Purpose                                                               |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `SITE_URL`                       | Absolute site URL; use `http://localhost:3000` for local development. |
+| `RESEND_API_KEY`                 | Server-side Resend API key for contact emails.                        |
+| `EMAIL_TO`                       | Recipient of contact form messages.                                   |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Public Turnstile site key configured for the development hostname.    |
+| `TURNSTILE_SECRET_KEY`           | Server-side Turnstile secret for token verification.                  |
+
+```bash
 pnpm dev
 ```
 
-To validate and build the portfolio:
+Open [localhost:3000/en](http://localhost:3000/en) or [localhost:3000/ar](http://localhost:3000/ar).
+
+For production, set `SITE_URL` to the deployed origin and configure the contact sender in [`lib/email.ts`](lib/email.ts) for your Resend account and sending domain. Keep secret keys in environment variables.
+
+## Checks and production build
 
 ```bash
 pnpm test
@@ -22,27 +73,7 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm build
+pnpm start
 ```
 
-Run `pnpm start` to serve the production build.
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/[locale]/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter for English and local Thmanyah Sans fonts for Arabic.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tests cover motion sequencing, cleanup and fallbacks, localized SEO metadata, sitemap URLs, and structured data serialization. Oxfmt handles formatting and Oxlint handles linting.
