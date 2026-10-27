@@ -1,4 +1,4 @@
-"""Rebuild the portfolio wordmark in Blender 5.2: blender --background --python art/wordmark/render.py."""
+"""Rebuild the portfolio wordmark in Blender 5.2: blender --background --python assets/art/wordmark/render.py."""
 
 from pathlib import Path
 
@@ -6,7 +6,7 @@ import bpy
 from mathutils import Matrix, Vector
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 OUTPUT = ROOT / "public" / "brand"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 

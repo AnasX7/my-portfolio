@@ -26,7 +26,7 @@ Next.js App Router · React · TypeScript · Tailwind CSS · next-intl · Motion
 | Localized pages and project routes      | [`app/[locale]/`](app/%5Blocale%5D/)                                                                                                       |
 | Homepage sections                       | [`components/home/sections/`](components/home/sections/)                                                                                   |
 | Portrait animation and browser fallback | [`portrait-journey.tsx`](components/home/portrait-journey.tsx), [`portrait-native-journey.ts`](components/home/portrait-native-journey.ts) |
-| Signature artwork and rendering         | [`art/wordmark/`](art/wordmark/)                                                                                                           |
+| Artwork sources and rendering           | [`assets/art/`](assets/art/)                                                                                                               |
 | Profile and project content             | [`data/resume.ts`](data/resume.ts), [`messages/`](messages/)                                                                               |
 | Contact delivery and verification       | [`lib/email.ts`](lib/email.ts), [`lib/turnstile.ts`](lib/turnstile.ts)                                                                     |
 | Motion behavior and SEO tests           | [`tests/`](tests/)                                                                                                                         |

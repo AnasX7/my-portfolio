@@ -5,7 +5,7 @@
 Rebuild both transparent 1800 × 480 WebP assets from the repository root:
 
 ```sh
-/Applications/Blender.app/Contents/MacOS/Blender --background --python art/wordmark/render.py
+/Applications/Blender.app/Contents/MacOS/Blender --background --python assets/art/wordmark/render.py
 ```
 
 The script creates a separate scene, renders both themes to `public/brand/`, and saves the editable scene here. It also exports four 1800 × 480 front layers that align into the wordmark and four 512 × 512 angled letter views per theme. Adjust depth, bevel, material, or lighting in `render.py` before rebuilding.

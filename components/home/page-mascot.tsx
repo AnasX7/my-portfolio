@@ -1,6 +1,6 @@
 'use client'
 
-// Adapted from nilbuild/page-mascot (MIT); see art/mascot/LICENSE.
+// Adapted from nilbuild/page-mascot (MIT); see assets/art/mascot/LICENSE.
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'motion/react'
 import { useTranslations } from 'next-intl'

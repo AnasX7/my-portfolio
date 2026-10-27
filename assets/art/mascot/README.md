@@ -13,11 +13,11 @@ Created with the built-in ImageGen tool using the [page-mascot workflow](https:/
 
 ## Build and verification
 
-Use the upstream skill's `mascot.py` with Python, Pillow, NumPy, and SciPy. From this repository, point `MASCOT_ROOT` at `art/mascot` and pass `--dest` pointing at `public/mascots`:
+Use the upstream skill's `mascot.py` with Python, Pillow, NumPy, and SciPy. From this repository, point `MASCOT_ROOT` at `assets/art/mascot` and pass `--dest` pointing at `public/mascots`:
 
 ```sh
-MASCOT_ROOT="$PWD/art/mascot" python /path/to/page-mascot/skills/page-mascot/scripts/mascot.py anas-light --skip-generate --dest "$PWD/public/mascots"
-MASCOT_ROOT="$PWD/art/mascot" python /path/to/page-mascot/skills/page-mascot/scripts/mascot.py anas-dark --skip-generate --dest "$PWD/public/mascots"
+MASCOT_ROOT="$PWD/assets/art/mascot" python /path/to/page-mascot/skills/page-mascot/scripts/mascot.py anas-light --skip-generate --dest "$PWD/public/mascots"
+MASCOT_ROOT="$PWD/assets/art/mascot" python /path/to/page-mascot/skills/page-mascot/scripts/mascot.py anas-dark --skip-generate --dest "$PWD/public/mascots"
 ```
 
 Both built pairs passed: measured vertical movement on reaction is 0.00 rendered pixels at 140px. Light palette agreement is 84.7%, shoulder width difference 2.8%; dark palette agreement is 81.6%, shoulder width difference 5.0%. Left/right directions were also checked visually. The sleepy symbol touches a source cell edge, so that frame is not used; the component uses blink, heart, sparkle, and delighted reactions.
