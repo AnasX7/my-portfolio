@@ -9,6 +9,7 @@ My personal portfolio, presenting selected projects, professional experience, an
 - English and Arabic routes with right-to-left layouts and localized typography.
 - Project case studies with image galleries, alongside work experience and education.
 - A GitHub contribution heatmap covering the last 12 months.
+- A portrait-based header mascot that follows the cursor and reacts to clicks, with artwork for both themes.
 - Light and dark themes, a scroll-driven portrait, and a custom animated signature rendered from Blender artwork.
 - Reduced-motion support and animation fallbacks for unsupported browser APIs.
 - A contact form with Zod validation, server-side Cloudflare Turnstile verification, and email delivery through Resend.

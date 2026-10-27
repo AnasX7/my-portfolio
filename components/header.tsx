@@ -6,7 +6,7 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import { Menu01Icon, Cancel01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import Image from 'next/image'
+import PageMascot from './home/page-mascot'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
 import { Button } from './ui/button'
 import LanguageSwitcher from './ui/language-switcher'
@@ -180,9 +180,12 @@ export default function Header() {
       >
         <div className='site-header-inner mx-auto max-w-[1080px]'>
           <div className='flex h-14 items-center justify-between'>
-            <div className='flex min-w-0 items-center'>
+            <div className='flex min-w-0 items-center gap-1'>
+              <PageMascot />
               <button
                 ref={headerHomeRef}
+                type='button'
+                aria-label={t('header.home')}
                 onClick={() =>
                   pathname !== '/'
                     ? router.push('/')
@@ -192,30 +195,6 @@ export default function Header() {
                 }
                 className='group flex min-w-0 cursor-pointer items-center gap-3 text-start'
               >
-                <div className='relative shrink-0'>
-                  <Image
-                    src={DATA.profile.avatarLight}
-                    loading='eager'
-                    alt={t(DATA.profile.nameKey)}
-                    width={36}
-                    height={36}
-                    className='visible size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105 dark:invisible'
-                  />
-                  <Image
-                    src={DATA.profile.avatarDark}
-                    loading='eager'
-                    alt={t(DATA.profile.nameKey)}
-                    width={36}
-                    height={36}
-                    className='invisible absolute inset-0 size-9 rounded-xl object-cover text-white shadow-lg transition-transform duration-300 group-hover:scale-105 dark:visible'
-                  />
-                  {/* Glowing Status Indicator Dot overlaying the avatar (adapts to LTR/RTL bottom corner) */}
-                  <span className='absolute -bottom-0.5 flex size-2.5 ltr:-right-0.5 ltr:left-auto rtl:right-auto rtl:-left-0.5'>
-                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75'></span>
-                    <span className='relative inline-flex size-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#34d399]'></span>
-                  </span>
-                </div>
-
                 <div className='flex min-w-0 flex-col justify-center'>
                   <span className='text-foreground truncate text-lg leading-tight font-bold rtl:leading-[1.2]'>
                     {t(DATA.profile.nameKey)}

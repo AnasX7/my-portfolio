@@ -28,6 +28,9 @@
     "unavailable": "Activity is temporarily unavailable. You can still view my work on GitHub.",
     "empty": "No contributions in the last 12 months. Explore my projects on GitHub."
   },
+  "mascot": {
+    "react": "Make Anas smile"
+  },
   "socialMenu": {
     "open": "Social links",
     "close": "Close social links"
