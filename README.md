@@ -8,6 +8,7 @@ My personal portfolio, presenting selected projects, professional experience, an
 
 - English and Arabic routes with right-to-left layouts and localized typography.
 - Project case studies with image galleries, alongside work experience and education.
+- A GitHub contribution heatmap covering the last 12 months.
 - Light and dark themes, a scroll-driven portrait, and a custom animated signature rendered from Blender artwork.
 - Reduced-motion support and animation fallbacks for unsupported browser APIs.
 - A contact form with Zod validation, server-side Cloudflare Turnstile verification, and email delivery through Resend.
@@ -64,6 +65,8 @@ pnpm dev
 Open [localhost:3000/en](http://localhost:3000/en) or [localhost:3000/ar](http://localhost:3000/ar).
 
 For production, set `SITE_URL` to the deployed origin and configure the contact sender in [`lib/email.ts`](lib/email.ts) for your Resend account and sending domain. Keep secret keys in environment variables.
+
+GitHub activity uses the public [GitHub Contributions API](https://github.com/grubersjoe/github-contributions-api), cached on the server for one hour. It uses the GitHub profile in `data/resume.ts` and requires no token. If the service is unavailable, the section keeps a link to GitHub instead of displaying fabricated activity.
 
 ## Checks and production build
 

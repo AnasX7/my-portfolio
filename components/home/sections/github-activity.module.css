@@ -1,0 +1,76 @@
+.calendar {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: separate;
+  border-spacing: 4px;
+  table-layout: fixed;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+}
+
+.calendar thead td,
+.weekday {
+  width: 2rem;
+}
+
+.calendar td {
+  padding: 0;
+}
+
+:global(html[lang='ar']) .calendar thead td,
+:global(html[lang='ar']) .weekday {
+  width: 3.5rem;
+}
+
+.month {
+  position: relative;
+  height: 1.5rem;
+  font-weight: 400;
+}
+
+.month > span:not(:global(.sr-only)) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+}
+
+.weekday {
+  padding-right: 0.5rem;
+  text-align: left;
+  font-weight: 400;
+}
+
+.day {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--muted);
+}
+
+.day[data-level='1'] {
+  background: #c0d5b6;
+}
+.day[data-level='2'] {
+  background: #8eaf80;
+}
+.day[data-level='3'] {
+  background: #5d844e;
+}
+.day[data-level='4'] {
+  background: #355b2c;
+}
+
+:global(.dark) .day[data-level='1'] {
+  background: #253e29;
+}
+:global(.dark) .day[data-level='2'] {
+  background: #3d6541;
+}
+:global(.dark) .day[data-level='3'] {
+  background: #64945d;
+}
+:global(.dark) .day[data-level='4'] {
+  background: #a4ca8c;
+}

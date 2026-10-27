@@ -4,6 +4,7 @@ import Introduction from '@/components/home/sections/introduction'
 import AboutSection from '@/components/home/sections/about'
 import ProjectSection from '@/components/home/sections/projects'
 import ContactSection from '@/components/home/sections/contact'
+import GitHubActivity from '@/components/home/sections/github-activity'
 import { DATA } from '@/data/resume'
 import { SITE_URL } from '@/lib/constants'
 import { localizedUrl, serializeJsonLd } from '@/lib/seo'
@@ -75,6 +76,7 @@ export default async function Home() {
         <Introduction />
         <AboutSection />
         <ProjectSection limit={6} showMoreLink />
+        <GitHubActivity />
         <ContactSection />
       </main>
     </>

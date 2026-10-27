@@ -14,6 +14,20 @@
     "closeMenu": "Close menu",
     "mobileMenu": "Primary navigation"
   },
+  "githubActivity": {
+    "title": "GitHub activity",
+    "description": "Contributions over the last 12 months.",
+    "viewGithub": "View GitHub",
+    "calendar": "GitHub contribution calendar",
+    "weekOf": "Week of {date}",
+    "day": "{date}: {count, plural, =0 {No contributions} one {# contribution} other {# contributions}}",
+    "period": "Last 12 months",
+    "less": "Less",
+    "more": "More",
+    "loading": "Loading GitHub activity…",
+    "unavailable": "Activity is temporarily unavailable. You can still view my work on GitHub.",
+    "empty": "No contributions in the last 12 months. Explore my projects on GitHub."
+  },
   "socialMenu": {
     "open": "Social links",
     "close": "Close social links"

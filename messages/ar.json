@@ -14,6 +14,20 @@
     "closeMenu": "إغلاق القائمة",
     "mobileMenu": "التنقل الرئيسي"
   },
+  "githubActivity": {
+    "title": "نشاطي على GitHub",
+    "description": "مساهماتي خلال آخر ١٢ شهرًا.",
+    "viewGithub": "عرض GitHub",
+    "calendar": "تقويم المساهمات على GitHub",
+    "weekOf": "أسبوع {date}",
+    "day": "{date}: {count, plural, =0 {لا توجد مساهمات} one {مساهمة واحدة} two {مساهمتان} few {# مساهمات} many {# مساهمة} other {# مساهمة}}",
+    "period": "آخر ١٢ شهرًا",
+    "less": "أقل",
+    "more": "أكثر",
+    "loading": "جارٍ تحميل نشاط GitHub…",
+    "unavailable": "النشاط غير متاح مؤقتًا. يمكنك الاطلاع على أعمالي على GitHub.",
+    "empty": "لا توجد مساهمات خلال آخر ١٢ شهرًا. اطّلع على مشاريعي على GitHub."
+  },
   "socialMenu": {
     "open": "روابط التواصل",
     "close": "إغلاق روابط التواصل"
