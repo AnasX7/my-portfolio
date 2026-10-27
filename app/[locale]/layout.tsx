@@ -88,11 +88,6 @@ export async function generateMetadata(): Promise<Metadata> {
     generator: 'Next.js 16',
     authors: [{ name: 'Anas Salem', url: SITE_URL }],
     creator: 'Anas Salem',
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/apple-icon.png',
-    },
     robots: {
       index: true,
       follow: true,
@@ -113,7 +108,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
-        <meta name='apple-mobile-web-app-title' content='Anas' />
+        <meta name='apple-mobile-web-app-title' content='Anas ' />
         <script dangerouslySetInnerHTML={{ __html: signatureWelcomeScript }} />
       </head>
       <body
