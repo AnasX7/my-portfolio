@@ -23,12 +23,13 @@ async function ActivityCalendar() {
 
   return (
     <>
+      {/* Keep absolutely positioned screen-reader labels inside the calendar's scroll area. */}
       <div
         role='region'
         aria-label={t('calendar')}
         tabIndex={0}
         dir='rtl'
-        className='focus-visible:outline-ring overflow-x-auto rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4'
+        className='focus-visible:outline-ring relative overflow-x-auto rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4'
         data-lenis-prevent
       >
         <table dir='ltr' className={styles.calendar}>
