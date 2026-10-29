@@ -85,7 +85,7 @@ async function ActivityCalendar() {
         <p>{activity.total === 0 ? t('empty') : t('period')}</p>
         <div className='flex items-center gap-2' aria-hidden='true'>
           <span>{t('less')}</span>
-          <div className='flex gap-1' dir='ltr'>
+          <div className='flex gap-1'>
             {[0, 1, 2, 3, 4].map((level) => (
               <span key={level} className={`${styles.day} size-3!`} data-level={level} />
             ))}
