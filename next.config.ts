@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true,
   },
+  redirects() {
+    return [
+      { source: '/', destination: '/en', permanent: true },
+      { source: '/privacy', destination: '/en/privacy', permanent: true },
+      { source: '/projects', destination: '/en/projects', permanent: true },
+      { source: '/projects/:slug', destination: '/en/projects/:slug', permanent: true },
+    ]
+  },
   images: {
     qualities: [75, 90],
     remotePatterns: [

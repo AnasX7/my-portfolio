@@ -135,6 +135,7 @@ test('fresh sessions activate synchronously; returning, reduced-motion, and deni
 })
 
 test('assembly waits for all four themed images after DOM readiness', async () => {
+  assert.doesNotMatch(welcome.signatureWelcomeScript, /(['"])\/brand\/letter-\1/)
   for (const [dark, readyState] of [
     [false, 'loading'],
     [true, 'complete'],

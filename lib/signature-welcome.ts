@@ -6,6 +6,12 @@ declare global {
   }
 }
 
+// Embed complete URLs so crawlers don't discover partial paths in the inline script.
+const letterImages = ['a1', 'n', 'a2', 's'].map((letter) => ({
+  light: `/brand/letter-${letter}-front-light.webp`,
+  dark: `/brand/letter-${letter}-front-dark.webp`,
+}))
+
 // Runs before first paint; the welcome also completes without React hydration.
 export const signatureWelcomeScript = `(() => {
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -47,9 +53,9 @@ export const signatureWelcomeScript = `(() => {
   const onPreference = () => { if (preference.matches) finish(); };
   const prepare = () => {
     const theme = root.classList.contains('dark') ? 'dark' : 'light';
-    Promise.all(['a1', 'n', 'a2', 's'].map((letter) => {
+    Promise.all(${JSON.stringify(letterImages)}.map((sources) => {
       const image = new Image();
-      image.src = '/brand/letter-' + letter + '-front-' + theme + '.webp';
+      image.src = sources[theme];
       return image.decode();
     })).then(() => {
       if (!finished) publish('assembling');
