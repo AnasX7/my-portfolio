@@ -198,6 +198,22 @@ export const DATA = {
       url: 'https://ust.edu/',
     },
     {
+      id: 'mayerfeld-certs',
+      institutionKey: 'education.mayerfeld.institution',
+      logo: '/images/experience/mayerfeld-consulting.png',
+      logoBg: '#ffffff',
+      logoPadding: true,
+      certifications: [
+        {
+          id: 'frontend-practicum',
+          titleKey: 'education.mayerfeld.frontendPracticum.title',
+          dateKey: 'education.mayerfeld.frontendPracticum.date',
+          credentialKey: 'education.mayerfeld.frontendPracticum.credential',
+          url: 'https://credsverse.com/credentials/9a277f13-659d-4579-a87e-8519ad543460',
+        },
+      ],
+    },
+    {
       id: 'meta-certs',
       institutionKey: 'education.meta.institution',
       logo: 'https://cdn.simpleicons.org/meta',

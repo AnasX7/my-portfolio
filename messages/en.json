@@ -129,6 +129,14 @@
       "degree": "Bachelor's Degree in Information Technology",
       "date": "Sep 2022 – Jul 2026"
     },
+    "mayerfeld": {
+      "institution": "Mayerfeld Consulting",
+      "frontendPracticum": {
+        "title": "Mayerfeld Consulting Practicum Program - Frontend Development",
+        "date": "Nov 2026",
+        "credential": "Credential ID 9a277f13-659d-4579-a87e-8519ad543460"
+      }
+    },
     "meta": {
       "institution": "Meta Certifications",
       "totalDuration": "4 Certificates",
